@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title class='txtalign'>
+     GRID - {{gid}} 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+
+
+
+
+
+<ion-content padding>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="!loading">
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Grid id : {{gid}} </ion-card-subtitle> -->
+      <ion-card-title>Total No of Accidents - {{totalaccidents}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     
+            <ion-grid color="medium">
+              
+              <ion-row >
+                <ion-col size="" class="grid fatalbg" *ngIf="s1" >
+                  <img
+                    src="assets/images/circle.svg"
+                    class="card-img-absolutes" 
+                    alt=""
+                  />
+                  Fatal
+                  <p style="font-weight: 500; font-size: 14px">  {{s1}}   &nbsp; ({{(s1/totalaccidents)*100 |  number : '1.1-1' }}%)   </p>  
+                </ion-col>
+                <ion-col class="grid grevbg" *ngIf="s2">
+                  <img
+                    src="assets/images/circle.svg"
+                    class="card-img-absolutes"
+                    alt=""
+                  />
+                  Grievous
+                  <p style="font-weight: 500; font-size: 14px">   {{s2}} ({{(s2/totalaccidents)*100 |  number : '1.1-1' }}%)   </p>  
+                  </ion-col>
+                <ion-col class="grid simphbg" *ngIf="s3">
+                  <img
+                    src="assets/images/circle.svg"
+                    class="card-img-absolutes"
+                    alt=""
+                  />
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px"> {{s3}} ({{(s3/totalaccidents)*100 |  number : '1.1-1' }}%)   </p>    
+                </ion-col>
+                <ion-col class="grid simpnhbg" *ngIf="s4">
+                  <img
+                    src="assets/images/circle.svg"
+                    class="card-img-absolutes"
+                    alt=""
+                  />
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">  {{s4}} ({{(s4/totalaccidents)*100 |  number : '1.1-1' }}%)   </p>  
+                  </ion-col>
+                <ion-col class="grid vehbg" *ngIf="s5">
+                  <img
+                    src="assets/images/circle.svg"
+                    class="card-img-absolutes"
+                    alt=""
+                  />
+                  No Injury
+                  <p style="font-weight: 500; font-size: 14px">  {{s5}}  ({{(s5/totalaccidents)*100 |  number : '1.1-1' }}%)   </p>  
+                  </ion-col>
+              </ion-row>
+            </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="!loading && remedial_measures!=''">
+    <ion-card-header>
+      <ion-card-title>Remedial Measures</ion-card-title>
+      <ion-card-subtitle>Suggested by Highways Department</ion-card-subtitle>
+  
+    </ion-card-header>
+  
+    <ion-card-content >
+      <ion-grid color="medium">
+  
+        <ion-row *ngFor="let rm of remedial_measures; let i = index">
+          <ion-col>{{i+1}} . {{rm}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <div *ngIf="loading">
+
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+  </ion-content>

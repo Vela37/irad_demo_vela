@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign"> Accident Submit to SHO </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-content">
+  <!-- Default Progress Bar -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>General Information 70%</ion-label>
+    </ion-list-header>
+    <ion-progress-bar value="0.7"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Vehicle / Driver 50%</ion-label>
+    </ion-list-header>
+    <ion-progress-bar value="0.5"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Passenger 50%</ion-label>
+    </ion-list-header>
+    <ion-progress-bar value="0.5"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Pedestrian at 50%</ion-label>
+    </ion-list-header>
+    <ion-progress-bar value="0.5"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Media at 50%</ion-label>
+    </ion-list-header>
+    <ion-progress-bar value="0.5"></ion-progress-bar>
+  </ion-list>
+
+
+  <ion-row >
+    <ion-col col-6>
+      <ion-button color="success" expand="block" (click)="accsubmittosho()">SUBMIT TO SHO</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,561 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'acctab1.media.title' | translate:params}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-row *ngIf="selacc"> 
+    <ion-col col-12 class=''>
+      <!-- <ion-card  class="ion-padding ion-text-center mandgbox" routerLink="./location">
+        <ion-icon name="md-locate" size='large'></ion-icon>
+      <h6>Accident ID - {{accid }}</h6>
+        
+      </ion-card> -->
+
+
+      <ion-card>
+        <ion-item>
+          <ion-label  *ngIf="offlinedata" class='gbox txtalign bgcolor2'> <span style="color:coral"> {{
+            'app.accidentid' | translate:params }}: </span>
+          {{selacc.accid }}</ion-label>
+
+          <ion-label *ngIf="selacc.accid.length<10" class='gbox txtalign bgcolor2'> <span style="color:coral"> {{
+              'app.accidentid' | translate:params }}: </span>
+            {{selacc.accid }}</ion-label>
+
+          <ion-label *ngIf="selacc.accid.length>10" class='gbox txtalign bgcolor2'> <span style="color:coral"> {{
+              'app.accidentid' | translate:params }}: </span>
+            {{selacc.accid.slice(-4) }}</ion-label>
+        </ion-item>
+        <ion-card-content class='bgcolor txtalign'>
+          <span> {{selacc.landmark}} </span>
+          <span> On {{selacc.datetime|date:'medium'}}</span>
+        </ion-card-content>
+
+      </ion-card>
+
+
+    </ion-col>
+  </ion-row>
+
+  <!-- <ion-text style='text-align:center; ' color="primary">
+    <h4 style="color:#183e7a">{{'commonlinks.img' | translate:params}} </h4>
+
+  </ion-text> -->
+  <!-- [hidden]='validaccid' -->
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+      <!-- <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img1' | translate:params}}</ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[1]" (click)="selectImage(1)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[1]" class="imgpreview" (click)="previewimg(1)" [src]="photos[1]">
+
+            <ion-icon *ngIf="photos_us[1]==1" (click)="uploadpicture(1)" color="primary" name="cloud-upload">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img1' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[1][3].image==null" (click)="selectImage(1,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[1][1].image!=null" class="imgpreview" (click)="previewimg(1,1)"
+              [src]="imgobj[1][1].image">
+            <img *ngIf="imgobj[1][2].image!=null" class="imgpreview" (click)="previewimg(1,2)"
+              [src]="imgobj[1][2].image">
+            <img *ngIf="imgobj[1][3].image!=null" class="imgpreview" (click)="previewimg(1,3)"
+              [src]="imgobj[1][3].image">
+            <ion-icon *ngIf="imgobj[1][1].image!=null" (click)="savingOnebyone(1,1)" color="primary" class="ion-icon" name="cloud-upload">
+            </ion-icon>
+            <ion-spinner
+              *ngIf="imgobj[1][1].upload_status == 1 || imgobj[1][2].upload_status == 1 || imgobj[1][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="imgobj[1][1].upload_status == 2 || imgobj[1][2].upload_status == 2 || imgobj[1][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1 || dept==2">
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img2' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[2][3].image==null" (click)="selectImage(2,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[2][1].image!=null" class="imgpreview" (click)="previewimg(2,1)"
+              [src]="imgobj[2][1].image">
+            <img *ngIf="imgobj[2][2].image!=null" class="imgpreview" (click)="previewimg(2,2)"
+              [src]="imgobj[2][2].image">
+            <img *ngIf="imgobj[2][3].image!=null" class="imgpreview" (click)="previewimg(2,3)"
+              [src]="imgobj[2][3].image">
+
+              <ion-icon *ngIf="imgobj[2][1].image!=null" (click)="savingOnebyone(2,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+                 <ion-spinner
+              *ngIf="imgobj[2][1].upload_status == 1 || imgobj[2][2].upload_status == 1 || imgobj[2][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[2][1].upload_status == 2 || imgobj[2][2].upload_status == 2 || imgobj[2][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1 || dept==2">
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img11' | translate:params}} </ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[11][3].image==null" (click)="selectImage(11,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[11][1].image!=null" class="imgpreview" (click)="previewimg(11,1)"
+              [src]="imgobj[11][1].image">
+            <img *ngIf="imgobj[11][2].image!=null" class="imgpreview" (click)="previewimg(11,2)"
+              [src]="imgobj[11][2].image">
+            <img *ngIf="imgobj[11][3].image!=null" class="imgpreview" (click)="previewimg(11,3)"
+              [src]="imgobj[11][3].image">
+              <ion-icon *ngIf="imgobj[11][1].image!=null" (click)="savingOnebyone(11,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+                <ion-spinner
+              *ngIf="imgobj[11][1].upload_status == 1 || imgobj[11][2].upload_status == 1 || imgobj[11][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[11][1].upload_status == 2 || imgobj[11][2].upload_status == 2 || imgobj[11][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img3' | translate:params}} </ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[3][3].image==null" (click)="selectImage(3,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[3][1].image!=null" class="imgpreview" (click)="previewimg(3,1)"
+              [src]="imgobj[3][1].image">
+            <img *ngIf="imgobj[3][2].image!=null" class="imgpreview" (click)="previewimg(3,2)"
+              [src]="imgobj[3][2].image">
+            <img *ngIf="imgobj[3][3].image!=null" class="imgpreview" (click)="previewimg(3,3)"
+              [src]="imgobj[3][3].image">
+              <ion-icon *ngIf="imgobj[3][1].image!=null" (click)="savingOnebyone(3,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+               <ion-spinner
+              *ngIf="imgobj[3][1].upload_status == 1 || imgobj[3][2].upload_status == 1 || imgobj[3][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[3][1].upload_status == 2 || imgobj[3][2].upload_status == 2 || imgobj[3][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf=" dept==1 || dept==3">
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img4' | translate:params}}</ion-item>
+          <ion-item>
+             <ion-icon *ngIf="imgobj[4][3].image==null" (click)="selectImage(4,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[4][1].image!=null" class="imgpreview" (click)="previewimg(4,1)"
+              [src]="imgobj[4][1].image">
+            <img *ngIf="imgobj[4][2].image!=null" class="imgpreview" (click)="previewimg(4,2)"
+              [src]="imgobj[4][2].image">
+            <img *ngIf="imgobj[4][3].image!=null" class="imgpreview" (click)="previewimg(4,3)"
+              [src]="imgobj[4][3].image">
+              <ion-icon *ngIf="imgobj[4][1].image!=null" (click)="savingOnebyone(4,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+                <ion-spinner
+              *ngIf="imgobj[4][1].upload_status == 1 || imgobj[4][2].upload_status == 1 || imgobj[4][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[4][1].upload_status == 2 || imgobj[4][2].upload_status == 2 || imgobj[4][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row *ngIf="dept==1 || dept==3">
+        <ion-col>
+          <ion-item class='fcolor'>{{'acctab1.media.img5' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[5][3].image==null" (click)="selectImage(5,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[5][1].image!=null" class="imgpreview" (click)="previewimg(5,1)"
+              [src]="imgobj[5][1].image">
+            <img *ngIf="imgobj[5][2].image!=null" class="imgpreview" (click)="previewimg(5,2)"
+              [src]="imgobj[5][2].image">
+            <img *ngIf="imgobj[5][3].image!=null" class="imgpreview" (click)="previewimg(5,3)"
+              [src]="imgobj[5][3].image">
+              <ion-icon *ngIf="imgobj[5][1].image!=null" (click)="savingOnebyone(5,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+                <ion-spinner
+              *ngIf="imgobj[5][1].upload_status == 1 || imgobj[5][2].upload_status == 1 || imgobj[5][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[5][1].upload_status == 2 || imgobj[5][2].upload_status == 2 || imgobj[5][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row *ngIf="dept==1 || dept==3">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img6' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[6][3].image==null" (click)="selectImage(6,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[6][1].image!=null" class="imgpreview" (click)="previewimg(6,1)"
+              [src]="imgobj[6][1].image">
+            <img *ngIf="imgobj[6][2].image!=null" class="imgpreview" (click)="previewimg(6,2)"
+              [src]="imgobj[6][2].image">
+            <img *ngIf="imgobj[6][3].image!=null" class="imgpreview" (click)="previewimg(6,3)"
+              [src]="imgobj[6][3].image">
+              <ion-icon *ngIf="imgobj[6][1].image!=null" (click)="savingOnebyone(6,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+                <ion-spinner
+              *ngIf="imgobj[6][1].upload_status == 1 || imgobj[6][2].upload_status == 1 || imgobj[6][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[6][1].upload_status == 2 || imgobj[6][2].upload_status == 2 || imgobj[6][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img7' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[7][3].image==null" (click)="selectImage(7,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[7][1].image!=null" class="imgpreview" (click)="previewimg(7,1)"
+              [src]="imgobj[7][1].image">
+            <img *ngIf="imgobj[7][2].image!=null" class="imgpreview" (click)="previewimg(7,2)"
+              [src]="imgobj[7][2].image">
+            <img *ngIf="imgobj[7][3].image!=null" class="imgpreview" (click)="previewimg(7,3)"
+              [src]="imgobj[7][3].image">
+              <ion-icon *ngIf="imgobj[7][1].image!=null" (click)="savingOnebyone(7,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+                <ion-spinner
+              *ngIf="imgobj[7][1].upload_status == 1 || imgobj[7][2].upload_status == 1 || imgobj[7][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[7][1].upload_status == 2 || imgobj[7][2].upload_status == 2 || imgobj[7][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1 || dept==2">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img8' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[8][3].image==null" (click)="selectImage(8,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[8][1].image!=null" class="imgpreview" (click)="previewimg(8,1)"
+              [src]="imgobj[8][1].image">
+            <img *ngIf="imgobj[8][2].image!=null" class="imgpreview" (click)="previewimg(8,2)"
+              [src]="imgobj[8][2].image">
+            <img *ngIf="imgobj[8][3].image!=null" class="imgpreview" (click)="previewimg(8,3)"
+              [src]="imgobj[8][3].image">
+              <ion-icon *ngIf="imgobj[8][1].image!=null" (click)="savingOnebyone(8,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+              <ion-spinner
+              *ngIf="imgobj[8][1].upload_status == 1 || imgobj[8][2].upload_status == 1 || imgobj[8][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[8][1].upload_status == 2 || imgobj[8][2].upload_status == 2 || imgobj[8][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+           
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img9' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[9][3].image==null" (click)="selectImage(9,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[9][1].image!=null" class="imgpreview" (click)="previewimg(9,1)"
+              [src]="imgobj[9][1].image">
+            <img *ngIf="imgobj[9][2].image!=null" class="imgpreview" (click)="previewimg(9,2)"
+              [src]="imgobj[9][2].image">
+            <img *ngIf="imgobj[9][3].image!=null" class="imgpreview" (click)="previewimg(9,3)"
+              [src]="imgobj[9][3].image">
+              <ion-icon *ngIf="imgobj[9][1].image!=null" (click)="savingOnebyone(9,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+              <ion-spinner
+              *ngIf="imgobj[9][1].upload_status == 1 || imgobj[9][2].upload_status == 1 || imgobj[9][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[9][1].upload_status == 2 || imgobj[9][2].upload_status == 2 || imgobj[9][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+           
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img10' | translate:params}}</ion-item>
+          <ion-item>
+            <ion-icon *ngIf="imgobj[10][3].image==null" (click)="selectImage(10,4)" name="camera" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+
+            <img *ngIf="imgobj[10][1].image!=null" class="imgpreview" (click)="previewimg(10,1)"
+              [src]="imgobj[10][1].image">
+            <img *ngIf="imgobj[10][2].image!=null" class="imgpreview" (click)="previewimg(10,2)"
+              [src]="imgobj[10][2].image">
+            <img *ngIf="imgobj[10][3].image!=null" class="imgpreview" (click)="previewimg(10,3)"
+              [src]="imgobj[10][3].image">
+              <ion-icon *ngIf="imgobj[10][1].image!=null" (click)="savingOnebyone(10,1)" color="primary" class="ion-icon" name="cloud-upload">
+              </ion-icon>
+               <ion-spinner
+              *ngIf="imgobj[10][1].upload_status == 1 || imgobj[10][2].upload_status == 1 || imgobj[10][3].upload_status == 1"
+              color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="imgobj[10][1].upload_status == 2 || imgobj[10][2].upload_status == 2 || imgobj[10][3].upload_status == 2" color="primary" name="checkmark-done-circle"></ion-icon>
+          
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <!-- <ion-row *ngIf="dept==1" >
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video1' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[1]" (click)="takeVideo(1)" name="videocam" size='large' color='danger' class='imgpreview'></ion-icon>
+
+            <ion-icon *ngIf="video_us[1]==5" (click)="uploadVideo(1)" color="primary" name="cloud-upload">   </ion-icon>
+            <ion-spinner *ngIf="video_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1" >
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video2' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[2]" (click)="takeVideo(2)" name="videocam" size='large' color='danger' class='imgpreview'></ion-icon>
+            <ion-icon *ngIf="video_us[2]==5" (click)="uploadVideo(2)" color="primary" name="cloud-upload">   </ion-icon>
+            <ion-spinner *ngIf="video_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video1' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[1]" (click)="takeVideo(1)" name="videocam" size='large' color='danger'
+              class='imgpreview'></ion-icon>
+            <!-- <img *ngIf="video.length >1" class="imgpreview" (click)="takeVideo(1)" [src]="video[0]"> -->
+            <video *ngIf="video[1]" #videoTag style="width: 50%;" [autoplay]="true" (click)="takeVideo(1)">
+              <source [src]="video[2]" type="video/mp4">
+            </video>
+            <ion-icon *ngIf="video_us[1]==1" (click)="uploadVideoOnebyOne(1)" color="primary" name="cloud-upload">
+            </ion-icon>
+            <ion-spinner *ngIf="video_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video2' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[2]" (click)="takeVideo(2)" name="videocam" size='large' color='danger'
+              class='imgpreview'></ion-icon>
+            <video *ngIf="video[2]" #videoTag style="width: 50%;" [autoplay]="true" (click)="takeVideo(2)">
+              <source [src]="video[3]" type="video/mp4">
+            </video>
+            <ion-icon *ngIf="video_us[2]==1" (click)="uploadVideoOnebyOne(2)" color="primary" name="cloud-upload">
+            </ion-icon>
+            <ion-spinner *ngIf="video_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==1">
+        <ion-col>
+          <ion-item class='fcolor'>
+            Upload Video
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item  >  <!-- [disabled]="disable_btn" -->
+            <ion-icon *ngIf="!video[3]" (click)="selectVideo(3)" name="videocam" size='large' color='danger'
+              class='imgpreview'></ion-icon>
+            <video *ngIf="video[3]" #videoTag style="width: 50%;" [autoplay]="true" (click)="selectVideo(3)">
+              <source [src]="video[4]" type="video/mp4">
+            </video>
+            <ion-icon *ngIf="video_us[3]==1" (click)="uploadVideoOnebyOne(3)" color="primary" name="cloud-upload">
+            </ion-icon>
+            <ion-spinner *ngIf="video_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!--      <ion-row *ngIf="dept==2" >
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video1' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[3]" (click)="takeVideo(3)" name="videocam" size='large' color='danger' class='imgpreview'></ion-icon>
+
+            <ion-icon *ngIf="video_us[3]==1" (click)="uploadVideo(3)" color="primary" name="cloud-upload">   </ion-icon>
+            <ion-spinner *ngIf="video_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="dept==3" >
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video1' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[4]" (click)="takeVideo(4)" name="videocam" size='large' color='danger' class='imgpreview'></ion-icon>
+
+            <ion-icon *ngIf="video_us[4]==1" (click)="uploadVideo(4)" color="primary" name="cloud-upload">   </ion-icon>
+            <ion-spinner *ngIf="video_us[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[4]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      -->
+
+      <div *ngIf="loader">
+        <ion-progress-bar class="my-buffer-progress" [value]="value" [buffer]="buffer">
+        </ion-progress-bar>
+      </div>
+
+      <ion-row>
+        <ion-col>
+          <ion-button shape="round" *ngIf="!isLoading" color='warning' expand="block" (click)="skipmedia()">
+            skip & Continue </ion-button>
+        </ion-col>
+
+        <!-- <ion-col class='txtalign'>
+          <ion-button shape="round" *ngIf="isLoading" color='primary' expand="block">
+            <ion-spinner name="circles"> </ion-spinner>
+          </ion-button>
+          <ion-button shape="round" *ngIf="!isLoading" color='primary' expand="block" (click)="mediaSave(1)">
+            {{ 'acctab1.media.save' | translate:params }} </ion-button>
+        </ion-col> -->
+
+
+      </ion-row>
+
+      <!-- <ion-row>
+        <ion-col class='txtalign'>
+          <ion-button shape="round" *ngIf="isLoading" color='primary' expand="block">
+            <ion-spinner name="circles"> </ion-spinner>
+          </ion-button>
+          <ion-button shape="round" *ngIf="!offlinedata" color='primary' expand="block" (click)="savemedia()">
+            {{ 'acctab1.media.save' | translate:params }} </ion-button>
+        </ion-col>
+      </ion-row> -->
+
+
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>

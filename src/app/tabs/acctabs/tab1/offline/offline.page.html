@@ -1,0 +1,241 @@
+<ion-header >
+  <ion-toolbar color='danger'>
+    <ion-title>OffLine Storage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor' position="fixed">{{ 'acctab1.loc.date' | translate:params }}</ion-label>
+          <ion-input class="dtinput" placeholder='Accident Date' value=""  name="date" type="date" [(ngModel)]='accdate' format="dd/MM/yyyy" [min]="mindate" [max]="maxdate" required></ion-input>
+        </ion-item>
+      </ion-col>
+    
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor' position="fixed">{{ 'acctab1.loc.time' | translate:params }}</ion-label>
+          <ion-input  class="dtinput" name="time" type="time"   [(ngModel)]="acctime"  required></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="offlineform" >
+    
+        <ion-row *ngIf='ps_boundary && ps_boundary.name!=""'>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor' position="floating">{{ 'acctab1.loc.psjurd' | translate:params }}<span
+                  class='hintmsg'>(From Map)</span></ion-label>
+              <ion-input maxlength="50" formControlName='policejur'>
+              </ion-input>
+            </ion-item>
+  
+          </ion-col>
+        </ion-row>
+  
+        <ion-row *ngIf='poi'>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor' position="floating">{{'acctab1.acc.poi' | translate:params}}<span
+                  class='hintmsg'>(From Map)</span></ion-label>
+  
+              <ion-select multiple="true" cancelText="cancel" okText="Okay!" formControlName='poi'
+                interface="action-sheet">
+  
+                <ion-select-option *ngFor="let p of poi" [value]=p.name+p.distance>
+                  {{p.name | titlecase}} in {{ p.distance}}
+                </ion-select-option>
+  
+              </ion-select>
+            </ion-item>
+  
+          </ion-col>
+        </ion-row>
+  
+  
+  
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor' position="floating">{{'acctab1.acc.severity' | translate:params }}</ion-label>
+              <ion-select class="ion-text-wrap" formControlName='mod_severity' interface="alert" interface="action-sheet">
+                <ion-select-option *ngFor="let option of dataseverity" [value]="option.id">
+                  {{option.name}}
+                </ion-select-option>  
+              </ion-select>
+            </ion-item> <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_severity.errors?.required">
+              Severity required.
+            </p>
+
+                <p class='errormsg' [hidden]="fatalflag">
+                  {{'errmsg.fatalwarning' | translate:params}}               </p>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor' position="floating">{{'acctab1.acc.landmarkname' | translate:params}}</ion-label>
+              <ion-input maxlength="50" formControlName='lname' maxlength=100>
+              </ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.lname.errors?.required">
+                {{'errmsg.flnadmark' | translate:params}} 
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.lname.errors?.maxlength">
+              {{'errmsg.ownermax' | translate:params}}
+            </p>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='ion-text-wrap fcolor' position="floating">{{'acctab1.acc.vehicle1' | translate:params}}
+              </ion-label>
+  
+              <ion-select formControlName='vehiclecnt'>
+                <ion-select-option *ngFor="let hero of numberinput1; let i = index" [value]="i+1">
+                  {{i+1}}
+                </ion-select-option>
+                
+              </ion-select>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.lname.errors?.required">
+              {{'errmsg.flnadmark' | translate:params}} 
+          </p> 
+          </ion-col>
+        </ion-row>
+  
+  
+  
+        <ion-row>
+          <ion-col>
+  
+  
+  
+          </ion-col>
+          <ion-col>
+            <ion-item class="txtalign">
+              <ion-label class='ion-text-wrap fcolor'>  {{ 'acctab1.loc.injured' | translate:params }}</ion-label>
+  
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="txtalign">
+              <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.died' | translate:params }} </ion-label>
+  
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+  
+              <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.driver' | translate:params }} </ion-label>
+  
+  
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            
+              <ion-select formControlName='driver_injured'  >
+                <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                  {{i}}
+                </ion-select-option>
+  
+              </ion-select>
+            
+          </ion-col>
+          <ion-col>
+           
+              <ion-select formControlName='driver_dead' >
+                <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                  {{i}}
+                </ion-select-option>
+              </ion-select>
+            
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+  
+              <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.passenger' | translate:params }}</ion-label>
+  
+  
+            </ion-item>
+          </ion-col>
+          <ion-col>
+          
+              <ion-select formControlName='pass_injured' >
+                <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                  {{i}}
+                </ion-select-option>
+              </ion-select>
+            
+          </ion-col>
+          <ion-col>
+           
+              <ion-select formControlName='pass_dead' >
+                <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                  {{i}}
+                </ion-select-option>
+              </ion-select>
+            
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+  
+              <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.pedestrian' | translate:params }} </ion-label>
+  
+  
+            </ion-item>
+          </ion-col>
+          <ion-col>
+           
+              <ion-select formControlName='ped_injured' >
+                <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                  {{i}}
+                </ion-select-option>
+              </ion-select>
+          
+          </ion-col>
+          <ion-col>
+          
+              <ion-select formControlName='ped_dead' interface="alert">
+                <ion-select-option disabled>
+                  select
+                </ion-select-option>
+                <ion-select-option *ngFor="let i of numberinput" [value]="i" class='ion-text-wrap'>
+                  {{i}}
+                </ion-select-option>
+              </ion-select>
+           
+          </ion-col>
+        </ion-row>
+  
+  
+        <ion-row>
+          <ion-col> 
+            <ion-button type="button" *ngIf="!isLoading" shape="round"  color='danger'
+              (click)="resetaccident()" expand="block">{{'commonlinks.reset' | translate:params}}</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button type="button" *ngIf="!isLoading" shape="round"  color='success'
+              (click)="addaccident()" expand="block"> {{'commonlinks.save' | translate:params}} </ion-button>
+  
+  
+          </ion-col>
+        </ion-row>
+  
+  
+      </form>
+  
+    </ion-grid>
+</ion-content>

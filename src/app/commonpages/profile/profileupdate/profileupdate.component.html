@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Profile Update
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-col text-center>
+    <div>
+      <img class="image" (click)="selectImage()" [src]="img">
+    </div>
+  </ion-col>
+  
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> Name</ion-label>
+      <ion-input [(ngModel)]="profiledata.name" ></ion-input>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> Mobile no</ion-label>
+      <ion-input [(ngModel)]="profiledata.mobile" required="true" type="tel " maxlength="10"></ion-input>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> Email address</ion-label>
+      <ion-input [(ngModel)]="profiledata.email" ></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'>Designation</ion-label>
+      <ion-input [(ngModel)]="profiledata.designation" ></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'>Register No</ion-label>
+      <ion-input [(ngModel)]="profiledata.regno" ></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">  
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary"> 
+          <ion-label (click)="validationCheck()"> &nbsp; Update &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

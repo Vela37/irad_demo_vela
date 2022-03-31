@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Reply Feedback - {{f.id}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-card >
+
+
+
+    <ion-card-header>
+      <ion-card-subtitle>
+        <b>{{f.person_name}} </b>
+
+      </ion-card-subtitle>
+
+      <!-- <ion-card-title>Card Title</ion-card-title> -->
+    </ion-card-header>
+
+    <ion-card-content>
+    <p style="white-space:pre-wrap;">  {{f.description}} </p>
+    </ion-card-content>
+<ion-row>
+    <ion-col>
+      <ion-text>{{f.inserted_date|date:'medium'}}</ion-text>
+    </ion-col>
+
+  </ion-row>
+  </ion-card>
+
+<ion-grid>
+   <!-- <ion-row>
+      
+   <ion-col>
+    
+      <ion-item>
+        <ion-label class="fcolor" position="floating">
+         Reply Message Type
+          </ion-label>
+      <ion-select placeholder="Select One"  position="floating">
+        <ion-select-option value="Already Avilable">Already Available</ion-select-option>
+        <ion-select-option value="Progress">Progress</ion-select-option>
+      </ion-select>
+      </ion-item>
+              </ion-col> 
+      </ion-row>  -->
+
+      <ion-row>
+      
+        <ion-col>
+        
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Reply Message</ion-label>
+            <ion-textarea rows="6" cols="20" [(ngModel)]="replymsg"></ion-textarea>
+
+          </ion-item>
+                  </ion-col> 
+          </ion-row>  
+
+    </ion-grid>
+</ion-content>
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row >
+      <ion-col> 
+       <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger" >
+          <ion-label (click)="cancelmodal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary" *ngIf='loading!=true'>
+          <ion-label (click)="saveModal()"> &nbsp; Save  &nbsp;  </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

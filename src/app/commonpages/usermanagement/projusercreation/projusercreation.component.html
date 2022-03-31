@@ -1,0 +1,189 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Add User 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <div class="ion-padding" >
+    <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+      <ion-list>
+
+        <ion-item>
+          <ion-label position="floating" class="label">Name</ion-label>
+          <ion-input autocapitalize inputmode="text" formControlName="name"></ion-input>
+          <ion-icon name="person" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.name">
+          <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">UserName</ion-label>
+          <ion-input autocapitalize inputmode="text" formControlName="username"></ion-input>
+          <ion-icon name="person" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.username">
+          <ng-container *ngIf="username.hasError(error.type) && (username.dirty || username.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">Password</ion-label>
+          <ion-input name="password" [type]="passwordType" formControlName="password" onselectstart="return false"
+            onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false"
+            onDrop="return false" autocomplete=off></ion-input>
+          <ion-icon [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()' slot="end"></ion-icon>
+        </ion-item>
+
+        <div class="errors"
+          *ngIf="registrationForm.get('password').invalid && (registrationForm.get('password').touched || registrationForm.get('password').dirty)">
+          <div *ngIf="registrationForm.get('password').hasError('required')" class="cocol">
+            password is required
+          </div>
+          <div *ngIf="registrationForm.get('password').errors.minlength" class="cocol">
+            Password must be at least 3 characters
+          </div>
+          <!-- <div class="error-text" *ngIf="registrationForm.get('password').hasError('passwordStrength')" class="cocol">
+            {{registrationForm.get('password').errors['passwordStrength']}}
+          </div> -->
+        </div>
+
+        <!-- <ion-item>
+          <ion-label position="floating" class="label">Comformation Password</ion-label>
+          <ion-input name="password" [type]="passwordType" formControlName="comformationpassword"
+            onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false"
+            onDrag="return false" onDrop="return false" autocomplete=off></ion-input>
+          <ion-icon [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()' slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngIf="f.comformationpassword.touched && f.comformationpassword.invalid" class="alert alert-danger">
+          <div *ngFor="let error of errorMessages.comformationpassword">
+            <ng-container
+              *ngIf="comformationpassword.hasError(error.type) && (comformationpassword.dirty || comformationpassword.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+          <div *ngIf="f.comformationpassword.errors.confirmedValidator" style="color: red;">Password and Confirm
+            Password must be match.</div>
+        </div> -->
+
+
+        <ion-item>
+          <ion-label position="floating" class="label">Department</ion-label>
+          <ion-input autocapitalize inputmode="text" formControlName="department"></ion-input>
+          <ion-icon name="list-circle-outline" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.department">
+          <ng-container *ngIf="department.hasError(error.type) && (department.dirty || department.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">Role</ion-label>
+          <ion-input autocapitalize inputmode="text" formControlName="role"></ion-input>
+          <ion-icon name="briefcase" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.role">
+          <ng-container *ngIf="role.hasError(error.type) && (role.dirty || role.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">State</ion-label>
+          <ion-input autocapitalize maxlength='2' inputmode="text" formControlName="state"></ion-input>
+          <ion-icon name="briefcase" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.state">
+          <ng-container *ngIf="state.hasError(error.type) && (state.dirty || state.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">District</ion-label>
+          <ion-input autocapitalize inputmode="text" maxlength='3' formControlName="district"></ion-input>
+          <ion-icon name="briefcase" slot="end"></ion-icon>
+        </ion-item>
+
+        <!-- <div *ngFor="let error of errorMessages.district">
+          <ng-container *ngIf="state.hasError(error.type) && (state.dirty || state.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div> -->
+
+        <!-- <ion-item>
+          <ion-label position="floating" class="label">Mobile</ion-label>
+          <ion-input inputmode="tel" formControlName="mobile" maxlength="10"></ion-input>
+          <ion-icon name="call-outline" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.mobile">
+          <ng-container *ngIf="mobile.hasError(error.type) && (mobile.dirty || mobile.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">E-mail</ion-label>
+          <ion-input inputmode="email" formControlName="email"></ion-input>
+          <ion-icon name="mail-outline" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.email">
+          <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="label">Address</ion-label>
+          <ion-input formControlName="address"></ion-input>
+          <ion-icon name="location-outline" slot="end"></ion-icon>
+        </ion-item>
+
+        <div *ngFor="let error of errorMessages.address">
+          <ng-container *ngIf="address.hasError(error.type) && (address.dirty || address.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div> -->
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-button color='danger' (click)="closeModal()" expand="block" type="button">Close <ion-icon slot="end"
+        name="create"></ion-icon></ion-button>
+    </ion-col>
+
+    <ion-col>
+      <ion-button [disabled]="!registrationForm.valid" expand="block"  type="submit">Submit <ion-icon slot="end"
+        name="create">
+      </ion-icon>
+    </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+        
+<ion-item *ngIf="errorMSg!=null">
+  <div style="color: red;">{{errorMSg}}</div>
+</ion-item>
+       
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

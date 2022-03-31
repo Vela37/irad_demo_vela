@@ -1,0 +1,484 @@
+<ion-header>
+  <ion-toolbar color="primary txtalign">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title> {{ 'acctab1.loc.passenger' | translate:params }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!--
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+       PASSENGER
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="previousbtn()" [disabled]="true"> PREVIEW</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end"> 
+      <ion-button (click)="nextbtn()" [disabled]="true">SAVE</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+-->
+
+<ion-content>
+  <ion-text style='text-align:center; ' color="primary" [hidden]='!validaccid'>
+    <h4 style="color:#183e7a">{{'commonlinks.passenger' | translate:params}}</h4>
+
+  </ion-text>
+  <ion-card class='bgcolr'>
+    <ion-card-content [hidden]="validaccid">
+      <div class='txtalign'> <span class='liteclt'> {{updated_count}}/{{vechile_count}}</span>
+      </div>
+      <form [formGroup]="passengerform" (ngSubmit)="addpassenger()" novalidate>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!vehiclecombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!vehiclecombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!vehiclecombo"></ion-skeleton-text>
+              <ion-item [hidden]="vehiclecombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.vehicle' | translate:params}}
+                  <ion-icon name="star" class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-select formControlName='vechile_id' interface="alert">
+                  <ion-select-option *ngFor="let item of accidentData" value={{item[2]}}> {{item[1]}}
+                  </ion-select-option>
+
+                </ion-select>
+
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.vechile_id.errors?.required">
+                {{'errmsg.pvehicle' | translate:params}}
+              </p>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label class='fcolor' position="floating">{{'acctab1.acc.pedestrians.name' | translate:params}}<ion-icon name="star" class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-input formControlName='mod_passpedname' maxlength=50></ion-input>
+
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_passpedname.errors?.required">
+                {{'errmsg.pname' | translate:params}}
+              </p>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_passpedname.errors?.minlength">
+                {{'errmsg.minimumname' | translate:params}}
+              </p>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_passpedname.errors?.maxlength">
+                {{'errmsg.maximumname' | translate:params}}
+              </p>
+
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_passpedname.errors?.pattern">
+                {{'errmsg.nameformat' | translate:params}}
+              </p>
+
+            </ion-col>
+
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.gender_l' | translate:params}}
+                  
+                  <ion-icon name="star" class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-select formControlName="radiogender" interface="alert">
+                  <ion-select-option value="Male">{{'commonlinks.male' | translate:params}}</ion-select-option>
+                  <ion-select-option value="Female">{{'commonlinks.female' | translate:params}}</ion-select-option>
+                  <ion-select-option value="tg">{{'commonlinks.tg' | translate:params}}</ion-select-option>
+
+                </ion-select>
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.radiogender.errors?.required">
+                {{'errmsg.pgender' | translate:params}}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            
+
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.education' | translate:params}} </ion-label>
+                <ion-select formControlName='education' interface="alert" (ionChange)="change_education($event)" >
+                  <!--  -->
+                  <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.occupation' | translate:params}} </ion-label>
+                <ion-select formControlName='mod_occupation' interface="alert">
+                  <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}" [disabled]='d.disabled'>
+                    <!--  -->
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+
+            <!-- <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.occupation' | translate:params}} </ion-label>
+                <ion-select formControlName='mod_occupation' interface="alert">
+                  <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col> -->
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.severity' | translate:params}}
+                  <ion-icon name="star" class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-select formControlName='pass_severity' interface="alert" (ionChange)="getvalue($event)">
+                  <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.pass_severity.errors?.required">
+                {{'errmsg.fseverity' | translate:params}}
+              </p>
+            </ion-col>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.injurytype' | translate:params}} </ion-label>
+                <ion-select multiple='true' formControlName='dinjurytype' interface="alert">
+                  <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.modeoftranport' | translate:params}}</ion-label>
+                <ion-select formControlName='modeoftransport' interface="alert">
+                  <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+                </ion-select>
+
+              </ion-item>
+
+            </ion-col>
+
+            <ion-col>
+
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.tranporttime' | translate:params}} </ion-label>
+                <ion-select formControlName='hospitaldelay' interface="alert">
+                  <ion-select-option *ngFor="let d of options8; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <!-- <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.education' | translate:params}} </ion-label>
+                <ion-select formControlName='education' interface="alert">
+                  <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col> -->
+            
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.passposition' | translate:params}} </ion-label>
+                <ion-select formControlName='passposition' interface="alert">
+                  <ion-select-option *ngFor="let d of options5; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.seatbelt' | translate:params}}
+                  <ion-icon name="star" class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-select formControlName="safetydevice" interface="alert">
+                  <ion-select-option value="yes"> {{'commonlinks.yes' | translate:params}}</ion-select-option>
+                  <ion-select-option value="no"> {{'commonlinks.no' | translate:params}}</ion-select-option>
+                  <ion-select-option value="Not Known">{{'commonlinks.notknown' | translate:params}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.safetydevice.errors?.required">
+                {{'errmsg.safety' | translate:params}}
+              </p>
+            </ion-col>
+
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>
+                  {{'acctab1.acc.pedestrians.passaction' | translate:params}} </ion-label>
+                <ion-select formControlName='passaction' interface="alert">
+                  <ion-select-option *ngFor="let d of options7; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.age' | translate:params}}
+                </ion-label>
+                <ion-input formControlName='mod_age' type='number'  (ionChange)="checkage($event)"></ion-input>
+              </ion-item>
+
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_age.errors?.pattern">
+                {{'errmsg.ageformat' | translate:params}}
+              </p>
+
+            </ion-col>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.moblieno' | translate:params}}
+                </ion-label>
+                <ion-input formControlName='mod_mobile' type="number" (ionChange)="checkdigits($event,10)"></ion-input>
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_mobile.errors?.pattern">
+
+                {{'errmsg.mobileformat' | translate:params}}
+              </p>
+
+            </ion-col>
+
+          </ion-row>
+
+
+
+
+
+
+          <ion-row>
+            <ion-col>
+
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-item [hidden]="datacombo">
+
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.driver.nationality' | translate:params}}
+                </ion-label>
+
+                <ion-select formControlName="nationality" (ionChange)="changenationality($event)" interface="alert">
+                  <ion-select-option value="0">{{'commonlinks.indian' | translate:params}}</ion-select-option>
+                  <ion-select-option value="1">{{'commonlinks.foreigner' | translate:params}}</ion-select-option>
+
+
+                </ion-select>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+          <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+          <ion-row [hidden]="datacombo">
+            <ion-col>
+
+              <ion-item [hidden]="!passport">
+                <ion-label position="floating" class='fcolor'>{{'commonlinks.passportnr' | translate:params}}
+                </ion-label>
+                <ion-input formControlName='passport_nr' maxlength="20"></ion-input>
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.passport_nr.errors?.minlength">
+                {{'errmsg.addrmin' | translate:params}}
+              </p>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.passport_nr.errors?.maxlength">
+                {{'errmsg.addrmax' | translate:params}}
+              </p>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.passport_nr.errors?.pattern">
+                {{'errmsg.specialchar' | translate:params}}
+              </p>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+              <ion-item [hidden]="datacombo">
+                <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.address' | translate:params}}
+                </ion-label>
+                <ion-input formControlName='mod_residence' maxlength='200'></ion-input>
+              </ion-item>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_residence.errors?.minlength">
+                {{'errmsg.addrmin' | translate:params}}
+              </p>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_residence.errors?.maxlength">
+                {{'errmsg.addrmax' | translate:params}}
+              </p>
+              
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row [hidden]="datacombo">
+            <ion-col class='txtalign'>
+              <ion-icon (click)="takeAudio()"  name="mic-outline" size='large' color='danger'></ion-icon>
+
+              <audio *ngIf="audio" type="audio/mp3"  controls [src]="audio4play">
+                The audio tag is not supported by your browser. Click [here] to download the audio file.
+              </audio>
+
+            </ion-col>
+            <ion-col class='txtalign'>
+              <ion-button *ngIf="!isLoading" type="submit" shape="round" fill="outline" color='success'>
+                <ion-icon name="cloud-upload"></ion-icon>
+                &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.save' | translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;
+              </ion-button>
+              <ion-button *ngIf="isLoading" shape="round" fill="outline" color='success' expand="block">
+                <ion-spinner name="circles"> </ion-spinner>
+              </ion-button>
+
+            </ion-col>
+          </ion-row>
+
+
+        </ion-grid>
+
+
+
+
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+  <style>
+    .mandatory {
+      color: red;
+      font-size: 7px;
+    }
+
+    .hintmsg {
+      color: #fff;
+      font-size: 10px;
+    }
+  </style>
+
+</ion-content>

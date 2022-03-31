@@ -1,0 +1,159 @@
+<ng-container *ngIf="dashboardview=='Circle' && accdivision==false && accsubdivision==false">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Cirlce Of Highways</ion-title>
+      <ion-buttons slot="end" (click)="movetodashboard()">
+       
+          <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+       
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content >
+    <ion-card style="background-color: transparent; "> 
+  
+      <table style="border-collapse: collapse; width: 100%; text-align: center;" border="1.5">
+  
+        <tr>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; height: 60px; background-color:#728ca3">Road Circle</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Total No. of Request&nbsp;</td>
+          <td style="width: 25%; font-weight: bold;color:  black; font-size: 16; background-color:#bf9d7a">No of Request Completed</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">No of Request Pending</td>
+          </tr>
+        <tbody *ngFor="let wingcircle of highwaycircle;">
+       
+        <!-- <tr>
+        <td *ngIf="wingcircle.name" style="width: 25%; color: black; height: 50px; background-color:#adbfce" >{{wingcircle.name}}<ion-icon name="caret-down-sharp" color="danger" (click)="dashboardview='Divison'" style="margin-right: 30px;font-size: 20px;"></ion-icon></td>
+        <td *ngIf="!wingcircle.name" style="width: 25%; color: black; height: 50px; background-color:#adbfce;">NA</td>
+        <td *ngIf="wingcircle.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">{{wingcircle.received}}</td>
+        <td *ngIf="!wingcircle.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">0</td>
+        <td *ngIf="wingcircle.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">{{wingcircle.completed}}</td>
+        <td *ngIf="!wingcircle.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">0</td>
+        <td *ngIf="wingcircle.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wingcircle.pending}}</td>
+        <td *ngIf="!wingcircle.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+        </tr> -->
+
+        <tr>
+          <td *ngIf="wingcircle.name" style="width: 25%; text-align: left; padding-left: 10px; color: black; height: 50px; background-color:#adbfce" >{{wingcircle.name | uppercase }}<ion-icon name="caret-down-sharp" color="danger" (click)="drilDownDivision(wingcircle)" style="margin-right: 15px;font-size: 25px; float: right;"></ion-icon></td>
+          <td *ngIf="!wingcircle.name" style="width: 25%; color: black; height: 50px; background-color:#adbfce;">NA</td>
+          <td *ngIf="wingcircle.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">{{wingcircle.received}}</td>
+          <td *ngIf="!wingcircle.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">0</td>
+          <td *ngIf="wingcircle.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">{{wingcircle.completed}}</td>
+          <td *ngIf="!wingcircle.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">0</td>
+          <td *ngIf="wingcircle.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wingcircle.pending}}</td>
+          <td *ngIf="!wingcircle.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+          </tr>
+
+        
+         
+        </tbody>
+        </table>
+    </ion-card>
+    </ion-content>
+</ng-container>
+
+<ng-container *ngIf="accdivision==true">
+  <ion-content>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon name="close" slot="end"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Division</ion-title>
+
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-card style="background-color: transparent; "> 
+  
+      <table style="border-collapse: collapse; width: 100%; text-align: center;" border="1.5">
+  
+        <tr>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; height: 60px; background-color:#728ca3">Road Division</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Total No. of Request&nbsp;</td>
+          <td style="width: 25%; font-weight: bold;color:  black; font-size: 16; background-color:#bf9d7a">No of Request Completed</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">No of Request Pending</td>
+          </tr>
+        <tbody *ngFor="let wingdivision of highwaydivision;">
+       
+        <tr>
+        <td *ngIf="wingdivision.divisionname" style="width: 25%; text-align: left; padding-left: 10px; color: black; height: 50px; background-color:#adbfce" (click)="drilDownSubDivision(wingdivision)">{{wingdivision.divisionname | uppercase }}<ion-icon name="caret-down-sharp" color="danger"  style="margin-right: 15px;font-size: 25px; float: right;"></ion-icon></td>
+        <td *ngIf="!wingdivision.divisionname" style="width: 25%; color: black; height: 50px; background-color:#adbfce;">NA</td>
+        <td *ngIf="wingdivision.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">{{wingdivision.received}}</td>
+        <td *ngIf="!wingdivision.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">0</td>
+        <td *ngIf="wingdivision.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">{{wingdivision.completed}}</td>
+        <td *ngIf="!wingdivision.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">0</td>
+        <td *ngIf="wingdivision.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wingdivision.pending}}</td>
+        <td *ngIf="!wingdivision.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+        </tr>
+         
+        </tbody>
+        </table>
+    </ion-card>
+
+  </ion-content>
+</ng-container>
+
+
+<ng-container *ngIf="accsubdivision==true">
+  <ion-content>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeSubdivisionModal()">
+            <ion-icon name="close" slot="end"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Sub-Division</ion-title>
+
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-card style="background-color: transparent; "> 
+  
+      <table style="border-collapse: collapse; width: 100%; text-align: center;" border="1.5">
+  
+        <tr>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; height: 60px; background-color:#728ca3">Road Sub-Division</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Total No. of Request&nbsp;</td>
+          <td style="width: 25%; font-weight: bold;color:  black; font-size: 16; background-color:#bf9d7a">No of Request Completed</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">No of Request Pending</td>
+          </tr>
+        <tbody *ngFor="let wingsubdivision of highwaysubdivision;">
+       
+        <tr>
+        <td *ngIf="wingsubdivision.subdivisionname" style="width: 25%; text-align: left; padding-left: 10px; color: black; height: 50px; background-color:#adbfce">{{wingsubdivision.subdivisionname | uppercase }}</td>
+        <td *ngIf="!wingsubdivision.subdivisionname" style="width: 25%; color: black; height: 50px; background-color:#adbfce;">NA</td>
+        <td *ngIf="wingsubdivision.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">{{wingsubdivision.received}}</td>
+        <td *ngIf="!wingsubdivision.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">0</td>
+        <td *ngIf="wingsubdivision.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">{{wingsubdivision.completed}}</td>
+        <td *ngIf="!wingsubdivision.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">0</td>
+        <td *ngIf="wingsubdivision.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wingsubdivision.pending}}</td>
+        <td *ngIf="!wingsubdivision.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+        </tr>
+         
+        </tbody>
+        </table>
+    </ion-card>
+
+
+  </ion-content>
+</ng-container>
+
+
+
+
+
+

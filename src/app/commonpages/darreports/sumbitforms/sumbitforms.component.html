@@ -1,0 +1,2070 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      {{formtitle}}
+    </ion-title>
+    <ion-icon slot="end" name="help-circle-outline" size="large" (click)="openHelp()"></ion-icon>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="reports=='1'">
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FIRST ACCIDENT REPORT</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="sflag==0" class='maincontainer'>
+
+
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+          <ion-row>
+            <ion-col (click)="viewdarpages(i,1)">
+
+              <div class='buttons'>
+                Generate
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class='buttons' *ngIf="dataflag==0" (click)="filechooser('far','main','0')">
+                Upload
+              </div>
+
+
+              <div class='buttons' *ngIf="dataflag==1" (click)="filechooser('far','main','0')">
+                Re-upload
+              </div>
+            </ion-col>
+            <ion-col>
+
+              <div class='buttons' *ngIf="dataflag==1" (click)="viewdocumentcommon('far','main')">
+                View
+              </div>
+
+            </ion-col>
+          </ion-row>
+
+
+        </ion-grid>
+      </div>
+
+      <div *ngIf="sflag==1">
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+          <ion-row>
+
+
+
+            <ion-col (click)="viewdocumentcommon('far','main')">
+
+              <ion-button expand="full" color='danger' style='font-weight: bold;'>View</ion-button>
+            </ion-col>
+
+
+          </ion-row>
+
+        </ion-grid>
+      </div>
+
+
+
+
+      <div *ngIf="sflag==0" style=" background-color: rgb(255, 255, 255);
+     
+      padding: 10px;
+      margin: 5px;">
+        <ion-grid *ngFor="let faratt of firmformdocsattach; let i = index">
+          <ion-row *ngIf="dataflagatt==0">
+            <ion-col style='color: rgb(17, 96, 170);font-size:15px;font-weight:bold;'>
+              {{i+1}}.&nbsp; {{faratt.description}}
+            </ion-col>
+
+            <ion-col style='color: rgb(196, 20, 212);font-size:15px;' (click)="filechooser('fir','attachment','0')">
+              <ion-icon name="cloud-upload-outline"></ion-icon>&nbsp; Upload
+            </ion-col>
+
+
+
+
+          </ion-row>
+          <ion-row *ngIf="dataflagatt==1">
+            <ion-col style='color: rgb(17, 96, 170);font-size:15px;font-weight:bold;'>
+              {{i+1}}.&nbsp; {{faratt.description}}
+            </ion-col>
+
+
+            <ion-col style='color: rgb(196, 20, 212);font-size:15px;' (click)="filechooser('fir','attachment','0')">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Re-upload
+            </ion-col>
+
+            <ion-col style='color: rgb(8, 180, 22);font-size:15px;' (click)="viewdocumentcommon('fir','attachment')">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+
+          </ion-row>
+
+        </ion-grid>
+      </div>
+      <div *ngIf="sflag==1" style=" background-color: rgb(243, 239, 239);
+        border: 1px solid rgb(194, 194, 194);
+        padding: 10px;
+        margin: 5px;">
+        <ion-grid *ngFor="let faratt of firmformdocsattach; let i = index">
+          <ion-row>
+            <ion-col style='color: rgb(17, 96, 170);font-size:15px;font-weight:bold;'>
+              {{i+1}}.&nbsp; {{faratt.description}}
+            </ion-col>
+            <ion-col style='color: rgb(8, 180, 22);font-size:15px;' (click)="viewdocumentcommon('fir','attachment')">
+              <ion-icon name="cloud-download-outline"></ion-icon>View
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div *ngIf="sflag==0" style='margin-top:10px;padding: 2px;'>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('I')" color='warning'>REQUEST EXTENSION</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform(1,'submitform1')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+
+
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+</ion-content>
+
+
+
+<ion-content *ngIf="reports=='2'">
+
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">RIGHTS OF VICTIMS OF ROAD ACCIDENT AND FLOW CHART OF THIS SCHEME
+      </ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+      <div
+        style='text-transform:uppercase;color:rgb(255, 174, 0);font-weight: bold;background-color:#004d99;text-align: center;margin-top: 10px;padding: 3px;display:none;'>
+
+        acknowledgement
+        by victims
+
+      </div>
+
+      <div class="singlemain">
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.docupload==0">
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewdarpagesperson('2',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('rightsofvictims','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Upload
+            </ion-col>
+
+
+            <ion-col>
+
+            </ion-col>
+
+
+
+          </ion-row>
+
+          <ion-row *ngIf="far.docupload==1">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewdarpagesperson('2',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('rightsofvictims','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Re-upload
+            </ion-col>
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('rightsofvictims','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+
+          </ion-row>
+
+        </ion-grid>
+
+      </div>
+    </ion-card-content>
+    <div *ngIf="notuploaded" style='display:none;'>
+      <div style='background-color:#0353a4;color: aliceblue;padding: 4px;'>
+        Following acknowledgement Document not uploaded
+      </div>
+      <ion-list *ngFor="let ntu of notuploaded; let i = index">
+
+        <ion-col>
+          <ion-icon name="close-circle-outline" color="danger"></ion-icon>
+        </ion-col>
+        <ion-col>
+          {{ntu.name}}
+        </ion-col>
+
+
+      </ion-list>
+
+    </div>
+    <div *ngIf="submission==0" style='margin-top:10px;padding: 2px;'>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('II')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform(2,'submitform2')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-card>
+
+</ion-content>
+
+<ion-content *ngIf="reports=='3'">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="headertitle">FORM III - DRIVER'S FORM</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid *ngFor="let veh of firmformdocs; let i = index ">
+
+        <ion-row style="background:#fa9052;">
+          <ion-col>
+            <span style="font-size:15px;font-weight:bold;color: #313131;"> {{i+1}}.</span> &nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'></span> &nbsp;&nbsp;<span
+              style='color: rgb(61, 61, 61);font-weight: bold;'>{{veh.get_veh_no|uppercase}}</span>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <span style='color: rgb(13, 52, 116);font-weight: bold;'></span>&nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'>{{veh.name|uppercase}} </span>
+          </ion-col>
+        </ion-row>
+
+
+
+
+        <ion-row style="background:#fa9052;">
+          <ion-col *ngIf="submission==0">
+
+            <div (click)='viewdocumentdriver(i)' class='buttons'>
+              Generate
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="submission==0">
+
+            <div (click)="filechooser('driverform','main',i)" class='buttons'>
+              Upload
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class='buttons' (click)="viewdocumentcommonperson('driverform','main',i)"
+              *ngIf="veh.main[0].get_edarpersonwisesubmitted!=null">
+              View
+            </div>
+          </ion-col>
+
+        </ion-row>
+        <ion-row *ngIf="veh.attachment">
+
+          <ion-grid style="padding:0px;">
+            <ion-list *ngFor="let attac of veh.attachment; let j = index "
+              style="padding:0px;background-color: rgb(255, 255, 255);">
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted!=null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Re-upload</ion-label>
+                </ion-col>
+
+
+                <ion-col class='viewlinks' (click)="viewdocumentcommonperson(attac.doc_name,'attachment',i)">
+                  <ion-label>View</ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted==null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Upload</ion-label>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+
+            </ion-list>
+
+
+
+          </ion-grid>
+
+
+        </ion-row>
+
+
+
+      </ion-grid>
+
+
+
+    </ion-card-content>
+
+    <div class="warning" *ngIf="mandatoryflag==0">
+
+      <p>
+        <strong>Main:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>Driver
+        Form Mandatory</p>
+      <p><strong>Attachment:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+        <ion-icon name="star" color="danger" style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>Asterisk
+        documents are required
+      </p>
+
+    </div>
+    <div *ngIf="submission==0" style='margin-top:10px;padding: 2px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('III')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform(2,'submitform3')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full"(click)="submitform(2,'submitform3')" color='danger'>SUBMIT</ion-button> -->
+
+    </div>
+  </ion-card>
+</ion-content>
+<ion-content *ngIf="reports=='4'">
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="headertitle">FORM IV - OWNER FORM</ion-card-title>
+    </ion-card-header>
+
+
+    <ion-card-content>
+      <ion-grid *ngFor="let veh of firmformdocs; let i = index ">
+
+        <ion-row style="background:#fa9052;">
+          <ion-col>
+            <span style="font-size:15px;font-weight:bold;color: #313131;"> {{i+1}}.</span> &nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'></span> &nbsp;&nbsp;<span
+              style='color: rgb(61, 61, 61);font-weight: bold;'>{{veh.get_veh_no|uppercase}}</span>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <span style='color: rgb(13, 52, 116);font-weight: bold;'></span>&nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'>{{veh.name|uppercase}} </span>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row style="background:#fa9052;">
+          <ion-col *ngIf="submission==0">
+
+            <div (click)='viewowner(i)' class='buttons'>
+              Generate
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="submission==0">
+
+            <div (click)="filechooser('ownerform','main',i)"
+              style="background:#ffffff;text-align: center;padding:3px;font-weight:bold;color:#0070c0;">
+              Upload
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class='buttons' (click)="viewdocumentcommonperson('ownerform','main',i)"
+              *ngIf="veh.main[0].get_edarpersonwisesubmitted!=null">
+              View
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row *ngIf="veh.attachment">
+
+          <ion-grid style="padding:0px;">
+            <ion-list *ngFor="let attac of veh.attachment; let j = index "
+              style="padding:0px;background-color: rgb(255, 255, 255);">
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted!=null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Re-upload</ion-label>
+                </ion-col>
+
+
+                <ion-col class='viewlinks' (click)="viewdocumentcommonperson(attac.doc_name,'attachment',i)">
+                  <ion-label>View</ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted==null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Upload</ion-label>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+
+            </ion-list>
+
+
+
+          </ion-grid>
+
+
+        </ion-row>
+
+      </ion-grid>
+
+      <div *ngIf="notuploaded" style="display:none;">
+        <div style='background-color:#0353a4;color: aliceblue;padding: 4px;'>
+          Following Documents required
+        </div>
+        <ion-list *ngFor="let ntu of notuploaded; let i = index">
+
+          <ion-col>
+
+          </ion-col>
+          <ion-row>
+            <ion-col style="color: #0f3357;font-weight:bold;">
+              &nbsp;&nbsp; {{ntu.name}}
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="ntu.mainform!=true" style='color: #f54580;'>
+            <ion-col>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Owner
+              Form
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let att of ntu.failedUpload; let j = index">
+            <ion-col style='color: #f54580;'>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {{att.attachment}}
+            </ion-col>
+          </ion-row>
+
+
+
+        </ion-list>
+
+      </div>
+      <div class="warning" *ngIf="mandatoryflag==0">
+
+        <p>
+          <strong>Main:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>Owner
+          Form Mandatory</p>
+        <p><strong>Attachment:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+          <ion-icon name="star" color="danger" style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>Asterisk
+          documents are required
+        </p>
+
+      </div>
+
+      <div *ngIf="submission==0" style='margin-top:10px;padding: 2px;'>
+
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('IV')" color='warning'>REQUEST EXTENSION</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform(2,'submitform4')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- <ion-button expand="full"(click)="submitform(4,'submitform4')" color="danger">SUBMIT</ion-button> -->
+
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+<ion-content *ngIf="reports=='5'">
+  <ion-card>
+
+    <ion-grid *ngFor="let edar of edarformstatus; let j = index ">
+
+      <ion-row>
+        <ion-col>
+          <ion-label style='color: darkblue;'>{{edar.description}}</ion-label>
+        </ion-col>
+        <ion-col *ngIf="edar.get_edarformstatus==0">
+          <ion-label style='color: darkblue;'>
+            <ion-icon name="close-circle-outline" color="danger"></ion-icon>
+          </ion-label>
+        </ion-col>
+        <ion-col *ngIf="edar.get_edarformstatus==1">
+          <ion-label style='color: darkblue;'>
+            <ion-icon name="checkmark-done-circle-outline" color="success" size="medium"></ion-icon>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="headertitle">FORM V - INTERIM ACCIDENT REPORT</ion-card-title>
+    </ion-card-header>
+
+
+    <ion-card-content>
+
+
+      <div style=" background-color: rgb(243, 239, 239);
+      border: 1px solid rgb(194, 194, 194);
+      padding: 10px;
+      margin: 5px;">
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.main[0].get_edarpersonwisesubmitted==null">
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp;{{far.get_veh_no}}
+            </ion-col>
+            <ion-col *ngIf="submission==0" (click)='viewinterim(i)'>
+              Generate
+            </ion-col>
+            <ion-col *ngIf="submission==0" (click)="filechooser('interimaccreport','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Upload
+            </ion-col>
+
+            <ion-col>
+
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row *ngIf="far.main[0].get_edarpersonwisesubmitted!=null">
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp;{{far.get_veh_no}}
+            </ion-col>
+            <ion-col *ngIf="submission==0" (click)='viewinterim(i)'>
+              Generate
+            </ion-col>
+            <ion-col *ngIf="submission==0" (click)="filechooser('interimaccreport','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Re-upload
+            </ion-col>
+
+            <ion-col style='color: rgb(8, 180, 22);font-size:15px;'
+              (click)="viewdocumentcommonperson('interimaccreport','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+      </div>
+
+      <div *ngIf="submission==0" style='margin-top:10px;'>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('V')" color='warning'>REQUEST EXTENSION</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform(5,'submitform5')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- <ion-button expand="full"(click)="submitform(5,'submitform5')" color="danger">SUBMIT</ion-button> -->
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
+<ion-content *ngIf="reports=='6'">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="headertitle">FORM VI - VICTIM FORM</ion-card-title>
+    </ion-card-header>
+
+
+
+    <ion-card-content>
+      <ion-grid *ngFor="let veh of firmformdocs; let i = index ">
+
+        <ion-row style="background:#fa9052;">
+          <ion-col>
+            <span style="font-size:15px;font-weight:bold;color: #313131;"> {{i+1}}.</span> &nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'></span> &nbsp;&nbsp;<span
+              style='color: rgb(61, 61, 61);font-weight: bold;'>{{veh.get_veh_no|uppercase}}</span>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <span style='color: rgb(13, 52, 116);font-weight: bold;'></span>&nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'>{{veh.name|uppercase}} </span>
+          </ion-col>
+        </ion-row>
+
+
+
+
+        <ion-row style="background:#fa9052;">
+          <ion-col *ngIf="submission==0">
+
+            <div (click)='viewvictims(i)' class='buttons'>
+              Generate
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="submission==0">
+
+            <div (click)="filechooser('victimform','main',i)"
+              style="background:#ffffff;text-align: center;padding:3px;font-weight:bold;color:#0070c0;">
+              Upload
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class='buttons' *ngIf="veh.main[0].get_edarpersonwisesubmitted!=null"
+              (click)="viewdocumentcommonperson('ownerform','main',i)">
+              View
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+
+        <ion-row *ngIf="veh.attachment">
+
+          <ion-grid style="padding:0px;">
+            <ion-list *ngFor="let attac of veh.attachment; let j = index "
+              style="padding:0px;background-color: rgb(255, 255, 255);">
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted!=null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Re-upload</ion-label>
+                </ion-col>
+
+
+                <ion-col class='viewlinks' (click)="viewdocumentcommonperson(attac.doc_name,'attachment',i)">
+                  <ion-label>View</ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted==null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Upload</ion-label>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+
+            </ion-list>
+
+
+
+          </ion-grid>
+
+
+        </ion-row>
+
+      </ion-grid>
+
+
+
+    </ion-card-content>
+    <div class="warning" *ngIf="mandatoryflag==0">
+
+      <p>
+        <strong>Main:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>Victim
+        Form Mandatory</p>
+      <p><strong>Attachment:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+        <ion-icon name="star" color="danger" style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>Asterisk
+        documents are required
+      </p>
+
+    </div>
+
+    <div *ngIf="submission==0" style='margin-top:10px;padding: 2px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('VI')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform(6,'submitform6')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full"(click)="submitform(6,'submitform6')" color="danger">SUBMIT</ion-button> -->
+
+    </div>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="reports=='6A'">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="headertitle">FORM VI A - VICTIM FORM RELATING TO MINOR CHILDREN</ion-card-title>
+    </ion-card-header>
+
+
+
+    <ion-card-content>
+      <ion-grid *ngFor="let veh of firmformdocs; let i = index ">
+
+        <ion-row style="background:#fa9052;">
+          <ion-col>
+            <span style="font-size:15px;font-weight:bold;color: #313131;"> {{i+1}}.</span> &nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'></span> &nbsp;&nbsp;<span
+              style='color: rgb(61, 61, 61);font-weight: bold;'>{{veh.father[0].name|uppercase}}</span>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <span style='color: rgb(13, 52, 116);font-weight: bold;'></span>&nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'>{{veh.name|uppercase}} </span>
+          </ion-col>
+        </ion-row>
+
+
+
+
+        <ion-row style="background:#fa9052;">
+          <ion-col *ngIf="submission==0">
+
+            <div (click)='viewvictimschild(i)' class='buttons'>
+              Generate
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="submission==0">
+
+            <div (click)="filechooser('victimformrelatingminor','main',i)"
+              style="background:#ffffff;text-align: center;padding:3px;font-weight:bold;color:#0070c0;">
+              Upload
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class='buttons' *ngIf="veh.main[0].get_edarpersonwisesubmitted!=null"
+              (click)="viewdocumentcommonperson('victimformrelatingminor','main',i)">
+              View
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+
+        <ion-row *ngIf="veh.attachment">
+
+          <ion-grid style="padding:0px;">
+            <ion-list *ngFor="let attac of veh.attachment; let j = index "
+              style="padding:0px;background-color: rgb(255, 255, 255);">
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted!=null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Re-upload</ion-label>
+                </ion-col>
+
+
+                <ion-col class='viewlinks' (click)="viewdocumentcommonperson(attac.doc_name,'attachment',i)">
+                  <ion-label>View</ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted==null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Upload</ion-label>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+
+            </ion-list>
+          </ion-grid>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+    <div class="warning" *ngIf="mandatoryflag==0">
+
+      <p>
+        <strong>Main:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>Child
+        Form Mandatory</p>
+      <p><strong>Attachment:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+        <ion-icon name="star" color="danger" style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>Asterisk
+        documents are required
+      </p>
+
+    </div>
+
+    <div *ngIf="submission==0" style='margin-top:10px;padding: 2px;'>
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('6A')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('6A','submitform6A')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full"(click)="submitform('6A','submitform6A')" color="danger">SUBMIT</ion-button> -->
+
+    </div>
+  </ion-card>
+</ion-content>
+<ion-content *ngIf="reports=='7'">
+
+
+  <ion-card color='light'>
+
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FORM VII - DETAILED ACCIDENT REPORT</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+
+
+
+      <div style=" background-color: rgb(243, 239, 239);
+       border: 1px solid rgb(194, 194, 194);
+       padding: 10px;
+       margin: 5px;">
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.docupload==null">
+          
+            <ion-col class='namelinks' size="5">
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewdetailedaccident(i)">
+               Generate
+            </ion-col>
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('dar','main',i)">
+              Upload
+            </ion-col>
+
+<ion-col></ion-col>
+
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('dar','main',i)">
+              View
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row *ngIf="far.docupload">
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewdetailedaccident(i)">
+               Generate
+            </ion-col>
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('dar','main',i)">
+             Re-Upload
+            </ion-col>
+
+
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('dar','main',i)">
+             View
+            </ion-col>
+
+          </ion-row>
+
+        </ion-grid>
+
+      </div>
+      <div *ngIf="submission==0" style='margin-top:10px;'>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('VII')" color='warning'>REQUEST EXTENSION
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform('7','submitform7')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- <ion-button expand="full"(click)="submitform(7,'submitform7')" color="danger">SUBMIT</ion-button> -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-content *ngIf="reports=='8'">
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FORM VIII - Site Plan</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <div class='maincontainer'>
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+          <ion-row>
+            <ion-col *ngIf="submission==0" (click)="siteplan()">
+
+
+              <div class='buttons' (click)="siteplan()">
+                Generate
+              </div>
+            </ion-col>
+
+            <ion-col *ngIf="submission==0">
+              <div class='buttons' *ngIf="dataflag==0" (click)="filechooser('siteplan','main','0')">
+                Upload
+              </div>
+              <div class='buttons' *ngIf="dataflag==1" (click)="filechooser('siteplan','main','0')">
+                Re-upload
+              </div>
+            </ion-col>
+
+            <ion-col>
+
+              <div class='buttons' *ngIf="far.get_edar_forms_doc" (click)="viewdocumentcommon('siteplan','main')">
+                View
+              </div>
+            </ion-col>
+
+
+          </ion-row>
+
+
+        </ion-grid>
+      </div>
+
+    </ion-card-content>
+
+    <div *ngIf="submission==0" style='margin-top:10px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('VIII')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('8','submitform8')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full"(click)="submitform(8,'submitform8')" color="danger">SUBMIT</ion-button> -->
+    </div>
+  </ion-card>
+
+</ion-content>
+<ion-content *ngIf="reports=='9'">
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FORM IX -Motor Vehicle Inspection Report</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+
+
+      <div class="container">
+
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row>
+            <ion-col size="3" class='namelinks'>
+              {{i+1}}&nbsp; {{far.vehregn}}
+            </ion-col>
+
+
+
+
+
+
+
+            <ion-col (click)="viewmvi(i)" *ngIf="far.get_darmvi.dar_flag=='2'">
+              <ion-icon name="cloud-download-outline"></ion-icon> MVI
+            </ion-col>
+            <ion-col (click)="viewmvi(i)" *ngIf="far.get_darmvi.dar_flag!='2'">
+              <ion-icon name="cloud-download-outline"></ion-icon> MVI Pending
+            </ion-col>
+           <!--
+<ion-col (click)="viewmvi(i)" *ngIf="far.get_darmvi.status=='4'">
+              <ion-icon name="cloud-download-outline"></ion-icon> AIR
+            </ion-col>
+            <ion-col (click)="viewmvi(i)" *ngIf="far.get_darmvi.dar_flag!='2'">
+              <ion-icon name="cloud-download-outline"></ion-icon> AIR
+            </ion-col>
+           -->
+            
+
+          </ion-row>
+
+        </ion-grid>
+
+      </div>
+    </ion-card-content>
+    <div style='margin-top:10px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button *ngIf="submission==0" expand="block" (click)="requestExtension('IX')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button *ngIf="submission==0" expand="block" (click)="submitform('9','submitform9')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- <ion-button expand="full"(click)="submitform(9,'submitform9')" color="danger">SUBMIT</ion-button> -->
+    </div>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="reports=='10'">
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FORM X -Verification Report</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+
+
+      <div style=" background-color: rgb(243, 239, 239);
+      border: 1px solid rgb(194, 194, 194);
+      padding: 10px;
+      margin: 5px;">
+
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.main[0].get_edarpersonwisesubmitted==null">
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp;{{far.get_veh_no}}
+            </ion-col>
+
+            <ion-col  (click)="viewverificationreport(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+            <ion-col *ngIf="submission==0" (click)="filechooser('verificationreport','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Upload
+            </ion-col>
+
+            <ion-col>
+
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row *ngIf="far.main[0].get_edarpersonwisesubmitted!=null">
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp;{{far.get_veh_no}}
+            </ion-col>
+            <ion-col  (click)="viewverificationreport(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+            <ion-col *ngIf="submission==0" (click)="filechooser('verificationreport','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Re-upload
+            </ion-col>
+
+            <ion-col style='color: rgb(8, 180, 22);font-size:15px;'
+              (click)="viewdocumentcommonperson('verificationreport','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+      </div>
+      <div *ngIf="submission==0" style='margin-top:10px;'>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('X')" color='warning'>REQUEST EXTENSION</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform('10','submitform10')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <!-- <ion-button expand="full" (click)="submitform(10,'submitform10')" color="danger">SUBMIT</ion-button> -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="reports=='11'">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style='color: darkblue;'>FORM XI - Insurance Form</ion-card-title>
+
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid *ngFor="let veh of firmformdocs; let i = index ">
+
+        <ion-row style="background:#fa9052;">
+          <ion-col>
+            <span style="font-size:15px;font-weight:bold;color: #313131;"> {{i+1}}.</span> &nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'></span> &nbsp;&nbsp;<span
+              style='color: rgb(61, 61, 61);font-weight: bold;'>{{veh.get_veh_no|uppercase}}</span>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <span style='color: rgb(13, 52, 116);font-weight: bold;'></span>&nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'>{{veh.name|uppercase}}&nbsp; |
+              &nbsp;{{veh.ptype}}</span>
+          </ion-col>
+        </ion-row>
+
+
+
+
+        <ion-row style="background:#fa9052;">
+          <ion-col *ngIf="submission==0">
+
+            <div (click)='viewinsurance(i)' class='buttons'>
+              Generate
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="submission==0">
+
+            <div (click)="filechooser('insuranceform','main',i)" class='buttons'>
+              Upload
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class='buttons' *ngIf="veh.main[0].get_edarpersonwisesubmitted!=null"
+              (click)="viewdocumentcommonperson('insuranceform','main',i)">
+              View
+            </div>
+          </ion-col>
+
+        </ion-row>
+        <ion-row *ngIf="veh.attachment">
+
+          <ion-grid style="padding:0px;">
+            <ion-list *ngFor="let attac of veh.attachment; let j = index "
+              style="padding:0px;background-color: rgb(255, 255, 255);">
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted!=null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Re-upload</ion-label>
+                </ion-col>
+
+
+                <ion-col class='viewlinks' (click)="viewdocumentcommonperson(attac.doc_name,'attachment',i)">
+                  <ion-label>View</ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted==null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Upload</ion-label>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+
+            </ion-list>
+
+
+
+          </ion-grid>
+
+
+        </ion-row>
+
+
+      </ion-grid>
+
+
+
+    </ion-card-content>
+
+    <div *ngIf="submission==0" style='margin-top:10px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('XI')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('11','submitform11')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full" (click)="submitform(11,'submitform11')" color="danger">SUBMIT</ion-button> -->
+    </div>
+
+  </ion-card>
+</ion-content>
+
+
+<ion-content *ngIf="reports=='12'">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style='color: darkblue;'>FORM XII - Victim Impact Report</ion-card-title>
+
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid *ngFor="let veh of firmformdocs; let i = index ">
+        <ion-row style="background:#fa9052;">
+          <ion-col>
+            <span style="font-size:15px;font-weight:bold;color: #313131;"> {{i+1}}.</span> &nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'></span> &nbsp;&nbsp;<span
+              style='color: rgb(61, 61, 61);font-weight: bold;'>{{veh.get_veh_no|uppercase}}</span>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <span style='color: rgb(13, 52, 116);font-weight: bold;'></span>&nbsp;&nbsp;<span
+              style='color: rgb(49, 49, 48);font-weight: bold;'>{{veh.name|uppercase}} </span>
+          </ion-col>
+        </ion-row>
+
+
+
+
+        <ion-row style="background:#fa9052;" >
+          <ion-col *ngIf="submission==0">
+
+            <div (click)='viewvictimsreport12(i)' class='buttons'>
+              Generate
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="submission==0">
+
+            <div (click)="filechooser('lsa','main',i)" class='buttons'>
+              Upload
+            </div>
+          </ion-col>
+
+          <ion-col *ngIf="veh.main[0].get_edarpersonwisesubmitted">
+            <div class='buttons' 
+              (click)="viewdocumentcommonperson('lsa','main',i)">
+              View 
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+
+
+
+
+        <ion-row *ngIf="veh.attachment">
+
+          <ion-grid style="padding:0px;">
+            <ion-list *ngFor="let attac of veh.attachment; let j = index "
+              style="padding:0px;background-color: rgb(255, 255, 255);">
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted!=null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Re-upload</ion-label>
+                </ion-col>
+
+
+                <ion-col class='viewlinks' (click)="viewdocumentcommonperson(attac.doc_name,'attachment',i)">
+                  <ion-label>View</ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="attac.get_edarpersonwisesubmitted==null">
+                <ion-col class='links'>
+                  <ion-label>{{attac.description}}</ion-label>
+                  <ion-icon *ngIf="attac.mandatory==1 && mandatoryflag==0" name="star" color="danger"
+                    style='color: rgb(240, 49, 49);font-size:10px;'></ion-icon>
+                </ion-col>
+                <ion-col *ngIf="submission==0" class='links' (click)="filechooser(attac.doc_name,'attachment',i)">
+                  <ion-label>Upload</ion-label>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+
+            </ion-list>
+
+
+
+          </ion-grid>
+
+
+        </ion-row>
+
+
+      </ion-grid>
+
+
+
+    </ion-card-content>
+
+
+    <div *ngIf="submission==0" style='margin-top:10px;'>
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('XII')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('12','submitform12')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+      <!-- <ion-button expand="full" (click)="submitform(12,'submitform12')" color="danger">SUBMIT</ion-button> -->
+    </div>
+
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="reports=='13'">
+
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">Before The Motor Accident Claims Tribunal - Death Case</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+
+
+      <div class='container'>
+
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.docupload==0">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+            <ion-col *ngIf="submission==0" class='links' (click)="viewvictimsreport13(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('beforemactdeathcase','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Upload
+            </ion-col>
+
+            <ion-col>
+
+            </ion-col>
+
+
+          </ion-row>
+          <ion-row *ngIf="far.docupload==1">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewvictimsreport13(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('beforemactdeathcase','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Re-upload
+            </ion-col>
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('beforemactdeathcase','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+
+          </ion-row>
+
+        </ion-grid>
+
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="submission==0" style='margin-top:10px;'>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="requestExtension('XIII')" color='warning'>REQUEST EXTENSION</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" (click)="submitform('13','submitform13')" color='danger'>SUBMIT</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-button expand="full" (click)="submitform(13,'submitform13')" color="danger">SUBMIT</ion-button> -->
+  </div>
+</ion-content>
+
+
+<ion-content *ngIf="reports=='14'">
+
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">Before The Motor Accident Claims Tribunal - Injury Case</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+
+      <div class='container'>
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.docupload==0">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+            <ion-col *ngIf="submission==0" class='links' (click)="viewvictimsreport14(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('beforemactinjury','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Upload
+            </ion-col>
+
+            <ion-col>
+
+            </ion-col>
+
+
+          </ion-row>
+          <ion-row *ngIf="far.docupload==1">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewvictimsreport14(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('beforemactinjury','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Re-upload
+            </ion-col>
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('beforemactinjury','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+
+          </ion-row>
+
+
+        </ion-grid>
+
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="submission==0" style='margin-top:10px;'>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="requestExtension('XIV')" color='warning'>REQUEST EXTENSION</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" (click)="submitform('14','submitform14')" color='danger'>SUBMIT</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-button expand="full" (click)="submitform(14,'submitform14')" color="danger">SUBMIT</ion-button> -->
+  </div>
+</ion-content>
+
+<ion-content *ngIf="reports=='15'">
+
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">Summary of computation of award amount in death case to be incoporated in
+        the award - Death Case</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+
+
+      <div style="background-color: rgb(243, 239, 239);
+      border: 1px solid rgb(194, 194, 194);
+      padding: 10px;
+      margin: 5px;">
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.docupload==0">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+            <ion-col *ngIf="submission==0" class='links' (click)="viewvictimsreport15(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('summarydeath','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Upload
+            </ion-col>
+
+            <ion-col>
+
+            </ion-col>
+
+
+          </ion-row>
+          <ion-row *ngIf="far.docupload==1">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="viewvictimsreport15(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('summarydeath','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Re-upload
+            </ion-col>
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('summarydeath','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+
+          </ion-row>
+
+
+        </ion-grid>
+
+      </div>
+      <div *ngIf="submission==0" style='margin-top:10px;'>
+
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('XV')" color='warning'>REQUEST EXTENSION</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform('15','submitform15')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <!-- <ion-button expand="full" (click)="submitform(15,'submitform15')" color="danger">SUBMIT</ion-button> -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+
+<ion-content *ngIf="reports=='16'">
+
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">Summary of computation of award amount in injury case to be incoporated in
+        the award - Injury Case</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+      <div style="background-color: rgb(243, 239, 239);
+      border: 1px solid rgb(194, 194, 194);
+      padding: 10px;
+      margin: 5px;">
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+
+          <ion-row *ngIf="far.docupload==0">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+            <ion-col *ngIf="submission==0" class='links' (click)="changeviewvictimsreport16(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('summaryinjury','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Upload
+            </ion-col>
+
+            <ion-col>
+
+            </ion-col>
+
+
+          </ion-row>
+          <ion-row *ngIf="far.docupload==1">
+
+
+
+            <ion-col class='namelinks'>
+              {{i+1}}.&nbsp; {{far.name}}
+            </ion-col>
+
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="changeviewvictimsreport16(i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> Generate
+            </ion-col>
+
+
+
+            <ion-col *ngIf="submission==0" class='links' (click)="filechooser('summaryinjury','main',i)">
+              <ion-icon name="cloud-upload-outline"></ion-icon> Re-upload
+            </ion-col>
+
+
+            <ion-col class='viewlinks' (click)="viewdocumentcommonperson('summaryinjury','main',i)">
+              <ion-icon name="cloud-download-outline"></ion-icon> View
+            </ion-col>
+
+
+          </ion-row>
+
+
+        </ion-grid>
+
+      </div>
+      <div *ngIf="submission==0" style='margin-top:10px;'>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="requestExtension('XVI')" color='warning'>REQUEST EXTENSION
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="submitform('16','submitform16')" color='danger'>SUBMIT</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- <ion-button expand="full" (click)="submitform(16,'submitform16')" color="danger">SUBMIT</ion-button> -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+<ion-content *ngIf="reports=='17'">
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FORM XVII - Compliance of the provisions of the scheme to be mentioned in
+        the award</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+
+      <div class='maincontainer'>
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+          <ion-row>
+            <ion-col *ngIf="submission==0" (click)="viewvictimsreport17()">
+              <div class='buttons'>
+                Generate
+              </div>
+            </ion-col>
+            <ion-col *ngIf="submission==0">
+              <div class='buttons' *ngIf="dataflag==0" (click)="filechooser('complaince','main','0')">
+                Upload
+              </div>
+              <div class='buttons' *ngIf="dataflag==1" (click)="filechooser('complaince','main','0')">
+                Re-upload
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class='buttons' *ngIf="far.get_edar_forms_doc" (click)="viewdocumentcommon('complaince','main')">
+                View
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+
+    <div *ngIf="submission==0" style='margin-top:10px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('XVII')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('17','submitform17')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full"(click)="submitform(17,'submitform17')" color="danger">SUBMIT</ion-button> -->
+    </div>
+  </ion-card>
+</ion-content>
+<ion-content *ngIf="reports=='18'">
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle class="headertitle">FORM XVIII - Format of record of awards to be maintained by the Claims
+        tribunal</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <div class='maincontainer'>
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+          <ion-row>
+            <ion-col *ngIf="submission==0" (click)="viewvictimsreport18()">
+              <div class='buttons'>
+                Generate
+              </div>
+            </ion-col>
+            <ion-col *ngIf="submission==0">
+              <div class='buttons' *ngIf="dataflag==0" (click)="filechooser('formatofrecord','main','0')">
+                Upload
+              </div>
+              <div class='buttons' *ngIf="dataflag==1" (click)="filechooser('formatofrecord','main','0')">
+                Re-upload
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class='buttons' *ngIf="far.get_edar_forms_doc" (click)="viewdocumentcommon('formatofrecord','main')">
+                View
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+
+    <div *ngIf="submission==0" style='margin-top:10px;'>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('XVIII')" color='warning'>REQUEST EXTENSION
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('18','submitform18')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-button expand="full"(click)="submitform(18,'submitform18')" color="danger">SUBMIT</ion-button> -->
+    </div>
+  </ion-card>
+
+</ion-content>
+<ion-content *ngIf="reports=='19'">
+
+  <ion-card color='light'>
+    <ion-card-header>
+
+      <ion-card-subtitle class="headertitle">FORM XIX - Motor Accident Claims Annuity Deposit (MACAD) Scheme
+      </ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <div class='maincontainer'>
+        <ion-grid *ngFor="let far of firmformdocs; let i = index">
+          <ion-row>
+            <ion-col *ngIf="submission==0" (click)="viewvictimsreport19()">
+              <div class='buttons'>
+                Generate
+              </div>
+            </ion-col>
+            <ion-col *ngIf="submission==0">
+              <div class='buttons' *ngIf="dataflag==0" (click)="filechooser('macad','main','0')">
+                Upload
+              </div>
+              <div class='buttons' *ngIf="dataflag==1" (click)="filechooser('macad','main','0')">
+                Re-upload
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class='buttons' *ngIf="far.get_edar_forms_doc" (click)="viewdocumentcommon('macad','main')">
+                View
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+
+    <div *ngIf="submission==0" style='margin-top:10px;'>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="requestExtension('XIX')" color='warning'>REQUEST EXTENSION</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="submitform('19','submitform19')" color='danger'>SUBMIT</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- <ion-button expand="full"(click)="submitform(19,'submitform19')" color="danger">SUBMIT</ion-button> -->
+    </div>
+  </ion-card>
+
+
+
+
+</ion-content>
+<style>
+  .txtalign {
+    font-size: medium;
+  }
+
+  .warning {
+    padding: 4px;
+    background-color: #ffffcc;
+    border-left: 6px solid #ffeb3b;
+  }
+
+  .maincontainer {
+    background-color: #fa9052;
+    border: 1px solid rgb(194, 194, 194);
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .singlemain {
+    background-color: rgb(243, 239, 239);
+    border: 1px solid rgb(194, 194, 194);
+
+  }
+
+  .headertitle {
+    color: rgb(23, 23, 107);
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .buttons {
+    background: #ffffff;
+    text-align: center;
+    padding: 3px;
+    color: #0070c0;
+    font-weight: bold;
+  }
+
+  .links {
+    color: rgb(26, 89, 148);
+    font-size: 15px;
+  }
+
+  .viewlinks {
+    color: rgb(8, 180, 22);
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .container {
+
+    background-color: rgb(243, 239, 239);
+    border: 1px solid rgb(194, 194, 194);
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .namelinks {
+    color: rgb(4, 4, 100);
+    font-weight: bold;
+  }
+</style>

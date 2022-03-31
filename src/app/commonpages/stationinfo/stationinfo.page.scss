@@ -1,0 +1,20 @@
+.shadow {
+  position: absolute;
+  max-width: 45%;
+  max-height: 45%;
+  top: 50%;
+  left: 50%;
+  overflow: visible;
+}
+.logo {
+  position: relative;
+  max-width: 81%;
+  max-height: 100%;
+  margin-top: -41%;
+  margin-left: -50%;
+  opacity: 0.1;
+}
+
+.hero-text {
+  background: rgba(255, 255, 255, 0.9);
+}

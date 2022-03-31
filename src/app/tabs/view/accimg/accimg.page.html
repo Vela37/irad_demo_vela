@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'acctab1.imgvideo' | translate:params}}</ion-title>
+
+    <!-- <ion-buttons slot="end">
+      <ion-button routerLink="../">
+        <ion-icon name="home" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label  class="txtalign" style="color:rgb(3, 148, 148)"> 
+        <strong>{{ 'app.accidentid' | translate:params }}: {{accid}} </strong>
+      </ion-label>
+      <ion-label style="color:steelblue">
+
+        <h4 >
+          
+        </h4>
+      </ion-label>
+    </ion-item>
+
+    
+    
+
+    <ion-card-content class="alignme-center pointer" *ngIf=" images && mediacount==0"> Data Not Found !
+    </ion-card-content>
+
+    <ion-card-content *ngIf="images && mediacount!=0">
+      <ion-grid *ngIf="images" style="color:steelblue">
+        <ion-row>
+          <ion-col>
+            <ion-list>
+               <ion-list-header *ngIf="images" color="primary">
+                {{'acctab1.images' | translate:params}}
+              </ion-list-header>
+
+              <ion-item text-wrap *ngIf="false">
+                <ion-label text-wrap style="color:steelblue"><ion-icon name="images-outline"></ion-icon> Map Screen</ion-label>
+                <ion-note slot="end" color="primary">1</ion-note>
+                <br>
+                  <ion-item >
+                    <ion-thumbnail slot="start">
+                      <ion-img alt="Map Screen" [src]="mapurl"></ion-img>
+                    </ion-thumbnail>
+                  </ion-item>
+               
+               
+              </ion-item>
+
+              <ion-item *ngFor="let img of images; index as pos" text-wrap >
+                <ion-label text-wrap style="color:steelblue">
+                  <ion-icon name="images-outline"></ion-icon>   {{ img.label }}
+                 
+
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="3" *ngFor="let img of imgurl[pos]; index as i">
+                        
+                          <ion-img alt="Img {{i+1}}" [src]="imgurl[pos][i]" (click)="viewImg(imgurl[pos][i])"></ion-img>
+                        
+                      </ion-col>
+                     
+                    </ion-row>
+                  </ion-grid>
+
+                  
+
+                 </ion-label>
+                <ion-note slot="end" color="primary">{{ img.count }}</ion-note>
+
+                <br>
+                  
+               
+               
+              </ion-item>
+            </ion-list>
+
+            <ion-list  *ngIf="videos.length!=0">
+              <ion-list-header color="primary">
+               {{'acctab1.video' | translate:params}}
+             </ion-list-header>
+             <ion-item *ngFor="let video of videos; index as pos" text-wrap (click)="playVideo(video.flag)">
+              <ion-label style="color:steelblue" class="ion-text-nowrap">
+                <video width="100%" *ngIf="videourl[video.flag]" controls="controls" preload="metadata"
+                  webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                  <source [src]="videourl[video.flag]" type="video/mp4" />
+                </video>
+                <br>
+                <ion-icon name="videocam"></ion-icon> {{ video.label }}
+
+              </ion-label>
+              
+             </ion-item>
+           </ion-list>
+
+
+
+            
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

@@ -1,0 +1,263 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>General </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton()" 
+  #f="ngForm" >
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor'>Vehicle No
+          <ion-icon name="star" class='mandatory'></ion-icon>
+        </ion-label>
+        <ion-select  interface="alert"
+        id="vehicle_reg_no" name="vehicle_reg_no"    (ionChange)="loadvehicledetail($event)"
+     [(ngModel)]="vehicle_reg_no" 
+     required  >
+        <ion-select-option *ngFor="let item of vehicle"   [value]="item.id" > {{item.vehicle_reg_no}}
+        </ion-select-option>
+     </ion-select>
+
+      </ion-item>
+    
+      </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class='fcolor'>Name
+              <ion-icon name="star" class='mandatory'></ion-icon>
+            </ion-label>
+               <ion-select  interface="alert"
+           id="vname" name="vname"  
+           [(ngModel)]="vname" 
+           required 
+           > 
+           <ion-select-option *ngFor="let item of victim"   [value]="item" > {{item.name}}
+          </ion-select-option>
+            </ion-select>
+    
+          </ion-item>
+       
+          </ion-col>
+          </ion-row>
+
+<div  *ngIf="vehicle_reg_no && vname">
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Physical harm
+          <ion-icon  class='mandatory'></ion-icon>
+        </ion-label>
+        <ion-select   interface="alert"  #natureofinjuryv="ngModel"
+        id="physical_harm" name="physical_harm"  
+        [(ngModel)]="physical_harm" 
+        required
+        > 
+          
+           <ion-select-option value="Simple Injuries">Simple Injuries
+           </ion-select-option>
+           <ion-select-option value="Grievous injuries">Grievous injuries
+          </ion-select-option>
+          <ion-select-option value="Death"> Death
+          </ion-select-option>
+       <!--   <ion-select-option value="emotionalharm"> Emotional harm
+          </ion-select-option>
+          <ion-select-option value="lossofproperty"> Damage/Loss of Property
+          </ion-select-option>
+          <ion-select-option value="anyotherinjury"> Any other loss/injury
+          </ion-select-option>-->
+         </ion-select>
+      </ion-item>
+      <div *ngIf="f.submitted && natureofinjuryv.invalid">
+        <p class='errormsg'*ngIf="natureofinjuryv.errors.required">
+          This Field is Required
+        </p>     
+      </div>
+      </ion-col>
+</ion-row>
+
+<ion-row>
+<ion-col>
+  <ion-item>
+    <ion-label position="floating" class='fcolor'> Emotional harm
+      <ion-icon  class='mandatory'></ion-icon>
+    </ion-label>
+    <ion-input  #proemotionalharm="ngModel"
+    id="emotional_harm" name="emotional_harm"  
+    [(ngModel)]="emotional_harm" 
+    required
+    ></ion-input>
+  </ion-item>
+  <div *ngIf="f.submitted && proemotionalharm.invalid">
+    <p class='errormsg'*ngIf="proemotionalharm.errors.required">
+      This Field is Required
+    </p>     
+  </div>
+  </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Damage/Loss of Property
+          <ion-icon  class='mandatory'></ion-icon>
+        </ion-label>
+        <ion-input  #prodamgeorloss="ngModel"
+        id="damage_lose" name="damage_lose"  
+        [(ngModel)]="damage_lose" 
+        required
+        ></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && prodamgeorloss.invalid">
+        <p class='errormsg'*ngIf="prodamgeorloss.errors.required">
+          This Field is Required
+        </p>     
+      </div>
+      </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Any other loss/injury
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-input  #anyotherinjpto="ngModel"
+            id="any_damage_lose" name="any_damage_lose"  
+            [(ngModel)]="any_damage_lose" 
+            required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && anyotherinjpto.invalid">
+            <p class='errormsg'*ngIf="anyotherinjpto.errors.required">
+              This Field is Required
+            </p>     
+          </div>
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>Brief description of offence(s) in which the  accused has been convicted 
+                  <ion-icon  class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-input  #briefdes="ngModel"
+                id="brief_description_of_offense" name="brief_description_of_offense"  
+                [(ngModel)]="brief_description_of_offense" 
+                required
+                ></ion-input>
+              </ion-item>
+              <div *ngIf="f.submitted && briefdes.invalid">
+                <p class='errormsg'*ngIf="briefdes.errors.required">
+                  This Field is Required
+                </p>     
+              </div>
+              </ion-col>
+              </ion-row>
+
+
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating" class='fcolor'>Description of the property damaged/lost
+                      <ion-icon  class='mandatory'></ion-icon>
+                    </ion-label>
+                    <ion-input  #propertylossdamage="ngModel"
+                    id="property_loss_damage" name="property_loss_damage"  
+                    [(ngModel)]="property_loss_damage" 
+                    required
+                    ></ion-input>
+                  </ion-item>
+                  <div *ngIf="f.submitted && propertylossdamage.invalid">
+                    <p class='errormsg'*ngIf="propertylossdamage.errors.required">
+                      This Field is Required
+                    </p>     
+                  </div>
+                  </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label position="floating" class='fcolor'>The value of loss suffered
+                          <ion-icon  class='mandatory'></ion-icon>
+                        </ion-label>
+                        <ion-input  #losssuffered="ngModel"
+                        id="loss_suffered" name="loss_suffered"  
+                        [(ngModel)]="loss_suffered" 
+                        required
+                        ></ion-input>
+                      </ion-item>
+                      <div *ngIf="f.submitted && losssuffered.invalid">
+                        <p class='errormsg'*ngIf="losssuffered.errors.required">
+                          This Field is Required
+                        </p>     
+                      </div>
+                      </ion-col>
+                      </ion-row>
+
+    </div>
+
+     <!--<ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Description of the property damaged/lost
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-input  #natureofinjuryv="ngModel"
+            id="nature_of_injuries" name="nature_of_injuries"  
+            [(ngModel)]="nature_of_injuries" 
+            required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && natureofinjuryv.invalid">
+            <p class='errormsg'*ngIf="natureofinjuryv.errors.required">
+              Description of the property damaged/lost is Required
+            </p>     
+          </div>
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>The Value of loss suffered
+                  <ion-icon  class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-input  #natureofinjuryv="ngModel"
+                id="nature_of_injuries" name="nature_of_injuries"  
+                [(ngModel)]="nature_of_injuries" 
+                required
+                ></ion-input>
+              </ion-item>
+              <div *ngIf="f.submitted && natureofinjuryv.invalid">
+                <p class='errormsg'*ngIf="natureofinjuryv.errors.required">
+                  The Value of loss suffered is Required
+                </p>     
+              </div>
+              </ion-col>
+              </ion-row>-->
+      <ion-row>
+        <ion-col width-50 style="text-align: right" color='primary'>
+           <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+        </ion-col>
+         <ion-col width-50 style="text-align: left"  color='primary'>
+           <ion-button color="light"  type="submit">Save</ion-button>
+         </ion-col>
+       </ion-row>
+
+       
+</form>
+</ion-content>

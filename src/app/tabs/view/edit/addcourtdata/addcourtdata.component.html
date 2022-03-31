@@ -1,0 +1,798 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Claim of Petioner </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-card *ngIf="vehicle_reg_no && vname">
+    <ion-card-content>
+          <ion-row>
+            <ion-col class="ccolor"> <strong>Person Type </strong> </ion-col>
+            <ion-col class="ccolor" size="1"> : </ion-col>
+            <ion-col > {{vname.ptype}}
+            </ion-col>
+          </ion-row>
+       
+        </ion-card-content>
+    
+        </ion-card>
+
+
+
+
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor'>Vehicle No
+          <ion-icon name="star" class='mandatory'></ion-icon>
+        </ion-label>
+        <ion-select  interface="alert" (ionChange)="loadvehicledetail($event)"
+        id="vehicle_reg_no" name="vehicle_reg_no"  
+     [(ngModel)]="vehicle_reg_no" 
+     required  >
+        <ion-select-option *ngFor="let item of vehicle"   [value]="item.id" > {{item.vehicle_reg_no}}
+        </ion-select-option>
+     </ion-select>
+
+      </ion-item>
+    
+      </ion-col>
+   </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class='fcolor'>Name
+              <ion-icon name="star" class='mandatory'></ion-icon>
+            </ion-label>
+               <ion-select  interface="alert" (ionChange)="loadvictimdetails($event)"
+           id="vname" name="vname"  
+           [(ngModel)]="vname" 
+           required 
+           > 
+           <ion-select-option *ngFor="let item of victim"   [value]="item" > {{item.name}}
+          </ion-select-option>
+            </ion-select>
+    
+          </ion-item>
+       
+          </ion-col>
+          </ion-row>
+
+
+
+          
+<ion-card *ngIf="flag==1">
+  <ion-item>
+    <ion-label style="color: tomato; text-align:center">
+      <strong >Computation of compensation Death</strong>
+    </ion-label>
+  </ion-item>
+
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton2()" 
+  #f="ngForm" >
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'  > Income of the deceased(A)</ion-label>
+        <ion-input id="death_income" name="death_income"   type="number" 
+        #incomeofdec="ngModel"
+         [(ngModel)]="death_income" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && incomeofdec.invalid">
+        <p class='errormsg'*ngIf="incomeofdec.errors.required">
+          Income of the deceased is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'  > Add Future Prospect(B)</ion-label>
+        <ion-input id="death_future_prospects" name="death_future_prospects"   type="number" 
+        #addfuturepros="ngModel"
+         [(ngModel)]="death_future_prospects" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && addfuturepros.invalid">
+        <p class='errormsg'*ngIf="addfuturepros.errors.required">
+          Add Future Prospect is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'   >Less-Personal expenses of the deceased(C)</ion-label>
+        <ion-input   id="death_less_personal_expenses" name="death_less_personal_expenses"  type="number" 
+        #lesspersonalexpense="ngModel"
+         [(ngModel)]="death_less_personal_expenses" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && lesspersonalexpense.invalid">
+        <p class='errormsg'*ngIf="lesspersonalexpense.errors.required">
+          Less-Personal expenses of the deceased is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor' > Monthly loss of dependency[(A+B)-C=D]</ion-label>
+        <ion-input  
+     id="death_monthly_loss_depedency" name="death_monthly_loss_depedency"    type="number" 
+     #montlydependency="ngModel"
+      [(ngModel)]="death_monthly_loss_depedency" >
+      {{(death_income * 1 + death_future_prospects * 1) - death_less_personal_expenses}}
+      <!-- {{(incomeofdeceaded * 1 + darinsurancedeath.death_future_prospects * 1) - darinsurancedeath.death_less_personal_expenses}}-->
+        </ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && montlydependency.invalid">
+        <p class='errormsg'*ngIf="montlydependency.errors.required">
+          Monthly loss of dependency is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor' > Annual loss of dependency(D*12)</ion-label>
+        <ion-input  id="death_anual_loss_depedency" name="death_anual_loss_depedency"    type="number" 
+        #annualloss="ngModel"
+         [(ngModel)]="death_anual_loss_depedency" >
+         {{((death_income * 1 + death_future_prospects * 1) - death_less_personal_expenses)*12}}
+         <!--{{((incomeofdeceaded * 1 + darinsurancedeath.death_future_prospects * 1) - darinsurancedeath.death_less_personal_expenses)*12}}--></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && annualloss.invalid">
+        <p class='errormsg'*ngIf="annualloss.errors.required">
+          Annual loss of dependency is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > Multiplier(E)</ion-label>
+        <ion-input  id="death_mulltiplier" name="death_mulltiplier"    type="number" 
+        #multiplier="ngModel"
+         [(ngModel)]="death_mulltiplier" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && multiplier.invalid">
+        <p class='errormsg'*ngIf="multiplier.errors.required">
+          Multiplier is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor' > Total loss of dependency(E*12*D=F)</ion-label>
+        <ion-input  id="death_total_loss_dependency" name="death_total_loss_dependency"    type="number" 
+        #totallossdependency="ngModel"
+         [(ngModel)]="death_total_loss_dependency" > {{((death_income * 1 + death_future_prospects * 1) - death_less_personal_expenses)*12*death_mulltiplier}}</ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && totallossdependency.invalid">
+        <p class='errormsg'*ngIf="totallossdependency.errors.required">
+          Total loss of dependency is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Medical Expenses(G)</ion-label>
+        <ion-input   id="death_medical_expenses" name="death_medical_expenses"    type="number" 
+        #medicaex="ngModel"
+          [(ngModel)]="death_medical_expenses" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && medicaex.invalid">
+        <p class='errormsg'*ngIf="medicaex.errors.required">
+          Medical Expenses is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Compensation for loss of 
+          consortium (H)</ion-label>
+        <ion-input   id="death_loss_consortium" name="death_loss_consortium"    type="number" 
+        #lossconsortium="ngModel"
+          [(ngModel)]="death_loss_consortium" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && lossconsortium.invalid">
+        <p class='errormsg'*ngIf="lossconsortium.errors.required">
+          Loss of consortium is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Compensation for love and 
+          affection (I)</ion-label>
+        <ion-input   id="death_loss_for_love_affection" name="death_loss_for_love_affection"    type="number" 
+        #loveandaff="ngModel"
+          [(ngModel)]="death_loss_for_love_affection" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && loveandaff.invalid">
+        <p class='errormsg'*ngIf="loveandaff.errors.required">
+          Loss of Love and affection is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Compensation for loss of estate 
+          (J)</ion-label>
+        <ion-input   id="death_loss_estate" name="death_loss_estate"    type="number" 
+        #lossofestate="ngModel"
+          [(ngModel)]="death_loss_estate" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && lossofestate.invalid">
+        <p class='errormsg'*ngIf="lossofestate.errors.required">
+          loss of estate is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Compensation towards funeral 
+          expenses (K)</ion-label>
+        <ion-input   id="death_loss_funeral_expenses" name="death_loss_funeral_expenses"    type="number" 
+        #funeralex="ngModel"
+          [(ngModel)]="death_loss_funeral_expenses" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && funeralex.invalid">
+        <p class='errormsg'*ngIf="funeralex.errors.required">
+          Medical Expenses is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor' > TOTAL COMPENSATION (F + G + H 
+          + I + J + K =L)</ion-label>
+        <ion-input   id="death_total_compensation" name="death_total_compensation"    type="number" 
+        #totalcomp="ngModel"
+          [(ngModel)]="death_total_compensation" > {{(((death_income * 1 + death_future_prospects * 1) - death_less_personal_expenses)*12*death_mulltiplier) * 1 + death_medical_expenses * 1  + death_loss_consortium * 1 + death_loss_for_love_affection * 1 +  death_loss_estate * 1 + death_loss_funeral_expenses * 1  }}</ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && totalcomp.invalid
+      id">
+        <p class='errormsg'*ngIf="totalcomp.errors.required">
+          TOTAL COMPENSATION is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > INTEREST
+          </ion-label>
+        <ion-input   id="death_interest" name="death_interest"    type="number" 
+        #totalcomp="ngModel"
+          [(ngModel)]="death_interest" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && totalcomp.invalid
+      id">
+        <p class='errormsg'*ngIf="totalcomp.errors.required">
+          TOTAL COMPENSATION is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"  type="submit">Save</ion-button>
+     </ion-col>
+   </ion-row>
+
+   
+</form>
+</ion-card>
+
+
+
+
+
+
+
+<ion-card  *ngIf="flag==2">
+  <ion-item>
+    <ion-label style="color: tomato; text-align:center">
+      <strong >Computation of compensation Injured</strong>
+    </ion-label>
+  </ion-item>
+
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton()" 
+  #f="ngForm" >
+
+  <ion-item>
+    <ion-label style="color: rgb(19, 33, 65)">
+      <strong >Non-Pecuniary Losses:</strong>
+    </ion-label>
+
+  </ion-item>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > Expenditure on treatment</ion-label>
+        <ion-input 
+        id="inj_treatment" name="inj_treatment"    type="number" 
+        #expendituretratment="ngModel"
+         [(ngModel)]="inj_treatment" required
+        ></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && expendituretratment.invalid">
+        <p class='errormsg'*ngIf="expendituretratment.errors.required">
+          Expenditure on treatment is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > Expenditure on conveyance</ion-label>
+        <ion-input
+        id="inj_convenance" name="inj_convenance"    type="number" 
+        #exconveyance="ngModel"
+         [(ngModel)]="inj_convenance" required ></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && exconveyance.invalid">
+        <p class='errormsg'*ngIf="exconveyance.errors.required">
+          Expenditure on conveyance is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > Expenditure on Special Diet</ion-label>
+        <ion-input
+        id="inj_special_diet" name="inj_special_diet"    type="number" 
+        #specialdiet="ngModel"
+         [(ngModel)]=" inj_special_diet" required ></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && specialdiet.invalid">
+        <p class='errormsg'*ngIf="specialdiet.errors.required">
+          Expenditure on Special Diet is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > Cost of nursing/attendant</ion-label>
+        <ion-input
+        id="inj_cost_nursing_attendant" name="inj_cost_nursing_attendant"    type="number" 
+        #costofnuesung="ngModel"
+         [(ngModel)]=" inj_cost_nursing_attendant" required ></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && costofnuesung.invalid">
+        <p class='errormsg'*ngIf="costofnuesung.errors.required">
+          Cost of nursing/attendant is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >  Loss of income</ion-label>
+        <ion-input  
+        id="inj_loss_income" name="inj_loss_income"   type="number" 
+        #Lossofincome="ngModel"
+         [(ngModel)]="inj_loss_income" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && Lossofincome.invalid">
+        <p class='errormsg'*ngIf="Lossofincome.errors.required">
+          Loss of income is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' > Cost of artificial  limb</ion-label>
+        <ion-input  
+        id="inj_cost_artificial_limp" name="inj_cost_artificial_limp"   type="number" 
+        #artificaiallimb="ngModel"
+         [(ngModel)]="inj_cost_artificial_limp" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && artificaiallimb.invalid">
+        <p class='errormsg'*ngIf="artificaiallimb.errors.required">
+          Cost of  artificial limb is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Any other pecuniary loss/damage</ion-label>
+        <ion-input  
+        id="inj_any_other_loss" name="inj_any_other_loss"   type="number" 
+        #Anyotherpecuniaryloss="ngModel"
+         [(ngModel)]="inj_any_other_loss" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && Anyotherpecuniaryloss.invalid">
+        <p class='errormsg'*ngIf="Anyotherpecuniaryloss.errors.required">
+          Any other pecuniary loss/damage is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+
+
+  <ion-item>
+    <ion-label style="color: rgb(19, 33, 65)">
+      <strong >Non-Pecuniary Losses:</strong>
+    </ion-label>
+
+  </ion-item>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Emotional harm/trauma, mental and physical shock etc.</ion-label>
+        <ion-input  
+        id="inj_com_mental_phy_shock" name="inj_com_mental_phy_shock"   type="number" 
+        #Emotionalharm="ngModel"
+         [(ngModel)]="inj_com_mental_phy_shock" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && Emotionalharm.invalid">
+        <p class='errormsg'*ngIf="Emotionalharm.errors.required">
+          Emotional harm/trauma, mental and physical shock is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Pain and Suffering</ion-label>
+        <ion-input  
+        id="inj_pain_suffering" name="inj_pain_suffering"   type="number" 
+        #painandsuffering="ngModel"
+         [(ngModel)]="inj_pain_suffering" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && painandsuffering.invalid">
+        <p class='errormsg'*ngIf="painandsuffering.errors.required">
+          Pain and Suffering is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Loss of amenities of life</ion-label>
+        <ion-input  
+        id="inj_loss_amenities" name="inj_loss_amenities"   type="number" 
+        #lossofamenities="ngModel"
+         [(ngModel)]="inj_loss_amenities" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && lossofamenities.invalid">
+        <p class='errormsg'*ngIf="lossofamenities.errors.required">
+          Loss of amenities of life is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Disfiguration</ion-label>
+        <ion-input  
+        id="inj_disfiguration" name="inj_disfiguration"   type="number" 
+        #disfiguration="ngModel"
+         [(ngModel)]="inj_disfiguration" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && disfiguration.invalid">
+        <p class='errormsg'*ngIf="disfiguration.errors.required">
+          Disfiguration is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Loss of marriage prospects</ion-label>
+        <ion-input  
+        id="inj_loss_of_marriage" name="inj_loss_of_marriage"   type="number" 
+        #Lossofmarriageprospects="ngModel"
+         [(ngModel)]="inj_loss_of_marriage" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && Lossofmarriageprospects.invalid">
+        <p class='errormsg'*ngIf="Lossofmarriageprospects.errors.required">
+          Loss of marriage prospects is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Loss of earning, inconvenience, 
+          hardships, disappointment, 
+          frustration, mental stress, 
+          dejectment and unhappiness in 
+          future life etc.</ion-label>
+        <ion-input  
+        id="inj_loss_ear_inc_har_dis" name="inj_loss_ear_inc_har_dis"   type="number" 
+        #Posttraumatic="ngModel"
+         [(ngModel)]="inj_loss_ear_inc_har_dis" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && Posttraumatic.invalid">
+        <p class='errormsg'*ngIf="Posttraumatic.errors.required">
+          Loss of earning, inconvenience, 
+          hardships, disappointment, 
+          frustration, mental stress, 
+          dejectment and unhappiness in 
+          future life etc is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Percentage of disability assessed </ion-label>
+        <ion-input  
+        id="inj_per_disablity" name="inj_per_disablity"   
+        #Percentageofdisability="ngModel"
+         [(ngModel)]="inj_per_disablity" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && Percentageofdisability.invalid">
+        <p class='errormsg'*ngIf="Percentageofdisability.errors.required">
+          This fiels is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Nature of disability as permanent or temporary</ion-label>
+        <ion-input  
+        id="permanent_or_temporary_disablity" name="permanent_or_temporary_disablity"   
+        #permanentortemporarydisablity="ngModel"
+         [(ngModel)]="permanent_or_temporary_disablity" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && permanentortemporarydisablity.invalid">
+        <p class='errormsg'*ngIf="permanentortemporarydisablity.errors.required">
+          This fiels is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+
+  
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >
+          Loss of amenities or loss of 
+          expectation of life span on 
+          account of disability</ion-label>
+        <ion-input  
+        id="inj_loss_ami_life_span" name="inj_loss_ami_life_span"   type="number" 
+        #relationtodisability="ngModel"
+         [(ngModel)]="inj_loss_ami_life_span" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && relationtodisability.invalid">
+        <p class='errormsg'*ngIf="relationtodisability.errors.required">
+          Loss of amenities or loss of 
+          expectation of life span on 
+          account of disability is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >
+          Percentage of loss of earning 
+          capacity in relation to disability</ion-label>
+        <ion-input  
+        id="inj_per_loss_earning" name="inj_per_loss_earning"  
+        #relationtodisability="ngModel"
+         [(ngModel)]="inj_per_loss_earning" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && relationtodisability.invalid">
+        <p class='errormsg'*ngIf="relationtodisability.errors.required">
+          Percentage of loss of earning 
+capacity in relation to disability is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >
+         Income of injury</ion-label>
+        <ion-input  
+        id="inj_income" name="inj_income"    type="number"
+        #injincome="ngModel"
+         [(ngModel)]="inj_income" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && injincome.invalid">
+        <p class='errormsg'*ngIf="injincome.errors.required">
+          Income of injury is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >
+        Multiplier</ion-label>
+        <ion-input  
+        id="multiplier" name="multiplier"    type="number"
+        #multiplierreq="ngModel"
+         [(ngModel)]="multiplier" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && multiplierreq.invalid">
+        <p class='errormsg'*ngIf="multiplierreq.errors.required">
+          This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor' >Loss of future Income(Income x % Earning Capacity x Multiplier)</ion-label>
+        <ion-input  
+        id="in_loss_future_income" name="in_loss_future_income"   type="number" 
+        #Lossoffuture="ngModel"
+         [(ngModel)]="in_loss_future_income" >{{inj_income * inj_per_loss_earning *  multiplier }}</ion-input>
+      </ion-item>
+    
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor' >Total Compensation</ion-label>
+        <ion-input  
+        id="inj_total_copensation" name="inj_total_copensation"   type="number" 
+        #itc="ngModel"
+         [(ngModel)]="inj_total_copensation" >
+        {{inj_treatment * 1 + inj_convenance * 1 + inj_special_diet * 1 + inj_cost_nursing_attendant * 1 +  inj_loss_income * 1 + inj_cost_artificial_limp * 1 + inj_any_other_loss * 1 + inj_com_mental_phy_shock * 1 + inj_pain_suffering * 1 + inj_loss_amenities * 1 + inj_disfiguration * 1 + inj_loss_of_marriage * 1 + inj_loss_ear_inc_har_dis * 1  + inj_loss_ami_life_span * 1  + (inj_income * inj_per_loss_earning *  multiplier)  * 1 }} 
+        </ion-input>
+      </ion-item>
+      
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Interest</ion-label>
+        <ion-input  
+        id="inj_interest" name="inj_interest"   type="number" 
+        #itc="ngModel"
+         [(ngModel)]="inj_interest" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && itc.invalid">
+        <p class='errormsg'*ngIf="itc.errors.required">
+          This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+
+  
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"  type="submit">Save</ion-button>
+     </ion-col>
+   </ion-row>
+
+   
+</form>
+</ion-card>
+
+
+</ion-content>

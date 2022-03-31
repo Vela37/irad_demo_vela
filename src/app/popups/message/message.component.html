@@ -1,0 +1,84 @@
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Messages
+    </ion-title>
+  <!- -  <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons> - ->
+  </ion-toolbar>
+</ion-header>
+-->
+<ion-content>
+
+
+  <ion-refresher slot="fixed" (ionRefresh)="refMessges($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+        <ion-row *ngIf='messages!=null'>
+          <ion-col>
+            <ion-card *ngFor="let msg of messages; let i = index">
+              <ion-card-header>
+               <ion-card-subtitle>{{msg.subtitle}}</ion-card-subtitle>
+                <ion-card-title >{{msg.title}}</ion-card-title> 
+              </ion-card-header>
+            
+              <ion-card-content>
+                <span [innerHTML]="msg.message"> </span> 
+              </ion-card-content>
+            </ion-card>
+
+           
+            </ion-col>
+        </ion-row>
+
+        
+
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-item-divider *ngIf='updateflag && mobiledevice'  >
+    <ion-label  color='medium'>
+    <span class='owncolor'> Current Version  {{version}}  </span> 
+  
+    </ion-label>
+    <ion-badge slot="end"> </ion-badge>
+    <ion-badge  color="light" slot="end" >  
+    
+      <ion-chip color="primary"  > <!--*ngIf="mobiledevice==false"-->
+        <ion-label (click)="updateApp()"> Update to iRAD {{this.msgopt.version}}</ion-label>
+      </ion-chip>
+  
+    </ion-badge>
+    <ion-badge slot="end"> </ion-badge>
+  </ion-item-divider>
+
+  <ion-grid *ngIf='!updateflag'>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="closeModal()">Okay</ion-label>
+        </ion-chip>
+      </ion-col>
+     <ion-col>
+       <!--  <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>-->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

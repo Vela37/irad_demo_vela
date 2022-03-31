@@ -1,0 +1,8 @@
+{
+  "appId": "in.nic.irad",
+  "appName": "iRAD",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

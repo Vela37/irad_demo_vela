@@ -1,0 +1,333 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Vehicle Insurance Details </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton()" 
+  #f="ngForm" >
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Vehicle No
+          <ion-icon name="star" class='mandatory'></ion-icon>
+        </ion-label>
+       <ion-select  interface="alert"  (ionChange)="loadvehicledetail($event)"
+          id="vehicle_reg_no" name="vehicle_reg_no"  
+       #vehicleno="ngModel"
+       [(ngModel)]="vehicle_reg_no" 
+       required  >
+          <ion-select-option *ngFor="let item of vehicle" [value]="item" > {{item.vehicle_reg_no}} 
+          </ion-select-option>
+       </ion-select>
+      <!-- <ion-select  interface="alert" 
+       id="vehicle_reg_no" name="vehicle_reg_no"  
+       #vehicleno="ngModel"
+       [(ngModel)]="vehicle_reg_no" 
+       required 
+       > 
+          <ion-select-option value="1"> 1
+          </ion-select-option>
+          <ion-select-option value="2"> 2
+          </ion-select-option>
+        </ion-select>-->
+      </ion-item>
+
+      <div *ngIf="f.submitted && vehicleno.invalid">
+        <p class='errormsg'*ngIf="vehicleno.errors.required">
+          Vehicle  No is Required      
+        </p>     
+      </div>
+
+      </ion-col>
+      </ion-row>
+  <ion-card *ngIf="vehicle_reg_no">
+
+    <ion-card-content>
+    
+    
+
+      <ion-row>
+        <ion-col class="ccolor"> <strong > Vehicle Make </strong> </ion-col>
+        <ion-col  class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{vehicle_make}} 
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ccolor"><strong> Vehicle Model </strong> </ion-col>
+        <ion-col   class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{vehicle_model}} 
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ccolor"> <strong> Policy No </strong> </ion-col>
+        <ion-col class="ccolor"  size="1"> : </ion-col>
+        <ion-col > {{insurance_policyno}} 
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ccolor"> <strong> Period of Policy </strong> </ion-col>
+        <ion-col class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{insurance_validity}} 
+        </ion-col>
+      </ion-row>
+      <!--<ion-row>
+        <ion-col class="ccolor"> <strong>Nature/Type of Policy </strong> </ion-col>
+        <ion-col class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{insurance_details}} 
+        </ion-col>
+      </ion-row>-->
+    </ion-card-content>
+  
+  </ion-card>
+ 
+      <div *ngIf="vehicle_reg_no">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Nature/Type of Policy
+                <ion-icon  class='mandatory'></ion-icon>
+              </ion-label>
+              <ion-input  
+              id="nature_of_policy" name="nature_of_policy"  
+              #natureofpolicy="ngModel"
+              [(ngModel)]="nature_of_policy" required></ion-input>
+            </ion-item>
+            <div *ngIf="f.submitted && natureofpolicy.invalid">
+              <p class='errormsg'*ngIf="natureofpolicy.errors.required">
+              This Field is Required      
+              </p>     
+            </div>
+            </ion-col>
+            </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Date of intimation of the accident by the Insured to the Insurance Company</ion-label>
+            <ion-datetime  
+            displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+            id="intimation_received_date_time_insured" name="intimation_received_date_time_insured"  
+            #dateofintimation="ngModel"
+            [(ngModel)]="intimation_received_date_time_insured"
+            required></ion-datetime>
+            </ion-item>
+            <div *ngIf="f.submitted && dateofintimation.invalid">
+              <p class='errormsg'*ngIf="dateofintimation.errors.required">
+                Date of intimation of the accident by the Insured to the Insurance Company is Required      
+              </p>     
+            </div>
+        </ion-col>
+      </ion-row>
+
+<ion-card>
+  <ion-item>
+    <ion-label style="color: tomato; text-align:center">
+      <strong >Insurance Official Details</strong>
+    </ion-label>
+  </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Date of appointment of the Designated Officer by the Insurance Company
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-datetime  
+            displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+            
+            id="dateof_appt_designated_officer_by_ins" name="dateof_appt_designated_officer_by_ins"  
+            #dateofapp="ngModel"
+            [(ngModel)]="dateof_appt_designated_officer_by_ins"
+            required></ion-datetime>
+          </ion-item>
+          <div *ngIf="f.submitted && dateofapp.invalid">
+            <p class='errormsg'*ngIf="dateofapp.errors.required">
+              Date of appointment of the Designated Officer by the Insurance Company is Required      
+            </p>     
+          </div>
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>Designated Officer Name
+                  <ion-icon  class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-input  
+                id="designated_officer_name" name="designated_officer_name"  
+                #designatename="ngModel"
+                [(ngModel)]="designated_officer_name" required></ion-input>
+              </ion-item>
+              <div *ngIf="f.submitted && designatename.invalid">
+                <p class='errormsg'*ngIf="designatename.errors.required">
+                  Designated Officer Name Required      
+                </p>     
+              </div>
+              </ion-col>
+              </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>Designated Officer Address
+                  <ion-icon  class='mandatory'></ion-icon>
+                </ion-label>
+                <ion-input  
+                id="designated_officer_residence" name="designated_officer_residence"  
+                #designatedaddress="ngModel"
+                [(ngModel)]="designated_officer_residence" required></ion-input>
+              </ion-item>
+              <div *ngIf="f.submitted && designatedaddress.invalid">
+                <p class='errormsg'*ngIf="designatedaddress.errors.required">
+                  Designated Officer Name Required      
+                </p>     
+              </div>
+              </ion-col>
+              </ion-row>
+
+              <!----------------------------------------------------------------NGMODEL NAME IS NOT IN THE TABLE---------------------------------------------------->
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating" class='fcolor'>Date of appointment of the Surveyor/Investigator
+                      <ion-icon  class='mandatory'></ion-icon> 
+                    </ion-label>
+                    <ion-datetime  
+                    displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+                    id="surveyor_appointment_date" name="surveyor_appointment_date"  
+                    #dateofinvestigator="ngModel"
+                    [(ngModel)]="surveyor_appointment_date" 
+                    required></ion-datetime> 
+                   </ion-item>
+                   <div *ngIf="f.submitted && dateofinvestigator.invalid">
+                    <p class='errormsg'*ngIf="dateofinvestigator.errors.required">
+                      Date of appointment of the Surveyor/Investigator is Required      
+                    </p>     
+                  </div>
+          </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Surveyor/Investigator Officer Name</ion-label>
+            <ion-input 
+            id="surveyor_investigator_name" name="surveyor_investigator_name"  
+            #investigatorname="ngModel"
+            [(ngModel)]="surveyor_investigator_name" required ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && investigatorname.invalid">
+            <p class='errormsg'*ngIf="investigatorname.errors.required">
+              Surveyor/Investigator Officer Name id Required    
+            </p>     
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Surveyor/Investigator Officer Address</ion-label>
+            <ion-input 
+            id="surveyor_investigator_residence" name="surveyor_investigator_residence"  
+            #investigatoraddress="ngModel"
+            [(ngModel)]="surveyor_investigator_residence"
+            required></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && investigatoraddress.invalid">
+            <p class='errormsg'*ngIf="investigatoraddress.errors.required">
+              Surveyor/Investigator Officer Name is Required    
+            </p>     
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Date of Report of the Surveyor/Investigator</ion-label>
+            <ion-datetime  
+            displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+            id="dateof_surveyor_investigator_report" name="dateof_surveyor_investigator_report"  
+            #dateofreportinvestigator="ngModel"
+            [(ngModel)]="dateof_surveyor_investigator_report" 
+            required></ion-datetime>               </ion-item>
+            <div *ngIf="f.submitted && dateofreportinvestigator.invalid">
+              <p class='errormsg'*ngIf="dateofreportinvestigator.errors.required">
+                Date of Report of the Surveyor/Investigator is Required    
+              </p>     
+            </div>
+        </ion-col>
+      </ion-row>
+         <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor' >Date of Decision of the Designated Officer</ion-label>
+         
+             <ion-datetime  
+              displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+              id="dateof_designated_officer_report" name="dateof_designated_officer_report" 
+              #dateofdecision="ngModel"
+              [(ngModel)]="dateof_designated_officer_report"
+              required></ion-datetime>         
+                 </ion-item>
+                 <div *ngIf="f.submitted && dateofdecision.invalid">
+                  <p class='errormsg'*ngIf="dateofdecision.errors.required">
+                    Date of Decision of the Designated Officer is Required    
+                  </p>     
+                </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor' >Whether this Form has been filed within 30 days of receipt of DAR</ion-label>
+            
+              <ion-select  interface="alert" 
+              id="form_filled_within_30" name="form_filled_within_30"  
+              #formdar="ngModel"
+              [(ngModel)]="form_filled_within_30" 
+              required 
+              > 
+                 <ion-select-option value="yes"> Yes
+                 </ion-select-option>
+                 <ion-select-option value="no"> No
+                 </ion-select-option>
+               </ion-select>
+            
+              <!--<ion-input 
+              id="form_filled_within_30" name="form_filled_within_30" 
+              #formdar="ngModel"
+              [(ngModel)]="form_filled_within_30" 
+              required></ion-input>-->
+            </ion-item>
+            <div *ngIf="f.submitted && formdar.invalid">
+              <p class='errormsg'*ngIf="formdar.errors.required">
+                Whether this Form has been filed within 30 days of receipt of DAR is Required   
+              </p>     
+            </div>
+        
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+
+        <ion-row>
+          <ion-col width-50 style="text-align: right" color='primary'>
+             <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+          </ion-col>
+           <ion-col width-50 style="text-align: left"  color='primary'>
+             <ion-button color="light"  type="submit">Save</ion-button>
+           </ion-col>
+         </ion-row>
+        </div>
+      </form>
+</ion-content>

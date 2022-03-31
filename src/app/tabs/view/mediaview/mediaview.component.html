@@ -1,0 +1,214 @@
+<ion-header>
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="image"> IMAGES </ion-segment-button>
+    <ion-segment-button value="video"> VIDEO </ion-segment-button>
+    <ion-segment-button value="audio"> Audio </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-content [ngSwitch]="segment">
+  <div style="height: 84%" *ngIf="mediacount != 0">
+    <br />
+
+    <span *ngSwitchCase="'image'">
+      <!--    width: 450px; -->
+      <ion-slides [options]="sliderOpts" zoom>
+        <ion-slide>
+          <div class="swiper-zoom-container">
+            <img
+              class="images"
+              *ngIf="showcrnt"
+              style="
+                margin-left: auto;
+                display: block;
+                border-radius: 8px;
+                margin-right: auto;
+                height: 60vh;
+              "
+              [src]="showcrnt"
+            />
+            <div *ngIf="showcrnt" class="bg-text">
+             {{imgtitle}}
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </span>
+
+    <span *ngSwitchCase="'video'">
+      <div style="text-align: center">
+        <video
+          width="60%"
+          height="50%"
+          *ngIf="showvideo"
+          controls="controls"
+          style="margin-right: auto;height: 392px;width: 288px;"
+          preload="metadata"
+          webkit-playsinline="webkit-playsinline"
+          class="videoPlayer"
+        >
+          <source [src]="showvideo" type="video/mp4" />
+        </video>
+      </div>
+    </span>
+
+    <span *ngSwitchCase="'audio'">
+      <div style="text-align: center">
+        <br />
+        <audio type="audio/mp3" *ngIf="audurl" controls [src]="audurl">
+          The audio tag is not supported by your browser. Click [here] to
+          download the audio file.
+        </audio>
+      </div>
+    </span>
+
+    <!-- <div
+      style="text-align: center; margin: 20px; font-size: large; display: nodne"
+    >
+      Image Title or Video Title
+    </div> -->
+  </div>
+
+  <!-- <div style="border-top: 1px solid rgb(189, 189, 189)">
+    
+
+      <span *ngSwitchCase="'video'">
+        <ul>
+          <li *ngFor="let video of videos; index as pos" style="float: left">
+            <ion-thumbnail (click)="playVideo(video.flag)">
+              <img src="assets/logos/video-player.png" />
+            </ion-thumbnail>
+          </li>
+        </ul>
+      </span>
+
+      <span *ngSwitchCase="'audio'">
+        <table style="display: noned">
+          <tr>
+            <td style="padding: 3px" *ngFor="let audio of audios; index as pos">
+              <ion-thumbnail (click)="getAudiourl(audio.id)">
+                <img src="assets/logos/high-volume.png" />
+              </ion-thumbnail>
+              <span
+                (click)="getAudiourl(audio.id)"
+                style="
+                  color: gray;
+                  font-weight: bold;
+                  border-right: hotpink;
+                  display: none;
+                "
+                >{{
+                  audio.persontype +
+                    "-(" +
+                    audio.personid +
+                    ")- ." +
+                    audio.audiotype | uppercase
+                }}</span
+              >
+            </td>
+          </tr>
+        </table>
+      </span>
+    </div> -->
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <div class="imgcss" *ngIf="segment =='image'">
+    <!-- <ul>
+      <li *ngFor="let img of images; index as pos" style="float: left">
+        <span *ngFor="let img of imgurl[pos]; index as i">
+          <ion-thumbnail (click)="gotoZoomPageimg(imgurl[pos][i])">
+            <img alt="Img {{ i + 1 }}" [src]="imgurl[pos][i]" />
+          </ion-thumbnail>
+        </span>
+      </li>
+    </ul> -->
+
+    <ul *ngFor="let img of images; index as pos" class="ulcss">
+      <li style="float: left" *ngFor="let img of imgurl[pos]; index as i">
+        <ion-thumbnail *ngIf="i<3" (click)="gotoZoomPageimg(imgurl[pos][i])">
+          <img alt="Img {{ i + 1 }}" [src]="imgurl[pos][i]" />
+        </ion-thumbnail>
+      </li>
+    </ul>
+    <!-- <div style="overflow: auto">
+      <table>
+        <tbody >
+          <tr *ngFor="let img of images; index as pos" class="ulcss">
+            <td tyle="float: left" *ngFor="let img of imgurl[pos]; index as i">
+              <ion-thumbnail (click)="gotoZoomPageimg(imgurl[pos][i])">
+                <img alt="Img {{ i + 1 }}" [src]="imgurl[pos][i]" />
+              </ion-thumbnail>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+  </div>
+
+  <div class="imgcss" *ngIf="segment =='video'"> 
+    
+      <ul>
+        <li *ngFor="let video of videos; index as pos" style="float: left">
+          <ion-thumbnail (click)="playVideo(video.flag)">
+            <!-- <img src="assets/logos/video-player.png" /> -->
+            <ion-icon color="danger" size="large" name="videocam-outline"></ion-icon>
+          </ion-thumbnail>
+        </li>
+      </ul>
+
+  </div>
+
+  <div class="imgcss" *ngIf="segment =='audio'"> 
+    
+
+      <table  *ngIf="audios.length>0">
+        <tr>
+          <td style="padding: 3px" *ngFor="let audio of audios; index as pos">
+            <ion-thumbnail (click)="getAudiourl(audio.id)">
+              <ion-icon color="danger" size="large" name="volume-high-outline"></ion-icon>
+              <!-- <img src="assets/logos/high-volume.png" /> -->
+            </ion-thumbnail>
+            <span
+              (click)="getAudiourl(audio.id)"
+              style="
+                color: gray;
+                font-weight: bold;
+                border-right: hotpink;
+                display: none;
+              "
+              >{{
+                audio.persontype +
+                  "-(" +
+                  audio.personid +
+                  ")- ." +
+                  audio.audiotype | uppercase
+              }}</span
+            >
+          </td>
+        </tr>
+      </table>
+      
+</div>
+
+</ion-footer>
+
+<style>
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  li {
+    float: right;
+  }
+
+  li {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+  }
+</style>

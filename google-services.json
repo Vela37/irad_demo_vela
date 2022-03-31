@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "590367763553",
+    "firebase_url": "https://ionicfirebase-2f573.firebaseio.com",
+    "project_id": "ionicfirebase-2f573",
+    "storage_bucket": "ionicfirebase-2f573.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590367763553:android:753d1d5860fd0e6dca4e20",
+        "android_client_info": {
+          "package_name": "com.ionic.fcm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590367763553-kgrtrnk5t37cuac8s5in0fdino28ju1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdk627vKGg2eTSnhneY_XiFo37iPPxYc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590367763553-kgrtrnk5t37cuac8s5in0fdino28ju1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590367763553:android:4e69a174d733388dca4e20",
+        "android_client_info": {
+          "package_name": "io.ionic.cameralive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590367763553-kgrtrnk5t37cuac8s5in0fdino28ju1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdk627vKGg2eTSnhneY_XiFo37iPPxYc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590367763553-kgrtrnk5t37cuac8s5in0fdino28ju1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590367763553:android:afbb625ed5d53ba3ca4e20",
+        "android_client_info": {
+          "package_name": "io.irad.alpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590367763553-kgrtrnk5t37cuac8s5in0fdino28ju1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdk627vKGg2eTSnhneY_XiFo37iPPxYc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590367763553-kgrtrnk5t37cuac8s5in0fdino28ju1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

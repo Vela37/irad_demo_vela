@@ -1,0 +1,294 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>Back</ion-back-button>
+    </ion-buttons>
+    <ion-title>General Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ingeneralform"  (ngSubmit)="addinvestigation()" novalidate> 
+    <ion-grid> 
+        <ion-row>
+                                  <ion-col>
+                                      <ion-item> 
+                                          <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.whoreported'|translate:params}}
+                                            </ion-label>
+                                         <ion-select formControlName="vehicle_id" (ionChange)="showwitnessform($event)">
+                                            <ion-select-option value="Orfgiented">show Witness list</ion-select-option>
+                                            <ion-select-option value="45">show driver list</ion-select-option>
+                                            <ion-select-option value="gf">show owner list</ion-select-option>
+                                            <ion-select-option value="45">show passenger list</ion-select-option>
+                                            <ion-select-option value="fgh">show pedestrian list</ion-select-option>
+                                            <ion-select-option value="gf">Hospital</ion-select-option>
+                                            <ion-select-option value="0">Add new person</ion-select-option>
+                                         </ion-select>
+                                      </ion-item>
+                                  </ion-col>
+                          </ion-row>
+                        
+         
+                          <ion-row>
+                            <ion-col>
+                                <ion-item> 
+                                    <ion-label position="floating" class='fcolor ion-text-wrap'>   {{'smallinvest.inspection'|translate:params}}  
+                                        </ion-label>
+                                   <ion-input formControlName="driver_id"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                          </ion-row>
+                    
+                          <ion-row>
+                              <ion-col>
+                                  <ion-item> 
+                                      <ion-label position="floating" class='fcolor ion-text-wrap'>{{'smallinvest.delay'|translate:params}}   
+                                          </ion-label>
+                                     <ion-input formControlName="driver_id"></ion-input>
+                                  </ion-item>
+                              </ion-col>
+                            </ion-row>
+                            </ion-grid> 
+                            <ion-card color='primary'>
+                              <ion-card-content>
+                              <ion-grid>
+                                  
+                                <ion-row>
+                                      <ion-col>
+                                          <ion-item>     
+                                              <ion-label  class='fcolor ion-text-wrap'>First Information Report  
+                                                </ion-label>
+                                              <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                      </ion-item>
+                                      </ion-col>
+                                    </ion-row>
+                        
+                        
+                                    <ion-row>
+                                        <ion-col>
+                                            <ion-item>     
+                                                <ion-label  class='fcolor ion-text-wrap'>Site plan (as  given in Section-2 of this Form
+                                                  </ion-label>
+                                                <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                        </ion-item>
+                                        </ion-col>
+                                      </ion-row>
+                        
+                                      <ion-row>
+                                          <ion-col>
+                                              <ion-item>     
+                                                  <ion-label  class='fcolor ion-text-wrap'>Photographs of the scene of accident from all angles
+                                                    </ion-label>
+                                                  <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                          </ion-item>
+                                          </ion-col>
+                                        </ion-row>
+                           <ion-row>
+                                          <ion-col>
+                                              <ion-item>     
+                                                  <ion-label  class='fcolor ion-text-wrap'>Photographs of all the vehicles involved in the accident from all angles
+                                                    </ion-label>
+                                                  <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                          </ion-item>
+                                          </ion-col>
+                                        </ion-row>
+                        
+                        
+                                        <ion-row>
+                                            <ion-col>
+                                                <ion-item>     
+                                                    <ion-label  class='fcolor ion-text-wrap'>Photograph and admitted signature of the driver(s) of the offending vehicle(s)
+                                                      </ion-label>
+                                                    <ion-toggle   (click)="addValue()" checked="true"></ion-toggle>    
+                                            </ion-item>
+                                            </ion-col>
+                                          </ion-row>
+                                          
+                                          
+                        
+                                          <ion-row>
+                                              <ion-col>
+                                                  <ion-item>     
+                                                      <ion-label  class='fcolor ion-text-wrap'>Photograph and specimen signature of the owner(s) of the offending vehicle(s)
+                                                        </ion-label>
+                                                      <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                              </ion-item>
+                                              </ion-col>
+                                            </ion-row>
+                        
+                        
+                                         
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-item>     
+                                                        <ion-label  class='fcolor ion-text-wrap'>Mechanical Inspection Report as per Annexure-A
+                                                          </ion-label>
+                                                        <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                </ion-item>
+                                                </ion-col>
+                                              </ion-row> 
+                        
+                                              <ion-row>
+                                                  <ion-col>
+                                                      <ion-item>     
+                                                          <ion-label  class='fcolor ion-text-wrap'>Driving license of the driver of offending vehicle(s
+                                                            </ion-label>
+                                                          <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                  </ion-item>
+                                                  </ion-col>
+                                                </ion-row>
+                        
+                                                <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Proof of employment of driver such as  appointment letter, salary slips, duty register etc.
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                                                  
+                                                  
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Registration certificate of the offending vehicle(s)
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                                                  
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>In case of transfer of vehicle, sale documents, possessionletter or any other document relating to transfer, if any
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                        
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Insurance Policy of the offending vehicle(s)
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                        
+                        
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Permit (for commercial vehicle)
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                        
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Fitness Certificate (for commercial vehicle)
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                        
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Report under Section 173 Cr.P.C.
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                        
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Statements of the witnesses recorded by the police
+                                                              </ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                        
+                                                  
+                                                  
+                                                  <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Scientific report, if the driver was under the influence ofliquor/drugs</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Copy of the letter of the Investigating Officer demanding the relevant information/documents from the driver</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row> 
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Copy of the letter of the Investigating Officer demandingthe relevant information/documents from the owner</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Copy of the letter of the Investigating Officer demanding the relevant information/documents from the InsuranceCompany</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Copy of the letter of the Investigating Officer demanding the relevant information/documents from the claimant(s)</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Copy of the letterof the Investigating Officer demanding the relevant information/documents from the registrationauthorities</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Copy of theletter of the Investigating Officer demandingthe relevant information/documents from the hospital</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                         <ion-row>
+                                                    <ion-col>
+                                                        <ion-item>     
+                                                            <ion-label  class='fcolor ion-text-wrap'>Any other relevant document(s)</ion-label>
+                                                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                                                    </ion-item>
+                                                    </ion-col>
+                                                  </ion-row>
+                                </ion-grid>
+                              </ion-card-content>
+                            </ion-card>
+                          </form>
+</ion-content>
+

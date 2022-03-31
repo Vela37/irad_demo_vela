@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title (click)="loadDetails()">{{'acctab1.mvi' | translate:params}}</ion-title>
+
+    <!-- <ion-buttons slot="end">
+      <ion-button routerLink="../">
+        <ion-icon name="home" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <ion-row *ngIf="selacc">
+    <ion-col col-12 >
+      <ion-card >
+        <ion-item>
+          <ion-label class='gbox txtalign bgcolor2'> <span style="color:coral">
+              {{ 'app.accidentid' | translate:params }}: </span><br>{{selacc.accid}}</ion-label>
+        </ion-item>
+        <ion-card-content class='bgcolor txtalign'>
+          <span> {{selacc.landmark}} </span>
+          <span>On {{selacc.datetime|date:'medium'}}</span>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="selacc">
+    <ion-col col-12 >
+     
+      <ion-card *ngIf='transData==null'>
+        <ion-item> 
+          <ion-label style="color:rgb(136, 145, 9)"> <strong>
+            selected RTO
+            </strong> </ion-label>
+        </ion-item>
+       <ion-card-content *ngIf='transData==null'  (click)="selectRTO()" class="alignme-center pointer"> Select RTO 
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card  *ngIf='transData!=null'>
+        <ion-card-header>
+         <ion-card-subtitle> Selected RTO </ion-card-subtitle>
+          <ion-card-title> {{transData.id  +','+ transData.name}}
+            <ion-icon color="primary" size='medium'  (click)="selectRTO()"  name="create-outline"></ion-icon> 
+          </ion-card-title> 
+        </ion-card-header>
+      
+        <ion-card-content>
+          {{transData.address}}
+        </ion-card-content>
+      </ion-card>
+
+
+      </ion-col>
+      </ion-row>
+
+  <ion-card *ngIf="data ">
+
+    <ion-card-header>
+      <ion-card-title style="color:coral">Vehicle List </ion-card-title>
+     <!-- <ion-card-subtitle>for MVI's inspection</ion-card-subtitle> -->
+    </ion-card-header>
+
+   <ion-item  *ngFor="let veh of data; let i = index">
+    <ion-label style="color:#183e7a">{{veh.vehregno }} </ion-label>
+      <ion-label color="primary"> {{veh.model |titlecase}} </ion-label>
+     
+
+     <ion-checkbox *ngIf="role==4 && veh.mvistatus==null" (click)=enablereqbtn() [(ngModel)]="veh.request"></ion-checkbox> 
+
+     
+     <ion-chip shape="round" fill="outline" *ngIf="role==4 && veh.mvistatus==1" color="danger" (click)="reqMVIPDF(veh.vehregno)" >
+      <ion-label>PDF</ion-label>
+    </ion-chip>
+
+    <ion-chip shape="round" fill="outline" *ngIf="role==4 && veh.mvistatus==2" color="danger" (click)="resMVIPDF(veh.vehregno)" >
+      <ion-label>PDF</ion-label>
+    </ion-chip>
+    <ion-chip shape="round" fill="outline" *ngIf="role==50 && veh.mvistatus==2" color="danger" (click)="resMVIPDF(veh.vehregno)" >
+      <ion-label>PDF</ion-label>
+    </ion-chip>
+
+    <ion-label color="warning" *ngIf="veh.mvistatus==1">AIR Requested</ion-label>
+    <ion-label color="success" *ngIf="role==4 && veh.mvistatus==2">AIR Received</ion-label>
+    <ion-label color="success" *ngIf="role==50 && veh.mvistatus==2">AIR Completed</ion-label>
+    
+  
+     
+    </ion-item>
+
+    <ion-item >
+      <ion-label color="primary">  </ion-label>
+        <ion-chip outline *ngIf="role==4 && reqbtn==true" color="primary" (click)="requestMVI()" >
+          <ion-label>Request MVI's Inspection</ion-label>
+        </ion-chip>
+       
+        
+      </ion-item>
+   
+  </ion-card>
+
+
+
+<!-- Skeleton screen -->
+<div *ngIf="!data">
+  <div class="ion-padding custom-skeleton">
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    <ion-skeleton-text animated></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  </div>
+</div>
+
+
+
+</ion-content>

@@ -1,0 +1,198 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Master Tables </ion-title>
+  </ion-toolbar>
+
+  <ion-title>
+    <ion-segment scrollable>
+
+
+
+    </ion-segment>
+  </ion-title>
+
+
+    <ion-searchbar [(ngModel)]="searchTerm" 
+    (ionChange)="setFilteredLocations()"></ion-searchbar>
+
+
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+<ion-grid *ngIf="user.role=='1'"> <!-- *ngIf="user.role=='1'" -->
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Tamil</ion-label>
+        <ion-checkbox color="primary" [(ngModel)]="taflag" slot="start"></ion-checkbox>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+  <ion-item>
+    <ion-label>Hindi</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="hiflag" slot="start"></ion-checkbox>
+  </ion-item>
+  </ion-col>
+  <ion-col>
+  <ion-item>
+    <ion-label>Telugu</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="teflag" slot="start"></ion-checkbox>
+  </ion-item>
+</ion-col>
+<ion-col>
+<ion-item>
+    <ion-label>Kannada</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="knflag" slot="start"></ion-checkbox>
+  </ion-item>
+</ion-col>
+<ion-col>
+  <ion-item>
+    <ion-label>Marathi</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="mrflag" slot="start"></ion-checkbox>
+  </ion-item>
+</ion-col>
+<ion-col>
+  <ion-item>
+    <ion-label>Assamese</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="asmflag" slot="start"></ion-checkbox>
+  </ion-item>
+</ion-col>
+<ion-col>
+  <ion-item>
+    <ion-label>Odia</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="odflag" slot="start"></ion-checkbox>
+  </ion-item>
+  </ion-col>
+  <ion-col>
+
+  <ion-item>
+    <ion-label>Punjabi</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="paflag" slot="start"></ion-checkbox>
+  </ion-item>
+  </ion-col>
+  <ion-col>
+  <ion-item>
+    <ion-label>Malayalam</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="mlflag" slot="start"></ion-checkbox>
+  </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label>Gujarati</ion-label>
+      <ion-checkbox color="primary" [(ngModel)]="guflag" slot="start"></ion-checkbox>
+    </ion-item>
+    </ion-col>
+</ion-row>
+</ion-grid>
+  <ion-list-header>
+
+
+
+    <ion-label color="tertiary">List of Master Tables
+      <span *ngIf="tableList!=null"> ({{tableList.length}})</span>
+    </ion-label>
+  </ion-list-header>
+
+  <!--<div *ngIf="loading">
+
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div> -->
+
+  <ion-card *ngFor="let u of filterData; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary">{{i+1}} . {{humanize(u.table_name) }} </ion-card-subtitle>
+      <ion-note slot="end" color="primary" *ngIf="tableData[u.table_name]">
+
+        <ion-icon name="refresh-circle-outline" (click)="showData(u.table_name)"></ion-icon>
+      </ion-note>
+      <ion-note *ngIf="tableData[u.table_name]" slot="end" color="primary">
+        <ion-icon (click)="hideData(u.table_name)" name="chevron-forward-outline"></ion-icon>
+        &nbsp; {{tableData[u.table_name].length}}
+      </ion-note>
+      <!-- <ion-note slot="end" color="danger" *ngIf="tableData[u.table_name]"> {{tableData[u.table_name].length}} &nbsp; {{tableData[u.table_name].length}}    </ion-note> -->
+
+    </ion-item>
+    <ion-card-content class="alignme-center pointer" *ngIf="!tableData[u.table_name]" (click)="showData(u.table_name)">
+      Show Details
+    </ion-card-content>
+    <!-- <ion-card-content class="alignme-center pointer" *ngIf="tableData[u.table_name]=='Loading...'"> 
+      {{tableData[u.table_name]}}
+    </ion-card-content> -->
+
+    <ion-card-content class="alignme-center pointer" *ngIf="tableData[u.table_name]">
+      <div class="table-wrapper common" style="overflow-x:auto;">
+        <table class="fl-table">
+          <tr>
+            <th class="thead2">ID</th>
+            <th class="thead2">English</th>
+            <th class="thead2" *ngIf="taflag">Tamil</th>
+            <th class="thead2" *ngIf="hiflag">Hindi</th>
+            <th class="thead2" *ngIf="teflag">Telugu</th>
+            <th class="thead2" *ngIf="knflag">Kannada</th>
+            <th class="thead2" *ngIf="mrflag">Marathi </th>
+            <th class="thead2" *ngIf="asmflag">Assamese</th>
+            <th class="thead2" *ngIf="odflag">Odia</th>
+            <th class="thead2" *ngIf="paflag">Punjabi</th>
+            <th class="thead2" *ngIf="mlflag">Malayalam</th>
+            <th class="thead2" *ngIf="guflag">Gujarati</th>
+            <th class="thead2">Order By</th>
+            <th class="thead2" *ngIf="dev && +user.role==1"> </th>
+          </tr>
+          <tr *ngFor="let r of tableData[u.table_name]">
+            <td class="alignright">{{r.id}} </td>
+            <td class="alignleft" (dblclick)="upDateInfoEdit(r,u.table_name,'en')">{{r.en}} </td>
+            <td class="alignleft" *ngIf="taflag" (dblclick)="upDateInfoEdit(r,u.table_name,'ta')">{{r.ta}} </td>
+            <td class="alignleft" *ngIf="hiflag" (dblclick)="upDateInfoEdit(r,u.table_name,'hi')">{{r.hi}}</td>
+            <td class="alignleft" *ngIf="teflag" (dblclick)="upDateInfoEdit(r,u.table_name,'te')">{{r.te}}</td>
+            <td class="alignleft" *ngIf="knflag" (dblclick)="upDateInfoEdit(r,u.table_name,'kn')">{{r.kn}}</td>
+            <td class="alignleft" *ngIf="mrflag" (dblclick)="upDateInfoEdit(r,u.table_name,'mr')">{{r.mr}}</td>
+            <td class="alignleft" *ngIf="asmflag" (dblclick)="upDateInfoEdit(r,u.table_name,'asm')">{{r.asm}}</td>
+            <td class="alignleft" *ngIf="odflag" (dblclick)="upDateInfoEdit(r,u.table_name,'od')">{{r.od}}</td>
+            <td class="alignleft" *ngIf="paflag" (dblclick)="upDateInfoEdit(r,u.table_name,'pa')">{{r.pa}}</td>
+            <td class="alignleft" *ngIf="mlflag" (dblclick)="upDateInfoEdit(r,u.table_name,'ml')">{{r.ml}}</td>
+            <td class="alignleft" *ngIf="guflag" (dblclick)="upDateInfoEdit(r,u.table_name,'gu')">{{r.gu}}</td>
+            <td class="alignright" (dblclick)="upDateInfoEdit(r,u.table_name,'dispid')">{{r.dispid}}</td>
+            <td class="alignright" *ngIf="dev && +user.role==1">
+              <!--<ion-note class="pointer" slot="end" color="primary" >
+                <ion-icon name="create-outline" (click)="upDateInfoEdit(r,u.table_name)"></ion-icon>
+              </ion-note>-->
+              <ion-note class="pointer" slot="end" color="danger" (click)="deleteData(u.table_name,r.id)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-note>
+
+            </td>
+          </tr>
+        </table>
+        <ion-note slot="end" color="primary" *ngIf="dev && +user.role==1" (click)="addDetails(u.table_name)">
+          ADD NEW <ion-icon size='medium' name="add-circle-outline"></ion-icon>
+        </ion-note>
+      </div>
+    </ion-card-content>
+
+
+  </ion-card>
+
+</ion-content>

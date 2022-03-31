@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>Back</ion-back-button>
+    </ion-buttons>
+    <ion-title>Passenger</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ingeneralform"  (ngSubmit)="addinvestigation()" novalidate> 
+    <ion-grid> 
+      <ion-row>
+        <ion-col>
+          <ion-item>
+    <ion-label  position="floating" class='fcolorred'>Select passenger</ion-label>
+              
+
+              
+<ion-select (ionChange)="editpassenger($event)" >
+
+<ion-select-option *ngFor="let pass of passengers" value={{pass[1]}}> {{pass[2]}}</ion-select-option> 
+
+</ion-select>
+
+
+</ion-item>
+
+
+
+          </ion-col>
+    
+
+        </ion-row>
+      <ion-row>
+        <ion-col>
+            <ion-item> 
+                <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.tookvictimhospital'|translate:params}}</ion-label>
+                <ion-select formControlName="whotookvictim">
+                    <ion-select-option value="Oriented">show Witness list</ion-select-option>
+                    <ion-select-option value="Disoriented">show driver list</ion-select-option>
+                    <ion-select-option value="Disoriented">show owner list</ion-select-option>
+                    <ion-select-option value="Disoriented">show passenger list</ion-select-option>
+                    <ion-select-option value="Disoriented">show pedestrian list</ion-select-option>
+                    <ion-select-option value="Disoriented">Hospital</ion-select-option>
+                    <ion-select-option value="Disoriented">Add new person</ion-select-option>
+                 </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+
+
+
+<ion-row>
+<ion-col>
+<ion-item>     
+<ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.treatmentdeny'|translate:params}}</ion-label>
+<ion-toggle   (click)="addValue()" checked="true"></ion-toggle>    
+</ion-item>    
+</ion-col>
+</ion-row>
+
+
+<ion-row>
+<ion-col>
+<ion-item> 
+<ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.victimhospitalzeddate'|translate:params}}
+
+</ion-label>
+<ion-datetime  formControlName='hospitalizeddate' MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+</ion-item>
+</ion-col>
+</ion-row>
+
+                            </ion-grid> 
+                            <ion-card color="danger">
+                              <ion-card-content>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Medico Legal Case(MLC)form </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Multi angle photographs of the injured </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Photographs, specimen signatures attested by the bank and identity proof of the injured </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Proof of age of the deceased which may be in form ofa)  Birth Certificate; b) School Certificate; c) Certificate from Gram Panchayat (in case of illiterate) </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Proof of Occupation and income of the deceased which may be in form ofa) Pay slip/salary certificate(salaried employee); b) Bank statements of the last six months;c) Income tax Return; Balance Sheet </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Treatment record, medical bills and other expenditure –In case of long term treatment, the SHO/IO  shall also record the details so that the claimant may furnish documents before the Claims Tribunal. </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Disability certificate </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Proof of absence from work where loss of income on account of injury is being claimed, which may be in the form ofa) Certificate from the employer; b) Extracts from the attendance register </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                      <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Proof of reimbursement of medical expenses by employer or under a Mediclaim policy, if taken </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>   
+                              
+                              </ion-card-content>
+                              </ion-card>
+                        <ion-card color="warning">
+                            <ion-card-content>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Post Mortem Report </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Death certificate </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Photograph and proof of the identity of the deceased </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Proof of age of the deceased which may be in form ofa)  Birth Certificate; b) School Certificate; c) Certificate from Gram Panchayat (in case of illiterate) </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Proof of Occupation and income of the deceased which may be in form ofa) Pay slip/salary certificate(salaried employee); b) Bank statements of the last six months; c) Income tax Return; Balance Sheet </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Proof of the legal representatives of the deceased(Names, Age, Address, Phone Number & Relationship) </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Photographs, specimen signatures attested by the bank and identity proof of the legal representatives of the deceased </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Driving license of the driver of offending vehicle(s) </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Proof of employment of driver such as  appointment letter, salary slips, duty register etc. </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> Registration certificate of the offending vehicle(s) </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'> In case of transfer of vehicle, sale documents, possessionletter or any other document relating to transfer, if any </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Treatment record, medical bills and other expenditure </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                                    <ion-row><ion-col><ion-item>   <ion-label  class='fcolor ion-text-wrap'>  Bank Account no. of the legal representatives of the deceased with name and address of the bank </ion-label><ion-toggle   (click)="addValue()"></ion-toggle></ion-item></ion-col></ion-row>
+                            </ion-card-content>
+                            </ion-card>
+                          </form>
+                    
+</ion-content>
+

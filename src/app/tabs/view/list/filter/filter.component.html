@@ -1,0 +1,243 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign"> Filter </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="segment">
+    <!-- <ion-segment-button disabled value="layers"> Layers </ion-segment-button> -->
+    <ion-segment-button value="filter"> Filter </ion-segment-button>
+    <!-- <ion-segment-button disabled value="style"> Style </ion-segment-button> -->
+    <ion-segment-button value="help"> Help </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+    <ion-card *ngSwitchCase="'layers'">
+      <ion-card-header> Layer </ion-card-header>
+      <ion-card-content> working on it </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'filter'">
+      <ion-card-header> Accident </ion-card-header>
+      <ion-card-content>
+
+
+        <ion-label position="floating" class="fcolor"> Severity</ion-label>
+        <ion-select
+          class="ion-text-wrap"
+          multiple
+          [(ngModel)]="selection.severity"
+          interface="alert"
+        >
+          <ion-select-option
+            *ngFor="let val of severity; let i = index"
+            value="{{ val.id }}"
+          >
+            {{ val.title }}
+          </ion-select-option>
+        </ion-select>
+
+        <ion-label position="floating" class="fcolor"> E - DAR</ion-label>
+        <ion-select
+          class="ion-text-wrap"
+          [(ngModel)]="selection.dar"
+          interface="alert"
+        >
+          <ion-select-option value="0" > Not Enabled   </ion-select-option>
+          <ion-select-option value="1" > Enabled   </ion-select-option>
+        </ion-select>
+
+      </ion-card-content>
+
+      <span *ngIf="dev">
+        <ion-card-header class="fcolor" > Administrative </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-label position="floating" class="fcolor">State</ion-label>
+            <ion-select
+              class="ion-text-wrap"
+              [(ngModel)]="fld_state"
+              interface="alert"
+              (ionChange)="loaddistrict()"
+            >
+              <ion-select-option
+                *ngFor="let val of state; let i = index"
+                value="{{ val.code }}"
+              >
+                {{ val.value }}
+              </ion-select-option>
+            </ion-select>
+
+            <ion-label position="floating" class="fcolor">District</ion-label>
+            <ion-select
+              class="ion-text-wrap"
+              [(ngModel)]="fld_district"
+              interface="alert"
+              (ionChange)="loadpolice()"
+            >
+              <ion-select-option
+                *ngFor="let val of district; let i = index"
+                value="{{ val.code }}"
+              >
+                {{ val.value }}
+              </ion-select-option>
+            </ion-select>
+
+            <ion-label position="floating" class="fcolor">Station</ion-label>
+            <ion-select
+              class="ion-text-wrap"
+              [(ngModel)]="fld_station"
+              interface="alert"
+              (ionChange)="loadpolice()"
+            >
+              <ion-select-option
+                *ngFor="let val of station; let i = index"
+                value="{{ val.code }}"
+              >
+                {{ val.value }}
+              </ion-select-option>
+            </ion-select>
+          </ion-grid>
+        </ion-card-content>
+
+
+      </span>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'filter'">
+      <ion-card-header > Date </ion-card-header>
+      <ion-card-content>
+       
+              <ion-item>
+                <ion-label>From Date</ion-label> 
+                <ion-datetime  placeholder="Select Date" min="2021"  [(ngModel)]="selection.fromdate" displayFormat="D MMM YYYY"></ion-datetime>
+                <ion-icon slot="end" name="calendar"></ion-icon>
+              </ion-item>
+           
+              <ion-item>
+                <ion-label>To Date</ion-label>
+                <ion-datetime placeholder="Select Date" [disabled]="selection.fromdate==''"  [min]="selection.fromdate" [(ngModel)]="selection.todate" [max]="today"  displayFormat="D MMM YYYY"></ion-datetime>
+                <ion-icon slot="end" name="calendar"></ion-icon>
+              </ion-item>
+          
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'filter'">
+      <ion-card-header> Accident </ion-card-header>
+      <ion-card-content>
+        <ion-label position="floating" class="fcolor"> Order by </ion-label>
+        <ion-select
+          class="ion-text-wrap"
+          [(ngModel)]="selection.orderby"
+          interface="alert"
+        >
+          <ion-select-option
+            *ngFor="let val of orderby; let i = index"
+            value="{{ val.id }}"
+          >
+            {{ val.title }}
+          </ion-select-option>
+        </ion-select>
+
+        <ion-select
+          class="ion-text-wrap"
+          [(ngModel)]="selection.ordertype"
+          interface="alert"  >
+          <ion-select-option  value="asc"  > Ascending   </ion-select-option>
+          <ion-select-option  value="desc"  >  Descending  </ion-select-option>
+        </ion-select>
+
+      </ion-card-content>
+      </ion-card>
+
+
+
+    <ion-card *ngSwitchCase="'style'">
+      <ion-card-header> style </ion-card-header>
+      <ion-card-content> working on it </ion-card-content>
+    </ion-card>
+    <ion-card *ngSwitchCase="'legend'">
+      <ion-card-header> Accidents </ion-card-header>
+      <ion-card-content>
+         working on it ...
+      </ion-card-content>
+    </ion-card>
+
+
+  </div>
+</ion-content>
+
+<!--
+
+<ion-segment color="primary" scrollable (ionChange)="segmentChanged($event)" value="filter">
+  <ion-segment-button disabled value="layer" layout="icon-start">
+    <ion-label>Layers</ion-label>
+    <ion-icon name="layers-outline"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="filter" layout="icon-start">
+    <ion-label>Filter</ion-label>
+    <ion-icon name="filter-outline"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button disabled value="style" layout="icon-start">
+    <ion-label>Style</ion-label>
+    <ion-icon name="color-palette"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="legend" layout="icon-start">
+    <ion-label>Legend</ion-label>
+    <ion-icon name="color-palette"></ion-icon>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-content *ngIf="selseg=='layer'">
+  Layer
+</ion-content>
+
+<ion-content *ngIf="selseg=='filter'">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' > Severity</ion-label>
+          <ion-select class="ion-text-wrap" [(ngModel)]="selection.severity" interface="alert">
+            <ion-select-option *ngFor="let val of severity; let i = index" value="{{val.id}}">
+              {{val.title}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selseg=='style'">
+style
+</ion-content>
+<ion-content *ngIf="selseg=='legend'">
+  <img [src]=acclegend />
+  </ion-content>
+
+-->
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col> </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="clear()">Clear</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="save()"> &nbsp; Okay &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,400 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> {{ 'acctab3.listpatient' | translate:params }}</ion-title>
+    
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-header  class="ion-no-border">
+  
+    <ion-title> 
+    
+      <ion-segment scrollable >
+        <ion-segment-button (click)="funPending(-1)" checked *ngIf="false">
+          <ion-label>{{ 'acctab3.pending' | translate:params }} 
+            <span *ngIf="false">({{pending_data.length}})</span>
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="funCompleted(-1)" >
+        <!--  <ion-label>{{ 'acctab3.completed' | translate:params }} 
+            <span *ngIf="false">({{comp_data.length}})</span>
+          </ion-label> -->
+          <ion-label>Patients</ion-label>
+        </ion-segment-button>
+        <ion-segment-button *ngIf="true" (click)="funSearch()">
+          <ion-label>{{ 'acctab3.search' | translate:params }}
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button  *ngIf="dept==1" (click)="funDisabled(-1)">
+          <ion-label>{{ 'acctab3.deleted' | translate:params }}
+            <span *ngIf="false">({{disabled_data.length}})</span>
+          </ion-label>
+        </ion-segment-button> 
+        <ion-segment-button *ngIf="mobiledevice" (click)="getLocalData()">
+          <ion-label>Local DATA
+            <span *ngIf="row_data">({{row_data.length}})</span>
+          </ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+    </ion-title>
+ 
+</ion-header>
+
+
+<ion-content  class="ion-padding">
+
+
+  <span *ngIf="segflag==1" >
+
+    <ion-refresher slot="fixed" (ionRefresh)="refPending($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    
+  <ion-card  *ngFor="let d of pending_data; let i = index" class="severity{{d.severity}} ion-text-center" >
+    <ion-card-header>
+      <ion-card-subtitle >  
+        {{ 'app.accidentid' | translate:params }}: <b>{{d.accid.slice(-4)}} </b> 
+       <span *ngIf="d.fir">  - FIR/CSR  :  <b>{{d.fir }} </b> </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+      <ion-card-content >
+        {{d.landmark}}, On {{d.datetime}} ({{d.severity_desc}}) 
+         <ion-label class="alignme-right">  </ion-label> 
+       </ion-card-content>
+    <ion-item class="sev1 ">
+     <span class="alignme-center" style="width: 100%;" >
+   <!--
+      <ion-button color="primary" (click)="updateAccident(i)" fill="outline" >UPDATE &nbsp; <ion-icon name="create" slot="end"></ion-icon></ion-button>
+     -->
+     <!-- <ion-button *ngIf="role==5 || role==50 || role==80" color="primary" (click)="editAccident(i)" fill="outline" > ADD &nbsp; <ion-icon name="create" slot="end"></ion-icon></ion-button>
+      &nbsp; <ion-button  (click)="viewAccident(i)" fill="outline" >VIEW &nbsp; <ion-icon name="newspaper-outline" slot="end"></ion-icon></ion-button>
+     &nbsp; <ion-button *ngIf="role==4" color="danger" (click)="deleteAccident(i)" fill="outline">DELETE </ion-button>
+     &nbsp; <ion-button *ngIf="role==4"color="warning" (click)="requestMVI(i)" fill="outline"> MVI <ion-icon name="reader-outline" slot="end" ></ion-icon></ion-button> -->
+
+     <ion-chip outline  *ngIf="role==5 || role==50 || role==80" color="primary" (click)="editAccident(i)" >
+      <ion-label>ADD</ion-label>
+      <ion-icon name="reader-outline"></ion-icon>
+    </ion-chip>
+    <ion-chip  outline (click)="viewAccident(i)"  color="secondary">
+      <ion-label >VIEW</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+    </ion-chip>
+
+    <ion-chip outline *ngIf="role==4" color="danger" (click)="deleteAccident(i)">
+      <ion-label>DELETE</ion-label> <ion-icon name="trash-outline" slot="end" ></ion-icon>
+    </ion-chip>
+
+    </span>
+    </ion-item>
+
+    
+
+   
+  </ion-card>
+
+  <ion-card   *ngIf="pending_data && pending_data.length==0" >
+    <ion-card-content>
+      <ion-label> No data ! {{pending_data.length}} </ion-label>
+    </ion-card-content>
+ </ion-card>
+
+ <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollPending($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</span>
+
+<span *ngIf="segflag==2">
+
+  <ion-refresher slot="fixed" (ionRefresh)="refCompleted($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+    <ion-card   *ngFor="let d of comp_data; let i = index" class="severity{{d.injury_severity}} ion-text-center" >
+    
+
+      <ion-card-header>
+        <ion-card-subtitle >  
+          <span *ngIf="d.accid" >  {{ 'app.accidentid' | translate:params }}: <b>{{d.accid.slice(-4) }} </b> </span>
+           Hospital Name: <b>{{d.hpname  }}  </b>
+           <br>
+           <b *ngIf="d.accident_id" >Accid:{{d.accident_id}}</b>
+        
+          
+          </ion-card-subtitle>
+        <ion-card-title><span *ngIf="d.gender=='Male'" style='display:none;'>Mr. </span> <span *ngIf="d.gender=='Female'" style='display:none;'>Mis/Mrs. </span>{{d.patient_name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+      <span class='camelcase'>  {{d.gender}},Age({{d.patient_age}}),{{d.gurdian_type}},{{d.gurdian_name}},{{d.patient_address}}</span>
+<br>         <span style='color: brown;'>Hospitalization Date: {{d.timeof_arrival}}</span>,({{d.severity_desc}}) 
+       <div style='color:red' *ngIf="d.intimationto_police"> Patient intimated to police:  {{d.intimationto_police}}</div>
+        <ion-label class="alignme-right">  </ion-label> 
+      </ion-card-content>
+      <ion-item class="sev1">
+        <span class="alignme-center" style="width: 100%;">
+          
+        <!--<ion-button (click)="viewAccident(i)" fill="outline" slot="end">VIEW<ion-icon name="newspaper-outline" slot="end"></ion-icon></ion-button>
+        <ion-button (click)="viewAccidentPDF(i)" fill="outline" slot="end">PDF<ion-icon ios="ios-document" md="md-document"></ion-icon></ion-button> -->
+       
+
+
+        <ion-button   *ngIf="!d.accident_id"  color="danger" (click)="showmapping(i)">
+          Link Accident id
+        </ion-button>
+
+        <ion-chip  outline (click)="viewAccidentPDF(d.id)"  color="secondary">
+        <ion-label >Intimation</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+      </ion-chip>
+
+      <ion-chip *ngIf="d.discharge_showpolice=='Yes'"  outline (click)="viewdischagre(d.id)"  color="secondary">
+        <ion-label >Discharge</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+      </ion-chip>
+     
+      <ion-chip *ngIf="d.dd_showpolice=='Yes'"  outline (click)="viewddcertificate(d.id)"  color="secondary">
+        <ion-label >Drunken</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+      </ion-chip>
+     
+      <ion-chip *ngIf="d.pm_policeshow=='Yes'"  outline (click)="viewpmcertifcate(d.id)"  color="secondary">
+        <ion-label >Postmorterm</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+      </ion-chip>
+     
+
+  
+
+      </span>
+      </ion-item>
+      <ion-row color='primary' *ngIf="d.police_forward==1">
+        <ion-col>
+          <div class="ion-text-start" style='color:rgb(107, 57, 223);font-weight:bold;'>
+       Sender:&nbsp;&nbsp;<span style='color:#333;'>{{d.recplsname}}</span>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="ion-text-end" style='color:rgb(216, 17, 223);font-weight:bold;'>
+            Receiver:&nbsp;&nbsp;<span style='color:#333;'>{{d.psname}}</span>
+          </div>
+        </ion-col>   
+      </ion-row>
+
+      <ion-row color='primary' (click)="forwardcaseto(i)" *ngIf="d.police_forward==0">
+        <ion-col>
+          <div class="ion-text-center" style='color:sienna;font-weight:bold;'>
+           <h6>Forward to other police station</h6>
+          </div>
+        </ion-col>   
+      </ion-row>
+      
+    </ion-card>
+
+  <ion-card   *ngIf="comp_data && comp_data.length==0" >
+    <ion-card-content>
+      <ion-label> No data ! </ion-label>
+    </ion-card-content>
+ </ion-card>
+
+ <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollCompleted($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</span>
+
+<span *ngIf="segflag==3">
+
+  <ion-refresher slot="fixed" (ionRefresh)="refDisabled($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+    <ion-card  *ngFor="let d of disabled_data; let i = index" class="severity{{d.injury_severity}} ion-text-center" >
+      <ion-card-header>
+        <ion-card-subtitle >  
+          {{ 'app.accidentid' | translate:params }}: <b>{{d.accid.slice(-4) }} </b> 
+         <span *ngIf="d.fir">  - FIR/CSR  :  <b>{{d.fir }} </b> </span>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+         {{d.landmark}}, On {{d.datetime}} (  {{d.severity_desc}}  )
+         <ion-label class="alignme-right">  </ion-label> 
+       </ion-card-content>
+      <ion-item class="sev1">
+       
+        <ion-button (click)="viewAccident(i)" fill="outline" slot="end">VIEW<ion-icon name="newspaper-outline" slot="end"></ion-icon></ion-button> 
+      </ion-item>
+      
+    </ion-card>
+  <ion-card   *ngIf="disabled_data && disabled_data.length==0" >
+    <ion-card-content>
+      <ion-label> No data ! </ion-label>
+    </ion-card-content>
+ </ion-card>
+ <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollDisabled($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</span>
+
+<span *ngIf="segflag==5">
+
+  <ion-refresher slot="fixed" (ionRefresh)="refLocal($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-card  *ngFor="let d of row_data; let i = index" class="severity{{d.severity}}" >
+    <ion-card-header>
+      <ion-card-subtitle >  
+        <span *ngIf="d.accid" >  {{ 'app.accidentid' | translate:params }}: <b>{{d.accid.slice(-4) }} </b> </span>
+       
+         Patient Id <b>{{d.patient_id  }} </b> 
+        
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{d.patient_name}} - {{d.patient_age}} {{d.gender}}
+       <div>  {{d.patient_address}}, On {{d.dateof_incident}}  ({{d.severity_desc}})</div>
+        <ion-label class="alignme-right">  </ion-label> 
+      </ion-card-content>
+  </ion-card>
+<ion-card   *ngIf="row_data && row_data.length==0" >
+  <ion-card-content>
+    <ion-label> No data ! </ion-label>
+  </ion-card-content>
+</ion-card>
+</span>
+
+
+<span *ngIf="segflag==4" >
+  <ion-toolbar>
+  
+<!--   <ion-searchbar
+   placeholder="Accident Id / FIR / CSR / Lanmark" animated 
+  [(ngModel)]="searchInput"
+  
+  (keyup.enter)="funSearchEnter(-1)"
+  (ionCancel)="onSearchCancel($event)">
+</ion-searchbar> -->
+<ion-item>
+  <ion-icon name="server-outline" color="warning" slot="start"></ion-icon>
+  <ion-input [(ngModel)]="searchInput" placeholder="Patient's Name / ID " (keyup.enter)="funSearchEnter(-1)" animated ></ion-input>
+  <ion-icon *ngIf="searchInput" color="primary" (click)="funSearchEnter(-1)" name="search-outline" slot="end" ></ion-icon>
+  <ion-icon *ngIf="searchInput" color="danger" (click)="onSearchCancel()"  name="close-outline" slot="end"></ion-icon>
+</ion-item>
+
+
+  </ion-toolbar>
+
+  <ion-text color="secondary" *ngIf="searchedInput">
+     <h6 style="color: #888;">  &nbsp;  Results of Searching : '{{searchedInput}}'</h6>
+  </ion-text>
+
+ 
+  <ion-card  *ngFor="let d of search_data; let i = index" class="severity{{d.injury_severity}} ion-text-center" >
+    <ion-card-header>
+      <ion-card-subtitle >  
+        <span *ngIf="d.accid" >  {{ 'app.accidentid' | translate:params }}: <b>{{d.accid.slice(-4) }} </b> </span>
+         Patient Id <b>{{d.patient_id  }} </b> 
+        
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{d.patient_name}} - {{d.patient_age}} {{d.gender}} ({{d.severity_desc}})
+       <div>  {{d.patient_address}}, On {{d.dateof_incident}}  </div>
+        <ion-label class="alignme-right">  </ion-label> 
+      </ion-card-content>
+    <ion-item class="sev1">
+     
+      <ion-button (click)="viewAccident(i)" fill="outline" slot="end">VIEW<ion-icon name="newspaper-outline" slot="end"></ion-icon></ion-button> 
+    </ion-item>
+    
+  </ion-card>
+<ion-card   *ngIf="search_data && search_data.length==0" >
+  <ion-card-content>
+    <ion-label> No data ! </ion-label>
+  </ion-card-content>
+</ion-card>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="scrollSearch($event)">
+<ion-infinite-scroll-content
+  loadingSpinner="bubbles"
+  loadingText="Loading more data...">
+</ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+  </span>
+<!-- Skeleton screen -->
+<div *ngIf="loading">
+
+  <ion-list>
+    <ion-list-header>
+      <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+
+</ion-content>
+<style>
+ion-content{
+  --background: #e8f8ff  ;
+}
+ion-card-subtitle{
+  color:#444;
+}
+ion-card-content{
+  color:#555;
+}
+</style>

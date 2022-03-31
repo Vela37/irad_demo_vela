@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reports :</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item class='fcolor'>Form I (Claims Tribunal)</ion-item>
+        
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <!-- <ion-button shape="round" (click)="viewPdf(1)">Generate Report</ion-button> -->
+        <ion-icon name="eye" (click)="viewPdf(1)" size="large"></ion-icon>
+        <ion-icon></ion-icon>
+        <ion-icon name="download" (click)="viewPdf(1)" size="large"></ion-icon>
+        <!-- <ion-icon *ngIf="uploadgeneral[1]==1" (click)="uploadingdoc(1,1,'Fir')" color="primary" class="ion-icon" name="arrow-up-circle">
+        </ion-icon>
+        
+        <ion-spinner *ngIf="uploadgeneral[1]==2" color="secondary" name="circles"> </ion-spinner>
+        <ion-icon *ngIf="uploadgeneral[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        -->
+      </ion-item>
+    </ion-col>
+    
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item class='fcolor'> Form II (DAR)</ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <!-- <ion-button shape="round" (click)="viewPdf(2)">Generate Report</ion-button> -->
+        <ion-icon name="eye" (click)="viewPdf(2)" size="large"></ion-icon>
+        <ion-icon></ion-icon>
+        <ion-icon name="download" (click)="viewPdf(2)" size="large"></ion-icon>
+        <!-- <ion-button>
+          Generate Report
+          <ion-icon slot="end" name="star"></ion-icon>
+        </ion-button> -->
+        <!-- <ion-icon *ngIf="uploadgeneral[2]==1" (click)="uploadingdoc(1,2,'Site Plan')" color="primary" class="ion-icon" name="arrow-up-circle">
+        </ion-icon>
+        <ion-spinner *ngIf="uploadgeneral[2]==2" color="secondary" name="circles"> </ion-spinner>
+        <ion-icon *ngIf="uploadgeneral[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        -->
+       
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+ 
+       
+</ion-content>

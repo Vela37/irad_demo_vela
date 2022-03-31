@@ -1,0 +1,470 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Treatment Information</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle><span class='fcolor'>Person Name</span></ion-card-subtitle>
+      <ion-card-title> <span style='color:brown;font-weight:bold;text-transform: capitalize;'> {{name}}</span></ion-card-title>
+    </ion-card-header>
+  
+
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>
+        <ion-col>
+        <div class='fcolor'> <span *ngIf="gender"> {{gender}},</span><span *ngIf="age!='0'">{{age}},</span><span *ngIf="address"> {{address}}</span></div>
+        </ion-col> 
+          </ion-row>
+                  
+           
+                    <!--
+
+                          <ion-row>
+                            <ion-col>
+                            <span class='fcolor'>Requisiting Officer</span>
+                            </ion-col> 
+                            <ion-col>
+                           {{pm_requestofficer}}
+                                      </ion-col> 
+                          </ion-row>  
+                    -->
+
+
+                             
+<ion-row *ngIf="ptype=='Driver'">
+  <ion-col>
+  <span class='fcolor'>Drunken Drive Test</span>
+  </ion-col> 
+  <ion-col>
+<ion-segment-button (click)="ddrequest(fulldata)" style='font-weight:bold;color: darkgreen;'>
+  Request
+</ion-segment-button>
+            </ion-col> 
+</ion-row> 
+
+    
+
+
+                                  <ion-row *ngIf="ptype=='Driver'">
+                                    <ion-col>
+                                    <span class='fcolor'>Request Post-mortem</span>
+                                    </ion-col> 
+                                    <ion-col *ngIf="fulldata.injury_severity=='1'">
+                                  <ion-segment-button (click)="pmrequest(fulldata)" style='font-weight:bold;color: darkgreen;'>
+                                    Request
+                                  </ion-segment-button>
+                                              </ion-col>     <ion-col *ngIf="fulldata.injury_severity!='1'" style='font-weight:bold;'>
+                                                <ion-segment-button (click)="pmmessage()">
+                                                  Request
+                                                </ion-segment-button>
+                                                            </ion-col> 
+                                 </ion-row> 
+
+                                 <ion-row *ngIf="ptype=='Passenger'">
+                                  <ion-col>
+                                  <span class='fcolor'>Request Post-mortem</span>
+                                  </ion-col> 
+                                  <ion-col *ngIf="fulldata.injury_severity=='1'">
+                                <ion-segment-button (click)="pmrequestpassenger(fulldata)" style='font-weight:bold;color: darkgreen;'>
+                                  Request
+                                </ion-segment-button>
+                                            </ion-col> 
+                                            <ion-col *ngIf="fulldata.injury_severity!='1'">
+                                              <ion-segment-button (click)="pmmessage()" style='font-weight:bold;'>
+                                                Request
+                                              </ion-segment-button>
+                                                          </ion-col> 
+                               </ion-row> 
+
+                               <ion-row *ngIf="ptype=='Pedestrian'">
+                                <ion-col>
+                                <span class='fcolor'>Request Post-mortem</span>
+                                </ion-col> 
+                                <ion-col *ngIf="fulldata.injury_severity=='1'">
+                              <ion-segment-button (click)="pmrequestpedestrian(fulldata)" style='font-weight:bold;color: darkgreen;'>
+                                Request
+                              </ion-segment-button>
+                                          </ion-col> 
+                                          <ion-col *ngIf="fulldata.injury_severity!='1'" style='font-weight:bold;'>
+                                            <ion-segment-button (click)="pmmessage()">
+                                              Request
+                                            </ion-segment-button>
+                                                        </ion-col> 
+                             </ion-row> 
+<!--
+ <ion-row *ngIf="ptype=='Pedestrian'">
+                                <ion-col>
+                                <span class='fcolor'>Request Postmorterm Pedestrain</span>
+                                </ion-col> 
+                                <ion-col>
+                              <ion-segment-button (click)="pmrequest(fulldata)">
+                                Request Postmorterm
+                              </ion-segment-button>
+                                          </ion-col> 
+                             </ion-row> 
+-->
+                              
+
+                                  
+                                
+<!--
+
+  <ion-row *ngIf="pm_resultdate">
+                                    <ion-col>
+                                    <span class='fcolor'>PostMorterm PDF</span>
+                                    </ion-col> 
+                                    <ion-col>
+                                      <ion-col  (click)="downloadpmpdf(patientid)"  style="color:rgb(241, 7, 57)">Click To Download</ion-col>
+                                              </ion-col> 
+                                    </ion-row> 
+-->
+                                
+                                 
+                              
+                              
+                    
+       </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!--
+    <ion-segment color="danger" scrollable value=0 >
+      <ion-segment-button layout="icon-end" *ngFor="let veh of vehicle; let i = index " (click)="shveh(i)">
+        <ion-label><strong>{{i+1}}. {{veh.vehicle_reg_no}} </strong></ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+
+-->  
+<ion-segment color="danger" scrollable value=0 >
+  <ion-segment-button layout="icon-end" *ngFor="let ptid of trtment; let i = index " (click)="shveh(i)">
+   <!-- <ion-icon name="call"></ion-icon> -->
+    <ion-label><strong>{{i+1}}. {{ptid.hospitalname}} </strong></ion-label>
+  </ion-segment-button>
+</ion-segment>  
+<span  *ngFor="let ptid of trtment; let i = index ">
+  <ion-grid  style="color:darkslategray" *ngIf="seg==i"  >
+    <ion-row>
+      <ion-col size="1"><strong>{{i+1}}.</strong></ion-col>
+      
+    </ion-row>
+    <ion-row>
+      <ion-col  class='fcolor'>Hospital Name</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.hpname | titlecase  }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.patient_name' | translate:params}}</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.patient_name}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.gender' | translate:params}}</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.gender}}</ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.patient_address' | translate:params}}</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.patient_address}}</ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col  class='fcolor'>Father Name</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.gurdian_type}},{{ptid.patient.gurdian_name}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.age' | translate:params}}</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.patient_age}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.identification_marks1' | translate:params}}</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.identification_marks1}}</ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.identification_marks2' | translate:params}}</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col class='cap'>{{ptid.patient.identification_marks2}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class='fcolor'>{{'health.patient_type' | translate:params}} </ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col  class='cap'>MLC - {{ptid.patient.patient_type}} {{ptid.patient.patient_id}}</ion-col>
+    </ion-row>
+
+
+  
+<ion-row>
+  <ion-col class='fcolor'>{{'health.timeof_arrival' | translate:params}} </ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.timeof_arrival}}</ion-col>
+</ion-row>
+
+
+
+
+
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.hospitalization_mode' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.hospitalization_mode}}</ion-col>
+</ion-row>
+
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.informant_name' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.informant_name}}</ion-col>
+</ion-row>
+
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.contact_address' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.contact_address}}</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.contact_number' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.contact_number}}</ion-col>
+</ion-row>
+
+
+
+
+
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.injury_severity' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.severity_desc}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.injury_type' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.get_injury_type}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.nature_ofinjury' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.get_injury_nature}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.conscious' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+  <ion-col class='cap'>{{ptid.patient.conscious}}</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.pre_arrival_trauma' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.pre_hp_traumaflag}}</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.heart_rate' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.pulse_heratrate}}</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col class='fcolor'>{{'health.respiratory_rate' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.respiratory_rate}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.blood_pressure' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.systalic_bp}}/{{ptid.patient.dyalistic_bp}}</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col class='fcolor'>{{'health.temperature' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.temperature}}</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col class='fcolor'>{{'health.spo2' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.spo2}}</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col class='fcolor'>{{'health.orientation' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.orientation}}</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.breathing' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.breathing}}</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.Xary' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.xray}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.ctscan' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.ctscan}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.hp_disposiotn' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.hospital_disposition}}</ion-col>
+</ion-row>
+
+
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.description_pupil' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.description_pupil}}</ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.discharge_time' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.discharge_time}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.physician_opinion' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.physician_opinion}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.history' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.history}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.treatment' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.treatment}}</ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col class='fcolor'>{{'health.referral_institution' | translate:params}}</ion-col>
+  <ion-col size=1> : </ion-col>
+   <ion-col class='cap'>{{ptid.patient.referral_institution}}</ion-col>
+</ion-row> 
+
+<ion-row *ngIf="ptid.patient.police_intimationshow=='Yes'">
+  <ion-col  style="color:rgb(235, 8, 8);font-weight:bold;">Police Intimation</ion-col>
+  <ion-col size=3> : </ion-col>
+  
+
+<ion-col  (click)="downloadpmpdf(ptid.patient.id,1)"  style="color:rgb(9, 103, 192)"><ion-label >Download</ion-label></ion-col>
+
+
+  <!--
+ 
+  <ion-col  (click)="policeintimation(i)"  style="color:rgb(9, 103, 192)"><ion-label >View</ion-label></ion-col>
+-->
+</ion-row>
+
+<ion-row *ngIf="ptid.patient.accregister_police_show=='Yes'">
+  <ion-col  style="color:rgb(235, 8, 8);font-weight:bold;">Accident Register and Wound Certificate</ion-col>
+  <ion-col size=3> : </ion-col>
+   
+<ion-col  (click)="downloadpmpdf(ptid.patient.id,2)"  style="color:rgb(9, 103, 192)"><ion-label >Download</ion-label></ion-col>
+ 
+  <!--
+  <ion-col  (click)="accregister(i)"  style="color:rgb(9, 103, 192)"><ion-label >View</ion-label></ion-col>
+-->
+</ion-row>
+
+<ion-row *ngIf="ptid.patient.discharge_showpolice=='Yes'">
+  <ion-col  style="color:rgb(235, 8, 8);font-weight:bold;">Discharge and treatment</ion-col>
+  <ion-col size=3> : </ion-col>
+ 
+
+  <ion-col  (click)="downloadpmpdf(ptid.patient.id,3)"  style="color:rgb(9, 103, 192)"><ion-label >Download</ion-label></ion-col>
+
+<!--
+<ion-col  (click)="dischargesummary(i)"  style="color:rgb(9, 103, 192)"><ion-label >View</ion-label></ion-col>
+-->
+</ion-row>
+
+<ion-row *ngIf="ptid.patient.dd_showpolice=='Yes'">
+  <ion-col  style="color:rgb(243, 11, 11);font-weight:bold;">Drunken and drive test report</ion-col>
+  <ion-col size=3> : </ion-col>
+
+<ion-col  (click)="downloadpmpdf(ptid.patient.id,4)"  style="color:rgb(9, 103, 192)"><ion-label >Download</ion-label></ion-col>
+
+
+  <!--
+  <ion-col  (click)="drunkendriven(i)"  style="color:rgb(9, 103, 192)"><ion-label >View</ion-label></ion-col>
+-->
+</ion-row>
+
+
+<ion-row *ngIf="ptid.patient.pm_policeshow=='Yes'">
+  <ion-col  style="color:rgb(235, 8, 8);font-weight:bold;">PostMorterm report</ion-col>
+  <ion-col size=3> : </ion-col>
+  
+  <ion-col  (click)="downloadpmpdf(ptid.patient.id,5)"  style="color:rgb(9, 103, 192)"><ion-label >Download</ion-label></ion-col>
+
+   <!-- <ion-col  (click)="postmorterms(i)"  style="color:rgb(9, 103, 192)"><ion-label >View</ion-label></ion-col>
+-->
+</ion-row>
+
+
+    </ion-grid>
+    </span>
+</ion-content>
+
+
+
+
+<style>
+  .cap{
+
+  text-transform: capitalize !important;
+  color: rgb(47, 46, 48);
+  
+}
+  </style>
+
+

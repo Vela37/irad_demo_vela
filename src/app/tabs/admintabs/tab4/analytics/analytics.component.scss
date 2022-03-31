@@ -1,0 +1,51 @@
+ion-content {
+    --background: radial-gradient(at 0 90%, rgb(244, 245, 178), #f7e1a6);
+  }
+
+  
+.deadbg {
+  background: #ff718e;
+ }
+ 
+ .injbg {
+  background: #fbaf63;
+ }
+ 
+ .fatalbg {
+  background: #ff718e;
+ }
+ 
+ .grevbg {
+  background: #ffac59;
+ }
+ 
+ .simphbg {
+  background: #ffd265;
+ }
+ 
+ .simpnhbg {
+  background: #79d9d9;
+ }
+ 
+ .vehbg {
+  background: #7dbfec;
+ }
+ 
+ .grid {
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 10px;
+  min-width: 150px;
+ }
+
+ .card-img-absolutes {
+  position: absolute;
+  top: 0;
+  opacity: 0.6;
+  right: 0;
+  height: 100%;
+ }

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar  color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button   autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <!--<ion-title>{{ 'home.title' | translate:params }}</ion-title> -->
+    <ion-title>Loading ...</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-select placeholder="English" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ta">தமிழ்</ion-select-option>
+        <ion-select-option value="hi">हिंदी</ion-select-option> 
+        <ion-select-option value="te">తెలుగు</ion-select-option>
+        <ion-select-option value="ka">ಕನ್ನಡ</ion-select-option>
+        <ion-select-option value="be">বাংলা</ion-select-option>
+        <ion-select-option value="asm">অসাম্যেসে</ion-select-option> 
+      </ion-select>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [routerLink]="link" >
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+       &nbsp;
+    </ion-col>
+    <ion-col>
+      <ion-chip>
+        <ion-label><a style="color:white;text-decoration: none;cursor: pointer;"  [routerLink]="link" >Tap Here to Retry</a></ion-label>
+      </ion-chip>
+      
+    </ion-col>
+    <ion-col>
+      &nbsp;
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-content>
+ 
+</ion-content>
+<ion-footer >
+<ion-grid>
+  <ion-row>
+    <ion-col style='text-align:center'>Loading ...</ion-col>
+  </ion-row>
+
+</ion-grid>
+</ion-footer>

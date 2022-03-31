@@ -1,0 +1,1893 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>DAR Details</ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label style="color:darkslategray"> <strong>General Details</strong> </ion-label>
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <!-- <ion-note class="pointer" slot="end" color="primary" (click)="geninfoEdit()">Edit</ion-note> -->
+      <ion-note class="pointer" slot="end" color="primary"(click)="geninfoEdit()">Edit</ion-note>
+
+    </ion-item>
+    <ion-card-content>
+
+      <ion-grid style="color:darkslategray">
+        <ion-row>
+          <ion-col>
+            Accident ID
+          </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> <strong>{{accid}}</strong> </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class='fcolor'> Investigating Officer Name</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col > {{generaldata.investofficername|titlecase}} &nbsp; &nbsp;
+         
+          </ion-col>
+        </ion-row>
+      <!--
+  <ion-row>
+          <ion-col  class='fcolor'> Under Section</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>
+            <h2> {{generaldata.underSection|titlecase}}  </h2>
+
+          </ion-col>
+        </ion-row>
+      -->
+      
+
+        <ion-row>
+          <ion-col  class='fcolor'> Investigating Officer Mobile </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>
+            <h2> {{generaldata.investofficernumber}}  </h2>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col  class='fcolor'> Investigating Officer Address </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.investofficeraddress|titlecase}} </ion-col>
+        </ion-row>
+        
+
+        <ion-row>
+          <ion-col  class='fcolor'>  Nature of the accident </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.nature}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'> Who reported the accident </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.whoreportAcc|titlecase}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>  {{generaldata.whoreportAcc|titlecase}} Name</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.reportingPersonname}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col  class='fcolor'>  {{generaldata.whoreportAcc|titlecase}} Address</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.reportingPersonaddress}} </ion-col>
+        </ion-row>
+
+        
+        <ion-row>
+          <ion-col  class='fcolor'>Availability of CCTV Footage </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col *ngIf="generaldata.cctvAvailability">Yes</ion-col>
+
+
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'> Damage/loss of the property</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.lossOfproperty}} </ion-col>
+        </ion-row>
+
+        <ion-row  >
+          <ion-col class='fcolor'> Any other loss/injury</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.otherLoss|titlecase}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'> Brief Description Of Accident</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.briefDescriptionaccident|titlecase}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Date of Site plan
+          </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.dtSiteplan|titlecase}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'> Description Of Site Plan</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{generaldata.descriptionSiteplan|titlecase}} </ion-col>
+        </ion-row>
+        
+     
+        
+
+      </ion-grid>
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label style="color:darkslategray"> <strong>Vehicle/Driver/Owner Details</strong> </ion-label>
+      <!-- <ion-note slot="end" color="danger"> {{vehcount}} </ion-note> -->
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <!-- <ion-note class="pointer" slot="end" color="primary" (click)="geninfoEdit()">Edit</ion-note> -->
+    </ion-item>
+
+    <ion-card-content class="alignme-center pointer" *ngIf="!data" (click)="showDetails('vehicle')"> Show Details
+    </ion-card-content>
+
+    <ion-card-content *ngIf="viewveh=='1'" >
+      
+      <ion-segment color="danger" scrollable value=0 >
+        <ion-segment-button layout="icon-end" *ngFor="let veh of vehicle; let i = index " (click)="shveh(i)">
+         <!-- <ion-icon name="call"></ion-icon> -->
+          <ion-label><strong>{{i+1}}. {{veh.veh_vehicle_reg_no}} </strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <span  *ngFor="let vehicledata of vehicle; let i = index">
+       
+      
+        <ion-grid style="color:darkslategray" *ngIf="seg==i">
+
+          <ion-row>
+            <ion-col size="12">
+              <h2 class="alignme-center"> <strong>Owner Details
+                  <span style="text-transform: uppercase;">( Owner Name )
+                  </span> </strong>
+                <!-- <ion-note slot="end" color="primary" (click)="driverinfoEdit(i)">Edit</ion-note> -->
+              </h2>
+            </ion-col>
+          </ion-row>
+      
+          <ion-row>
+            <ion-col  style='color: red;font-weight: bold;'>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}} : </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vehicledata.veh_vehicle_reg_no}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Owner Mobile no </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.owner_mobile_no}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Vehicle use type </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.vehusetype}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Owner reported the accident to the insurance company? </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.owner_report_acc}}&nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Report the date of accident </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vehicledata.owner_report_dt}} </ion-col>
+         
+          </ion-row>
+          <ion-row>
+
+            <ion-col  class='fcolor'> Details of previous insurance policies
+            </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.owner_details_pre_ins}}</ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col  class='fcolor'> Details of insurance claims made in last 3 years </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.owner_ins_claims}} </ion-col>
+          </ion-row>
+
+         
+
+      
+
+
+          <ion-row>
+            <ion-col  class='fcolor'> Driver fled from spot,did owner produce the driver before the police?</ion-col>
+            <ion-col size=1> : </ion-col>
+                 
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Amount paid to the claimants either on account of settlement of criminal case or compensation?
+            </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.tvehamountpaidcompensation}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Has the vehicle previously been involved in any MACT case? </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.vehmactcase}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Bank Name </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.bankName}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Account Holder Name </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.accHoldername}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Account Number </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.accNumber}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> IFSC Code </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.ifscCode}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Bank Address </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.bankAddress}} &nbsp; &nbsp;
+           
+            </ion-col>
+          </ion-row>
+          <!---------------------  VEHICLE DRIVER ---------------------------------------------------------------->
+
+          <ion-row>
+            <ion-col size="12">
+              <h2 class="alignme-center"> <strong>Driver Details
+                  <span style="text-transform: uppercase;">
+                  </span> </strong>
+                <!-- <ion-note slot="end" color="primary" (click)="driverinfoEdit(i)">Edit</ion-note> -->
+              </h2>
+            </ion-col>
+          </ion-row>
+         
+          <ion-row>
+            <ion-col  class='fcolor'>Driver Name</ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.ser_name}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> Whether driving without supervision </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.llrsupervision}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Lapsed learner's license </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>
+              {{vehicledata.lapsedlicense}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Whether driving under the influence of alcohol/drugs?</ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.driveralocohol}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Findings based on scientific report?</ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.scientificreport}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> Whether carrying any mobile phone at the time of accident? </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.mobileatacc}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Mobile no </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.drimobile}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> IMEI no </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.drimobileimei}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Make & Model </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.drimobilemake}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Whether driver has previously involved in motor accident case? </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.previousacc}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> FIR Number </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col><strong>{{vehicledata.previousaccfir}}</strong> </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col  class='fcolor'> District</ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.previousaccdistrict}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Police Station </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.previousaccps}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Educational Qualification </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.drivereducation}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Monthly income(Rupees) </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.driverincome}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> License suspended/cancelled </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.licensesuspended}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'>Victim/ Patient Disposition? </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col> {{vehicledata.victimdisposition}} </ion-col>
+          </ion-row>
+
+          <!---------------- VEHICLE DETAILS ---------------------------------------------->
+
+          
+        </ion-grid>
+      </span>
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label style="color:darkslategray"> <strong>Passenger Details</strong> </ion-label>
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <!-- <ion-note class="pointer" slot="end" color="primary" (click)="geninfoEdit()">Edit</ion-note> -->
+    </ion-item>
+    
+    <ion-card-content class="alignme-center pointer"  (click)="showDetails('passenger')"> Show Details
+    </ion-card-content>
+    <ion-card-content *ngIf="viewpass=='1'">
+
+      <ion-segment color="danger" scrollable value="0">
+        <ion-segment-button layout="icon-end" *ngFor="let pass of paasengerdata; let i = index " (click)="shepass(i)">
+          <!-- <ion-icon name="call"></ion-icon> -->
+          <ion-label><strong>{{i+1}}. {{pass.name}} </strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <span *ngFor="let pass of paasengerdata; let i = index ">
+      <ion-grid style="color: darkslategray" *ngIf="shepassid==i">
+       
+        <ion-row>
+          <ion-col size="12">
+            <h2 class="alignme-center"> <strong>{{pass.name}} Details
+          
+              </strong>
+              <ion-note class="pointer" slot="end" color="primary" (click)="Passengerdit(i)">Edit</ion-note> 
+
+            </h2>
+
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col > Vehicle Regn. Number</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col style="color: navy;font-weight: bolder;"> {{pass.get_veh_no}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Father Name </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.father_name}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col  class='fcolor'> Martial Status </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.marital_status}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'> Employed or not? </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.employed_or_not}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'> Name and Address of the Emoloyer</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.name_add_employer}} </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+          <ion-col>Address of the Emoloyer</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.assessed_to_income_tax}} </ion-col>
+        </ion-row> -->
+        <ion-row>
+          <ion-col  class='fcolor'>Income Details </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.income}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Whether the Deceased was assessed to Income Tax</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.assessed_to_income_tax}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Give details of medical expenses incurred</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.medical_expenses_incurred}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+        <ion-col  class='fcolor'>Whether the victim got reimbursement of medical expenses from his employer or under a Mediclaim policy or under any government cashless treatment scheme or government insurance scheme</ion-col>
+        <ion-col size=1> : </ion-col>
+        <ion-col>  {{pass.cashless_treatment}} </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col  class='fcolor'>Form 6 Submitted or Not?</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.form6sub}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Date of the Death</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.date_of_death}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Whethere the deceased was the sole earning member of the family</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.sole_earning_member}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+        <ion-col  class='fcolor'>Nature and description of Injury </ion-col>
+        <ion-col size=1> : </ion-col>
+        <ion-col>  {{pass.natureofinjury_description}} </ion-col>
+      </ion-row>
+
+      <ion-row>
+      <ion-col  class='fcolor'>Medical treatment taken by the injured</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col>  {{pass.treatment_details_of_deceased}} </ion-col>
+    </ion-row>
+
+    <ion-row>
+          <ion-col  class='fcolor'>Period of Hospitalization </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.hospital_treatment_period}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Doctor Name </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>   {{pass.doctor_name}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Name of Hospital</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.hospital_address}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>If Surgery undergone?</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.hospital_treatment_surgery_details}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Details of surgery(s)</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.hospital_treatment_details}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Permanent Disability?</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>   {{pass.permanent_disability}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Details of Permanent Disability</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.permanent_disability_details}} </ion-col>
+        </ion-row>
+        <!-- <ion-row>
+          <ion-col>Pecuniary Losses suffered </ion-col>
+          <ion-col size=1>  </ion-col>
+          <ion-col>  {{pass.veh_no}} </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+          <ion-col  class='fcolor'>Expenditure on treatment </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.expendiure_on_treatment}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>If treatment is still continuing,give the estimate of expenditure</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.estimate_expenditure}} </ion-col>
+        </ion-row>
+
+       
+        <ion-row>
+          <ion-col class='fcolor'>Expenditure on conveyance,special diet,attendant charges etc.</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.expenditure_conveyance}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Loss of income</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.lossincome}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col  class='fcolor'>Loss of earning capacity</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.lossearcapacity}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Any other pecunoary loss</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.pecunairy_loss}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Reimbursement of medical expenses</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.reimbursement_medical_expense}} </ion-col>
+        </ion-row>
+        
+        
+        <ion-row>
+          <ion-col class='fcolor'> Value of Loss</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.value_of_loss}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Compensation Claimed</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{pass.compensation_claimed}} </ion-col>
+        </ion-row>
+
+      
+    
+    
+
+       
+
+
+        <ion-row *ngIf="pass.get_familymembers" >
+          <ion-col size="12">
+            <h2 class="alignme-center" style='font-weight: bold;font-size:20px; color: midnightblue;'> <strong>Family Details
+              </strong>
+              <ion-note class="pointer" slot="end" color="primary" (click)="Familyeditpass(i)">Edit</ion-note> 
+
+            </h2>
+
+          </ion-col>
+        </ion-row>
+        
+
+        <ion-grid *ngFor="let p of pass.get_familymembers let j = index"  style="color:#0577b0;">
+      
+
+          <ion-row >
+            <ion-col>Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.name}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Age</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.age}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Gender</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Relation ship type</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.relation_type}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Martial </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.marital_status}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Address </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.address}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Contact Number </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.contact_number}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item-divider> </ion-item-divider>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+       
+
+        <ion-row *ngIf="pass.get_childdetails" >
+          <ion-col  style='font-weight: bold;font-size:20px; color: midnightblue;' class="alignme-center" class="alignme-center" size=12>Children Details</ion-col>
+        </ion-row>
+        <ion-grid *ngFor="let p of pass.get_childdetails let j = index"  style="color:#dd8604;">
+      
+
+       
+          <ion-row>
+            <ion-col size="12">
+              <h2 class="alignme-center"> <strong> Details
+            
+                </strong>
+                <!-- <ion-note slot="end" color="primary" (click)="driverinfoEdit(i)">Edit</ion-note> -->
+                <ion-note class="pointer" slot="end" color="primary" (click)="ChildrenEdit(i,j)"       >Edit</ion-note>  
+  
+              </h2>
+  
+            </ion-col>
+          </ion-row> 
+          
+          <ion-row>
+            <ion-col>Name of Child</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.name}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Age</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.age}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Gender</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.sex}} </ion-col>
+          </ion-row>
+
+
+          
+          <ion-row>
+            <ion-col>Caste</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.caste}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Father's Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.father_name}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Mothers's Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.mother_name}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Guardian's Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.guardian_name}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Family Income</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.family_income}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Permanent Address</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.permanent_address}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Present Address</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.present_address}} </ion-col>
+          </ion-row>
+          
+         
+          
+          <ion-row>
+            <ion-col>Present living condition/ economic condition(after the accident)</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.economic_condition}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Current status of education</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.level_of_education}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Whether the child is enrolled under EWS quota</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.ews_quota}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>If not attending school, reasons to be provided</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.going_to_school_or_not}} </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>School Information</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.corpanc}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Monthly School tuition fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.monthly_school_fee}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Annual school fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Private tuition / coaching fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.pvt_tution_fee}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Any other expenditure / logistics fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Type of skill development</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.cost_of_skill_development}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Any injured to child</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.any_injury}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Loss of any body part due to accident</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.loss_of_body_part}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Whether immediate psychological counseling / treatment</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.childlongtermsupport}} </ion-col>
+          </ion-row>
+
+         
+   
+          <ion-row>
+            <ion-col>Whether long term support required</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+             
+          <ion-row>
+            <ion-col>Cost involved in immediate medical treatmnent</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.cost_immediate_treatment}} </ion-col>
+          </ion-row>
+
+             
+          <ion-row>
+            <ion-col>Cost involved in long term medical treatment</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.cost_longterm_treatment}} </ion-col>
+          </ion-row>
+
+             
+          <ion-row>
+            <ion-col>Diet and nutrition expenses</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.diet_nutrition_expenses}} </ion-col>
+          </ion-row>
+
+
+
+
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-item-divider> </ion-item-divider>
+            </ion-col>
+          </ion-row>
+       
+        </ion-grid>
+      </ion-grid>
+
+    </span>
+     
+      
+
+    </ion-card-content>
+
+  </ion-card>
+
+
+  <ion-card>
+    <ion-item>
+      <ion-label style="color:darkslategray"> <strong>Pedestrian Details</strong> </ion-label>
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <!-- <ion-note class="pointer" slot="end" color="primary" (click)="geninfoEdit()">Edit</ion-note> -->
+    </ion-item>
+    
+    <ion-card-content class="alignme-center pointer"  (click)="showDetails('pedestrian')"> Show Details
+    </ion-card-content>
+    <ion-card-content *ngIf="viewped=='1'">
+
+      <ion-segment color="danger" scrollable value="0">
+        <ion-segment-button layout="icon-end" *ngFor="let ped of pedestriansdata; let i = index " (click)="sheped(i)">
+          <!-- <ion-icon name="call"></ion-icon> -->
+          <ion-label><strong>{{i+1}}. {{ped.name}} </strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <span *ngFor="let ped of pedestriansdata; let i = index ">
+      <ion-grid style="color: darkslategray" *ngIf="shepedid==i">
+        <ion-row>
+          <ion-col size="12">
+            <h2 class="alignme-center"> <strong>{{ped.name}} Details
+              </strong>
+              <ion-note class="pointer" slot="end" color="primary" (click)="Pedestrianedit(i)">Edit</ion-note> 
+  
+            </h2>
+  
+          </ion-col>
+        </ion-row> 
+       
+        <ion-row>
+          <ion-col>Vehicle </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col style="color: navy;font-weight: bolder;"> {{ped.get_veh_no}} &nbsp; &nbsp;
+         
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'> Vehicle Regn. Number</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{ped.veh_no}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Father Name </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.father_name}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class='fcolor'> Martial Status </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.marital_status}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'> Employed or not? </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.employed_or_not}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'> Name and Address of the Emoloyer</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.name_add_employer}} </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+          <ion-col>Address of the Emoloyer</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.assessed_to_income_tax}} </ion-col>
+        </ion-row> -->
+        <ion-row>
+          <ion-col class='fcolor'>Income Details </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.income}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Whether the Deceased was assessed to Income Tax</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.assessed_to_income_tax}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Give details of medical expenses incurred</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.medical_expenses_incurred}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+        <ion-col class='fcolor'>Whether the victim got reimbursement of medical expenses from his employer or under a Mediclaim policy or under any government cashless treatment scheme or government insurance scheme</ion-col>
+        <ion-col size=1> : </ion-col>
+        <ion-col>  {{ped.cashless_treatment}} </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col class='fcolor'>Form 6 Submitted or Not?</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.form6sub}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Date of  Death</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.date_of_death}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Whethere the deceased was the sole earning member of the family</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.sole_earning_member}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+        <ion-col class='fcolor'>Nature and description of Injury </ion-col>
+        <ion-col size=1> : </ion-col>
+        <ion-col>  {{ped.natureofinjury_description}} </ion-col>
+      </ion-row>
+
+      <ion-row>
+      <ion-col class='fcolor'>Medical treatment taken by the injured</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col>  {{ped.treatment_details_of_deceased}} </ion-col>
+    </ion-row>
+
+    <ion-row>
+          <ion-col class='fcolor'>Period of Hospitalization </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.hospital_treatment_period}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Doctor Name </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>   {{ped.doctor_name}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Name of Hospital</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.hospital_address}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>If Surgery undergone?</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.hospital_treatment_surgery_details}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Details of surgery(s)</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.hospital_treatment_details}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Permanent Disability?</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>   {{ped.permanent_disability}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Details of Permanent Disability</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.permanent_disability_details}} </ion-col>
+        </ion-row>
+        <!-- <ion-row>
+          <ion-col>Pecuniary Losses suffered </ion-col>
+          <ion-col size=1>  </ion-col>
+          <ion-col>  {{ped.veh_no}} </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+          <ion-col class='fcolor'>Expenditure on treatment </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.expendiure_on_treatment}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>If treatment is still continuing,give the estimate of expenditure</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.estimate_expenditure}} </ion-col>
+        </ion-row>
+
+       
+        <ion-row>
+          <ion-col class='fcolor'>Expenditure on conveyance,special diet,attendant charges etc.</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.expenditure_conveyance}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Loss of income</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.lossincome}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Loss of earning capacity</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.lossearcapacity}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Any other pecunoary loss</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.pecunairy_loss}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Reimbursement of medical expenses</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.reimbursement_medical_expense}} </ion-col>
+        </ion-row>
+        
+        
+        <ion-row>
+          <ion-col> Value of Loss</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.value_of_loss}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class='fcolor'>Compensation Claimed</ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col>  {{ped.compensation_claimed}} </ion-col>
+        </ion-row>
+
+      
+
+       
+        <ion-row *ngIf="ped.get_familymembers" >
+          <ion-col style='font-weight: bold;font-size:20px; color: rgb(220, 97, 236);' class="alignme-center" size=12>Family Details</ion-col>
+          <ion-col>  </ion-col>
+        </ion-row>
+        
+
+        <ion-grid *ngFor="let p of ped.get_familymembers let j = index"  style="color:#0577b0;">
+      
+          <ion-row>
+            <ion-col size="12">
+              <h2 class="alignme-center"> <strong>Details
+                </strong>
+                <!-- <ion-note slot="end" color="primary" (click)="driverinfoEdit(i)">Edit</ion-note> -->
+                <ion-note class="pointer" slot="end" color="primary" (click)="Familyedit(i,j)">Edit</ion-note> 
+              </h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.name}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Age</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.age}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Gender</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Relation ship type</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.relation_type}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Martial </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.marital_status}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Address </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.address}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Contact Number </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.contact_number}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item-divider> </ion-item-divider>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+       
+
+        <ion-row *ngIf="ped.get_childdetails" >
+          <ion-col  style='font-weight: bold;font-size:20px; color: midnightblue;' class="alignme-center" class="alignme-center" size=12>Children Details</ion-col>
+        </ion-row>
+        <ion-grid *ngFor="let p of ped.get_childdetails let j = index"  style="color:#dd8604;">
+          <ion-row>
+            <ion-col size="12">
+              <h2 class="alignme-center"> <strong> Details   </strong>
+                <ion-note class="pointer" slot="end" color="primary" (click)="pedchild(i,j)">Edit</ion-note> 
+              </h2>
+  
+            </ion-col>
+          </ion-row>
+
+         
+          <ion-row>
+            <ion-col>Name of Child</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.name}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Age</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.age}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Gender</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.sex}} </ion-col>
+          </ion-row>
+
+
+          
+          <ion-row>
+            <ion-col>Caste</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.caste}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Father's Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.father_name}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Mothers's Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.mother_name}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Guardian's Name</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.guardian_name}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Family Income</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.family_income}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Permanent Address</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.permanent_address}} </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Present Address</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.present_address}} </ion-col>
+          </ion-row>
+          
+         
+          
+          <ion-row>
+            <ion-col>Present living condition/ economic condition(after the accident)</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.economic_condition}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Current status of education</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.level_of_education}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Whether the child is enrolled under EWS quota</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.ews_quota}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>If not attending school, reasons to be provided</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.going_to_school_or_not}} </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>School Information</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.corpanc}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Monthly School tuition fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.monthly_school_fee}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Annual school fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Private tuition / coaching fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.pvt_tution_fee}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Any other expenditure / logistics fee</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Type of skill development</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.cost_of_skill_development}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Any injured to child</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.any_injury}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Loss of any body part due to accident</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.loss_of_body_part}} </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>Whether immediate psychological counseling / treatment</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.childlongtermsupport}} </ion-col>
+          </ion-row>
+
+         
+   
+          <ion-row>
+            <ion-col>Whether long term support required</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.gender}} </ion-col>
+          </ion-row>
+
+             
+          <ion-row>
+            <ion-col>Cost involved in immediate medical treatmnent</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.cost_immediate_treatment}} </ion-col>
+          </ion-row>
+
+             
+          <ion-row>
+            <ion-col>Cost involved in long term medical treatment</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.cost_longterm_treatment}} </ion-col>
+          </ion-row>
+
+             
+          <ion-row>
+            <ion-col>Diet and nutrition expenses</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{p.diet_nutrition_expenses}} </ion-col>
+          </ion-row>
+
+
+
+
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-item-divider> </ion-item-divider>
+            </ion-col>
+          </ion-row>
+       
+        </ion-grid>
+      </ion-grid>
+
+    </span>
+     
+      
+
+    </ion-card-content>
+
+  </ion-card>
+
+
+
+
+
+
+
+  <ion-card>
+    <ion-item>
+      <ion-label style="color:darkslategray"> <strong>Insurance</strong> </ion-label>
+
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <!-- <ion-note class="pointer" slot="end" color="primary" (click)="geninfoEdit()">Edit</ion-note> -->
+    </ion-item>
+
+    <ion-card-content class="alignme-center pointer" *ngIf="!vehicleregno" (click)="showDetails('insurances')"> Show Details
+    </ion-card-content>
+
+    <ion-card-content *ngIf="viewIns=='1'" >
+      
+
+      
+      <ion-segment color="danger" scrollable value=0 >
+        <ion-segment-button layout="icon-end" *ngFor="let item of vehicleregno; let i = index " (click)="insveh(i)" >
+         <!-- <ion-icon name="call"></ion-icon> -->
+          <ion-label><strong>{{i+1}}. {{item.vehregno}} </strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label style="color:darkslategray"  class="alignme-center"> <strong>General Details </strong> </ion-label>
+         </ion-item>
+        </ion-col>
+      </ion-row>
+      <span  *ngFor="let vh of vehicleregno; let i = index">
+       
+      
+        <ion-grid style="color:darkslategray" *ngIf="insseg==i">
+
+          <ion-col size="11"  style='color: red;font-weight: bold;'>
+            <h2 class="alignme-center">
+              <strong>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}} :
+                <span style="text-transform: uppercase">
+                  {{vh.vehregno}}
+                </span>
+              </strong>
+              &nbsp;&nbsp;&nbsp;<ion-note class="pointer" slot="end" color="primary"
+              (click)="InsuranceEdit(i)">
+                Edit</ion-note>
+            </h2>
+          </ion-col>
+
+      
+
+          <ion-row>
+            <ion-col  class='fcolor'>   Nature/Type of Policy    </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.nature_of_policy}}
+           
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> Date of intimation of the accident by the Insured to the Insurance Company </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.intimation_received_date_time_insured | date :  "dd-MMM-y" }}
+           
+            </ion-col>
+          </ion-row>
+           <ion-row>
+            <ion-col  class='fcolor'> Date of appointment of the Designated Officer by the Insurance Company  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.dateof_appt_designated_officer_by_ins | date :  "dd-MMM-y" }}
+           
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> Designated Officer Name  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.designated_officer_name}}
+           
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> Designated Officer Address  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.designated_officer_residence}}
+           
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col  class='fcolor'> Date of appointment of the Surveyor/Investigator  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.surveyor_appointment_date | date :  "dd-MMM-y" }}
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Surveyor/Investigator Officer Name  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.surveyor_investigator_name}}
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Surveyor/Investigator Officer Address  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.surveyor_investigator_residence}}
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Date of Report of the Surveyor/Investigator  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.dateof_surveyor_investigator_report | date :  "dd-MMM-y" }}
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Date of Decision of the Designated Officer  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.dateof_designated_officer_report  | date :  "dd-MMM-y" }}
+           
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col  class='fcolor'> Whether this Form has been filed within 30 days of receipt of DAR  </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col>{{vh.form_filled_within_30}}
+           
+            </ion-col>
+          </ion-row>
+
+
+          <!---------------------  VEHICLE DRIVER ---------------------------------------------------------------->
+
+      
+         
+     
+
+          <!---------------- VEHICLE DETAILS ---------------------------------------------->
+          
+          
+          
+          <ion-row *ngIf="vh.get_dar_insurance_death">
+            <ion-col size="12">
+              <h2 class="alignme-center">
+                <strong>Details
+                </strong>
+              </h2>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-grid *ngFor="let p of vh.get_dar_insurance_death; let j = index">
+                <ion-row>
+                  <ion-col>
+                   <!-- <h2 class="alignme-center">
+                      <strong>{{j+1}}. {{p.get_personname[0].name}} ({{p.person_type}}) </strong>
+                     
+                    </h2>-->
+                    <ion-item>
+                      <ion-label style="color:darkslategray"  class="alignme-center"> <strong>{{j+1}}. {{p.get_personname[0].name}} ({{p.person_type}}) </strong> </ion-label>
+                      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+                      <!-- <ion-note class="pointer" slot="end" color="primary" (click)="geninfoEdit()">Edit</ion-note> -->
+                      <ion-note class="pointer" slot="end" color="primary"
+               (click)="InsuranceDeathEdit(i,j)">
+              Edit</ion-note>
+                   
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+
+                <ion-item>
+                  <ion-label style="color: tomato; text-align:center">
+                    <strong >Computation of compensation deceased</strong>
+                  </ion-label>
+                </ion-item>
+               
+              
+                <ion-row>
+                  <ion-col  class='fcolor'> Income of the deceased(A) </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_income}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Add Future Prospect(B) </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_future_prospects}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Less-Personal expenses of the deceased(C)  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_less_personal_expenses}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Monthly loss of dependency[(A+B)-C=D]  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_monthly_loss_depedency}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Annual loss of dependency(D*12) </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_anual_loss_depedency}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Multiplier(E)  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_mulltiplier}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Total loss of dependency(E*12*D=F)  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_total_loss_dependency}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Medical Expenses(G) </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_medical_expenses}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Compensation for loss of consortium(H)</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_loss_consortium}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Compensation for loss for love and affection(I) </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_loss_for_love_affection}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Compensation for loss of estate(J)  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_loss_estate}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Compensation toward funeral expenses(K)</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_loss_funeral_expenses}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Total  Compensation(F+G+H+I+J+K=L)</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.death_total_compensation}}
+                 
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+          
+          
+          <!--<ion-item>
+            <ion-label style=" text-align:center">
+              <strong ></strong>
+            </ion-label>
+          </ion-item>-->
+          
+          
+          <ion-row *ngIf="vh.get_dar_insurance_injured">
+            <ion-col size="12">
+              <h2 class="alignme-center">
+                <strong>
+                </strong>
+              </h2>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-grid *ngFor="let p of vh.get_dar_insurance_injured; let j = index">
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label style="color:darkslategray"  class="alignme-center"> <strong>{{j+1}}. {{p.get_personname[0].name}} ({{p.person_type}}) </strong> </ion-label>
+                     <ion-note class="pointer" slot="end" color="primary"(click)="InsuranceInjuryEdit(i,j)">Edit</ion-note>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-item>
+                  <ion-label style="color: tomato; text-align:center">
+                    <strong >Computation of compensation Injured</strong>
+                  </ion-label>
+                </ion-item>
+                <ion-row>
+                  <ion-col  class='fcolor'> Expenditure on treatment  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_treatment}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Expenditure on conveyance  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_convenance}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Expenditure on Special Diet  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_special_diet}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Cost of nursing/attendant  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_cost_nursing_attendant}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Cost of artificial  limb  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_cost_artificial_limp}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Loss of earning capacity  </ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_loss_erning_capacity}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Loss of income</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_loss_income}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Any other loss which may required any special treatment or aid to the injured for the rest of his life</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_any_other_loss}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Compensation for mental and physical shock</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_com_mental_phy_shock}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Pain and suffering</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_pain_suffering}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Loss of amenities of life</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_loss_amenities}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Disfiguration</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_disfiguration}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'>Loss of marriage prospects</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_loss_of_marriage}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Loss of earning,inconvenience,hardships,disappointment,frustration, mental stress,dejectment and unhappiness in future life etc.</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_loss_ear_inc_har_dis}}
+                 
+                  </ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col  class='fcolor'> Total  Compensation</ion-col>
+                  <ion-col size=1> : </ion-col>
+                  <ion-col> {{p.inj_total_copensation}}           
+                  </ion-col>
+                </ion-row>
+
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </span>
+    </ion-card-content>
+
+
+
+
+    
+
+  </ion-card>
+
+
+
+
+
+
+
+
+  <ion-col>
+    <ion-button (click)="reports()" expand="block" color='danger'>e-DAR Reports</ion-button>
+  </ion-col>
+</ion-content>

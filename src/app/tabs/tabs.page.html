@@ -1,0 +1,357 @@
+
+<ion-tabs *ngIf="loginuser.dept=='1' && role==5" >
+
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+
+    <!-- <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon ios="ios-color-wand" md="md-color-wand"></ion-icon>
+      <ion-label>NEW</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'app.home' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>{{ 'app.add' | translate:params }}</ion-label>
+    </ion-tab-button>
+   
+    
+
+    <ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{ 'app.list' | translate:params }}</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="hospitalrequest" class='tabcolor'>
+      <ion-icon name="git-pull-request-outline"></ion-icon>
+      <ion-label>REQUEST</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+  <ion-fab  *ngIf="msgopt.shoIcon"  vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small"> 
+      <ion-icon  (click)="showMsg()" name="notifications-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-tabs>
+
+
+<ion-tabs *ngIf="role==40 || role==37  || role==50 || role==80 " >
+
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+
+    <!-- <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon ios="ios-color-wand" md="md-color-wand"></ion-icon>
+      <ion-label>NEW</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'app.home' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="role!=40" tab="tab1" class='tabcolor'>
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>{{ 'app.add' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{ 'app.list' | translate:params }}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+  <ion-fab  *ngIf="msgopt.shoIcon" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small">
+      <ion-icon  (click)="showMsg()" name="notifications-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-tabs>
+
+<!-- <ion-tabs *ngIf="role==6" >
+
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+
+    <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon name="add-circle"></ion-icon>
+      <ion-label>{{ 'app.home' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>{{ 'app.modify' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{ 'app.list' | translate:params }}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs> -->
+
+<ion-tabs *ngIf="role < 5">
+
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2" class='tabcolor'>
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+
+    <!--<ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon ios="ios-analytics" md="md-analytics"></ion-icon>
+      <ion-label>Analytics</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="role == 4" tab="tab5" class='tabcolor'>
+      <ion-icon name='list'></ion-icon>
+      <ion-label>LIST</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="role < 4"  tab="tab6" class='tabcolor'>
+      <ion-icon name='tv-outline'></ion-icon>
+      <ion-label>Summary</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+  <ion-fab *ngIf="msgopt.shoIcon"  vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small">
+      <ion-icon (click)="showMsg()" name="notifications-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-tabs>
+
+
+<ion-tabs *ngIf="loginuser.dept=='2' && (role==31 || role==35)">
+
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2" class='tabcolor'>
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+
+    <!--<ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon ios="ios-analytics" md="md-analytics"></ion-icon>
+      <ion-label>Analytics</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="role == 35" tab="tab5" class='tabcolor'>
+      <ion-icon name='list'></ion-icon>
+      <ion-label>LIST</ion-label>
+    </ion-tab-button>
+
+
+  </ion-tab-bar>
+  <ion-fab *ngIf="msgopt.shoIcon"  vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small">
+      <ion-icon (click)="showMsg()" name="notifications-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-tabs>
+
+
+
+<ion-tabs *ngIf="loginuser.dept=='4'" >
+
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+
+    <!-- <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon ios="ios-color-wand" md="md-color-wand"></ion-icon>
+      <ion-label>NEW</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'app.home' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="victim" class='tabcolor'>
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>{{ 'app.add' | translate:params }} </ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="listpatient" class='tabcolor'>
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{ 'app.list' | translate:params }} </ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="listrequest" class='tabcolor'>
+      <ion-icon name="git-pull-request-outline"></ion-icon>
+      <ion-label>REQUEST</ion-label>
+    </ion-tab-button>
+    
+  </ion-tab-bar>
+
+</ion-tabs>
+
+
+
+<!-- Highways Department tabs -->
+<ion-tabs *ngIf="loginuser.dept=='3'">
+
+  <ion-tab-bar slot="bottom" class='tabcolor' *ngIf="loginuser.role!='75'">
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2" class='tabcolor'>
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+
+    <!--<ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon ios="ios-analytics" md="md-analytics"></ion-icon>
+      <ion-label>Analytics</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="role == 4" tab="tab5" class='tabcolor'>
+      <ion-icon name='list'></ion-icon>
+      <ion-label>LIST</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+  <ion-tab-bar slot="bottom" class='tabcolor' *ngIf="loginuser.role=='75'">
+    <ion-tab-button tab="tab2" class='tabcolor' >
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'app.home' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="role!=40" tab="tab1" class='tabcolor'>
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>{{ 'app.add' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{ 'app.list' | translate:params }}</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+  
+</ion-tabs>
+
+<ion-tabs *ngIf="loginuser.dept=='5'">
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button  tab="dar" class='tabcolor'>
+      <ion-icon name='list'></ion-icon>
+      <ion-label>LIST</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+</ion-tabs>
+<ion-tabs *ngIf="loginuser.dept=='6'">
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button  tab="legal" class='tabcolor'>
+      <ion-icon name='list'></ion-icon>
+      <ion-label>LIST</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+</ion-tabs>
+
+<ion-tabs *ngIf="loginuser.dept=='7'">
+  <ion-tab-bar slot="bottom" class='tabcolor'>
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+    <ion-tab-button  tab="insurance" class='tabcolor'>
+      <ion-icon name='list'></ion-icon>
+      <ion-label>LIST</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+<!-- Administrative Department tabs -->
+<ion-tabs *ngIf="loginuser.dept=='10'">
+
+  <ion-tab-bar slot="bottom" class='tabcolor' *ngIf="loginuser.role!='75'">
+    <ion-tab-button tab="tab1" class='tabcolor'>
+      <ion-icon name="desktop" ></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2" class='tabcolor'>
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+
+    <!--<ion-tab-button tab="tab3" class='tabcolor'>
+      <ion-icon ios="ios-analytics" md="md-analytics"></ion-icon>
+      <ion-label>Analytics</ion-label> 
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab4" class='tabcolor'>
+      <ion-icon name="map" ></ion-icon>
+      <ion-label>MAP</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button  tab="tab6" class='tabcolor'>
+      <ion-icon name='tv-outline'></ion-icon>
+      <ion-label>Count</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+
+  
+</ion-tabs>

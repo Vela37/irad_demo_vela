@@ -1,0 +1,178 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-title>{{ 'app.settings' | translate:params }}</ion-title> -->
+    <ion-title class="alignme-center"> settings</ion-title>
+    <ion-buttons slot="end">
+      <ion-select placeholder="English" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ta">தமிழ்</ion-select-option>
+        <ion-select-option value="hi">हिंदी</ion-select-option>
+        <ion-select-option value="be">বাংলা</ion-select-option>
+        <ion-select-option value="kn">ಕನ್ನಡ</ion-select-option>
+      </ion-select>
+    </ion-buttons>
+
+    <!-- <ion-icon  slot="end" name="filter-outline" size='large' (click)="openFilter()" ></ion-icon> -->
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen class="pagebackground">
+
+
+
+  <section class="full-width" *ngIf='user'>
+
+
+    <ion-button color="warning" expand="full" *ngIf="(+user.role <=2 && dev) || (+user.role==10 && +user.dept==10) "
+      (click)="updateMaster()"> Master Update </ion-button>
+    <ion-button  color="warning" *ngIf="+user.role==1 && dev==true" expand="full" (click)="funService()"> Services </ion-button>
+
+
+    <!-- <ion-button>Default</ion-button>
+<ion-button color="primary">Primary</ion-button>
+<ion-button color="secondary">Secondary</ion-button>
+<ion-button color="tertiary">Tertiary</ion-button>
+<ion-button color="success">Success</ion-button>
+<ion-button color="warning">Warning</ion-button>
+<ion-button color="danger">Danger</ion-button>
+<ion-button color="light">Light</ion-button>
+<ion-button color="medium">Medium</ion-button>
+<ion-button color="dark">Dark</ion-button> -->
+
+    <!-- <ion-button expand="full" *ngIf="mobiledevice" (click)="checkLocaldb()"  >Check Localstorage</ion-button> -->
+
+  </section>
+
+  <!--  <ion-card >
+  <div class="list card"> 
+    <ion-item class="profile-item">
+      <div class="user-img ">
+        <img src="assets/logos/user.png">
+      </div>
+      <h2 class="ion-padding" style="color: #183e7a;">{{user.name}}</h2>
+    </ion-item>
+    <div class=" ion-padding list card">
+    <ion-row>
+      <ion-col  >
+        <div>
+          {{ 'profile.department' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{user.dept}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col  >
+        <div>
+          {{ 'profile.role' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{user.role}} 
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="user.ps!=null">
+      <ion-col>
+        <div>
+          {{ 'profile.policestation' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{user.ps  |  titlecase}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="user.district">
+      <ion-col>
+        <div>
+          {{ 'profile.district' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{user.district |  titlecase}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="user.state">
+      <ion-col>
+        <div>
+          {{ 'profile.state' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{user.state  |  titlecase}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="user.status">
+      <ion-col>
+        <div>
+          {{ 'profile.status' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-icon *ngIf="user.status" color="success" name="checkmark-circle-outline"></ion-icon>
+          <ion-icon *ngIf="!user.status" color="danger" name="close-circle-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  </div>
+</ion-card> -->
+
+
+
+
+</ion-content>
+<ion-item-divider>
+
+</ion-item-divider>
+<ion-item-divider>
+  <ion-label (dblclick)="enableDevMode()" color='medium'>
+    <span class='owncolor'> Version {{version}} </span>
+
+  </ion-label>
+  <ion-badge slot="end"> </ion-badge>
+  <ion-badge color="light" slot="end">
+
+    <ion-chip color="primary" *ngIf="mobiledevice">
+      <ion-label (click)="updateApp()">Check Update</ion-label>
+    </ion-chip>
+
+  </ion-badge>
+  <ion-badge slot="end"> </ion-badge>
+</ion-item-divider>
+<!-- <ion-item-divider  >
+  <ion-label  color='medium'>
+  <span class='owncolor'> Last Updated on 16-Dec-2020  </span>
+  </ion-label>
+</ion-item-divider> -->
+
+<style>
+  .pagebackground {
+
+    --background: no-repeat center/80% url("assets/logos/irad_logo1.03.png");
+  }
+
+  img {
+    opacity: 0.2;
+  }
+</style>

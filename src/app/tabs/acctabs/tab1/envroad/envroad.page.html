@@ -1,0 +1,867 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign">
+      {{ 'acctab1.roaddetails' | translate:params }}
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="previousbtn()" [disabled]="!prvbutton" fill="outline">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        {{'acctab1.acc.veh.prev' | translate:params}}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="nextbtn()" [disabled]="!nxtbutton" fill="outline">{{'acctab1.acc.veh.next' |
+        translate:params}}
+        <ion-icon slot="end" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text style="text-align: center" color="primary" [hidden]="!validaccid">
+    <h4 style="color: #183e7a">{{'commonlinks.env' | translate:params}}</h4>
+  </ion-text>
+
+  <ion-card [hidden]="validaccid" class="bgcolor">
+    <ion-card-content>
+      <form [formGroup]="roadformFG" (ngSubmit)="addroad()" novalidate>
+        <span [hidden]="!road1">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.area_type' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="area_type" interface="alert" (ionChange)="RoadClassification($event)">
+                    <ion-select-option value="rural">{{'commonlinks.rural' |
+                      translate:params}}</ion-select-option>
+                    <ion-select-option value="urban">{{'commonlinks.urban' |
+                      translate:params}}</ion-select-option>
+                    <ion-select-option value="suburban">{{'commonlinks.surban' |
+                      translate:params}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.area_type.errors?.required">
+                  {{'errmsg.area_type' | translate:params}}
+                </p>
+              </ion-col>
+              <ion-col *ngIf="checkdvalue == true">
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_classification' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="road_classification" interface="alert"
+                    *ngIf="this.roadformFG.controls['area_type'].value == 'rural' ">
+                    <ion-select-option *ngFor="let d of options5r; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                  <ion-select formControlName="road_classification" interface="alert"
+                    *ngIf="this.roadformFG.controls['area_type'].value == 'urban' || this.roadformFG.controls['area_type'].value == 'suburban' ">
+                    <ion-select-option *ngFor="let d of options5u; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_classification.errors?.required">
+                  {{'errmsg.road_classification' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">
+                    {{'acctab1.acc.Road.surface_type' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="surface_type" interface="alert">
+                    <ion-select-option *ngFor="let d of options27; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                  <!-- <ion-select formControlName="surface_type" interface="alert">
+                    <ion-select-option value="Paved">{{'commonlinks.paved' |
+                      translate:params}}</ion-select-option>
+                    <ion-select-option value="Unpaved">{{'commonlinks.unpaved' |
+                      translate:params}}</ion-select-option>
+                  </ion-select> -->
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.surface_type.errors?.required">
+                  {{'errmsg.surface_type' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_number' | translate:params}}
+                    <ion-icon name="" class=""></ion-icon>
+                  </ion-label>
+
+                  <ion-input formControlName="road_number" maxlength="45" clearInput="true" autocomplete="false"
+                    spellcheck="“true”" style="text-transform: uppercase"></ion-input>
+                </ion-item>
+
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_number.errors?.pattern">
+                  {{'errmsg.road_number' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_name' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-input formControlName="road_name" maxlength="80" autofocus="true" clearInput="true"
+                    autocomplete="false" spellcheck="“true”" placeholder="From" style="text-transform: capitalize">
+                  </ion-input>
+                  <ion-input formControlName="road_name1" maxlength="80" autofocus="true" clearInput="true"
+                    autocomplete="false" spellcheck="“true”" placeholder="To" style="text-transform: capitalize">
+                  </ion-input>
+                </ion-item>
+
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_name.errors?.required">
+                  {{'errmsg.road_name' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.type_structure' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="type_structure" interface="alert">
+                    <ion-select-option *ngFor="let d of options12; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.type_structure.errors?.required">
+                  {{'errmsg.type_structure' | translate:params}}
+                </p>
+              </ion-col>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.type_road' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="type_road" interface="alert">
+                    <ion-select-option *ngFor="let d of options15; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.type_road.errors?.required">
+                  {{'errmsg.type_road' | translate:params}}
+                </p>
+              </ion-col>
+              
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.surface_condition' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="surface_condition" interface="alert">
+                    <ion-select-option *ngFor="let d of options11; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.surface_condition.errors?.required">
+                  {{'errmsg.surface_condition' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <!-- Not Completed --New Field Start -->
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.type_carriageway' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="type_carriageway" interface="alert">
+                    <ion-select-option *ngFor="let d of options24; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.type_carriageway.errors?.required">
+                  {{'errmsg.type_carriageway' | translate:params}}
+                </p>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_width' | translate:params}}
+                    <span class="redclr">(in metre)</span>
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+                  <ion-input formControlName="road_width" required maxlength="7"></ion-input>
+
+                  <!-- <ion-label color="primary">
+                    <span class="redclr">Metre</span> </ion-label
+                  ><br /> -->
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_width.errors?.required">
+                  {{'errmsg.road_width' | translate:params}}
+                </p>
+                <!-- <p
+                  class="errormsg"
+                  *ngIf="isSubmitted && errorControl.road_width.errors?.pattern"
+                >
+                  Give currect number formate
+                </p> -->
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.accident_locations' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select multiple="false" formControlName="accident_locations" interface="alert"
+                    (ionChange)="Location($event)">
+                    <ion-select-option *ngFor="let d of options18; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.accident_locations.errors?.required">
+                  {{'errmsg.accident_locations' | translate:params}}
+                </p>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_chainage' | translate:params}}
+                    <span class="redclr">(in metre)</span>
+                  </ion-label>
+                  <ion-input formControlName="road_chainage" maxlength="7"></ion-input>
+                  <!-- <ion-label color="primary">
+                    <span class="redclr">Kilometre</span> </ion-label
+                  ><br />
+                  <ion-input
+                    formControlName="ctl_roadchainage_metre"
+                    type="number"
+                    style="text-align: right"
+                    (keyup)="checkdigit($event)"
+                  >
+                  </ion-input> -->
+                  <!-- <ion-label color="primary">
+                    <span class="redclr">Metre</span>
+                  </ion-label> -->
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.horizontal_curve' |
+                    translate:params}}
+                  </ion-label>
+
+                  <ion-select formControlName="horizontal_curve" interface="alert"
+                    [disabled]="this.roadformFG.controls['accident_locations'].value != '2'">
+                    <ion-select-option *ngFor="let d of options9; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col [hidden]="topo">
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.vertical_curve' | translate:params}}
+                    <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+                  </ion-label>
+
+                  <ion-select formControlName="vertical_curve" interface="alert"
+                    [disabled]="this.roadformFG.controls['accident_locations'].value != '3'">
+                    <ion-select-option *ngFor="let d of options10; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_width_curve' |
+                    translate:params}}
+                    <span class="redclr">(in metre)</span>
+                  </ion-label>
+                  <ion-input formControlName="road_width_curve"
+                    [disabled]="!(this.roadformFG.controls['accident_locations'].value == '3' || this.roadformFG.controls['accident_locations'].value == '2')"
+                    maxlength="7"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.junction_type' | translate:params}}
+                    <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+                  </ion-label>
+
+                  <ion-select formControlName="junction_type" interface="alert"
+                    [disabled]="!(this.roadformFG.controls['accident_locations'].value == '1' || this.roadformFG.controls['accident_locations'].value == '5')">
+                    <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.junction_type.errors?.required">
+                  {{'errmsg.junction_type' | translate:params}}
+                </p>
+              </ion-col>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.junction_control' |
+                    translate:params}}
+                    <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+                  </ion-label>
+
+                  <ion-select formControlName="junction_control" interface="alert"
+                    [disabled]="!(this.roadformFG.controls['accident_locations'].value == '1' || this.roadformFG.controls['accident_locations'].value == '5')">
+                    <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.junction_control.errors?.required">
+                  {{'errmsg.junction_control' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row> </ion-row>
+            <!-- <ion-row>
+            
+            </ion-row> -->
+            <!-- 234567890 -->
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.sight_distance' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select multiple="false" formControlName="sight_distance" interface="alert">
+                    <ion-select-option *ngFor="let d of options17; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.sight_distance.errors?.required">
+                  {{'errmsg.sight_distance' | translate:params}}
+                </p>
+              </ion-col>
+
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.speed_limit' | translate:params}}
+                    <span class="redclr">(In KMPH)</span>
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="speed_limit" interface="alert">
+                    <ion-select-option *ngFor="let d of options20; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.speed_limit.errors?.required">
+                  {{'errmsg.speed_limit' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <!-- Not Completed --New Field Start -->
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_margins' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="road_margins" interface="alert" (ionChange)="Shoulder($event)">
+                    <ion-select-option *ngFor="let d of options21; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_margins.errors?.required">
+                  {{'errmsg.road_margins' | translate:params}}
+                </p>
+              </ion-col>
+
+              <ion-col *ngIf="this.roadformFG.controls['road_margins'].value == '1' ">
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_shoulder_type' |
+                    translate:params}}</ion-label>
+
+                  <ion-select formControlName="road_shoulder_type" interface="alert">
+                    <ion-select-option value="Paved">{{'commonlinks.paved' |
+                      translate:params}}</ion-select-option>
+                    <ion-select-option value="Unpaved">{{'commonlinks.unpaved' |
+                      translate:params}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <!-- <ion-col>
+                <ion-skeleton-text
+                  animated
+                  style="width: 100%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 70%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 40%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor"
+                    >{{'acctab1.acc.Road.roadshoulder' | translate:params}}
+                  </ion-label>
+                  <ion-toggle
+                    color="danger"
+                    (click)="rdshChange()"
+                    formControlName="rdsh"
+                  ></ion-toggle>
+                </ion-item>
+              </ion-col> -->
+            </ion-row>
+
+            <!-- <ion-row>
+              <ion-col *ngIf="false">
+                <ion-skeleton-text
+                  animated
+                  style="width: 100%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 70%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 40%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating"
+                    >{{'acctab1.acc.Road.roadftu' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+                  <ion-select
+                    multiple="false"
+                    (ionChange)="changefeature($event)"
+                    formControlName="ctl_features"
+                    cancelText="cancel"
+                    okText="OK"
+                    interface="alert"
+                  >
+                    <ion-select-option value="h"
+                      >{{'commonlinks.hor' |
+                      translate:params}}</ion-select-option
+                    >
+                    <ion-select-option value="v"
+                      >{{'commonlinks.vert' |
+                      translate:params}}</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+                <p
+                  class="errormsg"
+                  *ngIf="isSubmitted && errorControl.ctl_features.errors?.required"
+                >
+                  {{'errmsg.reroadfeature' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row> -->
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'commonlinks.type_terrain' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="type_terrain" interface="alert" (ionChange)="topologychange($event)">
+                    <!-- <ion-select-option value="1"
+                      >{{'commonlinks.plain' |
+                      translate:params}}</ion-select-option
+                    >
+                    <ion-select-option value="2"
+                      >{{'commonlinks.hilly' |
+                      translate:params}}</ion-select-option
+                    > -->
+                    <ion-select-option *ngFor="let d of options22; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.type_terrain.errors?.required">
+                  {{'errmsg.type_terrain' | translate:params}}
+                </p>
+              </ion-col>
+
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'commonlinks.type_surface_gradient' |
+                    translate:params}}
+                    <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+                  </ion-label>
+
+                  <ion-select formControlName="type_surface_gradient" interface="alert">
+                    <ion-select-option *ngFor="let d of options13; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row> </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.physical_divider' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="physical_divider" interface="alert" required>
+                    <ion-select-option value="yes">{{'commonlinks.yes' |
+                      translate:params}}</ion-select-option>
+                    <ion-select-option value="no">{{'commonlinks.no' |
+                      translate:params}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.physical_divider.errors?.required">
+                  {{'errmsg.physical_divider' | translate:params}}
+                </p>
+              </ion-col>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_median' | translate:params}}
+                    <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+                  </ion-label>
+
+                  <ion-select formControlName="road_median" interface="alert">
+                    <ion-select-option *ngFor="let d of options26; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <!-- <p
+                    class="errormsg"
+                    *ngIf="isSubmitted && errorControl.road_median.errors?.required"
+                  >
+                    {{'errmsg.road_median' | translate:params}}
+                  </p> -->
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+        </span>
+        <span [hidden]="!road2">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">
+                    {{'acctab1.acc.Road.pedestrian_infrastructure' |
+                    translate:params}}</ion-label>
+                  <ion-select formControlName="pedestrian_infrastructure" interface="alert">
+                    <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.onoing_road_work' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select formControlName="onoing_road_work" interface="alert">
+                    <ion-select-option value="true">{{'commonlinks.yes' |
+                      translate:params}}</ion-select-option>
+                    <ion-select-option value="false">{{'commonlinks.no' |
+                      translate:params}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.onoing_road_work.errors?.required">
+                  {{'errmsg.reroadwork' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_markings' | translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select multiple="false" formControlName="road_markings" interface="alert" required>
+                    <ion-select-option *ngFor="let d of options16; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_markings.errors?.required">
+                  {{'errmsg.road_markings' | translate:params}}
+                </p>
+              </ion-col>
+
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.road_sign_board' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select multiple="false" formControlName="road_sign_board" interface="alert" required>
+                    <ion-select-option *ngFor="let d of options19; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.road_sign_board.errors?.required">
+                  {{'errmsg.roadsign' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.geometric_factors' |
+                    translate:params}}
+                    <ion-icon name="star" class="mandatory"></ion-icon>
+                  </ion-label>
+
+                  <ion-select multiple="true" formControlName="geometric_factors" interface="alert" required>
+                    <ion-select-option *ngFor="let d of options25; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <p class="errormsg" *ngIf="isSubmitted && errorControl.geometric_factors.errors?.required">
+                  {{'errmsg.geometric_factors' | translate:params}}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.remedial_measures' |
+                    translate:params}}</ion-label>
+                  <ionic-selectable item-content formControlName="remedial_measures" itemValueField="id"
+                    itemTextField="name" [items]="ports" [canSearch]="true" (onChange)="portChange($event)"
+                    [isMultiple]="true" searchFailText="Remedial Measures Not Found">
+                  </ionic-selectable>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <!-- <ion-row>
+              <ion-col *ngIf="ln != 'en'">
+                <ion-skeleton-text
+                  animated
+                  style="width: 100%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 70%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 40%"
+                  [hidden]="!datacombo"
+                ></ion-skeleton-text>
+                <ion-item [hidden]="datacombo">
+                  <ion-label class="fcolor" position="floating">
+                    {{'acctab1.acc.Road.remedial_measures' | translate:params}}
+                  </ion-label>
+                  <ion-select
+                    multiple="true"
+                    formControlName="remedial_measures"
+                    interface="alert"
+                  >
+                    <ion-select-option
+                      *ngFor="let d of options14; let i = index"
+                      value="{{d.id}}"
+                    >
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col *ngIf="ln == 'en'">
+                <ion-item>
+                  <ion-label class="fcolor" position="floating">{{'acctab1.acc.Road.remedial_measures' | translate:params}}</ion-label>
+                  <ionic-selectable
+                    item-content
+                    formControlName="port"
+                    itemValueField="id"
+                    itemTextField="name"
+                    [items]="ports"
+                    [canSearch]="true"
+                    (onChange)="portChange($event)"
+                    [isMultiple]="true"
+                  >
+                  </ionic-selectable>
+                </ion-item>
+              </ion-col>
+            </ion-row> -->
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-row [hidden]="datacombo">
+              <ion-col class="txtalign">
+                <ion-button *ngIf="!isLoading" shape="round" type="submit" fill="outline" color="success">
+                  <ion-icon name="cloud-upload"></ion-icon>
+                  &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.save' |
+                  translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;
+                </ion-button>
+                <ion-button *ngIf="isLoading" shape="round" fill="outline" color="success" expand="block">
+                  <ion-spinner name="circles"> </ion-spinner>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </span>
+      </form>
+    </ion-card-content>
+  </ion-card>
+  <style>
+    .mandatory {
+      color: red;
+      font-size: 7px;
+    }
+  </style>
+</ion-content>

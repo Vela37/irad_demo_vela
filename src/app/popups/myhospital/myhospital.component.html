@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>My Hospital</ion-title>
+    <ion-buttons slot="end">
+      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>Hospital Type</ion-card-subtitle>
+    <ion-card-title>{{hpname}}</ion-card-title>
+  </ion-card-header>
+
+
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Town name
+          </ion-col>
+          <ion-col>
+            {{townname}}
+            </ion-col>
+        </ion-row>
+      <ion-row>
+        <ion-col>
+          Contact No.
+          </ion-col>
+          <ion-col>
+            {{contactnr}}
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            Address
+            </ion-col>
+            <ion-col>
+              {{address}}
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              Pin code
+              </ion-col>
+              <ion-col>
+                {{pincode}}
+                </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+               State
+                </ion-col>
+                <ion-col>
+                  {{state}}
+                  </ion-col>
+              </ion-row>
+          <ion-row>
+<!--
+            <ion-col>
+              <ion-button color="danger" shape="round" (click)="searcclosemodal()">Search</ion-button>
+              </ion-col>
+
+
+-->
+
+              <ion-col>
+                <ion-button color="success" shape="round" (click)="closemodal()">OK</ion-button>
+                </ion-col>
+            </ion-row>
+      </ion-grid>
+   
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

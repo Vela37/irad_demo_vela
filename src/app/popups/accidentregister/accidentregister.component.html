@@ -1,0 +1,273 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>ACCIDENT REGISTER – CUM – WOUND CERTIFICATE</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color='light'>
+  <div *ngIf="patientdata.accregister_police_show=='No'">
+    <div style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right: 30px;'> <span *ngIf="patientdata.accregister_saveflag=='1'" (click)="editflagchage()">Edit</span></div>
+    </div>
+  <ion-card >
+    <ion-card-content >
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+        
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>:&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row>
+  
+
+      <ion-row>
+        <ion-col>Gender</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.gender}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Age</ion-col>
+        
+        <ion-col >:&nbsp;{{patientdata.patient_age}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="flag=='Yes'">
+        <ion-col    >Accident Register</ion-col>
+        
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>MLC - {{patientdata.patient_type}} ID</ion-col>
+        
+        <ion-col>:&nbsp;{{patientdata.patient_id}}</ion-col>
+      </ion-row>
+  
+
+      <ion-row>
+        <ion-col>Patient Address</ion-col>
+        
+        <ion-col> :{{patientdata.gurdian_type}},&nbsp;<span class='casesensitive'>{{patientdata.gurdian_name}},&nbsp;{{patientdata.patient_address}}&nbsp;</span></ion-col>      </ion-row>
+
+     
+        <ion-row>
+          <ion-col>Time of Arrival</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.timeof_arrival}}</ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col>Police Station name</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.police_stationid}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Accident Register</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.ar_number}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>History as stated by the injured</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.accregister_histroystated}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Details of injury</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.accregister_detailsofinjuries}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Doctor Name</ion-col>
+          
+          <ion-col class='casesensitive'>:Dr.&nbsp;{{patientdata.doctor_name}}</ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col>Doctor Regn. No.</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.doctor_regno}}</ion-col>
+        </ion-row>
+        <ion-row   *ngIf="patientdata.accregister_saveflag=='1'" style='display:none;'>
+          <ion-col style='color:#076ab6;font-weight: bold;'></ion-col>
+          <ion-col (click)="downloadpmpdf(patientdata.id,2)" style='color:#076ab6;font-weight: bold;cursor: pointer;'>
+            &nbsp;Download PDF
+            </ion-col>
+          <ion-col class='casesensitive'  ></ion-col>
+        </ion-row>
+  
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="flag=='No'" style='display:nonej;'>
+    
+ 
+</div>
+  <ion-card style='display:none;'>
+    <ion-card-content >
+      <ion-row>
+        <ion-col>Accident Register</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.ar_number}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>History as stated by the injured</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.accregister_histroystated}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Details of injury</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.accregister_detailsofinjuries}}</ion-col>
+      </ion-row>
+  
+      
+      
+
+
+      <ion-row *ngIf="patientdata.accregister_police_show=='Yes'">
+        <ion-col style='color:#076ab6;font-weight: bold;'>Report submitted on</ion-col>
+        
+        <ion-col class='casesensitive' style='color:#076ab6;font-weight: bold;'>:&nbsp;{{patientdata.accregister_created_date}}</ion-col>
+      </ion-row>
+
+      
+     
+      
+          
+     
+
+    </ion-card-content>
+  </ion-card>
+<span *ngIf="flag=='Yes'">
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>      <ion-grid>
+     
+    <ion-row style='display:none;'>  
+      <ion-col>  
+        <ion-item>
+          <ion-label class="fcolor" position="floating" style='color:red;font-weight:bold;'>
+            Do you want to submit report  to police?
+            </ion-label>
+        <ion-select (ionChange)="showmsg(patientdata.accregister_police_show)" id="accregister_police_show" name="accregister_police_show"  
+        #showhpInput="ngModel"
+        [(ngModel)]="patientdata.accregister_police_show" 
+        required>
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && showhpInput.invalid">
+          <p class='errormsg'*ngIf="showhpInput.errors.required">
+            Show to Hospital Required
+          </div>
+                </ion-col> 
+              
+   </ion-row>
+
+
+   <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        Accident Register Number
+        </ion-label>
+        <ion-input   id="ar_number" name="ar_number"  
+               #ar_numberInput="ngModel"
+               [(ngModel)]="patientdata.ar_number" 
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && ar_numberInput.invalid">
+        <p class='errormsg'*ngIf="ar_numberInput.errors.required">
+          Accident register number required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+   
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        History as stated by the injured
+        </ion-label>
+        <ion-textarea rows="6" cols="20"   id="accregister_histroystated" name="accregister_histroystated"  
+               #accregister_histroystatedInput="ngModel"
+               [(ngModel)]="patientdata.accregister_histroystated" 
+               required></ion-textarea>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && accregister_histroystatedInput.invalid">
+        <p class='errormsg'*ngIf="accregister_histroystatedInput.errors.required">
+          History as stated by the injured required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        Details of injuries
+        </ion-label>
+        <ion-textarea rows="6" cols="20"   id="accregister_detailsofinjuries" name="accregister_detailsofinjuries"  
+               #accregister_detailsofinjuriesInput="ngModel"
+               [(ngModel)]="patientdata.accregister_detailsofinjuries" 
+               required></ion-textarea>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && accregister_detailsofinjuriesInput.invalid">
+        <p class='errormsg'*ngIf="accregister_detailsofinjuriesInput.errors.required">
+          Details of injuries  required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+    
+  </ion-grid>
+  <ion-footer translucent="true" class="tab1-footer">
+    <ion-grid>
+      <ion-row justify-content-around>
+      
+        <ion-col *ngIf="patientdata.accregister_police_show=='Yes'">
+          <ion-button expand="block"   (click)="downloadpmpdf(patientdata.id,2)" color='warning'>
+            &nbsp;&nbsp;&nbsp;Download
+  
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block"   color='success' type="submit">
+          
+  
+            SAVE
+  
+          </ion-button>
+        </ion-col>
+        <ion-col style='display:none;'>
+          <ion-button expand="block" *ngIf="patientdata.accregister_saveflag=='1'"  color='success' (click)="downloadpmpdf(patientdata.id,2)">
+          
+  
+              DOWNLOAD
+  
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</form>
+  </span>
+  
+      <!-- 
+<span *ngIf="patientdata.accregister_police_show=='Yes'">
+    <div style='text-align:center;'>
+      <ion-button (click)="downloadpmpdf(patientdata.id,2)">Download</ion-button>
+    </div>
+      </span>
+
+
+      -->
+  </ion-content>

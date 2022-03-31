@@ -1,0 +1,291 @@
+<ion-header >
+  <ion-toolbar color='hospital txtalign'>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Request List<!-- {{ 'acctab3.listpatient' | translate:params }}--></ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-header  class="ion-no-border">
+  
+    <ion-title> 
+    
+      <ion-segment scrollable >
+        <ion-segment-button (click)="funPending(-1)" checked *ngIf="true">
+          <ion-label> DRUNKENNESS <!-- {{ 'acctab3.pending' | translate:params }} -->
+            <span *ngIf="false">({{drunkenness_data.length}})</span>
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="funCompleted(-1)" >
+          <ion-label> POSTMORTEM <!-- {{ 'acctab3.completed' | translate:params }}  -->
+            <span *ngIf="false">({{postmortem_data.length}})</span>
+          </ion-label>
+        </ion-segment-button >
+        <ion-segment-button (click)="refferalload(-1)" >
+          <ion-label>REFFERAL <!-- {{ 'acctab3.completed' | translate:params }}  -->
+            <span *ngIf="false">({{postmortem_data.length}})</span>
+          </ion-label>
+        </ion-segment-button >
+       
+      </ion-segment>
+
+    </ion-title>
+ 
+</ion-header>
+
+
+<ion-content  class="ion-padding">
+
+<!-- Drunken-->
+  <span *ngIf="segflag==1" >
+
+    <ion-refresher slot="fixed" (ionRefresh)="refPending($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    
+  <ion-card  *ngFor="let d of drunkenness_data; let i = index" class="severity{{d.injury_severity}} ion-text-center" >
+    <ion-card-header>
+      <ion-card-subtitle style='color:rgb(194, 8, 154);font-weight: bold;'>  
+        {{ 'app.accidentid' | translate:params }}: <b>{{d.accident_id.slice(-4) }} </b> 
+       <span *ngIf="d.fir">  - FIR/CSR  :  <b>{{d.fir }} </b> </span>
+      
+      </ion-card-subtitle>
+      <ion-card-title color='hospital'> {{d.psname}}</ion-card-title>
+
+    </ion-card-header>
+      <ion-card-content style='color:rgb(8, 8, 92);font-size:15px;'>    
+        {{d.name}}, ({{d.age}}) ({{d.gender}}) ({{d.severity_desc}}) 
+         <ion-label class="alignme-right">  </ion-label> 
+       </ion-card-content>
+    <ion-item class="sev1" >
+     <span class="alignme-center" style="width: 100%;" >
+    <ion-chip  *ngIf="d.notification=='0'" class='btn btn-1' (click)="addpatient(i)"  color="secondary">
+      <ion-label>ADD</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+    </ion-chip>
+
+    <ion-chip  *ngIf="d.notification=='1'" class='btn btn-1' (click)="viewpatient(i)"  color="secondary">
+      <ion-label>GO TO</ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+    </ion-chip>
+    </span>
+    </ion-item>
+    <ion-item class="sev1" *ngIf="d.dd_request_flag=='1'">
+      <span class="alignme-center" style="width: 100%;" >
+ 
+ 
+      
+ 
+     <ion-chip  color='danger'  >
+       <ion-label >DONE  </ion-label> <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+     </ion-chip>
+    
+ 
+ 
+     </span>
+     </ion-item>
+
+    
+    
+   
+  </ion-card>
+
+  <ion-card   *ngIf="pending_data && pending_data.length==0" >
+    <ion-card-content>
+      <ion-label> No data ! {{pending_data.length}} </ion-label>
+    </ion-card-content>
+ </ion-card>
+
+ <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollPending($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</span>
+
+<span *ngIf="segflag==2">
+<!--
+
+  Postmorterm Request
+
+-->
+  <ion-refresher slot="fixed" (ionRefresh)="refCompleted($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+    <ion-card   *ngFor="let d of comp_data; let i = index" class="severity{{d.injury_severity}} ion-text-center" >
+      <ion-card-header>
+        <ion-card-subtitle style='color:rgb(194, 8, 154);font-weight: bold;'>  
+        <span *ngIf="d.accident_id" >  {{ 'app.accidentid' | translate:params }}: <b>{{d.accident_id.slice(-4) }} </b> </span>
+         
+        
+        </ion-card-subtitle>
+        <ion-card-title color='hospital'> {{d.psname}}</ion-card-title>
+
+      </ion-card-header>
+      <ion-card-content style='color:rgb(23, 51, 143);font-size:15px;'> 
+        {{d.name}} - {{d.gender}} ({{d.age}})
+        <ion-label class="alignme-right">  </ion-label> 
+      </ion-card-content>
+
+      <ion-item class="sev1" *ngIf="d.pm_request_flag=='0'">
+        <span class="alignme-center" style="width: 100%;">
+      <ion-chip  class='btn btn-1' (click)="addpatientboth(i)"  color="secondary">
+        <ion-label>ADD</ion-label> 
+      </ion-chip>
+      </span>
+      </ion-item>
+      <ion-item class="sev1" *ngIf="d.pm_request_flag=='1'">
+        <span class="alignme-center" style="width: 100%;">
+      <ion-chip  color='danger' color="secondary">
+        <ion-label >DONE </ion-label> 
+      </ion-chip>
+      </span>
+      </ion-item>
+
+    </ion-card>
+
+  <ion-card   *ngIf="comp_data && comp_data.length==0" >
+    <ion-card-content>
+      <ion-label> No data ! </ion-label>
+    </ion-card-content>
+ </ion-card>
+
+ <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollCompleted($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</span>
+
+<span *ngIf="segflag==3">
+<!-- Refferal -->
+  <ion-refresher slot="fixed" (ionRefresh)="refDisabled($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card   *ngFor="let d of disabled_data; let i = index" class="severity{{d.injury_severity}} ion-text-center" >
+    <ion-card-header>
+      <ion-card-subtitle style='color:rgb(194, 8, 154);font-weight: bold;'>  
+        <span *ngIf="d.accident_id" >  {{ 'app.accidentid' | translate:params }}: <b>{{d.accident_id.slice(-4) }} </b> </span>
+      
+      
+      </ion-card-subtitle>
+      <ion-card-title color='hospital'> {{d.psname}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content style='color:rgb(8, 8, 92);font-size:15px;'> 
+      {{d.name}} - {{d.gender}} ({{d.age}}) ({{d.severity_desc}})
+  
+      <ion-label class="alignme-right">  </ion-label> 
+    </ion-card-content>
+
+    <!--*ngIf="d.hp_refferal_done=='0'-->
+   
+    <ion-item class="sev1" *ngIf="d.hp_refferal_done=='0'">
+      <span class="alignme-center" style="width: 100%;">
+    <ion-chip  class='btn btn-1' (click)="addrefferal(i)"  color="secondary">
+      <ion-label >ADD</ion-label> 
+    </ion-chip>
+    </span>
+    </ion-item>
+
+    <ion-item class="sev1" *ngIf="d.hp_refferal_done=='1'">
+      <span class="alignme-center" style="width: 100%;">
+    <ion-chip   color="danger">
+      <ion-label >Alread Added</ion-label> 
+    </ion-chip>
+    </span>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card   *ngIf="disabled_data && disabled_data.length==0" >
+    <ion-card-content>
+      <ion-label> No data ! </ion-label>
+    </ion-card-content>
+ </ion-card>
+ <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollDisabled($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</span>
+
+
+
+
+<!-- Skeleton screen -->
+<div *ngIf="loading">
+
+  <ion-list>
+    <ion-list-header>
+      <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+
+
+</ion-content>
+<style>
+ion-content{
+  --background: #e8f8ff  ;
+}
+ion-card-subtitle{
+  color:#444;
+}
+ion-card-content{
+  color:#555;
+}
+</style>

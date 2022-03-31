@@ -1,0 +1,435 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>CERTIFICATE OF DRUNKENNESS </ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  <ion-content  color='light'>
+    <div style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right: 30px;'> <span *ngIf="patientdata.drunken_saveflag=='1'" (click)="editflagchage()">Edit</span></div>
+
+  <ion-card>
+    <ion-card-content >
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+        
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>:&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Gender</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.gender}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Age</ion-col>
+        
+        <ion-col >:&nbsp;{{patientdata.patient_age}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="flag=='Yes'">
+        <ion-col >Accident Register</ion-col>
+        
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>MLC - {{patientdata.patient_type}}</ion-col>
+        
+        <ion-col>:&nbsp;{{patientdata.patient_id}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Patient Address</ion-col>
+        
+        <ion-col class='casesensitive'> :&nbsp;{{patientdata.gurdian_type}},{{patientdata.gurdian_name}},{{patientdata.patient_address}}</ion-col>      </ion-row>
+        <ion-row>
+          <ion-col>Time of Arrival</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.timeof_arrival}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Accident Register</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.ar_number}}</ion-col>
+        </ion-row>
+        <ion-row   *ngIf="patientdata.drunken_saveflag=='1'" style='display:none;'>
+          <ion-col></ion-col>
+          <ion-col (click)="downloadpmpdf(patientdata.id,4)" style='color:#076ab6;font-weight: bold;'>Download PDF</ion-col>
+          <ion-col class='casesensitive' style='color:#076ab6;font-weight: bold;'></ion-col>
+        </ion-row>
+        
+    </ion-card-content>
+  </ion-card>
+  <div style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right:20px;display:none;'> <span *ngIf="patientdata.dd_showpolice=='No'"  (click)="editflagchage()">Add More Details</span></div>
+  <span *ngIf="flag=='no'">
+
+  <ion-card style='display:none;'>
+    <ion-card-content >
+      
+      <ion-row>
+        <ion-col>Whether under arrest or not</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_arrest}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Consent</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_consent}}</ion-col>
+      </ion-row>
+  
+     
+      
+  
+      <ion-row>
+        <ion-col >Date & time of examination.</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_timeofexamin}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>History</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_history}}</ion-col>
+      </ion-row> 
+      <ion-row>
+        <ion-col>Smell of alcohol in breath</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_smellinbreath}}</ion-col>
+      </ion-row>
+      
+
+    
+
+      <ion-row>
+        <ion-col >Speech</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_speech}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >Clothing</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_clothing}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col >Self control</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_selfcontrol}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >Memory</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_memory}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col >Orientation of time & space</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_oritime}}</ion-col>
+      </ion-row>
+          
+      <ion-row>
+        <ion-col >Reaction time</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_reactiontime}}</ion-col>
+      </ion-row>
+
+           
+      <ion-row>
+        <ion-col >Gait</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_gait}}</ion-col>
+      </ion-row>
+
+            
+      <ion-row>
+        <ion-col >Finger nose test</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_fingernose}}</ion-col>
+      </ion-row>
+
+              
+      <ion-row>
+        <ion-col >Romberg’s sign</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_remsign}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >Special examination (Blood & Urine)</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_specialexmn}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col >Reflexes</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_reflexes}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >Any other findings / Injuries on the body</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.dd_anyfindings}}</ion-col>
+      </ion-row>
+
+      
+     
+
+    </ion-card-content>
+   <!--
+
+     <span *ngIf="userdetails.dept=='1'">
+      <div style='text-align:center;'>
+        <ion-button (click)="downloadpmpdf(patientdata.id,4)">Download</ion-button>
+      </div>
+        </span>
+   -->
+
+
+  </ion-card>
+</span>
+  <span *ngIf="flag=='yes'">
+
+  <ion-grid>
+    
+    <ion-row style='display:none;'>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor" position="floating" style='color:red;font-weight:bold;'>Do you want to submit report  to police?</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_showpolice" position="floating" (ionChange)="showmsg()">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+        </ion-item>
+      </ion-col> 
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Whether under arrest or not</ion-label>
+             
+              <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_arrest" position="floating">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>Consent</ion-label>
+                <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.dd_consent"></ion-textarea>
+              </ion-item>
+              </ion-col>
+            </ion-row>
+    
+    
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating" class='fcolor'>Date & time of examination.</ion-label>
+                  <ion-datetime  [(ngModel)]="patientdata.dd_timeofexamin"  min="2020" MAX=2025  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+    
+                </ion-item>
+                </ion-col>
+              </ion-row>
+            
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating" class='fcolor'>History</ion-label>
+                    <ion-input [(ngModel)]="patientdata.dd_history"></ion-input>
+                  </ion-item>
+                  </ion-col>
+                </ion-row>
+    
+                 
+    
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating" class='fcolor'>Smell of alcohol in breath</ion-label>
+                      <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_smellinbreath" position="floating">
+                        <ion-select-option value="Present">Present</ion-select-option>
+                        <ion-select-option value="Absent">Absent</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    </ion-col>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label position="floating" class='fcolor'>Speech</ion-label>
+                        <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_speech" position="floating">
+                          <ion-select-option value="Normal">Normal</ion-select-option>
+                          <ion-select-option value="Thick and slurred">Thick and slurred</ion-select-option>
+                          <ion-select-option value="Incoherent">Incoherent</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                      </ion-col>
+                  </ion-row>
+              
+    
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label position="floating" class='fcolor'>Clothing</ion-label>
+                        <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_clothing" position="floating">
+                          <ion-select-option value="Decently Dressed">Decently Dressed</ion-select-option>
+                          <ion-select-option value="Disordered">Disordered</ion-select-option>
+                          <ion-select-option value="Soiled">Soiled</ion-select-option>
+                          <ion-select-option value="Torn">Torn</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                      </ion-col>
+    
+                      <ion-col>
+                        <ion-item>
+                          <ion-label position="floating" class='fcolor'>General Disposition</ion-label>
+                          <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_generaldispostion" position="floating">
+                            <ion-select-option value="Calm">Calm</ion-select-option>
+                            <ion-select-option value="Talkative">Talkative</ion-select-option>
+                            <ion-select-option value="Abusive">Abusive</ion-select-option>
+                            <ion-select-option value="Aggressive">Aggressive</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                        </ion-col>
+                    </ion-row>
+    
+    
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label position="floating" class='fcolor'>Self control </ion-label>
+                        <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_selfcontrol" position="floating">
+                          <ion-select-option value="Normal">Normal</ion-select-option>
+                          <ion-select-option value="Impaired">Impaired</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                      </ion-col>
+    
+                      <ion-col>
+                        <ion-item>
+                          <ion-label position="floating" class='fcolor'>Memory</ion-label>
+                          <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_memory" position="floating">
+                            <ion-select-option value="Normal">Normal</ion-select-option>
+                            <ion-select-option value="Impaired">Impaired</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                        </ion-col>
+                    </ion-row>
+    
+                    
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label position="floating" class='fcolor'>Orientation of time & space </ion-label>
+                        <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_oritime" position="floating">
+                          <ion-select-option value="Normal">Normal</ion-select-option>
+                          <ion-select-option value="Impaired">Impaired</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                      </ion-col>
+    
+                      <ion-col>
+                        <ion-item>
+                          <ion-label position="floating" class='fcolor'>Reaction time</ion-label>
+                          <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_reactiontime" position="floating">
+                            <ion-select-option value="Normal">Normal</ion-select-option>
+                            <ion-select-option value="Delayed">Delayed</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <ion-item>
+                          <ion-label position="floating" class='fcolor'>Gait </ion-label>
+                          <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_gait" position="floating">
+                            <ion-select-option value="Normal">Normal</ion-select-option>
+                            <ion-select-option value="Unsteady">Unsteady</ion-select-option>
+                            <ion-select-option value="Unable to stand upright">Unable to stand upright</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                        </ion-col>
+    
+                        <ion-col>
+                          <ion-item>
+                            <ion-label position="floating" class='fcolor'>Finger nose test</ion-label>
+                            <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_fingernose" position="floating">
+                              <ion-select-option value="Positive">Positive</ion-select-option>
+                              <ion-select-option value="Negative">Negative</ion-select-option>
+                            </ion-select>
+                          </ion-item>
+                          </ion-col>
+                      </ion-row>
+    
+    
+                      <ion-row>
+                        <ion-col>
+                          <ion-item>
+                            <ion-label position="floating" class='fcolor'>Romberg’s sign </ion-label>
+                            <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_remsign" position="floating">
+                              <ion-select-option value="Positive">Positive</ion-select-option>
+                              <ion-select-option value="Negative">Negative</ion-select-option>
+                            </ion-select>
+                          </ion-item>
+                          </ion-col>
+    
+                          <ion-col>
+                            <ion-item>
+                              <ion-label position="floating" class='fcolor'>Special examination (Blood & Urine) </ion-label>
+                              <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_specialexmn" position="floating">
+                                <ion-select-option value="Preserved">Preserved</ion-select-option>
+                                <ion-select-option value="Not preserved">Not preserved</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col>
+                            <ion-item>
+                              <ion-label position="floating" class='fcolor'>Reflexes</ion-label>
+                              <ion-select placeholder="Select One" [(ngModel)]="patientdata.dd_reflexes" position="floating">
+                                <ion-select-option value="Normal">Normal</ion-select-option>
+                                <ion-select-option value="Exaggerated">Exaggerated</ion-select-option>
+                                <ion-select-option value="Sluggish">Sluggish</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                            </ion-col>
+                          </ion-row>
+    
+                        <ion-row>
+                          <ion-col>
+                            <ion-item>
+                              <ion-label position="floating" class='fcolor'>Any other findings / Injuries on the body</ion-label>
+                              <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.dd_anyfindings"></ion-textarea>
+                            </ion-item>
+                            </ion-col>
+                          </ion-row>
+    
+        </ion-grid>
+        <ion-footer translucent="true" class="tab1-footer" >
+          <ion-grid>
+            <ion-row justify-content-around>
+            
+            
+              <ion-col>
+                <ion-button expand="block"   color='success' (click)='generateaccregister()'>
+                  SAVE
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-footer>
+      </span>
+</ion-content>

@@ -1,0 +1,143 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+     Add RTO/MTO Department User
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar >
+    <div  class="alignme-center" color="primary" style="width: 100%;"> {{admin.code }} - {{admin.name }} </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <!-- <ion-row>
+       <ion-col>
+   
+         <ion-item >
+           <ion-label position="floating" class='fcolor'>{{'usermanagement.districtuser_creation.districtlist' | translate:params }}
+           </ion-label>
+           <ion-select [(ngModel)]="districtdata.district" interface="alert"> <!- -(ionChange)="changeseveriy($event)" - ->
+              <ion-select-option *ngFor="let d of psDistrictOptions; let i = index" value="{{d.id}}">
+               {{d.name}}
+             </ion-select-option> 
+           </ion-select>
+         </ion-item>
+       </ion-col>
+     </ion-row> -->
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.stationuser_creation.name' | translate:params }}</ion-label>
+          <ion-input [(ngModel)]="transportdata.name" required="true" max="100"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.transport.rto_code' | translate:params }}
+          </ion-label>
+          <ion-input [(ngModel)]="transportdata.rto_code" placeholder=" RTO code" required="true" maxlength="2">{{RTO_Label}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row> 
+          
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.stationuser_creation.loginid' | translate:params }}</ion-label>
+          <ion-input [(ngModel)]="transportdata.login_id" required="true" minlength="3"></ion-input>
+        </ion-item>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.stationuser_creation.mobile' | translate:params }}
+          </ion-label>
+          <ion-input [(ngModel)]="transportdata.mobile" required="true" type="tel" maxlength="10" (ionChange)="checkmobile($event)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.stationuser_creation.email' | translate:params }}</ion-label>
+          <ion-input [(ngModel)]="transportdata.email" required="true" type="email" max="50"
+          pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row> 
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.transport.employee_id' | translate:params }}
+          </ion-label>
+          <ion-input [(ngModel)]="transportdata.employee_id" required="true" minlength="3"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="message!=null">
+      <ion-col>
+        <ion-text *ngFor="let msg of message; let i = index"> {{msg}}. <br></ion-text>
+      </ion-col>
+    </ion-row>
+    
+
+    <ion-card>
+      <ion-item>
+        <ion-card-subtitle color="primary" >{{'usermanagement.popup_common.note' | translate:params }} </ion-card-subtitle>
+      </ion-item>
+  
+      <ion-card-content>
+       <ion-grid>
+         <ion-row >
+           <ion-col style="color:#808080">{{'usermanagement.popup_common.tans_user_creation1' | translate:params }} </ion-col>         
+         </ion-row>
+         <ion-row >
+          <ion-col style="color:#808080">{{'usermanagement.popup_common.tans_user_creation2' | translate:params }} </ion-col>         
+        </ion-row>
+       </ion-grid>
+      </ion-card-content>
+      </ion-card>
+
+    <!-- <ion-item>  
+      <ion-label>RTO Code</ion-label>  
+      <ion-textarea  placeholder="Enter some notes here..."></ion-textarea>  
+    </ion-item>   -->
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="validationCheck()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,472 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Treatment Details &nbsp;| <span style='text-transform: capitalize;'>{{patientdata.patient_name}}
+      </span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color='light'>
+  <div style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right: 30px;display:none'> <span
+    (click)="editflagchage()">Edit</span></div>
+  <span *ngIf="flag!='yes'" style='display: none;'>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>
+          :&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>Injury Severity:</ion-col>
+
+        <ion-col class='casesensitive' >:&nbsp;{{patientdata.severity_desc}}</ion-col>
+      </ion-row> 
+
+      <ion-row>
+        <ion-col>Injured part of body</ion-col>
+
+        <ion-col>:&nbsp;{{patientdata.get_injury_type}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="flag=='Yes'">
+        <ion-col>Accident Register</ion-col>
+
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Injury Nature</ion-col>
+
+        <ion-col>:&nbsp;{{patientdata.injury_nature}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Trauma Flag / Triage</ion-col>
+
+        <ion-col class='casesensitive'>
+          :&nbsp;{{patientdata.traumaflag}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Consciousness</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.conscious_name}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Breathing</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.breathing}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Systalic BP / Diastolic BP</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.systalic_bp}}/{{patientdata.dyalistic_bp}}</ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col>Pulse / Heart Rate</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.pulse_heratrate}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>Respiratory Rate</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.respiratory_rate}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>SPO2</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.spo2}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Temperature</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.temperature}}</ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col>Orientation</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.orientation}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>Description of Pupil</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.descriptionpupil}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>Physical examination</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.accregister_physicalexaminantions}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>Treatment</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.treatment}}</ion-col>
+      </ion-row>
+<!--
+   <ion-row>
+        <ion-col>Opinion Obtained</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.physician_opinion}}</ion-col>
+      </ion-row>
+-->
+   
+
+
+      <ion-row>
+        <ion-col>X ray</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.xraydetails}}</ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>CT Scan</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.ctscandetails}}</ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col>Emergency department disposition</ion-col>
+
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.outcomename}}</ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+</span>
+
+
+
+    <!---
+  <span *ngIf="flag=='yes'">
+    -->
+    <span>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <ion-grid>
+
+        
+
+        <ion-row>
+         
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.injury_type' | translate:params}} </ion-label>
+              <ion-select multiple="true" id="injury_type" name="injury_type" #injury_typeInput="ngModel"
+                [(ngModel)]="patientdata.injury_type" interface="alert">
+                <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.prearrival' | translate:params}} </ion-label>
+
+              <ion-select id="pre_hp_traumaflag" name="pre_hp_traumaflag" #pre_hp_traumaflagInput="ngModel"
+                [(ngModel)]="patientdata.pre_hp_traumaflag" interface="alert">
+                <ion-select-option *ngFor="let d of options10; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.nature_ofinjury' | translate:params}} </ion-label>
+
+              <ion-select id="nature_ofinjury" name="nature_ofinjury" #nature_ofinjuryInput="ngModel"
+                [(ngModel)]="patientdata.nature_ofinjury" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+         
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.conscious' | translate:params}} </ion-label>
+              <ion-select id="conscious" name="conscious" #consciousInput="ngModel"
+                [(ngModel)]="patientdata.conscious" interface="alert">
+                <ion-select-option *ngFor="let d of options9; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.breathing' | translate:params}} </ion-label>
+
+              <ion-select id="breathing" name="breathing" #breathingInput="ngModel"
+                [(ngModel)]="patientdata.breathing" interface="alert">
+                <ion-select-option value="Spontaneous Breathing">Spontaneous Breathing</ion-select-option>
+                <ion-select-option value="Non Spontaneous Breathing">Non Spontaneous Breathing</ion-select-option>
+
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="stacked">
+                Systolic BP <span class='redclr'>(MM)</span>
+              </ion-label>
+              <ion-input id="systalic_bp" name="systalic_bp" #systalic_bpInput="ngModel"
+                [(ngModel)]="patientdata.systalic_bp" type='number' (ionChange)="checkthreedigit($event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="stacked">
+                Diastolic BP <span class='redclr'>(MM)</span>
+              </ion-label>
+              <ion-input id="dyalistic_bp" name="dyalistic_bp" #dyalistic_bpInput="ngModel"
+                [(ngModel)]="patientdata.dyalistic_bp" type='number' (ionChange)="checkthreedigitdis($event)"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="stacked">
+                Pulse/Heart Rate <span class='redclr'>(BPM)</span>
+              </ion-label>
+              <ion-input id="pulse_heratrate" name="pulse_heratrate" #pulse_heratrateInput="ngModel"
+                [(ngModel)]="patientdata.pulse_heratrate" type='number'  (ionChange)="checkthreedigipulse($event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="stacked">
+                Respiratory Rate 
+              </ion-label>
+              <ion-input id="respiratory_rate" name="respiratory_rate" #respiratory_rateInput="ngModel"
+                [(ngModel)]="patientdata.respiratory_rate" type='number' (ionChange)="checktwo($event)"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="stacked">
+                SPO2 <span class='redclr'>(%)</span>
+              </ion-label>
+              <ion-input id="spo2" name="spo2" #spo2Input="ngModel"
+                [(ngModel)]="patientdata.spo2" type='number'  (ionChange)="checktwospo($event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="stacked">
+                Temperature <span class='redclr'>(°F)</span>
+              </ion-label>
+              <ion-input id="temperature" name="temperature" #temperatureInput="ngModel"
+                [(ngModel)]="patientdata.temperature" type='number' (ionChange)="checkthrtemper($event)"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+
+         
+
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.orientation' | translate:params}} </ion-label>
+
+              <ion-select id="orientation" name="orientation" #orientationInput="ngModel"
+                [(ngModel)]="patientdata.orientation" interface="alert">
+                <ion-select-option value="Oriented">Oriented</ion-select-option>
+                <ion-select-option value="Disoriented">Disoriented</ion-select-option>
+
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.description_pupil' | translate:params}}
+              </ion-label>
+              <ion-select id="description_pupil" name="description_pupil" #description_pupilInput="ngModel"
+                [(ngModel)]="patientdata.description_pupil" interface="alert">
+                <ion-select-option *ngFor="let d of options8; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+
+
+
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>Physical examination
+              </ion-label>
+              <ion-select id="accregister_physicalexaminantions" name="accregister_physicalexaminantions" #accregister_physicalexaminantionsInput="ngModel"
+                [(ngModel)]="patientdata.accregister_physicalexaminantions" interface="alert">
+                <ion-select-option *ngFor="let d of options16; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.treatment' | translate:params}}
+              </ion-label>
+              <ion-select id="treatment" name="treatment" #treatmentInput="ngModel"
+                [(ngModel)]="patientdata.treatment" interface="alert">
+                <ion-select-option *ngFor="let d of options15; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.specialization' | translate:params}} </ion-label>
+
+              <ion-select id="specialization" name="specialization" #specializationInput="ngModel"
+                [(ngModel)]="patientdata.specialization" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options13; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+
+
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.xray' | translate:params}} </ion-label>
+              <ion-select id="xray" name="xray" #xrayInput="ngModel"
+                [(ngModel)]="patientdata.xray" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options11; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.ctscan' | translate:params}} </ion-label>
+              <ion-select id="ctscan" name="ctscan" #ctscanInput="ngModel"
+                [(ngModel)]="patientdata.ctscan" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options12; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'>{{'health.outcome' | translate:params}}</ion-label>
+              <ion-select id="outcome" name="outcome" #outcomeInput="ngModel"
+                [(ngModel)]="patientdata.outcome" interface="alert">
+                <ion-select-option *ngFor="let d of options7; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+
+
+
+      </ion-grid>
+      <ion-footer translucent="true" class="tab1-footer">
+        <ion-grid>
+          <ion-row justify-content-around>
+
+            <ion-col>
+              <ion-button expand="block" (click)="closemodal()" color='danger'>
+                <ion-icon name="arrow-back"></ion-icon>
+                &nbsp;&nbsp;&nbsp;CANCEL
+
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" color='success' type="submit">
+
+
+                <ion-icon name="git-pull-request"></ion-icon>&nbsp;&nbsp;&nbsp;SAVE
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </form>
+  </span>
+
+</ion-content>

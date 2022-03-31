@@ -1,0 +1,1660 @@
+{
+
+	"errmsg": {
+
+		"addrmin": "ਘੱਟੋ ਘੱਟ 3 ਅੱਖਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"addrmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"mobilemin": "ਘੱਟੋ ਘੱਟ 5 ਅੰਕ ਦੀ ਲੋੜ ਹੈ",
+
+		"mobileformat": "ਇਹ 10 ਅੰਕਾਂ ਦਾ ਸਹੀ ਮੋਬਾਈਲ ਨੰਬਰ ਨਹੀਂ ਹੈ",
+
+		"agemin": "ਘੱਟੋ ਘੱਟ 1 ਅੰਕ ਦੀ ਲੋੜ ਹੈ",
+
+		"agemax": "ਉਮਰ 3 ਅੰਕਾਂ ਵਿੱਚ ਹੋਣੀ ਚਾਹੀਦੇ ਹੈ",
+
+		"ageformat": "ਸਹੀ ਉਮਰ ਦਾਖਲ ਕਰੋ",
+
+		"safety": "ਸੁਰੱਖਿਆ ਦੀ ਲੋੜ ਹੈ",
+
+		"minimumname": "ਘੱਟੋ ਘੱਟ 2 ਅੰਕ ਲੋੜੀਂਦੇ ਹਨ",
+
+		"maximumname": "ਨਾਮ 40 ਅੰਕਾਂ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+
+		"nameformat": " ਨਾਮ ਅੱਖਰਾਂ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+
+		"fseverity": "ਗੰਭੀਰਤਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"fnoofvehile": "ਵਾਹਨਾਂ ਦੀ ਸੰਖਿਆ ਦੀ ਲੋੜ ਹੈ",
+
+		"flocation": "ਜਗ੍ਹਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"fpoi": "ਦਿਲਚਸਪੀ ਦਾ ਸਥਾਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"flnadmark": "ਲਿੰਕਮਾਰਕ ਦੀ ਲੋੜ ਹੈ",
+
+		"fdriver": "ਡਰਾਈਵਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"fpassenger": "ਯਾਤਰੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"fPedestrian": "ਪੈਦਲ ਯਾਤਰੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"gcrashtype": "ਕਰੈਸ਼ ਦੀ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"gcollisiontype": "ਟੱਕਰ ਦੀ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"localbodytype": "ਸਥਾਨਕ ਸੰਸਥਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"gcollisionnature": "ਟਕਰਾਉਣ ਦੀ ਪ੍ਰਕਿਰਤੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"gintialobse": "ਦੁਰਘਟਨਾ ਦ੍ਰਿਸ਼ ਦੇ ਅੰਦਰੂਨੀ ਨਿਰੀਖਣ ਦੀ ਲੋੜ ਹੈ",
+
+		"gmodeof": "ਹਸਪਤਾਲ ਵਿੱਚ ਤਬਦੀਲ ਕਰਨ ਦੀ ਵਿਧੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"vvehicletype": "ਵਾਹਨ ਦੀ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ ",
+
+		"vvehiclesubtype": "ਵਾਹਨ ਉਪ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ", 
+
+		"vdisposition": "ਸੁਭਾਅ ਦੀ ਲੋੜ ਹੈ",
+
+		"vmanoeuvreataccident": "ਕਿਸੇ ਦੁਰਘਟਨਾ ਵਿੱਚ ਚਾਲ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ",
+
+		"vmechanicalfailure": "ਮਕੈਨੀਕਲ ਅਸਫਲਤਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"vvehicleRegNo": "ਵਾਹਨ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰ. ਦੀ ਲੋੜ ਨਹੀਂ",
+
+		"vloadcondition": "ਲੋਡ ਸਥਿਤੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"vdseverity": "ਲੋਡ ਸਥਿਤੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"vdoccupation": "ਕਿੱਤੇ ਦੀ ਲੋੜ ਹੈ",
+
+		"vdtypeoftrafficviolation": "ਟ੍ਰੈਫਿਕ ਉਲੰਘਣਾਵਾਂ ਦੀਆਂ ਕਿਸਮਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"vddrunkanddriving": "ਸ਼ਰਾਬੀ ਅਤੇ ਡਰਾਈਵਿੰਗ ਦੀ ਲੋੜ ਹੈ",
+
+		"pvehicle": "ਵਾਹਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"pname": "ਨਾਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"pgender": "ਲਿੰਗ ਦੀ ਲੋੜ ਹੈ",
+
+		"pseverity": "ਗੰਭੀਰਤਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"page": "ਉਮਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"pmoblienumber": "ਮੋਬਾਈਲ ਨੰਬਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"paddress": "ਪਤੇ ਦੀ ਲੋੜ ਹੈ",
+
+		"poccupation": "ਕਿੱਤੇ ਦੀ ਲੋੜ ਹੈ",
+
+		"pename": " ਨਾਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"pegender": "ਲਿੰਗ ਦੀ ਲੋੜ ਹੈ",
+
+		"peseverity": "ਗੰਭੀਰਤਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"peage": "ਉਮਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"peaddress": "ਪਤੇ ਦੀ ਲੋੜ ਹੈ",
+
+		"peoccupation": "ਕਿੱਤੇ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadcategory": "ਸੜਕ ਦੀ ਕਿਸਮਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadname": "ਸੜਕ ਦੇ ਨਾਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadnumber": "ਰੋਡ ਨੰਬਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadfeature": "ਸੜਕ ਵਿਸ਼ੇਸ਼ਤਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"relanes": "ਲੇਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadwork": "ਸੜਕ ਦੇ ਕੰਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadchainage": "ਸੜਕ ਸੰਗ੍ਰਹਿ ਦੀ ਲੋੜ ਹੈ",
+
+		"respeedlimit": "ਗਤੀ ਸੀਮਾ ਦੀ ਲੋੜ ਹੈ",
+
+		"rejunctiontype": "ਜੰਕਸ਼ਨ ਦੀ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"retrafficmovement": "ਆਵਾਜਾਈ ਦੀ ਗਤੀਵਿਧੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"reweathercondition": "ਮੌਸਮ ਦੀ ਸਥਿਤੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"revisibility": "ਦ੍ਰਿਸ਼ਟੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"reareatype": "ਖੇਤਰ ਦੀ ਕਿਸਮਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"repropertydamage": "ਸੰਪਤੀ ਦਾ ਨੁਕਸਾਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"rephysicaldriver": "ਸਰੀਰਕ ਡਰਾਈਵਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"reaccidentspot": "ਦੁਰਘਟਨਾ ਸਥਾਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"resurfacecondition": "ਸਤਹ ਦੀ ਸਥਿਤੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"repedestrianinfrastructure": "ਪੈਦਲ ਚੱਲਣ ਵਾਲੇ ਬੁਨਿਆਦੀ ਜਗਾਹ ਦੀ ਲੋੜ ਹੈ",
+
+		"vehiclerngrqr": "ਵਾਹਨ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"ownermin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"ownermax": "ਵੱਧ ਤੋਂ ਵੱਧ 100 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vcolormin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"vcolormax": "ਵੱਧ ਤੋਂ ਵੱਧ 50 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vcolorpattern": "ਨੰਬਰਾਂ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ",
+
+		"vowneraddrmin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"vowneraddrmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vclassmin": " ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ ",
+
+		"vclassmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vmakemin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"vmakemax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vmodelmin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"vmodelmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vinsurancemin": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vinsurancemax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"vpolicyexpirymin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"vpolicyexpiryexp": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"license_nrmin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"license_nrmax": "ਵੱਧ ਤੋਂ ਵੱਧ 50 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"driver_namemin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"driver_namemax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"driver_namepatt": "ਨੰਬਰਾਂ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ",
+
+		"cov_classmin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"cov_classmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"dvr_mobilepat": "ਇਹ 10 ਅੰਕਾਂ ਦਾ ਸਹੀ ਮੋਬਾਈਲ ਨੰਬਰ ਨਹੀਂ ਹੈ",
+
+		"sec_mobilepat": "ਇਹ 10 ਅੰਕਾਂ ਦਾ ਸਹੀ ਮੋਬਾਈਲ ਨੰਬਰ ਨਹੀਂ ਹੈ",
+
+		"dvr_currentaddrmin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"dvr_currentaddrmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"remarksmin": "ਘੱਟੋ ਘੱਟ ਦੋ ਅੱਖਰਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"remarksmax": "ਵੱਧ ਤੋਂ ਵੱਧ 200 ਅੱਖਰਾਂ ਦੀ ਆਗਿਆ ਹੈ",
+
+		"fatalwarning": "ਇੱਥੋਂ ਤਕ ਕਿ ਸਿੰਗਲ ਮੋਤ ਨੂੰ ਘਾਤਕ ਦੁਰਘਟਨਾ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ",
+
+		"specialchar": "ਪ੍ਰਤੀਕਾਂ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ",
+
+		"Vehicletype": "ਵਾਹਨ ਦੀ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ",
+
+		"Vehiclesubtype": "ਵਾਹਨ ਉਪ ਕਿਸਮਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"validroadtype": "ਵੈਧ ਵੇਰਵੇ ਦਾਖਲ ਕਰੋ",
+
+		"surfacetype": "ਸਤਹ ਦੀ ਕਿਸਮਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"roadjunction": "ਰੋਡ ਜੰਕਸ਼ਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"roadjunctionctl": "ਰੋਡ ਜੰਕਸ਼ਨ ਕੰਟਰੋਲ ਦੀ ਲੋੜ ਹੈ",
+
+		"lightcondtion": "ਰੋਡ ਲਾਈਟ ਕੰਡੀਸ਼ਨਿੰਗ ਦੀ ਲੋੜ ਹੈ",
+
+		"roadsurface": "ਸੜਕ ਸਤਹ ਦੀ ਲੋੜ ਹੈ",
+
+		"physicalddr": "ਸਰੀਰਕ ਵਿਭਾਜਕ ਦੀ ਲੋੜ ਹੈ",
+
+		"physicaldvr": "ਸਰੀਰਕ ਡਰਾਈਵਰ ਦੀ ਲੋੜ ਹੈ",
+
+		"modeoftrns": "ਆਵਾਜਾਈ ਦਾ ਸਾਧਨ ਦੀ ਲੋੜ ਹੈ",
+
+		"errtoplogy": "ਰੋਡ ਟੌਪੋਗ੍ਰਾਫੀ ਦੀ ਲੋੜ ਹੈ",
+
+		"errgradient": "ਸਰਫੇਸ ਗਰੇਡੀਐਂਟ ਦੀ ਲੋੜ ਹੈ",
+
+		"reroadconstrcuction": "ਸੜਕ ਦੀ ਕਿਸਮਾਂ ਦੀ ਲੋੜ ਹੈ",
+
+		"area_type":"Area Type Required",
+		"road_classification":"Road Classification Required",
+		"road_number":"Road Number Required",
+		"road_name":"Road Name Required",
+		"type_structure":"Type Structure Required",
+		"type_road":"Type Road Required",
+		"type_carriageway":"Type Carriageway Required", 
+		"road_width":"Road Width Required",
+		"accident_locations":"Accident Locations Required",
+		"junction_type":"Junction Type Required",
+		"junction_control":"Junction Control Required",
+		"speed_limit":"Speed Limit Required",
+		"surface_type":"Surface Type Required",
+		"surface_condition":"Surface Condition Required",
+		"type_terrain":"Type Terrain Required",
+		"road_margins":"Road Margins Required",
+		"road_markings":"Road Markings Required",
+		"sight_distance":"Sight Distance Required"
+
+	},
+
+	"health": {
+
+		"patient_id":"IP ID",
+
+		"patient_id2":"OP ID",
+
+		"timeof_arrival":"Date and Time of Arrival",
+
+		"hospital_name":"Hospital Name",
+
+		"hospital_type":"Hospital Type",
+
+		"district":"District",
+
+		"taluk":"Taluk",
+
+		"village":"Village",
+
+		"pincode":"PIN Code",
+
+		"patient_name":"Patient Name",
+
+		"gender":"Gender",
+
+		"identification_marks1":"Identification Mark 1",
+
+		"identification_marks2":"Identification Mark 2",
+
+		"patient_address":"Address",
+
+		"patient_occupation":"Occupation",
+
+		"patient_income":"Income",
+
+		"placeof_incident":"Place of Incident",
+
+		"dateof_incident":"Date of Incident",
+
+		"whether_hospitalized":"Whether Hospitalized?",
+
+		"intimationto_police":"Intimation to Police",
+
+		"dr_name":"Doctor Name",
+
+		"police_stationname":"Police Station Name",
+
+		"police_req_received":"Designation and Address of the Police Officer From Whom Requisition is Received",
+
+		"docto_desgn":"Doctor's Reg. No.",
+
+		"specialization":"Opinion Obtained",
+
+		"patient_type":"Patient Type",
+
+		"injury_severity":"Injury Severity",
+
+		"injury_type":"Injured Part of Body",
+
+		"nature_ofinjury":"Injury Nature",
+
+		"heart_rate":"Heart Rate",
+
+		"blood_pressure":"Blood Pressure",
+
+		"conscious":"Level of Conscious",
+
+		"orientation":"Orientation",
+
+		"description_pupil":"Description of Pupil",
+
+		"physician_opinion":"Physician Opinion",
+
+		"history":"History",
+
+		"treatment":"Treatment",
+
+		"outcome":"Emergency Department Disposition ",
+
+		"referral_institution":"Referral Institution Name",
+
+		"reason_for_referral":"Reason for Referral",
+
+		"discharge_time":"Discharge Date & Time",
+
+		"informant_name":"Informant Name",
+
+		"relationship_patient_type":"Relationship with Patient",
+
+		"contact_address":"Informant Address",
+
+		"contact_number":"Contact Number",
+
+		"dying_declaration_needed":"Dying Declaration Needed?",
+
+		"statement_needed":"Patient Statement",
+
+		"postmortem_report":"Death Report",
+
+		"drunkendriving_report":"Drunken Driving",
+
+		"death_certificate":"Discharge Summary",
+
+		"hospitalization_mode":"Mode of Arrival",
+
+		"pre_arrivalintimation":"Pre-Arrival Intimation",
+
+		"age":"Age",
+
+		"causeofdeath":"Form 4",
+
+		"cau_ant":"Antecedent Cause",
+
+		"cau_dateofverification":"Date of Verification",
+
+		"cau_deliverystatus":"Delivery Status",
+
+		"cau_diedon":"Died on",
+
+		"cau_if_women":"If Women",
+
+		"cau_immediate":"Immediate Cause",
+
+		"cau_mannerofdeath":"Manner of Death",
+
+		"cau_othersignificant":"Other Significant Conditions Contributing to the Death But not Related to the Disease or Conditions Causing it Other",
+
+		"cau_wardno":"Ward No",
+
+		"dd_doctorname":"DD Doctor Name",
+
+		"dd_influence":"DD Influence",
+
+		"dd_opinion":"DD Opinion",
+
+		"dd_symptoms":"Symptoms at the Time of Examintaion",
+
+		"prearrival":"Trauma Flag / Triage",
+
+		"xray":"X Rays Done",
+
+		"xraydate":"X Ray Date & Time",
+
+		"measure":"General Condition's",
+
+		"emg_dept_position":"Emeregency Department Disposition",
+
+		"hp_position":"Hospital Disposition",
+
+		"pre_arrival":"Pre Arrival Intimation",
+
+		"pre_arrival_trauma":"Pre Hospital Trauma Flag",
+
+		"respiratory_rate":"Respiratory Rate",
+
+		"temperature":"Temperature",
+
+		"spo2":"SpO2",
+
+		"breathing":"Breathing",
+
+		"Xary":"Xray",
+
+		"Xarydate":"Xray Date",
+
+		"ctscan":"CT Scan",
+
+		"ctscandate":"CT Scan Date",
+
+		"hp_disposiotn":"Hospital Dispositon"
+
+
+	},
+
+	"transport": {
+
+		"ownername":"ਮਾਲਕ ਦਾ ਨਾਮ",
+
+		"regntype": "ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ ਦੀ ਕਿਸਮ",
+
+		"permregno": "ਸਥਾਈ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ",
+
+		"tempregno": "ਆਰਜ਼ੀ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ",
+
+		"tradecertno": "ਵਪਾਰ ਸਰਟੀਫਿਕੇਟ ਨੰਬਰ",
+
+		"regno_type": "ਉਦੇਸ਼",
+
+		"slno": "ਸਲ ਨੰ.",
+
+		"officer_name": "ਅਫਸਰ ਦਾ ਨਾਮ",
+
+		"vehicle_reg_no": "ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ",
+
+		"regno_status": "ਰਜਿਸਟਰੇਸ਼ਨ ਸਥਿਤੀ",
+
+		"regno": "ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ",
+
+		"vwidth": "ਵਾਹਨ ਦੀ ਚੌੜਾਈ",
+
+		"temp_regno_validity": "ਰਜਿਸਟਰੇਸ਼ਨ ਵੈਧਤਾ",
+
+		"trade_plate_issuedby": "ਟਰੇਡ ਪਲੇਟ ਦੁਆਰਾ ਜਾਰੀ ਕੀਤਾ ਗਿਆ",
+
+		"trade_plate_validity": "ਟਰੇਡ ਪਲੇਟ ਦੁਆਰਾ ਜਾਰੀ ਕੀਤਾ ਗਿਆ",
+
+		"f19_sno": "ਸਲ ਨੰ.",
+
+		"f19_tp_dt": "ਮਿਤੀ ਅਤੇ ਸਮੇਂ ਨੂੰ ਛੱਡ ਕੇ",
+
+		"f19_tp_purpose": "ਵਪਾਰ ਦਾ ਉਦੇਸ਼",
+
+		"f19_mileage": "ਮਾਈਲੇਜ",
+
+		"vclass": "ਵਾਹਨ ਦੀ ਕਲਾਸ",
+
+		"vtype": "ਵਾਹਨ ਦੀ ਕਿਸਮਾਂ",
+
+		"vowneraddr": "ਮਾਲਕ ਦਾ ਪਤਾ",
+
+		"make": "ਵਾਹਨ ਬਣਾਉਣ ਵਾਲੀ ਕੰਪਨੀ",
+
+		"makeclass": "ਮਾਡਲ",
+
+		"yearofmanfac": "ਨਿਰਮਾਣ ਦਾ ਸਾਲ",
+
+		"vage": "ਵਾਹਨ ਦੀ ਉਮਰ",
+
+		"engineno": "ਇੰਜਣ ਨੰ.",
+
+		"chassisno": "ਚੈਸੀ ਨੰ.",
+
+		"color": "ਰੰਗ",
+
+		"seat_cap": "ਸੀਟ ਸਮਰੱਥਾ",
+
+		"uloadenweight": "ਅਨ ਲੋਡ ਵਜ਼ਨ",
+
+		"max_speed": "ਵਾਹਨ ਵੱਧ ਤੋਂ ਵੱਧ ਗਤੀ ਸੀਮਾ",
+
+		"vdescription": "ਵਾਹਨ ਵਰਣਨ",
+
+		"tranvehicle": "ਆਵਾਜਾਈ ਵਾਹਨ",
+
+		"nontranvehicle": "ਗੈਰ -ਆਵਾਜਾਈ ਵਾਹਨ",
+
+		"permitcat": "ਇਜਾਜ਼ਤ",
+
+		"permitno": "ਪਰਮਿਟ ਨੰ.",
+
+		"permitvalidity": "ਪਰਮਿਟ ਦੀ ਵੈਧਤਾ",
+
+		"permitissuedby": "ਦੁਆਰਾ ਜਾਰੀ ਕੀਤਾ ਗਿਆ ਪਰਮਿਟ",
+
+		"fitcertstatus": "ਫਿਟਨੈਸ ਸਰਟੀਫਿਕੇਟ ਸਥਿਤੀ",
+
+		"fitcertval": "ਫਿਟਨੈਸ ਸਰਟੀਫਿਕੇਟ ਵੈਧਤਾ",
+
+		"regloadenweg": "ਆਰ ਐਲ ਡਬਯੂ",
+
+		"regcrtval": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਸਰਟੀਫਿਕੇਟ ਵੈਧਤਾ",
+
+		"polctrlcertval": "ਪ੍ਰਦੂਸ਼ਣ ਅਧੀਨ ਨਿਯੰਤਰਣ ਸਰਟੀਫਿਕੇਟ ਵੈਧਤਾ",
+
+		"inscomname": "ਬੀਮਾ ਕੰਪਨੀ",
+
+		"inscrtpolicyno": "ਬੀਮਾ ਪਾਲਿਸੀ ਨੰਬਰ",
+
+		"inscrtvalidity": "ਬੀਮਾ ਵੈਧਤਾ",
+
+		"tax": "ਟੈਕਸ ਵੇਰਵਾ",
+
+		"place_ins": "ਨਿਰੀਖਣ ਦਾ ਸਥਾਨ",
+
+		"lefthanddrive": "ਖੱਬੇ ਹੱਥ ਨੂੰ ਡਰਾਈਵ",
+
+		"vlength": "ਵਾਹਨ ਦੀ ਲੰਬਾਈ",
+
+		"vheight": "ਵਾਹਨ ਦੀ ਉਚਾਈ",
+
+		"heightofbtoe": "ਗਰਾਂਉਡ ਕਲੀਅਰੈਂਸ",
+
+		"damge_sustained": "ਵਾਹਨ ਦਾ ਨੁਕਸਾਨ",
+
+		"vdamagestat": "ਨੁਕਸਾਨ ਦੀ ਸਥਿਤੀ",
+
+		"conditionofbreak": "ਬ੍ਰੇਕ ਦੀ ਸਥਿਤੀ",
+
+		"effoffoodbreak": "ਫੁੱਟ ਬ੍ਰੇਕ ਦੀ ਸਥਿਤੀ",
+
+		"effofhandbreak": "ਹੈਂਡ ਬ੍ਰੇਕ ਦੀ ਸਥਿਤੀ",
+
+		"breakseorn": "ਬ੍ਰੇਕ ਲੱਗੀ ਜਾਂ ਨਹੀਂ",
+
+		"cffb_hydair": " ਹਾਈਡ੍ਰੌਲਿਕ",
+
+		"cffb_mech": "ਮਕੈਨੀਕਲ",
+
+		"cfhandbreak": "ਬ੍ਰੇਕ ਦੀ ਕਿਸਮ",
+
+		"streeringtype": "ਸਟੀਅਰਿੰਗ ਦੀ ਕਿਸਮ",
+
+		"streeingcond": "ਸਟੀਅਰਿੰਗ ਦੀ ਸਥਿਤੀ",
+
+		"tyrecond": "ਟਾਇਰ ਦੀ ਸਥਿਤੀ",
+
+		"opif_vd_rd": "ਹਾਦਸੇ ਦਾ ਕਾਰਨ?",
+
+		"vehdefect": "ਵਾਹਨ ਦੀ ਖਰਾਬੀ",
+
+		"roaddefect": "ਸੜਕ ਖਰਾਬ ਕਾਰਨ",
+
+		"both": "ਦੋਵੇਂ",
+
+		"mech_fstat": "ਮਕੈਨੀਕਲ ਅਸਫਲਤਾ ਦੀ ਸਥਿਤੀ",
+
+		"vdefecttype": "ਵਾਹਨ ਦੀ ਖਰਾਬੀ ਦੀ ਕਿਸਮ",
+
+		"skidmark": "ਸਕਿਡ ਮਾਰਕ",
+
+		"trackmark": "ਟਰੈਕ ਮਾਰਕ",
+
+		
+
+		"wheeltype": "ਪਹੀਏ ਦੀ ਸਥਿਤੀ",
+
+		"wiperstype": "ਵਾਈਪਰਸ ਦੀ ਸਥਿਤੀ",
+
+		"mirrorstype": "ਸ਼ੀਸ਼ੇ ਦੀ ਸਥਿਤੀ",
+
+		"whethervmb": "ਕੀ ਵਾਹਨ ਸੋਧਿਆ ਗਿਆ ਹੈ",
+
+		"vehmodby": "ਵਾਹਨ ਸੋਧ",
+
+		"wrpsi": "ਕੀ ਰੀਅਰ ਪਾਰਕਿੰਗ ਸੈਂਸਰ ਸਥਾਪਤ ਕੀਤੇ ਗਏ ਹਨ",
+
+		"wfy": "ਫੰਕਸ਼ਨ ਹੈ ਜਾਂ ਨਹੀਂ",
+
+		"tofs": "ਸਕ੍ਰੈਚ ਦੀ ਕਿਸਮ",
+
+		"dodamages": "ਨੁਕਸਾਨ ਦੀ ਅਨੁਮਾਨਤ ਲਾਗਤ (ਅੰਦਰੂਨੀ ਅਤੇ ਬਾਹਰੀ ਨੁਕਸਾਨ ਸਮੇਤ)",
+
+
+
+
+
+		"disposofv": "ਵਾਹਨ ਦਾ ਨਿਪਟਾਰਾ",
+
+		"whechkrepiss": "ਚੈੱਕ ਰਿਪੋਰਟ ਜਾਰੀ ਕੀਤੀ ਗਈ? ",
+
+		"whecfxiss": "CFX ਜਾਰੀ ਕੀਤਾ ਗਿਆ? ",
+
+		"mcovered": "ਕਿੱਲੋਮੀਟਰ ਵਿੱਚ ਮਾਈਲੇਜ ਕਵਰ ਕੀਤਾ ਗਿਆ"
+
+	},
+
+	"smallinvest": {
+
+		"whoreported":"ਦੁਆਰਾ ਦੁਰਘਟਨਾ ਦੀ ਰਿਪੋਰਟ ਕੀਤੀ ਗਈ", 
+
+		"tookvictimhospital":"ਪੀੜਤ ਨੂੰ ਹਸਪਤਾਲ ਕੌਣ ਲੈ ਕੇ ਗਿਆ?", 
+
+		"treatmentdeny":"ਕੀ ਕਿਸੇ ਵੀ ਹਸਪਤਾਲ ਨੇ ਪੀੜਤ ਦੇ ਇਲਾਜ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ",
+
+		"victimhospitalzeddate":"ਪੀੜਤ ਨੂੰ ਹਸਪਤਾਲ ਲਿਜਾਇਆ ਗਿਆ",
+
+		"skidmarkpresent":"ਸਕਿਡ ਮਾਰਕ ਮੌਜੂਦ ਹੈ?", 
+
+		"skidmarkpresentlength":"ਸਕਿਡ ਮਾਰਕ ਲੰਬਾਈ", 
+
+		"speedbreaker":"ਸਪੀਡ ਬ੍ਰੇਕਰ", 
+
+		"speedbreakerdistance":"ਸਪੀਡ ਬ੍ਰੇਕਰ ਦੂਰੀ", 
+
+		"permitspeed":"ਆਗਿਆਯੋਗ ਗਤੀ ਸੀਮਾ",
+
+		"estimatedspeed":"ਅਨੁਮਾਨਿਤ ਗਤੀ", 
+
+		"driverfled":"ਜੇ ਡਰਾਈਵਰ ਮੌਕੇ ਤੋਂ ਭੱਜ ਗਿਆ, ਕੀ ਮਾਲਕ ਨੇ ਪੁਲਿਸ ਅੱਗੇ ਡਰਾਈਵਰ ਪੇਸ਼ ਕੀਤਾ?", 
+
+		"ownerreportedinsurance":"ਕੀ ਮਾਲਕ ਨੇ ਹਾਦਸੇ ਦੀ ਰਿਪੋਰਟ ਬੀਮਾ ਕੰਪਨੀ ਨੂੰ ਦਿੱਤੀ?",
+
+		"dischargedduties":"ਕੀ ਮਾਲਕ ਨੇ ਧਾਰਾ 133 ਅਤੇ 134 ਐਮਵੀ ਐਕਟ, 1988 ਅਧੀਨ ਆਪਣੀਆਂ ਡਿਊਟੀਆਂ ਨਿਭਾਈਆਂ?",
+
+		"dischargeddutieson":"ਜੇ ਹਾਂ, ਤਾਂ ਕਦੋਂ? ਮਿਤੀ (DD/MM/YYYY)",
+
+		"section133":"ਕੀ ਮਾਲਕ ਨੇ ਧਾਰਾ 133 ਅਤੇ 134 ਐਮਵੀ ਐਕਟ, 1988 ਦੇ ਅਧੀਨ ਆਪਣੀਆਂ ਡਿਊਟੀਆਂ ਨਿਭਾਈਆਂ?",
+
+		"section187":"ਜੇ ਨਹੀਂ, ਤਾਂ ਕੀ ਧਾਰਾ 187 ਐਮਵੀ ਐਕਟ, 1988 ਦੇ ਅਧੀਨ ਮਾਲਕ ਦੇ ਵਿਰੁੱਧ ਮੁਕੱਦਮਾ ਚਲਾਇਆ ਗਿਆ?",
+
+		"uninsuredvehicle":"ਬੀਮਾ ਰਹਿਤ ਵਾਹਨ ਦੇ ਮਾਮਲੇ ਵਿੱਚ:",
+
+		"ownerpaidvictim":"ਕੀ ਮਾਲਕ/ਡਰਾਈਵਰ ਨੇ ਪੀੜਤ ਜਾਂ ਉਸਦੇ ਪਰਿਵਾਰ ਨੂੰ ਕੋਈ ਰਕਮ ਅਦਾ ਕੀਤੀ ਹੈ?",
+
+		"llr":"ਲਰਨਰ ਲਾਇਸੈਂਸ ਦੇ ਮਾਮਲੇ ਵਿੱਚ,", 
+
+		"drivenby":"ਵਾਹਨ ਕਿਸ ਦੁਆਰਾ ਚਲਾਇਆ ਗਿਆ", 
+
+		"drivenbyknowledge":"ਕੀ ਮਾਲਕ ਦੇ ਗਿਆਨ / ਸਹਿਮਤੀ ਨਾਲ ਗੱਡੀ ਚਲਾਈ ਗਈ?", 
+
+		"alcholdrugs":"ਕੀ ਸ਼ਰਾਬ/ਨਸ਼ੀਲੇ ਪਦਾਰਥਾਂ ਦੇ ਪ੍ਰਭਾਵ ਅਧੀਨ ਗੱਡੀ ਚਲਾਈ ਗਈ?", 
+
+		"scientificreport":"ਵਿਗਿਆਨਕ ਰਿਪੋਰਟ ਦੇ ਅਧਾਰ ਤੇ ਖੋਜਾਂ?", 
+
+		"familofvictiminformedbydriver":"ਕੀ ਡਰਾਈਵਰ ਨੇ ਪੁਲਿਸ/ਪੀੜਤ ਪਰਿਵਾਰ ਨੂੰ ਹਾਦਸੇ ਦੀ ਰਿਪੋਰਟ ਦਿੱਤੀ?", 
+
+		"accidentreportedtopolicefamily":"ਕੀ ਡਰਾਈਵਰ ਨੇ ਹਾਦਸੇ ਦੀ ਰਿਪੋਰਟ ਪੁਲਿਸ ਨੂੰ ਪੀੜਤ ਦੇ ਪਰਿਵਾਰ ਨੂੰ ਦਿੱਤੀ?", 
+
+		"drivertookvictimtohp":"ਕੀ ਡਰਾਈਵਰ ਪੀੜਤ ਨੂੰ ਹਸਪਤਾਲ ਲੈ ਗਿਆ?", 
+
+		"visted":"ਕੀ ਡਰਾਈਵਰ ਨੇ ਪੀੜਤ ਨੂੰ ਹਸਪਤਾਲ ਵਿੱਚ ਵੇਖਿਆ?", 
+
+		"driverremainedplice":"ਕੀ ਪੁਲਿਸ ਦੇ ਪਹੁੰਚਣ ਤੱਕ ਡਰਾਈਵਰ ਸਪਾਟ ਤੇ ਰਿਹਾ?", 
+
+		"driverremovedafendingvehicle":"ਕੀ ਪੁਲਿਸ ਦੇ ਆਉਣ ਤੋਂ ਪਹਿਲਾਂ ਡਰਾਈਵਰ ਨੇ ਅਪਮਾਨਜਨਕ ਵਾਹਨ ਨੂੰ ਮੌਕੇ ਤੋਂ ਹਟਾ ਦਿੱਤਾ?",
+
+		"paidcompendation":"ਕੀ ਡਰਾਈਵਰ ਨੇ ਪੀੜਤ ਪਰਿਵਾਰ ਨੂੰ ਮੁਆਵਜ਼ਾ ਦਿੱਤਾ ਹੈ",
+
+		"drivercooprated":"ਕੀ ਡਰਾਈਵਰ ਨੇ ਜਾਂਚ ਵਿੱਚ ਸਹਿਯੋਗ ਦਿੱਤਾ?",
+
+		"driversuffereinjuriry":"ਕੀ ਡਰਾਈਵਰ ਨੂੰ ਹਾਦਸੇ ਦੌਰਾਨ ਸੱਟਾਂ ਲੱਗੀਆਂ ਹਨ",
+
+		"section132":"ਕੀ ਡਰਾਈਵਰ ਨੇ ਐਮਵੀ ਐਕਟ, 1988 ਦੀ ਧਾਰਾ 132 ਅਤੇ 134 ਅਧੀਨ ਡਿਊਟੀ ਨਿਭਾਈ?",
+
+		"prosecuted":"ਜੇ ਨਹੀਂ, ਤਾਂ ਕੀ ਡਰਾਈਵਰ ਵਿਰੁੱਧ ਧਾਰਾ 187 ਐਮਵੀ ਐਕਟ, 1988 ਦੇ ਅਧੀਨ ਮੁਕੱਦਮਾ ਚਲਾਇਆ ਗਿਆ ਹੈ?",
+
+		"driverflee":"ਕੀ ਡਰਾਈਵਰ ਮੌਕੇ ਤੋਂ ਭੱਜ ਗਿਆ?", 
+
+		"appbefore":"ਜੇ ਅਜਿਹਾ ਹੈ, ਤਾਂ ਉਹ ਪੁਲਿਸ/ਅਦਾਲਤ ਦੇ ਸਾਹਮਣੇ ਗ੍ਰਿਫਤਾਰ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਕਦੋਂ ਪੇਸ਼ ਹੋਇਆ?",
+
+		"aggressive":"ਹਮਲਾਵਰ ਡਰਾਈਵਿੰਗ",
+
+		"irresponsible":"ਗੈਰ ਜ਼ਿੰਮੇਵਾਰਾਨਾ ਵਤੀਰਾ",
+
+		"offencescommitted":"ਹੋਰ ਅਪਰਾਧ ਕੀਤੇ ਗਏ",
+
+		"inspection":"ਮਕੈਨੀਕਲ ਇੰਸਪੈਕਸ਼ਨ ਰਿਪੋਰਟ ਜਿਵੇਂ ਕਿ ਅਨੈਕਸ਼ਰ – ਏ ਵਿੱਚ ਹੈ?",
+
+		"delay":"ਮਕੈਨੀਕਲ ਜਾਂਚ ਜਾਂ ਰਿਪੋਰਟ ਵਿੱਚ ਦੇਰੀ?",
+
+		"circumstances":"ਪ੍ਰਤੱਖ ਹਾਲਾਤ"
+
+	},
+
+	"commonlinks": {
+
+		"reset": "ਰੀਸੈਟ ਕਰੋ",
+
+		"concrete": "ਕੰਕਰੀਟ ਸੜਕਾਂ",
+
+		"kuttcha": "ਮਿੱਟੀ / ਕੱਚੀ ਸੜਕਾਂ",
+
+		"mettaled": "ਪੱਕੀ ਸੜਕ",
+
+		"tarred": "ਬਿਟੂਮਿਨਸ / ਟਾਰਡ ਸੜਕਾਂ",
+
+		"gravel": "ਬੱਜਰੀ ਦੀਆਂ ਸੜਕਾਂ",
+
+		"murrum": "ਮੁਰਰਮ ਸੜਕਾਂ",
+
+		"kankar": "ਕੰਕਰ / ਚੂਨੇ ਦੀਆਂ ਸੜਕਾਂ",
+
+		"surban": "ਉਪ ਸ਼ਹਿਰੀ",
+
+		"urban": "ਸ਼ਹਿਰੀ",
+
+		"rural": "ਪੇਂਡੂ",
+
+		"expressway": "ਐਕਸਪ੍ਰੈਸਵੇਅ",
+
+		"nh": "ਨੈਸ਼ਨਲ ਹਾਈਵੇ",
+
+		"sh": "ਰਾਜ ਮਾਰਗ",
+
+		"urbanroad": "ਸ਼ਹਿਰੀ",
+
+		"nurban": "ਗੈਰ ਸ਼ਹਿਰੀ",
+
+		"otherroad": "ਹੋਰ",
+
+		"amb108": "108 ਐਂਬੂਲੈਂਸ",
+
+		"privateabm": "ਪ੍ਰਾਈਵੇਟ ਐਂਬੂਲੈਂਸ",
+
+		"private": "ਪ੍ਰਾਈਵੇਟ ਵਾਹਨ",
+
+		"male": "ਮਰਦ",
+
+		"female": "ਔਰਤ",
+
+		"tg": "ਟਰਾਂਸਜੈਂਡਰ",
+
+		"accused": "ਦੋਸ਼ੀ ਵਾਹਨ",
+
+		"victim": "ਪੀੜਤ ਵਾਹਨ",
+
+		"normally": "ਆਮ ਤੌਰ ਤੇ ਲੋਡ ਕੀਤਾ ਜਾਂਦਾ ਹੈ",
+
+		"overload": "ਓਵਰਲੋਡਡ",
+
+		"empty": "ਖਾਲੀ",
+
+		"hanging": "ਫਸਿਆ ਹੋਇਆ",
+
+		"yes": "ਹਾਂ",
+
+		"no": "ਨਹੀਂ",
+
+		"notapplicable": "ਲਾਗੂ ਨਹੀਂ ਹੈ",
+
+		"notknown": "ਪਤਾ ਨਹੀਂ",
+
+		"needtobetowed": "ਖਿੱਚਣ ਦੀ ਲੋੜ ਹੈ",
+
+		"canbedrivenaway": "ਚਲਾਇਆ ਜਾ ਸਕਦਾ ਹੈ",
+
+		"cannotbetowed": "ਖਿੱਚਣ ਦੀ ਲੋੜ ਨਹੀ ਹੈ",
+
+		"remarks": "ਟਿੱਪਣੀ",
+
+		"design": "ਦੁਆਰਾ ਡਿਜ਼ਾਈਨ ਅਤੇ ਵਿਕਸਤ ਕੀਤਾ ਗਿਆ",
+
+		"lastlogin": "ਆਖਰੀ ਲੌਗਇਨ",
+
+		"save": "ਸੇਵ ਕਰੋ",
+
+		"next": "ਅਗਲਾ",
+
+		"prev": "ਪਿਛਲਾ",
+
+		"general": "ਆਮ ਜਾਣਕਾਰੀ ਮੁਕੰਮਲ ਹੋਈ",
+
+		"generaldetails": "ਆਮ ਜਾਣਕਾਰੀ",
+
+		"vehicle": "ਵਾਹਨਾਂ ਦੇ ਵੇਰਵੇ ਪੂਰੇ ਹੋਏ",
+
+		"passenger": "ਯਾਤਰੀ ਵੇਰਵੇ ਪੂਰੇ ਹੋ ਗਏ",
+
+		"pedestrian": "ਪੈਦਲ ਯਾਤਰੀਆਂ ਦਾ ਵੇਰਵਾ ਪੂਰਾ ਹੋ ਗਿਆ",
+
+		"env": "ਸੜਕ ਅਤੇ ਵਾਤਾਵਰਣ ਦੇ ਵੇਰਵੇ ਪੂਰੇ ਹੋਏ",
+
+		"update": "ਅਪਡੇਟ",
+
+		"paved": "ਪੱਕਾ",
+
+		"unpaved": "ਕੱਚਾ",
+
+		"motorised": "ਮੋਟਰਾਈਜ਼ਡ",
+
+		"nonmotorised": "ਗੈਰ ਮੋਟਰਾਈਜ਼ਡ",
+
+		"passengers": "ਯਾਤਰੀ",
+
+		"goods": "ਮਾਲ",
+
+		"picklocation": "ਟਿਕਾਣਾ ਚੁਣੋ",
+
+		"oneway": "ਇੱਕ ਹੀ ਰਸਤਾ",
+
+		"twoway": "ਦੋ ਰਾਹ",
+
+		"ls": "25 ਮੀਟਰ ਤੋਂ ਘੱਟ",
+
+		"tf": "25 ਮੀਟਰ",
+
+		"fz": "50 ਮੀਟਰ",
+
+		"sf": "75 ਮੀਟਰ",
+
+		"ha": "100 ਮੀਟਰ ਅਤੇ ਉੱਪਰ",
+
+		"indian": "ਭਾਰਤੀ",
+
+		"foreigner": "ਵਿਦੇਸ਼ੀ",
+
+		"passportnr": "ਪਾਸਪੋਰਟ ਨੰਬਰ",
+
+		"roadfeature": "ਸੜਕ ਵਿਸ਼ੇਸ਼ਤਾ",
+
+		"hor": "ਖਿਤਿਜੀ",
+
+		"vert": "ਲੰਬਕਾਰੀ",
+
+		"metres": "ਮੀਟਰ",
+
+		"below": "ਹੇਠਾਂ",
+
+		"above": "ਉੱਪਰ",
+
+		"notavilable": "ਉਪਲਭਦ ਨਹੀ",
+
+		"plain": "ਸਮਤਲ ਅਤੇ ਰੋਲਿੰਗ ਖੇਤਰ",
+
+		"hilly": "ਪਹਾੜੀ ਅਤੇ ਚਰਣ ਭੂਮੀ",
+
+		"ghat": "ਘਾਟ ਰੋਡ",
+
+		"gradient": "ਸਤਹ ਢਾਲ ਕਿਸਮ",
+
+		"topology": "ਰੋਡ ਟੌਪੋਗ੍ਰਾਫੀ",
+
+		"transportdetails": "ਆਵਾਜਾਈ ਦੀ ਜਾਣਕਾਰੀ"
+
+	},
+
+	"app": {
+
+		"login": "ਲਾਗਿਨ",
+
+		"profile": "ਪ੍ਰੋਫਾਈਲ",
+
+		"settings":"ਸੈਟਿੰਗਜ਼",
+
+		"about": "ਬਾਰੇ",
+
+		"home": "ਘਰ",
+
+		"logout": "ਲਾੱਗ ਆਊਟ, ਬਾਹਰ ਆਉਣਾ",
+
+		"welcome": "ਸਵਾਗਤ ਹੈ",
+
+		"accident": "ਦੁਰਘਟਨਾ",
+
+		"dashboard": "ਡੈਸ਼ਬੋਰਡ",
+
+		"accidentid": "ਦੁਰਘਟਨਾ ਆਈ.ਡੀ",
+
+		"acczone": "ਦੁਰਘਟਨਾ ਖੇਤਰ",
+
+		"district": "ਜ਼ਿਲ੍ਹਾ",
+
+		"active":"ਕਿਰਿਆਸ਼ੀਲ",
+
+		"details": "ਵੇਰਵੇ",
+
+		"add": "ਸ਼ਾਮਲ ਕਰੋ",
+
+		"modify": "ਸੋਧ",
+
+		"list": "ਸੂਚੀ"
+
+	},
+
+	"login": {
+
+		"title": "ਆਈਆਰਏਡੀ ਲੌਗਇਨ",
+
+		"login": "ਲਾਗਿਨ",
+
+		"department":"ਵਿਭਾਗ"
+
+	},
+
+	"home": {
+
+		"title": "ਆਈਆਰਏਡੀ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ",
+
+		"irad": "ਏਕੀਕ੍ਰਿਤ ਸੜਕ ਦੁਰਘਟਨਾ ਡੇਟਾਬੇਸ",
+
+		"button": "ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਲਿਕ ਕਰੋ",
+
+		"review": "ਆਕਸੀਡੈਂਟ ਦੀ ਸਮੀਖਿਆ ਕਰੋ",
+
+		"indiagov": "ਭਾਰਤ ਸਰਕਾਰ"
+
+	},
+
+	"profile": {
+
+		"name": "ਨਾਮ",
+
+		"role": "ਭੂਮਿਕਾ",
+
+		"department": "ਵਿਭਾਗ",
+
+		"policestation": "ਪੁਲਿਸ ਸਟੇਸ਼ਨ",
+
+		"district": "ਜ਼ਿਲ੍ਹਾ",
+
+		"state": "ਰਾਜ",
+
+		"email":"ਈ - ਮੇਲ",
+
+		"designation":"ਅਹੁਦਾ",
+
+		"regno":"ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ",
+
+		"mobile":"ਮੋਬਾਈਲ ਨੰ.",
+
+		"status": "ਕਿਰਿਆਸ਼ੀਲ ਸਥਿਤੀ"
+
+	},
+
+	"usermanagement":{ 
+
+		"title": "ਉਪਭੋਗਤਾ ਪ੍ਰਬੰਧਨ",
+
+		"statetitle": "ਤੁਸੀਂ ਇੱਕ ਰਾਜ ਅਧਿਕਾਰੀ ਹੋ",
+
+		"districttitle": "ਤੁਸੀਂ ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਪ੍ਰਸ਼ਾਸਕ ਹੋ",
+
+		"stationtitle": "ਤੁਹਾਡਾ ਸਟੇਸ਼ਨ ਐਡਮਿਨ",
+
+		"statelist": "ਮੌਜੂਦਾ ਰਾਜ ਉਪਭੋਗਤਾਵਾਂ ਦੀ ਸੂਚੀ",
+
+		"districtlist":"ਮੌਜੂਦਾ ਜ਼ਿਲ੍ਹਾ ਉਪਯੋਗਕਰਤਾਵਾਂ ਦੀ ਸੂਚੀ",
+
+		"stationlist":"ਮੌਜੂਦਾ ਸਟੇਸ਼ਨ ਉਪਭੋਗਤਾਵਾਂ ਦੀ ਸੂਚੀ",
+
+		"fieldlist":"ਮੌਜੂਦਾ ਫੀਲਡ ਉਪਭੋਗਤਾਵਾਂ ਦੀ ਸੂਚੀ",
+
+		"transport":{			
+
+			"rto_code": "ਆਰ ਟੀ ਓ ਕੋਡ",
+
+			"employee_id": "ਕਰਮਚਾਰੀ ਆਈਡੀ",
+
+			"user_id": "ਯੂਜਰ ਆਈਡੀ",
+
+			"address": "ਪਤਾ"	
+
+		},
+
+		"stateuser_creation":{
+
+			"title": "ਰਾਜ ਉਪਭੋਗਤਾ ਰਚਨਾ",
+
+			"statelist": "ਰਾਜਾਂ ਦੀ ਸੂਚੀ",
+
+			"name": "ਨਾਮ",
+
+			"loginid": "ਲੌਗਇਨ ਆਈਡੀ",
+
+			"mobile": "ਮੋਬਾਈਲ ਨੰ",
+
+			"email": "ਈਮੇਲ ਆਈਡੀ",
+
+			"save": "ਸੇਵ ਕਰੋ",
+
+			"cancel":"ਰੱਦ ਕਰੋ"
+
+			},
+
+		"districtuser_creation":{
+
+			"title": "ਜ਼ਿਲ੍ਹਾ ਉਪਭੋਗਤਾ ਰਚਨਾ",
+
+			"districtlist": "ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਸੂਚੀ",
+
+			"name": "ਨਾਮ",
+
+			"loginid": "ਲੌਗਇਨ ਆਈਡੀ",
+
+			"mobile": "ਮੋਬਾਈਲ ਨੰ",
+
+			"email": "ਈਮੇਲ ਆਈਡੀ",
+
+			"save": "ਸੇਵ ਕਰੋ",
+
+			"cancel":"ਰੱਦ ਕਰੋ"
+
+			},
+
+		"stationuser_creation":{
+
+				"title": "ਸਟੇਸ਼ਨ ਯੂਜ਼ਰ ਰਚਨਾ",
+
+				"stationlist": "ਸਟੇਸ਼ਨਾਂ ਦੀ ਸੂਚੀ",
+
+				"name": "ਨਾਮ",
+
+				"loginid": "ਲੌਗਇਨ ਆਈਡੀ",
+
+				"mobile": "ਮੋਬਾਈਲ ਨੰ",
+
+				"email": "ਈਮੇਲ ਆਈਡੀ",
+
+				"save": "ਸੇਵ ਕਰੋ",
+
+				"cancel":"ਰੱਦ ਕਰੋ"
+
+				},
+
+		"fielduser_creation":{
+
+					"title": "ਫੀਲਡ ਯੂਜ਼ਰ ਰਚਨਾ",
+
+					"fieldlist": "ਖੇਤਰ ਦੀ ਸੂਚੀ",
+
+					"name": "ਨਾਮ",
+
+					"loginid": "ਲੌਗਇਨ ਆਈਡੀ",
+
+					"mobile": "ਮੋਬਾਈਲ ਨੰ",
+
+					"email": "ਈਮੇਲ ਆਈਡੀ",
+
+					"save": "ਸੇਵ ਕਰੋ",
+
+					"cancel":"ਰੱਦ ਕਰੋ"
+
+					},
+
+		"popup_common":{
+
+					"note": "ਨੋਟ",
+
+					"addusercond_1": "ਨਾਮ, ਲੌਗਇਨ ਆਈਡੀ, ਮੋਬਾਈਲ ਲਾਜ਼ਮੀ ਖੇਤਰ ਹਨ",
+
+					"addusercond_2": "ਲੌਗਇਨ ਆਈਡੀ ਜਾਂ ਨਾਮ ਦੀ ਲੰਬਾਈ 3 ਤੋਂ ਘੱਟ ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ",
+
+					"addusercond_3": "ਨਾਮ, ਲੌਗਇਨ ਆਈਡੀ, ਮੋਬਾਈਲ ਵਿੱਚ ਖਾਲੀ ਸਥਾਨ ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ",
+
+					"tans_user_creation1": "ਨਾਮ, ਲੌਗਇਨ ਆਈਡੀ, ਮੋਬਾਈਲ ਲਾਜ਼ਮੀ ਖੇਤਰ ਹਨ",
+
+					"tans_user_creation2": "ਲੌਗਇਨ ਆਈਡੀ ਅਤੇ ਨਾਮ ਦੀ ਲੰਬਾਈ 3 ਤੋਂ ਘੱਟ ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ",
+
+					"rto_creation1": "ਸਾਰੇ ਖੇਤਰ ਲਾਜ਼ਮੀ ਖੇਤਰ ਹਨ",
+
+					"rto_creation2": "ਆਰਟੀਓ ਕੋਡ ਵਿੱਚ ਖਾਲੀ ਸਥਾਨ ਦੀ ਆਗਿਆ ਨਹੀਂ ਹੈ"
+
+		}			
+
+	}, 
+
+	"acctab2": {
+
+		"title": "ਆਈਆਰਏਡੀ",
+
+		"newacc": "ਨਵਾਂ ਹਾਦਸਾ"
+
+	},
+
+	"acctab3": {
+
+		"title": "ਦੁਰਘਟਨਾਵਾਂ ਦੀ ਸੂਚੀ",
+
+		"pending": "ਪੈਂਡਿੰਗ",
+
+		"completed": "ਮੁਕੰਮਲ",
+
+		"search": "ਖੋਜ",
+
+		"deleted": "ਮਿਟਾਇਆ ਗਿਆ",
+
+		"listpatient": "ਮਰੀਜ਼ਾਂ ਦੀ ਸੂਚੀ"
+
+	},
+
+	"accview": {
+
+		"title": "ਸਹਾਇਕ ਵੇਰਵੇ"
+
+	},
+
+	"tabs": {
+
+		"home": "ਘਰ",
+
+		"edit": "ਸੰਪਾਦਿਤ ਕਰੋ",
+
+		"review": "ਸਮੀਖਿਆ",
+
+		"dashborad": "ਡੈਸ਼ਬੋਰਡ",
+
+		"report": "ਰਿਪੋਰਟ",
+
+		"analytics": "ਵਿਸ਼ਲੇਸ਼ਣ",
+
+		"map": "ਨਕਸ਼ਾ"
+
+	},
+
+"acctab1": {
+
+		"edit": "ਮੌਜੂਦਾ ਵੇਰਵਿਆਂ ਦਾ ਸੰਪਾਦਨ ਕਰੋ",
+
+		"title": "ਦੁਰਘਟਨਾ ਰਜਿਸਟਰ",
+
+		"generalinfo": "ਆਮ ਜਾਣਕਾਰੀ",
+
+		"location": "ਟਿਕਾਣਾ",
+
+		"accident": "ਦੁਰਘਟਨਾ",
+
+		"vehicle1": "ਵਾਹਨ ਅਤੇ ਡਰਾਈਵਰ",
+
+		"vehicle": "ਵਾਹਨ",
+
+		"driver": "ਡਰਾਈਵਰ",
+
+		"passenger": "ਯਾਤਰੀ",
+
+		"pedestrian": "ਪੈਦਲ ਯਾਤਰੀ",
+
+		"environment": "ਵਾਤਾਵਰਣ",
+
+		"roaddetails": "ਸੜਕ ਦੇ ਵੇਰਵੇ",
+
+		"firdetails": "ਐਫਆਈਆਰ ਦੇ ਵੇਰਵੇ",
+
+		"transport": "ਆਵਾਜਾਈ",
+
+		"accdetails": "ਦੁਰਘਟਨਾ ਦੇ ਵੇਰਵੇ",
+
+		"imgvideo": "ਚਿੱਤਰ ਅਤੇ ਵੀਡਿਓ",
+
+		"mvi": "ਮੋਟਰ ਵਾਹਨਾਂ ਦੀ ਜਾਂਚ",
+
+		"images": "ਚਿੱਤਰ",
+
+		"audio": "ਆਡੀਓ",
+
+		"video": "ਵੀਡੀਓ",
+
+		"loc": {
+
+			"title": "ਸਥਾਨ ਵੇਰਵੇ",
+
+			"officename": "ਜਾਂਚ ਅਧਿਕਾਰੀ",
+
+			"accdt": "ਦੁਰਘਟਨਾ ਦੀ ਮਿਤੀ ਅਤੇ ਸਮਾਂ",
+
+			"reporting": "ਰਿਪੋਰਟਿੰਗ",
+
+			"date": "ਤਾਰੀਖ਼",
+
+			"time": "ਸਮਾਂ",
+
+			"pickloc": "ਸਥਾਨ ਚੁਣੋ",
+
+			"changeloc": "ਸਥਾਨ ਬਦਲੋ",
+
+			"saveloc": "ਬਚਾਓ ਅਤੇ ਜਾਰੀ ਰੱਖੋ",
+
+			"psjurd": "ਪੁਲਿਸ ਅਧਿਕਾਰ ਖੇਤਰ",
+
+			"nearps": "ਪੁਲਿਸ ਸਟੇਸ਼ਨ ਦੇ ਨੇੜੇ",
+
+			"landmarks": "ਲੈਂਡਮਾਰਕ",
+
+			"location": "ਟਿਕਾਣਾ",
+
+			"injured": "ਜ਼ਖਮੀ",
+
+			"died": "ਮੌਤ",
+
+			"driver": "ਡਰਾਈਵਰ",
+
+			"passenger": "ਯਾਤਰੀ",
+
+			"pedestrian": "ਪੈਦਲ ਯਾਤਰੀ",
+
+			"animal": "ਪਸ਼ੂ/ਜਾਨਵਰ"
+
+		},
+
+		"media": {
+
+			"title": "ਮੀਡੀਆ",
+
+			"img1": "ਵਾਹਨ ਦਾ ਮੁੱਖ ਆਰਾਮ ਸਥਾਨ",
+
+			"img2": "ਵਾਹਨ ਨੂੰ ਨੁਕਸਾਨ ",
+
+			"img11": "ਸੰਪਤੀ ਨੂੰ ਨੁਕਸਾਨ",
+
+			"img3": "ਸੜਕ 'ਤੇ ਵਸਤੂਆਂ ਦੀ ਰੁਕਾਵਟ",
+
+			"img4": "ਜੰਕਸ਼ਨ / ਸੜਕ ਦੀ ਕਿਸਮ",
+
+			"img5": "ਸੜਕ ਸਤਹ",
+
+			"img6": "ਸਕਿਡ ਮਾਰਕਸ",
+
+			"img7": "ਮਾਹੌਲ",
+
+			"img8": "ਕੋਈ ਵੀ ਵਿਸ਼ੇਸ਼ਤਾ ਜਿਸਨੇ ਦੁਰਘਟਨਾ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਇਆ ਹੋਵੇ",
+
+			"img9": "ਹੋਰ ਚਿੱਤਰ 1",
+
+			"img10": "ਹੋਰ ਚਿੱਤਰ 2",
+
+			"video1": "ਵੀਡੀਓ 1",
+
+			"video2": "ਵੀਡੀਓ  2",
+
+			"save": "ਸੇਵ ਕਰੋ"
+
+		},
+
+		"audiopage": {
+
+			"title": "ਆਡੀਓ",
+
+			"name": "ਨਾਮ",
+
+			"age": "ਉਮਰ",
+
+			"address": "ਪਤਾ",
+
+			"save": "ਸੇਵ ਕਰੋ"
+
+		},
+
+		"videopage": {
+
+			"title": "ਵੀਡੀਓ",
+
+			"save": "ਸੇਵ ਕਰੋ",
+
+			"skip": "ਛੱਡੋ"
+
+		},
+
+		"acc": {
+
+			"poi": "ਦਿਲਚਸਪੀ ਦਾ ਬਿੰਦੂ",
+
+			"landmarktype": "ਲੈਂਡਮਾਰਕ ਕਿਸਮ",
+
+			"landmarkname": "ਲੈਂਡਮਾਰਕ ਨਾਮ",
+
+			"distance": "ਦੂਰੀ",
+
+			"direction": "ਦਿਸ਼ਾ",
+
+			"severity": "ਗੰਭੀਰਤਾ",
+
+			"crash_type": "ਕਰੈਸ਼ ਦੀ ਕਿਸਮ",
+
+			"collision_type": "ਟੱਕਰ ਦੀ ਕਿਸਮ",
+
+			"localbody": "ਸਥਾਨਕ ਸੰਸਥਾ",
+
+			"collision_nature": "ਟਕਰਾਉਣ ਦੀ ਪ੍ਰਕਿਰਤੀ",
+
+			"initial_observation": "ਦੁਰਘਟਨਾ ਦ੍ਰਿਸ਼ ਦਾ ਸ਼ੁਰੂਆਤੀ ਨਿਰੀਖਣ",
+
+			"mode_transfer": "ਹਸਪਤਾਲ ਵਿੱਚ ਤਬਦੀਲ ਕਰਨ ਦੀ ਵਿਧੀ",
+
+			"vehicle1": "ਵਾਹਨਾਂ ਦੀ ਗਿਣਤੀ",
+
+			"vehicle": "ਵਾਹਨਾਂ ਦੀ ਗਿਣਤੀ",
+
+			"passenger": "ਯਾਤਰੀ",
+
+			"pedestrian": "ਪੈਦਲ ਯਾਤਰੀ",
+
+			"spot_images": "ਸਥਾਨ ਚਿੱਤਰ",
+
+			"state": "ਸਟੇਟ",
+
+			"station": "ਸਟੇਸ਼ਨ",
+
+			"year": "ਸਾਲ",
+
+			"veh": {
+
+				"hitandrun": "ਹਿੱਟ ਐਂਡ ਰਨ",
+
+				"regnstatus": "ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ ਦੀ ਸਥਿਤੀ",
+
+				"owneraddr": "ਮਾਲਕ ਦਾ ਪਤਾ",
+
+				"Nationalpermit": "ਰਾਸ਼ਟਰੀ ਪਰਮਿਟ",
+
+				"npregisterd": "ਮਾਲਕ ਦਾ ਪਤਾ",
+
+				"ngexpiry": "ਰਾਸ਼ਟਰੀ ਪਰਮਿਟ ਦੀ ਮਿਆਦ",
+
+				"vcolor": "ਰੰਗ ",
+
+				"accusedvictim": "ਦੋਸ਼ੀ / ਪੀੜਤ",
+
+				"vdamages": "ਵਾਹਨ ਦਾ ਨੁਕਸਾਨ",
+
+				"vehilcedefect": "ਵਾਹਨ ਦੀ ਖਰਾਬੀ",
+
+				"vehiclecategory": "ਵਾਹਨ ਸ਼੍ਰੇਣੀ",
+
+				"loadcategory": "ਲੋਡ ਸ਼੍ਰੇਣੀ",
+
+				"next": "ਅਗਲਾ",
+
+				"prev": "ਪਿਛਲਾ",
+
+				"vehicle": "ਵਾਹਨ",
+
+				"vehicletype": "ਵਾਹਨ ਦੀ ਕਿਸਮ",
+
+				"vehiclesubtype": "ਵਾਹਨ ਉਪ ਕਿਸਮ",
+
+				"vehicle_rgn": "ਵਾਹਨ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ",
+
+				"disposition": "ਵਾਹਨ ਦੀ ਸਥਿਤੀ",
+
+				"manouvere": "ਦੁਰਘਟਨਾ ਤੇ ਚਾਲ",
+
+				"mechanical": "ਮਕੈਨੀਕਲ",
+
+				"loadcondtion": "ਲੋਡ ਸਥਿਤੀ",
+
+				"model": "ਮਾਡਲ",
+
+				"rcstatuson": "ਰਜਿਸਟਰੇਸ਼ਨ ਸਰਟੀਫਿਕੇਟ ਸਥਿਤੀ ਚਾਲੂ ",
+
+				"insurancepolicy": "ਬੀਮਾ ਪਾਲਿਸੀ ਨੰਬਰ",
+
+				"insurancepolicyon": "ਬੀਮਾ ਵੈਧਤਾ",
+
+				"rcregisterdat": "ਰਜਿਸਟਰੇਸ਼ਨ ਸਰਟੀਫਿਕੇਟ ਰਜਿਸਟਰਡ ਕਿਥੇ",
+
+				"registration_date": "ਰਜਿਸਟਰੇਸ਼ਨ ਦੀ ਮਿਤੀ",
+
+				"chase_num": "ਚੈਸੀ ਨੰਬਰ",
+
+				"engine_num": "ਇੰਜਣ ਨੰਬਰ",
+
+				"owner_name": "ਮਾਲਕ ਦਾ ਨਾਮ",
+
+				"vehicle_cls": "ਵਾਹਨ ਕਲਾਸ",
+
+				"fuel_type": "ਇਧਨ ਦੀ ਕਿਸਮ",
+
+				"make": "ਕੰਪਨੀ ਦਾ ਨਾਮ",
+
+				"fitness": "ਅਨੁਕੂਲਤਾ",
+
+				"mv_tax": "ਐਮਵੀ ਟੈਕਸ ਕਿਥੇ ਤਕ",
+
+				"insurance": "ਬੀਮਾ ਵੇਰਵੇ",
+
+				"rcstatus": "ਆਰਸੀ ਸਥਿਤੀ",
+
+				"permit": "ਪਰਮਿਟ",
+
+				"pucno": "ਪ੍ਰਦੂਸ਼ਣ ਨੰਬਰ",
+
+				"PUC_upto": "ਪ੍ਰਦੂਸ਼ਣ  ਵੈਧਤਾ",
+
+				"emmissionnorms": "ਨਿਕਾਸ ਦੇ ਨਿਯਮ"
+
+			},
+
+			"driver": {
+
+				"cell": "ਗੱਡੀ ਚਲਾਉਂਦੇ ਸਮੇਂ ਸੈੱਲ ਫ਼ੋਨ?",
+
+				"driver": "ਡਰਾਈਵਰ",
+
+				"nationality": "ਕੌਮੀਅਤ",
+
+				"class": "ਵਾਹਨ ਦੀ ਕਲਾਸ",
+
+				"category": "ਸ਼੍ਰੇਣੀ:",
+
+				"validity": "ਵੈਧਤਾ",
+
+				"blood": "ਖੂਨ ਦਾ ਸਮੂਹ",
+
+				"currentaddress": "ਲਾਇਸੈਂਸ ਵਿੱਚ ਮੌਜੂਦਾ ਪਤਾ",
+
+				"licensenumber": "ਲਾਇਸੈਂਸ ਨੰਬਰ",
+
+				"intlicensenumber": "ਅੰਤਰਰਾਸ਼ਟਰੀ ਡਰਾਈਵਿੰਗ ਪਰਮਿਟ",
+
+				"gender": "ਲਿੰਗ",
+
+				"Drivername": "ਡਰਾਈਵਰ ਦਾ ਨਾਮ",
+
+				"dob": "ਜਨਮ ਤਾਰੀਖ",
+
+				"age": "ਉਮਰ",
+
+				"Licensetype": "ਲਾਇਸੈਂਸ ਦੀ ਕਿਸਮ",
+
+				"Moblie_num": "ਮੋਬਾਈਲ ਨੰਬਰ",
+
+				"Moblie_num2": "ਮੋਬਾਈਲ ਨੰਬਰ",
+
+				"residence": "ਲਾਇਸੈਂਸ ਵਿੱਚ ਪੱਕਾ ਪਤਾ",
+
+				"residence1": "ਮੌਜੂਦਾ ਪਤਾ",
+
+				"occupation": "ਕਿੱਤਾ",
+
+				"severity": "ਗੰਭੀਰਤਾ",
+
+				"modeoftransport": "ਆਵਾਜਾਈ ਦਾ ਢੰਗ",
+
+				"cause_acc": {
+
+					"causeofacc": "ਕਾਜ਼ੋਫੈਕ",
+
+					"trafficviolation": "ਟ੍ਰੈਫਿਕ ਉਲੰਘਣਾ ਦੀ ਕਿਸਮ ",
+
+					"Manoeuvre": "ਦੁਰਘਟਨਾ ਤੇ ਚਾਲ",
+
+					"drunkdrive": "ਸ਼ਰਾਬੀ ਅਤੇ ਡਰਾਈਵਿੰਗ",
+					"mechanical": "ਮਕੈਨੀਕਲ",
+
+					"loadcond": "ਲੋਡ ਸ਼ਰਤਾਂ",
+
+					"seatbelt": "ਸੀਟ ਬੈਲਟ / ਹੈਲਮੇਟ"
+
+				}
+
+			},
+
+			"pedestrians": {
+
+				"passposition": "ਯਾਤਰੀ ਸਥਿਤੀ",
+
+				"passaction": "ਯਾਤਰੀ ਕਾਰਵਾਈ",
+
+				"passenger": "ਯਾਤਰੀ",
+
+				"pedestrian": "ਪੈਦਲ ਯਾਤਰੀ",
+
+				"vehicle": "ਵਾਹਨ",
+
+				"seatbelt": "ਸੀਟ ਬੈਲਟ / ਹੈਲਮੇਟ",
+
+				"name": "ਨਾਮ",
+
+				"gender_l": "ਲਿੰਗ",
+
+				"age": "ਉਮਰ",
+
+				"moblieno": "ਮੋਬਾਈਲ ਨੰਬਰ",
+
+				"address": "ਪਤਾ",
+
+				"occupation": "ਕਿੱਤਾ",
+
+				"severity": "ਗੰਭੀਰਤਾ",
+
+				"modeoftranport": "ਆਵਾਜਾਈ ਦਾ ਢ ੰਗ",
+
+				"tranporttime": "ਹਸਪਤਾਲ ਭਰਤੀ ਕਰਨ ਵਿੱਚ ਦੇਰੀ",
+
+				"natureofinjury": "ਸੱਟ ਦੀ ਪ੍ਰਕਿਰਤੀ",
+
+				"passengerpostion": "ਯਾਤਰੀ ਦੀ ਸਥਿਤੀ",
+
+				"passengeraction": "ਯਾਤਰੀ ਕਾਰਵਾਈ",
+
+				"pedinjurytype": "ਸੱਟ ਦੀ ਕਿਸਮਾਂ",
+
+				"pednatureofinjury": "ਸੱਟ ਦੀ ਪ੍ਰਕਿਰਤੀ",
+
+				"pedpassengerpostion": "ਪੈਦਲ ਯਾਤਰੀ ਦੀ ਸਥਿਤੀ",
+
+				"pedpassengeraction": "ਪੈਦਲ ਯਾਤਰੀ ਦੀ ਕਿਰਿਆ",
+
+				"injurytype": "ਸੱਟ ਦੀ ਕਿਸਮ",
+
+				"gender": {
+
+					"male": "ਮਰਦ",
+
+					"female": "ਔਰਤ",
+
+					"severity": {
+
+						"fatal": "ਘਾਤਕ",
+
+						"grievousinjury": "ਗੰਭੀਰ ਸੱਟ",
+
+						"simpleinjury_h": "ਸਧਾਰਨ ਸੱਟ (ਹਸਪਤਾਲ ਵਿੱਚ ਭਰਤੀ)",
+
+						"simpleinjury_nh": "ਸਧਾਰਨ ਸੱਟ (ਹਸਪਤਾਲ ਵਿੱਚ ਭਰਤੀ) ਕਰਨ ਦੀ ਲੋੜ ਨਹੀ",
+
+						"vehicle": "ਵਾਹਨ ਦਾ ਨੁਕਸਾਨ"
+
+					}
+
+				}
+
+			},
+
+			"Road": {
+
+				"title": "ਸੜਕ ਅਤੇ ਵਾਤਾਵਰਣ",
+
+				"roadtype": "ਸੜਕ ਵਰਗੀਕਰਨ",
+
+				"roadname": "ਸੜਕ ਦਾ ਨਾਮ",
+
+				"roadshouldertype": "ਸੜਕ ਕਿਨਾਰੇ ਦੀ ਕਿਸਮ ",
+
+				"roadno": "ਰੋਡ ਨੰਬਰ",
+
+				"roadchange": "ਸੜਕ ਸੰਗ੍ਰਹਿ",
+
+				"roadftu": "ਸੜਕ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ",
+
+				"speedlmt": "ਰਫ਼ਤਾਰ ਸੀਮਾ",
+
+				"lanes": "ਲੇਨ",
+
+				"junctiontype": "ਜੰਕਸ਼ਨ ਦੀ ਕਿਸਮ",
+
+				"junctiocontrol": "ਜੰਕਸ਼ਨ ਕੰਟਰੋਲ",
+
+				"roadwrk": "ਸੜਕ ਦਾ ਕੰਮ ਚੱਲ ਰਿਹਾ",
+
+				"trafficmvm": "ਆਵਾਜਾਈ ਦੀ ਗਤੀਵਿਧੀ",
+
+				"weathercnt": "ਮੌਸਮ ਦੀ ਸਥਿਤੀ",
+
+				"lightcondtion": "ਲਾਇਟ ਦੀ ਸਥਿਤੀ",
+
+				"visibility": "ਦੇਖਣ ਦੀ ਸ਼ਮਤਾ",
+
+				"areatype": "ਖੇਤਰ ਦੀ ਕਿਸਮ",
+
+				"propertydmg": "ਸੰਪਤੀ ਦਾ ਨੁਕਸਾਨ",
+
+				"physicaldvr": "ਸਰੀਰਕ ਡਰਾਈਵਰ",
+
+				"physicalddr": "ਭੌਤਿਕ ਵਿਭਾਜਕ / ਰੁਕਾਵਟ ਦੀ ਕਿਸਮ",
+
+				"roadsurface": "ਸਤਹ ਦੀ ਕਿਸਮ",
+
+				"surfacecon": "ਸਤਹ ਦੀ ਸਥਿਤੀ",
+
+				"roadconstruction": "ਬਣਤਰ ਦੀ ਕਿਸਮਾਂ",
+
+				"accidentspot": "ਦੁਰਘਟਨਾ ਸਥਾਨ",
+
+				"surfacecnt": "ਸੜਕ ਦੀ ਕਿਸਮਾਂ",
+
+				"pedestrianinstru": "ਪੈਦਲ ਯਾਤਰੀਆਂ ਦਾ ਬੁਨਿਆਦੀ ਡਾਂਚਾ",
+
+				"horizantl": "ਸੜਕ ਜਿਓਮੈਟਰੀ",
+
+				"vertical": "ਸਤਹ ਢਾਲ ਕਿਸਮ",
+
+				"remedial": "ਉਪਾਅ",
+
+				"accspot": "ਦੁਰਘਟਨਾ ਦਾ ਸਥਾਨ",
+
+				"weather": "ਮੌਸਮ",
+
+				"phy_divider": "ਫਿਜ਼ੀਕਲ ਡਿਵਾਈਡਰ",
+
+				"roadsurfacetype": "ਸੜਕ ਸਤਹ ਦੀ ਕਿਸਮ",
+
+				"surfacecond": "ਸਤਹ ਦੀ ਸਥਿਤੀ",
+
+				"sight_distance":"Sight Distance",
+				"accident_locations":"Accident Locations",
+				"road_classification": "Road Classification",
+				"road_name": "Road Name / Street Name",
+				"road_number": "Road Number",
+				"roadshoulder": "Road Shoulder",
+				"road_shoulder_type": "Road Shoulder Type",
+				"road_chainage": "Road Chainage",
+				"speed_limit": "Speed Limit",
+				"type_carriageway": "Type of Carriageway",
+				"junction_type": "Junction Type",
+				"junction_control": "Junction Control",
+				"onoing_road_work": "Ongoing Road Work",
+				"area_type": "Area Type",
+				"physical_divider": "Physical Divider / Barrier Type",
+				"surface_type": "Surface Type",
+				"surface_condition": "Surface Condition",
+				"type_structure": "Type of Structure",
+				"type_road": "Type of Road",
+				"pedestrian_infrastructure": "Pedestrian Infrastructure",
+				"horizontal_curve": "Horizontal Curve",
+				"vertical_curve": "Vertical Curve",
+				"remedial_measures": "Remedial Measures",
+				"topology": "Type of Terrain",
+
+				"road_width": "Road Width",
+				"road_margins": "Road Margins",
+				"road_markings":"Road Markings",
+				"road_sign_board":"Road Sign Board"
+
+			},
+
+			"audiofile": { 
+
+				"img1": "ਫਿਸਲਣ/ਰੋਕਣ ਦਾ ਚਿੰਨ੍",
+
+				"img2": "ਸਥਾਨ ਦੀ ਤਸਵੀਰ"
+
+			},
+
+			"videofile": {
+
+				"img1": "ਫਿਸਲਣ/ਰੋਕਣ ਦਾ ਚਿੰਨ੍",
+
+				"img2": "ਸਥਾਨ ਦੀ ਤਸਵੀਰ"
+
+			}
+
+		}
+
+	}
+
+}

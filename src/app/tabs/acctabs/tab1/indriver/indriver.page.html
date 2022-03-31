@@ -1,0 +1,270 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>indriver {{driverid}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ingeneralform"  (ngSubmit)="addinvestigation()" novalidate> 
+    <ion-grid> 
+      <ion-row>
+        <ion-col>
+            <ion-item>     
+                <ion-label  class='fcolor ion-text-wrap'>  {{'smallinvest.driversuffereinjuriry'|translate:params}}   
+                  </ion-label>
+                <ion-toggle     [checked]="changests1"></ion-toggle>    
+        </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row [hidden]="injury_flag">
+        <ion-col>
+            <ion-item> 
+                <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.tookvictimhospital'|translate:params}}</ion-label>
+                <ion-select formControlName="driver_id">
+                    <ion-select-option value="Oriented">show Witness list</ion-select-option>
+                    <ion-select-option value="Disoriented">show driver list</ion-select-option>
+                    <ion-select-option value="Disoriented">show owner list</ion-select-option>
+                    <ion-select-option value="Disoriented">show passenger list</ion-select-option>
+                    <ion-select-option value="Disoriented">show pedestrian list</ion-select-option>
+                    <ion-select-option value="Disoriented">Hospital</ion-select-option>
+                    <ion-select-option value="Disoriented">Add new person</ion-select-option>
+                 </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+
+
+
+<ion-row [hidden]="injury_flag">
+<ion-col>
+<ion-item>     
+<ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.treatmentdeny'|translate:params}}</ion-label>
+<ion-toggle   (click)="addValue()" ></ion-toggle>    
+</ion-item>    
+</ion-col>
+</ion-row>
+
+
+<ion-row [hidden]="injury_flag">
+<ion-col>
+<ion-item> 
+<ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.victimhospitalzeddate'|translate:params}}
+
+</ion-label>
+<ion-datetime  formControlName='vehicle_id' MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+</ion-item>
+</ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+      <ion-item> 
+          <ion-label position="floating" class='fcolor ion-text-wrap'>{{'smallinvest.llr'|translate:params}}
+
+              </ion-label>
+              <ion-select formControlName="vehicle_id">
+                  <ion-select-option value="YES">Whether driving  without  supervision           </ion-select-option>
+                  <ion-select-option value="NO">Lapsed Learner’s License    </ion-select-option>  
+                  
+               </ion-select>
+
+      </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row  >
+  <ion-col>
+      <ion-item>     
+          <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.alcholdrugs'|translate:params}}
+            </ion-label>
+          <ion-toggle   (click)="addValue()" [checked]="changests2"></ion-toggle>    
+  </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+    <ion-col>
+        <ion-item>     
+            <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.scientificreport'|translate:params}}          
+              </ion-label>
+            <ion-toggle   (click)="addValue()"></ion-toggle>    
+    </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+        <ion-item>     
+            <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.familofvictiminformedbydriver'|translate:params}}            
+              </ion-label>
+            <ion-toggle   (click)="addValue()"></ion-toggle>    
+    </ion-item>
+    </ion-col>
+  </ion-row>
+
+ 
+
+      <ion-row>
+          <ion-col>
+              <ion-item>     
+                  <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.accidentreportedtopolicefamily'|translate:params}}         
+                    </ion-label>
+                  <ion-toggle   (click)="addValue()"></ion-toggle>    
+          </ion-item>
+          </ion-col>
+        </ion-row>
+
+       
+
+          <ion-row>
+            <ion-col>
+                <ion-item>     
+                    <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.drivertookvictimtohp'|translate:params}}        
+                      </ion-label>
+                    <ion-toggle   (click)="addValue()"></ion-toggle>    
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+
+
+            <ion-row>
+              <ion-col>
+                  <ion-item>     
+                      <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.driverremainedplice'|translate:params}}      
+                        </ion-label>
+                      <ion-toggle   (click)="addValue()"></ion-toggle>    
+              </ion-item>
+              </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>     
+                        <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.paidcompendation'|translate:params}}   
+                          </ion-label>
+                        <ion-toggle   (click)="addValue()"></ion-toggle>    
+                </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                    <ion-item>     
+                        <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.drivercooprated'|translate:params}}   
+                          </ion-label>
+                        <ion-toggle   (click)="addValue()"></ion-toggle>    
+                </ion-item>
+                </ion-col>
+              </ion-row>
+
+
+              
+
+                <ion-row>
+                    <ion-col>
+                        <ion-item>     
+                            <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.section132'|translate:params}}    
+                              </ion-label>
+                            <ion-toggle   (click)="addValue()"></ion-toggle>    
+                    </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+
+                  <ion-row>
+                      <ion-col>
+                          <ion-item>     
+                              <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.prosecuted'|translate:params}}   
+                                </ion-label>
+                              <ion-toggle   (click)="addValue()"></ion-toggle>    
+                      </ion-item>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                      <ion-col>
+                          <ion-item>     
+                              <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.driverflee'|translate:params}}   
+                                </ion-label>
+                              <ion-toggle   (click)="addValue()"></ion-toggle>    
+                      </ion-item>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col>
+                            <ion-item> 
+                                <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.appbefore'|translate:params}}
+                      
+                                    </ion-label>
+                                    <ion-datetime  formControlName='vehicle_id' MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+                            </ion-item>
+                        </ion-col>
+                      </ion-row>
+                      
+      
+      <ion-row>
+        <ion-col>
+            <ion-item> 
+                <ion-label position="floating" class='fcolor ion-text-wrap'>{{'smallinvest.circumstances'|translate:params}}
+                    </ion-label>
+                    <ion-select formControlName="vehicle_id">
+                        <ion-select-option value="Oriented">Driving without  valid  driving license</ion-select-option>
+                        <ion-select-option value="Disoriented">Driving while  disqualified</ion-select-option>
+                        <ion-select-option value="Disoriented">Learner driving without  supervision</ion-select-option>
+                        <ion-select-option value="Disoriented">Vehicle  not  insured</ion-select-option>
+                        <ion-select-option value="Disoriented">Driving a stolen  vehicle</ion-select-option>
+                        <ion-select-option value="Disoriented">Parking on the  wrong side  of  the road</ion-select-option>
+                      
+                     </ion-select>
+            </ion-item>
+        </ion-col>
+      
+        <ion-col>
+            <ion-item> 
+                <ion-label position="floating" class='fcolor ion-text-wrap'> {{'smallinvest.aggressive'|translate:params}}
+                    </ion-label>
+                    <ion-select formControlName="vehicle_id">
+                        <ion-select-option value="Oriented">umping  Red  Light</ion-select-option>
+                        <ion-select-option value="Disoriented">Abrupt  braking</ion-select-option>
+                        <ion-select-option value="Disoriented">Neglect  to  keep to  the  left  of road</ion-select-option>
+                        <ion-select-option value="Disoriented">Criss Cross Driving</ion-select-option>
+                        <ion-select-option value="Disoriented">Driving close  to  vehicle  in front</ion-select-option>
+                        <ion-select-option value="Disoriented">Parking on the  wrong side  of  the road</ion-select-option>
+                      
+                     </ion-select>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+              <ion-item> 
+                  <ion-label position="floating" class='fcolor ion-text-wrap'> {{'smallinvest.irresponsible'|translate:params}}
+                      </ion-label>
+                      <ion-select formControlName="vehicle_id">
+                          <ion-select-option value="Oriented">Failing to  stop  after accident</ion-select-option>
+                          <ion-select-option value="Disoriented">Ran  away from the spot  after leaving the  vehicle</ion-select-option>
+                          <ion-select-option value="Disoriented">Destruction  or attempt  to  destroy the  evidence</ion-select-option>
+                     
+                       </ion-select>
+              </ion-item>
+          </ion-col>
+        
+          <ion-col>
+              <ion-item> 
+                  <ion-label position="floating" class='fcolor ion-text-wrap'> {{'smallinvest.offencescommitted'|translate:params}}
+                      </ion-label>
+                      <ion-select formControlName="vehicle_id">
+                          <ion-select-option value="Oriented">Sections 3/181-Driving without  licence</ion-select-option>
+                          <ion-select-option value="Disoriented">Sections  4/181-Driving by minor</ion-select-option>
+                          <ion-select-option value="Disoriented">Sections  5/181-Allowing  unauthorized  person  to  drive</ion-select-option>
+                        
+                       </ion-select>
+              </ion-item>
+          </ion-col>
+        </ion-row>
+                            </ion-grid> 
+                          </form>
+</ion-content>
+
+

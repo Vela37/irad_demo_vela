@@ -1,0 +1,301 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR General Details </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Officer name</ion-label>
+        <ion-input   [(ngModel)]="geninfo.investofficername">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Officer mobile number</ion-label>
+        <ion-input  type="tel" maxlength="10" [(ngModel)]="geninfo.investofficernumber">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Officer address</ion-label>
+        <ion-input  [(ngModel)]="geninfo.investofficeraddress"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Under section</ion-label>
+        <ion-input  [(ngModel)]="geninfo.underSection"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+--> 
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>
+          Nature of the accident?
+        </ion-label>
+        <ion-select  [(ngModel)]="geninfo.natureAcc" cancelText="Cancel" interface="alert">
+          <ion-select-option value="Injury">Injury</ion-select-option>
+          <ion-select-option value="Fatal">Fatal</ion-select-option>
+          <ion-select-option value="Damage/Loss of property">Damage/Loss of property</ion-select-option>
+          <ion-select-option value="Any other loss/injury">Any other loss/injury</ion-select-option>
+
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>
+          Who reported the accident?
+        </ion-label>
+        <ion-select  [(ngModel)]="geninfo.reportaccperson"
+          (ionChange)="checkforReportingPerson()" cancelText="Cancel" interface="alert">
+          <ion-select-option value="Driver">Driver</ion-select-option>
+          <ion-select-option value="Owner">Owner</ion-select-option>
+          <ion-select-option value="Victim">Victim</ion-select-option>
+          <ion-select-option value="Witness">Witness</ion-select-option>
+          <ion-select-option value="Health">Hospital/Emergency vehicle</ion-select-option>
+          <ion-select-option value="Police">Police</ion-select-option>
+          <ion-select-option value="Good Samaritan">Good Samaritan</ion-select-option>
+          <ion-select-option value="Unknown">Unknown</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>
+          Reporting person name
+        </ion-label>
+        <ion-select [(ngModel)]='geninfo.check' interface="alert"  (ionChange)="loadaddress($event)">
+          <ion-select-option *ngFor="let person of list; let j = index" value={{person.id}}> {{person.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+
+  <!--  <ion-row>
+      <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>
+          Who reported the accident?
+        </ion-label>
+        <ion-select [(ngModel)]="geninfo.reportaccperson" cancelText="Cancel" interface="alert">
+          <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row> -->
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor'>Availability of CCTV footage</ion-label>
+        <ion-select  [(ngModel)]="geninfo.cctv" placeholder="Select One">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Damage/loss of the property</ion-label>
+        <ion-textarea  [(ngModel)]="geninfo.lossOfproperty" rows="5" cols="20"
+          placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Any other loss/injury</ion-label>
+        <ion-textarea  [(ngModel)]="geninfo.otherLoss" rows="5" cols="20"
+          placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+<!--
+ <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Description Of accident</ion-label>
+        <ion-textarea  [(ngModel)]="geninfo.descriptionacc" rows="5" cols="20"
+          placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+-->
+ 
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="ion-text-wrap fcolor" position="floating" class='fcolor'>Date of preparation of site plan
+        </ion-label>
+        <ion-datetime  [(ngModel)]="geninfo.dtsiteplan" [value]='accdatetime'
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+          required></ion-datetime>
+        <!--(ionChange)="updateMyDate($event)" -->
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Description of site plan</ion-label>
+        <ion-textarea  [(ngModel)]="geninfo.siteplandescription" rows="5" cols="20"
+          placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Brief Description of accident</ion-label>
+        <ion-textarea  [(ngModel)]="geninfo.brief_description_acc" rows="5" cols="20"
+          placeholder="Enter any description here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+
+<!--
+    <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Verification report form submitted?</ion-label>
+        <ion-select  [(ngModel)]="geninfo.regAuthority_reminder_submitted" placeholder="Select One">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="geninfo.regAuthority_reminder_submitted=='true'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="ion-text-wrap fcolor" position="floating" class='fcolor'>Verification report reminder date
+        </ion-label>
+        <ion-datetime [(ngModel)]="geninfo.regAuthorityremainderdate" displayFormat="D MMM YYYY hh:mm:A" pickerFormat=""
+          display-timezone="utc" required></ion-datetime>
+      
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row >
+    <ion-col>
+      <ion-item>
+        <ion-label>Hospital form submitted?</ion-label>
+        <ion-select  [(ngModel)]="geninfo.hosp_reminder_submitted" placeholder="Select One">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+   <ion-row>
+    <ion-col>
+      <ion-chip color="secondary">
+        <ion-label (click)="goToReportrequirement(1,1)">Generate Reports</ion-label>
+      </ion-chip>
+    </ion-col>     
+    <ion-col></ion-col>
+    <ion-col>
+      <ion-chip color="secondary">
+        <ion-label (click)="goToReportrequirement(1,2)">Upload Documents</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-row>
+-->
+  <ion-row *ngIf="geninfo.hosp_reminder_submitted=='true'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="ion-text-wrap fcolor" position="floating" class='fcolor'>Hospital reminder date
+        </ion-label>
+        <ion-datetime [(ngModel)]="geninfo.hospitalRemainderdate" displayFormat="D MMM YYYY hh:mm:A" pickerFormat=""
+          display-timezone="utc" required></ion-datetime>
+        <!--(ionChange)="updateMyDate($event)" -->
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid>
+    
+
+    
+ 
+</ion-grid>
+
+  
+
+
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+  
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="saveModal(0)">Save</ion-label>
+        </ion-chip>
+      </ion-col>
+   
+   
+
+    </ion-row>
+  </ion-grid>
+</ion-footer>

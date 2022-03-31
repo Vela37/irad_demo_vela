@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Forward Patient to other police station</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+
+
+  <ion-card>
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>  
+        <ion-col>  
+          <ion-item>
+            <ion-label class="fcolor" class="fcolor" position="floating">
+              State
+              </ion-label>
+          <ion-select  [(ngModel)]="psaccid"  (ionChange)="showdistricts($event)">
+            <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option>
+          </ion-select>
+          </ion-item>
+      </ion-col>         
+     </ion-row>
+
+
+
+   <ion-row >  
+    <ion-col>  
+      <ion-item>
+        <ion-label class="fcolor" class="fcolor" position="floating">
+         Select Police District
+          </ion-label>
+      <ion-select  [(ngModel)]="drid" (ionChange)="showstations($event)">
+        <ion-select>
+          <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-select>
+      </ion-item>
+  </ion-col>         
+ </ion-row>
+
+ <ion-row >  
+  <ion-col>  
+    <ion-item>
+      <ion-label class="fcolor" class="fcolor" position="floating">
+       Select Police Station
+        </ion-label>
+    <ion-select [(ngModel)]="paid">
+      <ion-select>
+        <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-select>
+    </ion-item>
+</ion-col>         
+</ion-row>
+
+
+
+<ion-row >  
+  <ion-col>  
+    <ion-item>
+      <ion-label class="fcolor" class="fcolor" position="floating">
+       Remarks
+        </ion-label>
+    <ion-input [(ngModel)]="remarks"></ion-input>
+    </ion-item>
+</ion-col>         
+</ion-row>
+
+
+
+
+          </ion-grid>
+     
+        </ion-card-content>
+          </ion-card>
+
+         
+        
+  
+  <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+        
+          <ion-col>
+            <ion-button expand="block"   (click)="closemodal()" color='danger'>
+              <ion-icon name="arrow-back"></ion-icon>
+              &nbsp;&nbsp;&nbsp;CANCEL
+    
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block"   color='success' (click)='forwardprocess()'>
+            
+    
+              <ion-icon name="git-pull-request" ></ion-icon>&nbsp;&nbsp;&nbsp;Link to Accid
+    
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+ 
+</ion-content>
+
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      DAR
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+<ion-content>
+ 
+  <ion-card color='light'  *ngIf="mactdetails">
+   
+    <ion-card-header>
+      <ion-card-subtitle style='color: black;'>Motor Accident Claim Tribunal</ion-card-subtitle> 
+    </ion-card-header>
+  
+    <ion-card-content>
+      
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle style='color: rgb(236, 5, 186);font-weight: bolder;'>MACT</ion-card-subtitle>
+          <ion-card-title style='color: rgb(25, 25, 102);'>{{mactdetails.courtname}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content style='color: rgb(15, 61, 153);'>
+          {{mactdetails.address}},{{mactdetails.pincode}}
+        </ion-card-content>
+      </ion-card>
+     
+  
+   
+          </ion-card-content>
+  </ion-card>
+
+   
+    <ion-card color='light' *ngIf="legaldetails">
+   
+      <ion-card-header>
+        <ion-card-subtitle style='color: black;'>Legal Services Authority</ion-card-subtitle> 
+      </ion-card-header>
+    
+      <ion-card-content>
+        
+        <ion-card >
+          <ion-card-header>
+            <ion-card-subtitle style='color: rgb(236, 5, 186);font-weight: bolder;'>SLSA</ion-card-subtitle>
+            <ion-card-title style='color: rgb(25, 25, 102);'>{{legaldetails.nameoflegalservice}}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content style='color: rgb(15, 61, 153);'>
+            {{legaldetails.address}},{{legaldetails.pincode}}
+          </ion-card-content>
+        </ion-card>
+       
+      
+            </ion-card-content>
+    </ion-card>
+
+  
+  
+<ion-card style='display: none;'>
+  <ion-card-header>
+    <ion-card-subtitle>Insurance Company</ion-card-subtitle>
+    <ion-card-title>Tindivanam</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    Principal District Judge, District and Sessions Court, Villupuram,605602
+  </ion-card-content>
+</ion-card>
+
+  
+  
+</ion-content>

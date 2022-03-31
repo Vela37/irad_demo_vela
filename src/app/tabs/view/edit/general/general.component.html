@@ -1,0 +1,393 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>General Details of {{ geninfo.accident_id.slice(-4)}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+ <!-- <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          FIR/CSR Number
+        </ion-label>
+        <ion-input [(ngModel)]=" geninfo.fir_number"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row> -->
+
+   <ion-row>
+         
+    <ion-col>
+              <ion-item><ion-label class='fcolor ion-text-wrap' position="stacked">
+                Accident Date & Time
+              </ion-label>
+            <ion-datetime  [(ngModel)]="geninfo.datetime" [value]='geninfo.datetime' [min]='accmin' [max]='accmax' displayFormat="D MMM YYYY hh:mm:A"  pickerFormat=""  required></ion-datetime> 
+              </ion-item> <!--  [min]='accmin' [max]='accmax' -->
+</ion-col>
+</ion-row>
+
+<ion-row>
+         
+  <ion-col>
+            <ion-item><ion-label class='fcolor ion-text-wrap' position="stacked">
+              Reporting Date & Time 
+            </ion-label>
+          <ion-datetime  [(ngModel)]="geninfo.repdatetime" [value]='geninfo.repdatetime'  [min]='accmin' [max]='repmax'  displayFormat="D MMM YYYY hh:mm:A"   pickerFormat="" required></ion-datetime>
+            </ion-item> <!-- [min]="geninfo.datetime"   [max]="maxdate"-->
+</ion-col>
+</ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.landmarkname' | translate:params}}
+        </ion-label>
+        <ion-input [(ngModel)]="geninfo.landmarks"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.severity' | translate:params }}
+        </ion-label>
+        <ion-select class="ion-text-wrap" (ionChange)="getSeverity($event)" [(ngModel)]="geninfo.severity">
+          <ion-select-option *ngFor="let d of sev; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.vehicle1' | translate:params}}
+        </ion-label>
+        <ion-select [(ngModel)]="geninfo.vehicles_count" (ionChange)="vehicleInputChange($event,vehicleInput)">
+          <ion-select-option *ngFor="let val of vehicleInput; let i = index" [value]="i+1">
+            {{i+1}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.driver' | translate:params }} {{ 'acctab1.loc.injured'
+          | translate:params }}</ion-label>
+        <ion-select [(ngModel)]="geninfo.driver_inj" [disabled]="countinj">
+          <ion-select-option *ngFor="let i of numberInputDriver" [value]="i">
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.driver' | translate:params }} {{ 'acctab1.loc.died' |
+          translate:params }}</ion-label>
+        <ion-select [(ngModel)]="geninfo.driver_dead" [disabled]="countdead">
+          <ion-select-option *ngFor="let i of numberInputDriver" [value]="i">
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.passenger' | translate:params }} {{
+          'acctab1.loc.injured' | translate:params }}</ion-label>
+        <ion-select [disabled]="countinj" [(ngModel)]="geninfo.pass_inj">
+          <ion-select-option *ngFor="let i of numberinput" [value]="i">
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.passenger' | translate:params }} {{ 'acctab1.loc.died'
+          | translate:params }}</ion-label>
+        <ion-select [(ngModel)]="geninfo.pass_dead" [disabled]="countdead">
+          <ion-select-option *ngFor="let i of numberinput" [value]="i">
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.pedestrian' | translate:params }} {{
+          'acctab1.loc.injured' | translate:params }}</ion-label>
+        <ion-select [disabled]="countinj" [(ngModel)]="geninfo.ped_inj">
+          <ion-select-option *ngFor="let i of numberinput" [value]="i">
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.pedestrian' | translate:params }} {{ 'acctab1.loc.died'
+          | translate:params }}</ion-label>
+        <ion-select [(ngModel)]="geninfo.ped_dead" [disabled]="countdead" interface="alert">
+          <ion-select-option *ngFor="let i of numberinput" [value]="i" class='ion-text-wrap'>
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.animal' | translate:params }} {{ 'acctab1.loc.injured'
+          | translate:params }}</ion-label>
+        <ion-select [disabled]="countinj" [(ngModel)]="geninfo.animal_inj">
+          <ion-select-option *ngFor="let i of numberinput" [value]="i">
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.animal' | translate:params }} {{ 'acctab1.loc.died' |
+          translate:params }}</ion-label>
+        <ion-select [(ngModel)]="geninfo.animal_dead" interface="alert">
+          <ion-select-option *ngFor="let i of numberinput" [value]="i" class='ion-text-wrap'>
+            {{i}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor" position="stacked"
+          >{{ "acctab1.acc.Road.road_classification" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="geninfo.road_class" interface="alert">
+          <ion-select-option
+            *ngFor="let d of options8; let i = index"
+            value="{{ d.id }}"
+          >
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor" position="stacked"
+          >{{ "acctab1.acc.Road.road_name" | translate: params }}
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="geninfo.road_name"
+          maxlength="100"
+          autofocus="true"
+          clearInput="true"
+          autocomplete="“true”"
+          spellcheck="“true”"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.localbody' | translate:params}}
+        </ion-label>
+        <ion-select [(ngModel)]="geninfo.localbody" cancelText="Cancel" interface="alert"
+          > <!-- (ionChange)="getvalue2($event)"-->
+          <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.collision_type' | translate:params}}
+        </ion-label>
+        <ion-select multiple='true' [(ngModel)]="geninfo.collisiontype" cancelText="Cancel" interface="alert"
+         > <!--  (ionChange)="getvalue2($event)" -->
+          <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.collision_nature' | translate:params}}
+        </ion-label>
+        <ion-select [(ngModel)]="geninfo.collisionnature" cancelText="Cancel" multiple='true' interface="alert"
+         > <!--  (ionChange)="getvalue2($event)"-->
+          <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.initial_observation' | translate:params}}
+        </ion-label>
+        <ion-select multiple="true" [(ngModel)]="geninfo.observation" cancelText="Cancel" interface="alert">
+          <!--(ionChange)="getvalue3($event)" +-->
+          <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.Road.weathercnt' | translate:params}}
+        </ion-label>
+        <ion-select multiple="true" [(ngModel)]="geninfo.weather" okText="OK" interface="alert">
+          <ion-select-option *ngFor="let d of options5; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.Road.lightcondtion' | translate:params}}
+        </ion-label>
+        <ion-select multiple="false" okText="OK" [(ngModel)]="geninfo.lightcondtion" interface="alert">
+          <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.Road.accidentspot' | translate:params}}
+        </ion-label>
+        <ion-select multiple="true" cancelText="cancel" okText="OK" [(ngModel)]="geninfo.accident_spot"
+          interface="alert">
+          <ion-select-option *ngFor="let d of options7; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          {{'acctab1.acc.Road.visibility' | translate:params}}
+        </ion-label>
+        <ion-select [(ngModel)]="geninfo.visibility" cancelText="Cancel" interface="alert">
+          <ion-select-option value="15">{{'commonlinks.ls' | translate:params}}</ion-select-option>
+          <ion-select-option value="25">{{'commonlinks.tf' | translate:params}}</ion-select-option>
+          <ion-select-option value="50">{{'commonlinks.fz' | translate:params}}</ion-select-option>
+          <ion-select-option value="75">{{'commonlinks.sf' | translate:params}}</ion-select-option>
+          <ion-select-option value="100">{{'commonlinks.ha' | translate:params}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

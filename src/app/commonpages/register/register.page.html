@@ -1,0 +1,421 @@
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <div class="back-circle"></div>
+		<ion-title class="ion-text-center custom-font">Sign Up</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen="true">
+
+  <svg class="back-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#60717d" d="M68.6,-33.5C81.6,-17.2,79.6,13.8,65.7,37.6C51.8,61.3,25.9,77.8,2.1,76.6C-21.7,75.4,-43.5,56.5,-54.2,34.6C-65,12.7,-64.8,-12.3,-53.9,-27.4C-43,-42.4,-21.5,-47.6,3.2,-49.4C27.9,-51.2,55.7,-49.7,68.6,-33.5Z" transform="translate(100 100)" />
+  </svg>
+  <div class="ion-padding">
+
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>     
+     <ion-grid>
+     
+      <ion-row>  
+        <ion-col>  
+          <ion-item>
+            <ion-label class="fcolor" class="fcolor" position="floating">
+              PMJAY Empanelled
+              </ion-label>
+          <ion-select  id="pmjayflag" name="pmjayflag"  
+          #pmjayflagInput="ngModel"
+          [(ngModel)]="pmjayflag" 
+          >
+           <ion-select-option  value="Yes">Yes</ion-select-option>
+           <ion-select-option  value="No">No</ion-select-option>          
+          </ion-select>
+          </ion-item>
+          
+                  </ion-col> 
+                  <ion-col *ngIf="pmjayflag=='Yes'"><ion-item><ion-label position="floating" class='fcolor'>Empanelment No.</ion-label>
+                            
+                    <ion-input   id="pmjayno" name="pmjayno"  
+                    #pmjaynoInput="ngModel"
+                    [(ngModel)]="pmjayno"  
+                    minlength=5 
+                    maxlength=10 
+                    >
+                  </ion-input>
+                  </ion-item>
+                  
+                </ion-col>           
+     </ion-row>
+    
+    <ion-row>    
+      <ion-col><ion-item><ion-label position="floating" class='fcolor'>Hospital Name</ion-label>                    
+        <ion-input class='uppercase'  id="hpname" name="hpname"  
+                   #hpnameInput="ngModel"
+                   [(ngModel)]="hpname" 
+                   minlength=2 
+                   maxlength=100 
+                   required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && hpnameInput.invalid">
+        <p class='errormsg'*ngIf="hpnameInput.errors.required">
+        Hospital Name Required 
+        </p>
+        <p class='errormsg'*ngIf="hpnameInput.errors.minlength">
+          Hospital Name Minimum 2 Letters
+        </p>
+        <p *ngIf="hpnameInput.errors.maxlength">
+          Hospital Name Maximum 100 Letters
+        </p>
+      </div>
+    </ion-col>
+    </ion-row>
+   
+
+
+    <ion-row>  
+      <ion-col>  
+        <ion-item>
+          <ion-label class="fcolor" class="fcolor" position="floating">
+            State
+            </ion-label>
+        <ion-select (ionChange)="showdistriict($event)" id="state" name="state"  
+        #stateInput="ngModel"
+        [(ngModel)]="state" 
+        required>
+         <ion-select-option *ngFor="let d of options10; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+          
+        </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && stateInput.invalid">
+          <p class='errormsg'*ngIf="stateInput.errors.required">
+            State Required
+          </div>
+                </ion-col> 
+                <ion-col>  
+                  <ion-item>
+                    <ion-label class="fcolor" class="fcolor" position="floating">
+                      District
+                      </ion-label>
+                  <ion-select  id="district" name="district"  
+                  #districtInput="ngModel"
+                  [(ngModel)]="district" 
+                  required>
+                    <ion-select-option *ngFor="let d of options11; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+                  </ion-select>
+                  </ion-item>
+                  <div *ngIf="f.submitted && districtInput.invalid">
+                    <p class='errormsg'*ngIf="districtInput.errors.required">
+                      District Name Required
+                    </div>
+                          </ion-col>           
+   </ion-row>
+      
+
+   <ion-row>    
+    <ion-col><ion-item><ion-label position="floating" class='fcolor'> Address</ion-label>
+                        
+      <ion-input class='camelcase'  id="hpaddress" name="hpaddress"  
+                 #hpaddressInput="ngModel"
+                 [(ngModel)]="hpaddress" 
+                 minlength=2 
+                 maxlength=100 
+                 required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && hpaddressInput.invalid">
+      <p class='errormsg'*ngIf="hpaddressInput.errors.required">
+        Address Required 
+      </p>
+      <p class='errormsg'*ngIf="hpaddressInput.errors.minlength">
+        Address Minimum 2 Letters
+      </p>
+      <p *ngIf="hpaddressInput.errors.maxlength">
+        Address Maximum 100 Letters
+      </p>
+    </div>
+  </ion-col>
+ <ion-col><ion-item><ion-label position="floating" class='fcolor'> Pincode</ion-label>
+                        
+    <ion-input type='number' (ionChange)="checkpincode($event)"   id="pincode" name="pincode"  
+               #pincodeInput="ngModel"
+               [(ngModel)]="pincode" 
+               minlength=6 
+               maxlength=6 
+               required></ion-input>
+  </ion-item>
+  <div *ngIf="f.submitted && pincodeInput.invalid">
+    <p class='errormsg'*ngIf="pincodeInput.errors.required">
+    Pin Code Required 
+    </p>
+    <p class='errormsg'*ngIf="pincodeInput.errors.minlength">
+      Pin Code Exactly 6 digit
+      </p>
+      <p class='errormsg'*ngIf="pincodeInput.errors.maxlength">
+        Pin Code Exactly 6 digit
+      </p>
+   
+  </div>
+</ion-col>
+  </ion-row>
+
+
+
+    <ion-row>
+        
+      <ion-col>   
+        <ion-item>
+        
+            <ion-label class="fcolor" class="fcolor" position="floating">
+              Hospital Type
+              </ion-label>
+            <ion-select   (ionChange)="hptypeshow($event)" id="hptype" name="hptype"  #hptypeInput="ngModel" [(ngModel)]="hptype" required>
+          
+              <ion-select-option value="Government">Government</ion-select-option>
+              <ion-select-option value="Private">Private</ion-select-option>
+         
+            </ion-select>
+
+
+                   
+
+
+           
+             
+          </ion-item> 
+          <div *ngIf="f.submitted && hptypeInput.invalid">
+            <p class='errormsg'*ngIf="hptypeInput.errors.required">
+              Hospital Type Required
+            </div>
+     </ion-col> 
+     <ion-col [hidden]="hptypeflag">
+      <ion-item> 
+          <ion-label position="floating" class='fcolor'>Classification</ion-label>
+        <ion-select  id="classification" name="classification"  
+        #classificationInput="ngModel"
+        [(ngModel)]="classification">
+        <ion-select-option *ngFor="let d of options13; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+        </ion-select>
+      </ion-item>
+  </ion-col>
+  <ion-col [hidden]="hptypeflagspec">
+    <ion-item> 
+        <ion-label position="floating" class='fcolor'>Speciality</ion-label>
+      
+     
+
+      <ion-select    id="speciality" name="speciality"  
+      #specialityInput="ngModel"
+      [(ngModel)]="speciality"  multiple='true'  interface="alert">
+
+      <ion-select-option *ngFor="let d of options12; let i = index" value="{{d.id}}">
+        {{d.name}}
+      </ion-select-option>
+            
+          </ion-select>
+    </ion-item>
+  </ion-col>
+
+  
+
+              
+        </ion-row> 
+        <ion-row>
+          <ion-col><ion-item><ion-label position="floating" class='fcolor'>Mobile</ion-label>
+                              
+            <ion-input (ionChange)="checkdigits($event,10)"   id="getmobile" name="getmobile"  type='number'
+                       #getmobileInput="ngModel"
+                       [(ngModel)]="getmobile" 
+                     ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col><ion-item><ion-label position="floating" class='fcolor'>NIN</ion-label>
+                              
+          <ion-input (ionChange)="checkdigits($event,15)"   id="getnin" name="getnin"  type='number'
+                     #getninInput="ngModel"
+                     [(ngModel)]="getnin" 
+                     minlength=5 
+                     maxlength=10 
+                   ></ion-input>
+        </ion-item>
+      </ion-col>
+        </ion-row>
+        <ion-row>    
+          <ion-col><ion-item><ion-label position="floating" class='fcolor'>  Land Line</ion-label>
+                              
+            <ion-input   (ionChange)="checklandline($event)"  id="landline" name="landline"  type='number' placeholder='123456-123456'
+                       #landlineInput="ngModel"
+                       [(ngModel)]="landline" 
+                     ></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col><ion-item><ion-label position="floating" class='fcolor'>E-Mail</ion-label>
+                              
+          <ion-input   id="email" name="email"  
+                     #emailInput="ngModel"
+                     [(ngModel)]="email"
+                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                     required></ion-input>
+        </ion-item>
+        <div *ngIf="f.submitted && emailInput.invalid">
+          <p class='errormsg'*ngIf="emailInput.errors.required">
+            E-Mail Required 
+          </p>
+          <p class='errormsg'*ngIf="emailInput.errors.pattern">
+            This is not a valid Email!!!
+          </p>
+         
+        </div>
+      </ion-col>
+        </ion-row>
+      
+        <ion-row>
+          <ion-col><ion-item>       
+
+            <ion-label position="floating" class='fcolor'>Username</ion-label>                  
+            <ion-input    id="mobilenumber" name="mobilenumber"  
+                       #mobilenumberInput="ngModel"
+                       [(ngModel)]="mobilenumber" 
+                       minlength=5 
+                       maxlength=20
+                       required></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && mobilenumberInput.invalid">
+            <p class='errormsg'*ngIf="mobilenumberInput.errors.required">
+              Username Required 
+            </p>
+            <p class='errormsg'*ngIf="mobilenumberInput.errors.minlength">
+             Minimum 5 letters
+              </p>
+              <p class='errormsg'*ngIf="mobilenumberInput.errors.maxlength">
+               Maximum 20 letters
+                </p>
+            
+          </div>
+        </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col><ion-item><ion-label position="floating" class='fcolor'>Password</ion-label>
+                              
+            <ion-input   id="uspassword" name="uspassword"  
+                       #uspasswordInput="ngModel"
+                       [(ngModel)]="uspassword" 
+                       minlength=2 
+                       maxlength=10 
+                       required></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && uspasswordInput.invalid">
+            <p class='errormsg'*ngIf="uspasswordInput.errors.required">
+              Password Required 
+            </p>
+            <p class='errormsg'*ngIf="uspasswordInput.errors.minlength">
+              Password Minimum 2 Letters
+            </p>
+            <p *ngIf="uspasswordInput.errors.maxlength">
+              Password Maximum 10 Letters
+            </p>
+          </div>
+        </ion-col>
+        <ion-col><ion-item><ion-label position="floating" class='fcolor'>Retype Password</ion-label>
+                              
+          <ion-input   id="retypepassword" name="retypepassword"  
+                     #retypepasswordInput="ngModel"
+                     [(ngModel)]="retypepassword" 
+                     minlength=2 
+                     maxlength=10 
+                     required></ion-input>
+        </ion-item>
+        <div *ngIf="f.submitted && retypepasswordInput.invalid">
+          <p class='errormsg'*ngIf="retypepasswordInput.errors.required">
+           Retype Password Required 
+          </p>
+          <p class='errormsg'*ngIf="retypepasswordInput.errors.minlength">
+            Retype Password Minimum 2 Letters
+          </p>
+          <p *ngIf="retypepasswordInput.errors.maxlength">
+            Retype Password Maximum 10 Letters
+          </p>
+        </div>
+      </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>   
+          <ion-item  (click)="showmap()">
+            <ion-label position="floating" class='fcolor'>Hospital Location</ion-label>
+          <ion-icon name="location" color="primary" slot="start"></ion-icon>
+          <ion-input [value]="hsploc"   type="text" readonly placeholder="Hospital Location"  ></ion-input>
+        </ion-item> 
+        </ion-col> 
+      </ion-row>
+
+
+        <ion-row>  
+          <ion-col>  
+            <ion-item>
+              <ion-label class="fcolor" class="fcolor" position="floating">
+                Police District
+                </ion-label>
+            <ion-select (ionChange)="showpolicestn($event)" id="psdistrict" name="psdistrict"  
+            #psdistrictInput="ngModel"
+            [(ngModel)]="psdistrict" 
+            required>
+            <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option>
+            </ion-select>
+            </ion-item>
+            <div *ngIf="f.submitted && psdistrictInput.invalid">
+              <p class='errormsg'*ngIf="psdistrictInput.errors.required">
+                Police District Required
+              </div>
+                    </ion-col> 
+                    <ion-col>  
+                      <ion-item>
+                        <ion-label class="fcolor" class="fcolor" position="floating">
+                          Police Station
+                          </ion-label>
+                      <ion-select  id="psation" name="psation"  
+                      #psationInput="ngModel"
+                      [(ngModel)]="psation" 
+                      required>
+                      <ion-select-option *ngFor="let d of options5; let i = index" value="{{d.id}}">
+                        {{d.name}}
+                      </ion-select-option>
+                      </ion-select>
+                      </ion-item>
+                      <div *ngIf="f.submitted && psationInput.invalid">
+                        <p class='errormsg'*ngIf="psationInput.errors.required">
+                          Police Station Required
+                        </div>
+                              </ion-col>           
+       </ion-row>
+ 
+  <ion-row > 
+
+    <ion-col class='txtalign'>
+      <div class="container-form-btn">
+        <button  type="submit" class="form-btn custom-font">
+         Register
+        </button>
+      </div>  
+
+    </ion-col>
+
+     
+  </ion-row>
+  </ion-grid>
+</form>
+</div>
+<ion-footer class="ion-no-border">
+	<ion-toolbar>
+		<p class="ion-text-center custom-font">Already have an account? <a href="#">Login</a></p>
+	</ion-toolbar>
+</ion-footer>
+</ion-content>

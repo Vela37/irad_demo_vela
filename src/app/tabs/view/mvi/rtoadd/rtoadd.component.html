@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Select RTO 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--<ion-row> 
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor2' position="floating"> Zone </ion-label>
+
+        <ion-select  [(ngModel)]='chpwd.oldpwd'  (ionChange)="onZoneChange()" interface="alert">
+          <ion-select-option   *ngFor="let d of zoneOptions; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option> 
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    </ion-row> 
+
+    <ion-row >
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor2' position="floating">District </ion-label>
+  
+          <ion-select interface="alert" (ionChange)=onDistrictChange() [(ngModel)]='rtosel.district'>
+  
+            <ion-select-option   *ngFor="let d of districtOptions; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option> 
+  
+  
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      </ion-row> -->
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor2' position="floating">RTO </ion-label>
+    
+            <ion-select interface="alert" (ionChange)=onRTOSelected() [(ngModel)]="rtosel.rto">
+    
+              <ion-select-option   *ngFor="let d of rtoOptions; let i = index" value="{{d.id}}">
+                {{d.name}}
+              </ion-select-option> 
+    
+    
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="selrto!=null">
+          <ion-col>
+
+            <ion-card>
+              <ion-card-header>
+              <!--  <ion-card-subtitle> {{selrto.id  +','+ selrto.name}}</ion-card-subtitle>-->
+                <ion-card-title> {{selrto.id  +','+ selrto.name}}</ion-card-title> 
+              </ion-card-header>
+            
+              <ion-card-content>
+                {{selrto.address}}
+              </ion-card-content>
+            </ion-card>
+
+           
+            </ion-col>
+        </ion-row>
+
+       <!-- <ion-row *ngIf="uoOptions!=null">
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor2' position="floating">Unit Office </ion-label>
+      
+              <ion-select interface="alert" [(ngModel)]="rtosel.uo">
+      
+                <ion-select-option   *ngFor="let d of uoOptions; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option> 
+      
+      
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          </ion-row> -->
+
+  
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

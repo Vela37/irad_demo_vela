@@ -1,0 +1,529 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Patient Register</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color='light'>
+  <div [hidden]="true" style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right: 30px;'> <span  (click)="editflagchage()">Edit</span></div>
+ 
+   <!--
+<span *ngIf="flag!='yes'">
+  
+   -->   <span [hidden]="true">
+  <ion-card >
+    <ion-card-content >
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+        
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>:&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row> 
+  
+
+      <ion-row>
+        <ion-col>Gender</ion-col>
+        
+        <ion-col class='uppercase'>:&nbsp;{{patientdata.gender}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Age</ion-col>
+        
+        <ion-col >:&nbsp;{{patientdata.patient_age}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="flag=='Yes'">
+        <ion-col    >Accident Register</ion-col>
+        
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>MLC - {{patientdata.patient_type}}</ion-col>
+        
+        <ion-col>:&nbsp;{{patientdata.patient_id}}</ion-col>
+      </ion-row>
+  
+
+      <ion-row>
+        <ion-col>Patient Address</ion-col>
+        
+        <ion-col class='uppercase'> :{{patientdata.gurdian_type}},{{patientdata.gurdian_name}},{{patientdata.patient_address}}&nbsp;</ion-col>      </ion-row>
+
+     
+        <ion-row>
+          <ion-col>Time of Arrival</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.timeof_arrival_df}}</ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col>Informant Name</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.informant_name}}</ion-col>
+        </ion-row>
+
+
+          
+        <ion-row>
+          <ion-col>Informant Address</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.contact_address}}</ion-col>
+        </ion-row>
+
+
+          
+        <ion-row>
+          <ion-col>Informant Mobile</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.contact_number}}</ion-col>
+        </ion-row>
+
+
+          
+        <ion-row>
+          <ion-col>Identification mark 1</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.identification_marks1}}</ion-col>
+        </ion-row>
+
+          
+        <ion-row>
+          <ion-col>Identification mark 2</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.identification_marks2}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>Doctor Name</ion-col>
+          
+          <ion-col class='uppercase'>:Dr.&nbsp;{{patientdata.doctor_name}}</ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col>Doctor Regn. No.</ion-col>
+          
+          <ion-col class='uppercase'>:&nbsp;{{patientdata.doctor_regno}}</ion-col>
+        </ion-row>
+    
+  
+ 
+      <ion-row>
+        <ion-col>Accident Register</ion-col>
+        
+        <ion-col class='uppercase'>:&nbsp;{{patientdata.ar_number}}</ion-col>
+      </ion-row>
+
+
+    </ion-card-content>
+  </ion-card>
+</span>
+<!-- 
+
+<span *ngIf="flag=='yes'">
+
+ -->
+
+  <span>
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>      <ion-grid>
+     
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Patient Type</ion-label>
+          <ion-select    interface="alert" id="patient_type" name="patient_type"  
+          #patient_typeInput="ngModel"
+          [(ngModel)]="patientdata.patient_type" 
+          required>
+            <ion-select-option value="OP">MLC - OP</ion-select-option>
+            <ion-select-option value="IP">MLC - IP</ion-select-option>
+          </ion-select>
+
+        </ion-item>
+        <div *ngIf="f.submitted && patient_typeInput.invalid">
+          <p class='errormsg'*ngIf="patient_typeInput.errors.required">
+            Patient type required
+          </p>
+         <!--
+           (ionChange)="patienttype($event)"
+         -->
+        </div>
+      </ion-col>
+              
+   </ion-row>
+
+   
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        {{patientdata.patient_type}}
+        </ion-label>
+        <ion-input  class='uppercase' id="patient_id" name="patient_id"  
+               #patient_idInput="ngModel"
+               [(ngModel)]="patientdata.patient_id" 
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && patient_idInput.invalid">
+        <p class='errormsg'*ngIf="patient_idInput.errors.required">
+          {{patientdata.patient_type}} id required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+   <ion-row>
+      
+    <ion-col><ion-item><ion-label position="floating" class='fcolor'>Time of Arrival </ion-label>
+          
+      <ion-datetime   min="2020" MAX=2025  displayFormat="D MMM YYYY hh:mm A" 
+      id="timeof_arrival" name="timeof_arrival"
+      #timeof_arrivalInput="ngModel"
+      [(ngModel)]="patientdata.timeof_arrival" 
+      required></ion-datetime>
+    </ion-item>
+    <div *ngIf="f.submitted && timeof_arrivalInput.invalid">
+      <p class='errormsg'*ngIf="timeof_arrivalInput.errors.required">
+        Time of arrival required
+      </p>
+     
+    </div>
+  </ion-col>    
+  </ion-row> 
+   
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        Patient Name
+        </ion-label>
+        <ion-input  class='uppercase'  id="patient_name" name="patient_name"  
+               #patient_nameInput="ngModel"
+               [(ngModel)]="patientdata.patient_name" 
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && patient_nameInput.invalid">
+        <p class='errormsg'*ngIf="patient_nameInput.errors.required">
+          Patient name required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        Patient Age
+        </ion-label>
+        <ion-input  type="number" (ionChange)="checkage($event)" id="patient_age" name="patient_age"  
+               #patient_ageInput="ngModel"
+               [(ngModel)]="patientdata.patient_age" 
+            
+               maxlength=10 
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && patient_ageInput.invalid">
+        <p class='errormsg'*ngIf="patient_ageInput.errors.required">
+          Patient age required
+        </p>
+       
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label  position="floating" class="fcolor">
+          Patient Contact Number
+          </ion-label>
+          <ion-input  type="number" id="patient_mobilenr" name="patient_mobilenr" (keyup)="checkdigits($event,10)" 
+                 #patient_mobilenrInput="ngModel"
+                 [(ngModel)]="patientdata.patient_mobilenr" 
+                 required></ion-input>
+         
+        </ion-item> 
+        <div *ngIf="f.submitted && patient_mobilenrInput.invalid">
+          <p class='errormsg'*ngIf="patient_mobilenrInput.errors.required">
+            Patient Contact Number
+          </p>
+         
+        </div>
+      </ion-col>
+
+    
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{'health.gender' | translate:params}} </ion-label>
+        <ion-select id="gender" name="gender"  
+        #genderInput="ngModel" [(ngModel)]="patientdata.gender" interface="alert"  (ionChange)="fixprefix($event)">
+          <ion-select-option value="Male">{{'commonlinks.male' | translate:params}}</ion-select-option>
+          <ion-select-option value="Female">{{'commonlinks.female' | translate:params}}</ion-select-option>
+          <ion-select-option value="TG">{{'commonlinks.tg' | translate:params}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked" class='fcolor'>{{'health.injury_severity' | translate:params}} </ion-label>
+        <ion-select  interface="alert" id="injury_severity" name="injury_severity"  
+        #injury_severityInput="ngModel" [(ngModel)]="patientdata.injury_severity">
+          <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+          
+    <ion-col size=4>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Relation</ion-label>
+        <ion-select (ionChange)="fixguradinalabel($event)" interface="alert"  
+        id="gurdian_type" 
+        name="gurdian_type"  
+         #gurdian_typeInput="ngModel"
+        [(ngModel)]="patientdata.gurdian_type" 
+        required>
+        <ion-select-option *ngFor="let d of prfixcont; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+        
+        </ion-select>
+      </ion-item>
+      <div *ngIf="f.submitted && gurdian_typeInput.invalid">
+        <p class='errormsg'*ngIf="gurdian_typeInput.errors.required">
+          Relation Required
+        </p>
+       
+      </div>
+    </ion-col>
+   
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{guardinaname}}</ion-label>
+        <ion-input class='uppercase' id="gurdian_name" name="gurdian_name"  
+        #gurdian_nameInput="ngModel"
+        [(ngModel)]="patientdata.gurdian_name" 
+        required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && gurdian_nameInput.invalid">
+        <p class='errormsg'*ngIf="gurdian_nameInput.errors.required">
+          {{guardinaname}}} Required
+        </p>
+       
+      </div>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        Patient Address
+        </ion-label>
+        <ion-input  class='capitalize' id="patient_address" name="patient_address"  
+               #patient_addressInput="ngModel"
+               [(ngModel)]="patientdata.patient_address" 
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && patient_addressInput.invalid">
+        <p class='errormsg'*ngIf="patient_addressInput.errors.required">
+          Patient address required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+        Accident Register Number
+        </ion-label>
+        <ion-input   class='uppercase' id="ar_number" name="ar_number"  
+               #ar_numberInput="ngModel"
+               [(ngModel)]="patientdata.ar_number" 
+             
+               maxlength=15 
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && ar_numberInput.invalid">
+        <p class='errormsg'*ngIf="ar_numberInput.errors.required">
+          Accident register number required
+        </p>
+       
+      </div>
+    </ion-col>
+  </ion-row>
+
+  
+
+  
+
+  <ion-row>
+ 
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>ID Proof </ion-label>
+        <ion-select id="idproof" name="idproof"  
+        #idproofInput="ngModel" [(ngModel)]="patientdata.idtype" interface="alert" >
+          <ion-select-option value="1">Voter ID</ion-select-option>
+          <ion-select-option value="2">PAN Card</ion-select-option>
+          <ion-select-option value="3">Aadhaar Card</ion-select-option>
+          <ion-select-option value="4">Driving Licence</ion-select-option>
+          <ion-select-option value="5">Others</ion-select-option>
+          <ion-select-option value="6">ID Proof Unavailable</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>ID Proof Number
+        </ion-label>
+        <ion-input  class='capitalize' id="idproofnumber" name="idproofnumber"  
+        #identification_marks2Input="ngModel" [(ngModel)]="patientdata.idnumber"  
+        
+        maxlength=25 
+          class='textuppercarse'></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+   
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{'health.identification_marks1' | translate:params}}
+        </ion-label>
+        <ion-input  class='capitalize' id="identification_marks1" name="identification_marks1"  
+        #identification_marks1Input="ngModel" [(ngModel)]="patientdata.identification_marks1"   
+        
+        maxlength=50 class='textuppercarse'></ion-input>
+      </ion-item>
+      
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{'health.identification_marks2' | translate:params}}
+        </ion-label>
+        <ion-input  class='capitalize' id="identification_marks2" name="identification_marks2"  
+        #identification_marks2Input="ngModel" [(ngModel)]="patientdata.identification_marks2"   
+        maxlength=50  class='textuppercarse'></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+   
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{'health.informant_name' | translate:params}} </ion-label>
+        <ion-input  class='uppercase' id="informant_name" name="informant_name"  
+        #informant_nameInput="ngModel" [(ngModel)]="patientdata.informant_name" maxlength=30  class='textuppercarse'></ion-input>
+
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{'health.contact_address' | translate:params}} </ion-label>
+        <ion-input  class='capitalize' id="contact_address" name="contact_address"  
+        #contact_addressInput="ngModel" [(ngModel)]="patientdata.contact_address" class='textuppercarse'></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>{{'health.contact_number' | translate:params}} </ion-label>
+        <ion-input id="contact_number" name="contact_number"  
+        #contact_numberInput="ngModel" [(ngModel)]="patientdata.contact_number" type="number" (keyup)="checkdigits($event,10)" class='textuppercarse'></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+       Doctor Name
+        </ion-label>
+        <ion-input   class='uppercase' id="doctor_name" name="doctor_name"  
+               #doctor_nameInput="ngModel"
+               [(ngModel)]="patientdata.doctor_name" 
+               maxlength=50
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && doctor_nameInput.invalid">
+        <p class='errormsg'*ngIf="doctor_nameInput.errors.required">
+         Doctor name required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+   
+  <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label  position="floating" class="fcolor">
+       Doctor Regn. Number
+        </ion-label>
+        <ion-input   class='uppercase' id="doctor_regno" name="doctor_regno"  
+               #doctor_regnoInput="ngModel"
+               [(ngModel)]="patientdata.doctor_regno" 
+               maxlength=50
+               required></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && doctor_regnoInput.invalid">
+        <p class='errormsg'*ngIf="doctor_regnoInput.errors.required">
+          Doctor Regn. Number required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+    
+  </ion-grid>
+  <ion-footer translucent="true" class="tab1-footer">
+    <ion-grid>
+      <ion-row justify-content-around>
+      
+        <ion-col>
+          <ion-button expand="block"   (click)="closemodal()" color='danger'>
+            <ion-icon name="arrow-back"></ion-icon>
+            &nbsp;&nbsp;&nbsp;CANCEL
+  
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block"   color='success' type="submit">
+          
+  
+            <ion-icon name="git-pull-request" ></ion-icon>&nbsp;&nbsp;&nbsp;SAVE
+  
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</form>
+  </span>
+  
+  </ion-content>

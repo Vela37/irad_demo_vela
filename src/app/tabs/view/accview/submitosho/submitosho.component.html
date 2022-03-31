@@ -1,0 +1,229 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title >
+      Data Entry Details of - {{selacc.accid}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <div *ngIf="loading">
+
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+<div *ngIf="!loading && datacount!=null">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>General Details ( {{genvalue*100}} %)</ion-label>
+    </ion-list-header>
+    <ion-progress-bar [color]="gencolor" [value]="genvalue"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Vehicle and Driver {{this.datacount.e_vehicle+'/'+this.datacount.t_vehicle}}</ion-label>
+    </ion-list-header>
+    <ion-progress-bar [color]="vehdricolor" [value]="vehdrivalue"></ion-progress-bar>
+
+    <span *ngFor="let v of vd; let i = index ">
+      {{v.vehicle_reg_no|uppercase}} - ( {{v.percent}} % )
+
+      
+
+      </span>
+
+  </ion-list>
+
+  <ion-list *ngIf="datacount.t_passenger!=0">
+    <ion-list-header>
+      <ion-label>Passenger {{this.datacount.e_passenger+'/'+this.datacount.t_passenger}} - ( {{passengervalue*100}} %)</ion-label>
+    </ion-list-header>
+    <ion-progress-bar [color]="passengercolor" [value]="passengervalue"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list *ngIf="datacount.t_pedestrian!=0">
+    <ion-list-header>
+      <ion-label>Pedestrian {{this.datacount.e_pedestrian+'/'+this.datacount.t_pedestrian}} -  ( {{pedvalue*100}} %)</ion-label>
+    </ion-list-header>
+    <ion-progress-bar [color]="pedcolor" [value]="pedvalue"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Images ( {{imgvalue}})</ion-label>
+    </ion-list-header>
+    <ion-progress-bar [color]="imgcolor" [value]="imgvalue"></ion-progress-bar>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Video ( {{videovalue}})</ion-label>
+    </ion-list-header>
+    <ion-progress-bar [color]="videocolor" [value]="videovalue"></ion-progress-bar>
+  </ion-list>
+</div>
+  <!-- <ion-row *ngIf='datacount'>
+    <ion-col>
+      <div class="box box-default">
+        <code>
+            <pre>{{datacount |json}}</pre>
+        </code>
+    </div>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Default at 50%</ion-label>
+      </ion-list-header>
+      <ion-progress-bar [color]="loadcolor" [value]="loadProgress"></ion-progress-bar>
+    </ion-list>
+    </ion-col>
+
+  </ion-row> -->
+
+  <table *ngIf="false">
+    <caption>Accident id : {{datacount.accident_id}}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Form</th>
+        <th scope="col">Total</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Form" >General</td>
+        <td data-label="Total">1</td>
+        <td data-label="Completed">{{datacount.genrl}}</td>
+        <td data-label="Status"> 
+          <ion-icon  color='success' *ngIf="datacount.genrl==1" name="checkmark-circle-outline"></ion-icon>  
+          <ion-icon  color='danger' *ngIf="datacount.genrl==0" name="close-circle-outline"></ion-icon>
+        </td>
+      </tr>
+
+      <tr>
+        <td data-label="Form">Vehicle</td>
+        <td data-label="Total">{{datacount.t_vehicle}}</td>
+        <td data-label="Completed">{{datacount.e_vehicle}}</td>
+        <td data-label="Status"> 
+          <ion-icon  color='success' *ngIf="datacount.t_vehicle<= datacount.e_vehicle" name="checkmark-circle-outline"></ion-icon>  
+          <ion-icon  color='danger' *ngIf="datacount.t_vehicle>=datacount.e_vehicle" name="close-circle-outline"></ion-icon>
+        </td>
+      </tr>
+
+      <tr>
+        <td data-label="Form">Passenger</td>
+        <td data-label="Total">{{datacount.t_passenger}}</td>
+        <td data-label="Completed">{{datacount.e_passenger}}</td>
+        <td data-label="Status"> 
+          <ion-icon  color='success' *ngIf="datacount.t_passenger<=datacount.e_passenger" name="checkmark-circle-outline"></ion-icon>  
+          <ion-icon  color='danger' *ngIf="datacount.t_passenger>datacount.e_passenger" name="close-circle-outline"></ion-icon>
+        </td>
+      </tr>
+
+      <tr>
+        <td data-label="Form">Pedestrian</td>
+        <td data-label="Total">{{datacount.t_pedestrian}}</td>
+        <td data-label="Completed">{{datacount.e_pedestrian}}</td>
+        <td data-label="Status"> 
+          <ion-icon color='success' *ngIf="datacount.t_pedestrian<= datacount.e_pedestrian" name="checkmark-circle-outline"></ion-icon>  
+          <ion-icon color='danger' *ngIf="datacount.t_pedestrian>datacount.e_pedestrian" name="close-circle-outline"></ion-icon>
+        </td>
+      </tr>
+
+      <tr>
+        <td data-label="Form">Media</td>
+        <td data-label="Images"> 33{{datacount.images}}</td>
+        <td data-label="Audio"> 5{{datacount.audio}}</td>
+        <td data-label="Video"> 3{{datacount.video}}</td>
+        
+      </tr>
+
+      
+    </tbody>
+  </table>
+
+</ion-content>
+  
+<ion-footer translucent="true" class="tab1-footer">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Close</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="SubmotToSHO()"> &nbsp; Submit &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,224 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>MACT Compliance </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton()" 
+  #f="ngForm" >
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether there was any delay or deficiency on the part of the Investigating 
+          Officer? If so, whether any action/ direction warranted? 
+          expenses (K)</ion-label>
+        <ion-input   id="investigation_delay" name="investigation_delay"  
+        #investigationdelay="ngModel"
+          [(ngModel)]="investigation_delay" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && investigationdelay.invalid">
+        <p class='errormsg'*ngIf="investigationdelay.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether there was any delay or deficiency on the part of the Designated 
+          Officer of the Insurance Company? If so, whether any action/direction 
+          warranted?</ion-label>
+          <ion-input   id="insurance_delay" name="insurance_delay"  
+          #insurancedelay="ngModel"
+            [(ngModel)]="insurance_delay" required></ion-input>
+          <!--<ion-select   interface="alert"  #natureofinjuryv="ngModel"
+          id="insurance_delay" name="insurance_delay"  
+          #insurancedelay="ngModel"
+          [(ngModel)]="insurance_delay" 
+          required >         
+             <ion-select-option value="Yes ">Yes
+             </ion-select-option>
+             <ion-select-option value="No">No
+            </ion-select-option>
+           </ion-select>-->
+      </ion-item>
+      <div *ngIf="f.submitted && insurancedelay.invalid">
+        <p class='errormsg'*ngIf="insurancedelay.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date of the award</ion-label>
+          <ion-datetime  
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+          id="award_date" name="award_date"  
+          #awarddate="ngModel"
+          [(ngModel)]="award_date" 
+          required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && awarddate.invalid">
+        <p class='errormsg'*ngIf="awarddate.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether the claimant(s) were directed to open savings bank account(s) near 
+          their place of residence?</ion-label>
+          <ion-select   interface="alert"  #natureofinjuryv="ngModel"
+          id="create_bank_acc_near" name="create_bank_acc_near"  
+          #createbankaccnear="ngModel"
+          [(ngModel)]="create_bank_acc_near" 
+          required >         
+             <ion-select-option value="Yes ">Yes
+             </ion-select-option>
+             <ion-select-option value="No">No
+            </ion-select-option>
+           </ion-select>
+      </ion-item>
+      <div *ngIf="f.submitted && createbankaccnear.invalid">
+        <p class='errormsg'*ngIf="createbankaccnear.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date of order by which claimant(s) were directed to open savings bank 
+          account(s) near his place of residence and produce PAN Card and Aadhaar 
+          Card and the direction to the bank to not issue any cheque book/debit card 
+          to the claimant(s) and make an endorsement to this effect on the passbook</ion-label>
+          <ion-datetime  
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+          id="date_bank_acc_create" name="c"  
+          #datebankacccreate="ngModel"
+          [(ngModel)]="date_bank_acc_create" 
+          required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && datebankacccreate.invalid">
+        <p class='errormsg'*ngIf="datebankacccreate.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date on which the claimant(s) produced the passbook of their savings bank 
+          account near the place of their residence along with the endorsement, PAN 
+          Card and Aadhaar Card?</ion-label>
+       <!---<ion-input   id="date_passbook" name="date_passbook"  
+        #datepassbook="ngModel"
+          [(ngModel)]="date_passbook" required></ion-input>-->
+          <ion-datetime  
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+          id="date_passbook" name="date_passbook"  
+          #datebankacccreate="ngModel"
+          [(ngModel)]="date_passbook" 
+          required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && datepassbook.invalid">
+        <p class='errormsg'*ngIf="datepassbook.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Permanent Residential Address of the claimant(s)</ion-label>
+        <ion-input   id="permenent_res_addr" name="permenent_res_addr" 
+        #funeralex="ngModel"
+          [(ngModel)]="permenent_res_addr" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && funeralex.invalid">
+        <p class='errormsg'*ngIf="funeralex.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether the claimant(s) savings bank account(s) is near his place of 
+          residence?</ion-label>
+      <!-- <ion-input   id="bank_acc_near" name="bank_acc_near" 
+        #bankaccnear="ngModel"
+          [(ngModel)]="bank_acc_near" required></ion-input>-->
+          <ion-select   interface="alert"  #natureofinjuryv="ngModel"
+          id="bank_acc_near" name="bank_acc_near"  
+          #bankaccnear="ngModel"
+          [(ngModel)]="bank_acc_near" 
+          required >         
+             <ion-select-option value="Yes ">Yes
+             </ion-select-option>
+             <ion-select-option value="No">No
+            </ion-select-option>
+           </ion-select>
+      </ion-item>
+      <div *ngIf="f.submitted && bankaccnear.invalid">
+        <p class='errormsg'*ngIf="bankaccnear.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether the claimant(s) were examined at the time of passing of the award to 
+          ascertain his/their financial condition?</ion-label>
+       <!-- <ion-input   id="examined" name="examined" 
+        #mactexamined="ngModel"
+          [(ngModel)]="examined" required></ion-input>-->
+          <ion-select   interface="alert"  #natureofinjuryv="ngModel"
+          id="examined" name="examined"  
+          #bankaccnear="ngModel"
+          [(ngModel)]="examined" 
+          required >         
+             <ion-select-option value="Yes ">Yes
+             </ion-select-option>
+             <ion-select-option value="No">No
+            </ion-select-option>
+           </ion-select>
+      </ion-item>
+      <div *ngIf="f.submitted && bankaccnear.invalid">
+        <p class='errormsg'*ngIf="bankaccnear.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"  type="submit">Save</ion-button>
+     </ion-col>
+   </ion-row>
+  </form>
+</ion-content>

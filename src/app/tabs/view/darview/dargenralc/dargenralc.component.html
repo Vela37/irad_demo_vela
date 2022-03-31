@@ -1,0 +1,201 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Dar General  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+ <!-- <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          FIR/CSR Number
+        </ion-label>
+        <ion-input [(ngModel)]=" geninfo.fir_number"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row> -->
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Investigating Officer Name
+      </ion-label>
+      <ion-input [(ngModel)]="generaldata.investofficername"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Investigating Officer Mobile
+      </ion-label>
+      <ion-input [(ngModel)]="generaldata.investofficernumber"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Investigating Officer Address
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.investofficeraddress"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Nature of the accident
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.nature"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Who reported the accident
+        </ion-label>
+      <!-- <ion-input [(ngModel)]="generaldata.whoreportAcc"></ion-input>-->
+      <ion-select  [(ngModel)]="generaldata.whoreportAcc"
+      (ionChange)="checkforReportingPerson()" cancelText="Cancel" interface="alert">
+      <ion-select-option value="Driver">Driver</ion-select-option>
+      <ion-select-option value="Owner">Owner</ion-select-option>
+      <ion-select-option value="Victim">Victim</ion-select-option>
+      <ion-select-option value="Witness">Witness</ion-select-option>
+      <ion-select-option value="Health">Hospital/Emergency vehicle</ion-select-option>
+      <ion-select-option value="Police">Police</ion-select-option>
+      <ion-select-option value="Good Samaritan">Good Samaritan</ion-select-option>
+      <ion-select-option value="Unknown">Unknown</ion-select-option>
+    </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Reported Person Name
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.reportingPersonname"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Reported Person Address
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.reportingPersonaddress"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Availability of CCTV Footage 
+        </ion-label>
+      <!--<ion-input [(ngModel)]="generaldata.cctvAvailability"></ion-input>-->
+    <ion-select  [(ngModel)]="generaldata.cctvAvailability"
+      cancelText="Cancel" interface="alert">
+      <ion-select-option value="yes">yes</ion-select-option>
+      <ion-select-option value="no">no</ion-select-option>
+    </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Damage/loss of the property
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.lossOfproperty"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Any other loss/injury
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.otherLoss"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Brief Description Of Accident
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.briefDescriptionaccident"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of Site plan
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.dtSiteplan"></ion-input>
+        <ion-datetime  [(ngModel)]="generaldata.dtSiteplan"[value]='accdatetime'
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+        required></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Description Of Site Plan
+        </ion-label>
+        <ion-input [(ngModel)]="generaldata.descriptionSiteplan"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

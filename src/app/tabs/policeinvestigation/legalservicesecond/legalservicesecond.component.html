@@ -1,0 +1,836 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Conduct of the Accused </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon name="close" slot="end"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+
+    <ion-card *ngIf="accusedname">
+<ion-card-content>
+      <ion-row>
+        <ion-col class="ccolor"> <strong>Accused Vehicle No </strong> </ion-col>
+        <ion-col class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{accusedname.get_veh_no}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ccolor"> <strong>Accused Age </strong> </ion-col>
+        <ion-col class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{accusedname.age}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ccolor"> <strong>Accused Gender  </strong> </ion-col>
+        <ion-col class="ccolor" size="1"> : </ion-col>
+        <ion-col > {{accusedname.ser_gender}}
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+
+
+    </ion-card>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked" class='fcolor'>Vehicle No
+            <ion-icon name="star" class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select  interface="alert" (ionChange)="loadvehicledetail($event)"
+          id="vehicle_reg_no" name="vehicle_reg_no"  
+       [(ngModel)]="vehicle_reg_no" 
+       required  >
+          <ion-select-option *ngFor="let item of vehicle"   [value]="item.id" > {{item.vehicle_reg_no}}
+          </ion-select-option>
+       </ion-select>
+        </ion-item>
+        </ion-col>
+     </ion-row>
+  
+      <ion-row  *ngIf="vehicle_reg_no">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class='fcolor'> Victim Name
+                <ion-icon name="star" class='mandatory'></ion-icon>
+              </ion-label>
+                 <ion-select  interface="alert" (ionChange)="loadvictimdetails($event)"
+             id="vname" name="vname"  
+             [(ngModel)]="vname" 
+             required 
+             > 
+             <ion-select-option *ngFor="let item of victim"   [value]="item" > {{item.name}}
+            </ion-select-option>
+              </ion-select>
+            </ion-item>
+            </ion-col>
+      </ion-row>
+    <form name="form" 
+    (ngSubmit)="f.form.valid && savebutton()" 
+    #f="ngForm" >
+    <ion-row *ngIf="vname">
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked" class='fcolor'>Accused Name
+            <ion-icon name="star" class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select  interface="alert"
+          id="accusedname" name="accusedname"   
+       [(ngModel)]="accusedname" 
+       required  >
+          <ion-select-option *ngFor="let item of accused"   [value]="item" > {{item.ser_name}}
+          </ion-select-option>
+       </ion-select>
+  
+        </ion-item>
+      
+        </ion-col>
+        </ion-row>
+        <div  *ngIf="accusedname">
+  <ion-row>  
+      <ion-col>  
+        <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the accused fled from the spot,If so,when he/she appeared before Police/Court or arrested
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-input  #fledspot="ngModel"
+            id="acc_fled_spot" name="acc_fled_spot"  
+            [(ngModel)]="acc_fled_spot" 
+            required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && fledspot.invalid">
+            <p class='errormsg'*ngIf="fledspot.errors.required">
+              Whether the accused fled from the spot,If so,when he/she appeared before Police/Court or arrested is Required
+            </p>     
+          </div>
+        
+        </ion-col>
+    </ion-row>
+    
+    <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused reported the accident to the police/family of the victim
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+           <!--- <ion-input  #natureofinjuryv="ngModel"
+            id="acc_reported_to_police" name="acc_reported_to_police"  
+            [(ngModel)]="acc_reported_to_police" 
+            required
+            ></ion-input>-->
+
+            <ion-select  interface="alert" 
+            id="acc_reported_to_police" name="acc_reported_to_police"  
+            #accreporttopol="ngModel"
+            [(ngModel)]="acc_reported_to_police" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+
+          </ion-item>
+          <div *ngIf="f.submitted && accreporttopol.invalid">
+            <p class='errormsg'*ngIf="accreporttopol.errors.required">
+              Whether the Accused reported the accident to the police/family of the victim is Required
+            </p>     
+          </div>
+          </ion-col>
+          </ion-row>
+    
+    
+    <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused provides any assistance to the Victim?
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <!--<ion-input  #natureofinjuryv="ngModel"
+            id="acc_provided_any_assitance_victim" name="acc_provided_any_assitance_victim"  
+            [(ngModel)]="acc_provided_any_assitance_victim" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_provided_any_assitance_victim" name="acc_provided_any_assitance_victim"  
+            #proassis="ngModel"
+            [(ngModel)]="acc_provided_any_assitance_victim" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+
+          </ion-item>
+          <div *ngIf="f.submitted && proassis.invalid">
+            <p class='errormsg'*ngIf="proassis.errors.required">
+              Whether the Accused provides any assistance to the Victim is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+    
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused took the victim to the hospital?
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <!--<ion-input  #natureofinjuryv="ngModel"
+            id="acc_took_victim_hospital" name="acc_took_victim_hospital"  
+            [(ngModel)]="acc_took_victim_hospital" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_took_victim_hospital" name="acc_took_victim_hospital"  
+            #tooktohoss="ngModel"
+            [(ngModel)]="acc_took_victim_hospital" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && tooktohoss.invalid">
+            <p class='errormsg'*ngIf="tooktohoss.errors.required">
+              Whether the Accused took the victim to the hospital is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused visited the victim at the hospital?
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <!--<ion-input  #natureofinjuryv="ngModel"
+            id="acc_visited_victim_hospital" name="acc_visited_victim_hospital"  
+            [(ngModel)]="acc_visited_victim_hospital" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_visited_victim_hospital" name="acc_visited_victim_hospital"  
+            #visitvichos="ngModel"
+            [(ngModel)]="acc_visited_victim_hospital" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+
+          </ion-item>
+          <div *ngIf="f.submitted && visitvichos.invalid">
+            <p class='errormsg'*ngIf="visitvichos.errors.required">
+              Whether the Accused visited the victim at the hospital is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused remained at the spot till police arrived
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+           <!-- <ion-input  #natureofinjuryv="ngModel"
+            id="acc_remained_spot_police_arrived" name="acc_remained_spot_police_arrived"  
+            [(ngModel)]="acc_remained_spot_police_arrived" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_remained_spot_police_arrived" name="acc_remained_spot_police_arrived"  
+            #remainathos="ngModel"
+            [(ngModel)]="acc_remained_spot_police_arrived" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && remainathos.invalid">
+            <p class='errormsg'*ngIf="remainathos.errors.required">
+              Whether the Accused remained at the spot till police arrived is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused cooperated in the investigation
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <!--<ion-input  #natureofinjuryv="ngModel"
+            id="acc_cooperated_investigation" name="acc_cooperated_investigation"  
+            [(ngModel)]="acc_cooperated_investigation" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_cooperated_investigation" name="acc_cooperated_investigation"  
+            #copininves="ngModel"
+            [(ngModel)]="acc_cooperated_investigation" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && copininves.invalid">
+            <p class='errormsg'*ngIf="copininves.errors.required">
+              Whether the Accused cooperated in the investigation is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused removed his/her vehicle from the spot before police arrived
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+          <!--  <ion-input  #accusedremoved="ngModel"
+            id="acc_removed_vehicle_police_arrived" name="acc_removed_vehicle_police_arrived"  
+            [(ngModel)]="acc_removed_vehicle_police_arrived" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_removed_vehicle_police_arrived" name="acc_removed_vehicle_police_arrived"  
+            #accusedremoved="ngModel"
+            [(ngModel)]="acc_removed_vehicle_police_arrived" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && accusedremoved.invalid">
+            <p class='errormsg'*ngIf="accusedremoved.errors.required">
+              Whether the Accused removed his/her vehicle from the spot before police arrived is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>whether the Accused paid compensation/medical expenses to victim/his family
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+           <!--- <ion-input  #natureofinjuryv="ngModel"
+            id="acc_paid_compensation_medical_expenses" name="acc_paid_compensation_medical_expenses"  
+            [(ngModel)]="acc_paid_compensation_medical_expenses" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_paid_compensation_medical_expenses" name="acc_paid_compensation_medical_expenses"  
+            #accpaidcomp="ngModel"
+            [(ngModel)]="acc_paid_compensation_medical_expenses" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && accpaidcomp.invalid">
+            <p class='errormsg'*ngIf="accpaidcomp.errors.required">
+              whether the Accused paid compensation/medical expenses to victim/his family is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused has previous convictions
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <!--<ion-input  #natureofinjuryv="ngModel"
+            id="acc_previous_convictions" name="acc_previous_convictions"  
+            [(ngModel)]="acc_previous_convictions" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_previous_convictions" name="acc_previous_convictions"  
+            #accpreconvic="ngModel"
+            [(ngModel)]="acc_previous_convictions" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && accpreconvic.invalid">
+            <p class='errormsg'*ngIf="accpreconvic.errors.required">
+              Whether the Accused has previous convictions is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused is/ was a close relative or friend of the victim
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <!--<ion-input  #natureofinjuryv="ngModel"
+            id="acc_close_friend_victim" name="acc_close_friend_victim"  
+            [(ngModel)]="acc_close_friend_victim" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="acc_close_friend_victim" name="acc_close_friend_victim"  
+            #accclosefriendvic="ngModel"
+            [(ngModel)]="acc_close_friend_victim" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && accclosefriendvic.invalid">
+            <p class='errormsg'*ngIf="accclosefriendvic.errors.required">
+              Whether the Accused is/ was a close relative or friend of the victim is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+        
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Age of the Accused
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-input type="number" #accage="ngModel"
+            id="acc_age" name="acc_age"  
+            [(ngModel)]="acc_age" 
+            required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && accage.invalid">
+            <p class='errormsg'*ngIf="accage.errors.required">
+              Age of the Accused is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+    
+    
+    
+           
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Gender of the Accused
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-select  interface="alert" 
+            id="acc_gender" name="acc_gender"  
+            #gen="ngModel"
+            [(ngModel)]="acc_gender" 
+            required 
+            > 
+               <ion-select-option value="male"> Male
+               </ion-select-option>
+               <ion-select-option value="female"> Female
+               </ion-select-option>
+               <ion-select-option value="tg"> Transgender
+              </ion-select-option>
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && gen.invalid">
+            <p class='errormsg'*ngIf="gen.errors.required">
+              Gender of the Accused is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+
+     
+           
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether accused suffered injuries during the accidents
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+           <!-- <ion-input  #natureofinjuryv="ngModel"
+            id="acc_suffered_injuries" name="acc_suffered_injuries"  
+            [(ngModel)]="acc_suffered_injuries" 
+            required
+            ></ion-input>-->
+
+            <ion-select  interface="alert" 
+            id="acc_suffered_injuries" name="acc_suffered_injuries"  
+            #accsufferd="ngModel"
+            [(ngModel)]="acc_suffered_injuries" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && accsufferd.invalid">
+            <p class='errormsg'*ngIf="accsufferd.errors.required">
+              Whether accused suffered injuries during the accidents is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+
+     
+           
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Whether the Accused discharged the duties under Sections 132 and 134 of the MV Act 1988
+                
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-select  interface="alert" 
+            id="acc_discharged_duties" name="acc_discharged_duties"  
+            #accdischargedduties="ngModel"
+            [(ngModel)]="acc_discharged_duties" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && accdischargedduties.invalid">
+            <p class='errormsg'*ngIf="accdischargedduties.errors.required">
+              This Field is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+
+     <ion-row *ngIf="acc_discharged_duties== 'no'">
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Whether the Accused has been prosecuted under section 187 of MV Act
+              
+            <ion-icon  class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select  interface="alert" 
+          id="acc_prosecuted" name="acc_prosecuted"  
+          #accprosecuted="ngModel"
+          [(ngModel)]="acc_prosecuted" 
+          required > 
+             <ion-select-option value="yes"> Yes
+             </ion-select-option>
+             <ion-select-option value="no"> No
+             </ion-select-option> 
+           </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && accprosecuted.invalid">
+          <p class='errormsg'*ngIf="accprosecuted.errors.required">
+            This Field is Required
+          </p>     
+        </div>
+        </ion-col>
+   </ion-row>
+
+
+
+           
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>In case the driver fled from the spot,did the owner comply with the provisions of section 133 of MV Act
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+         <!---  <ion-input  #natureofinjuryv="ngModel"
+            id="deri_fled_mvact" name="deri_fled_mvact"  
+            [(ngModel)]="deri_fled_mvact" 
+            required
+            ></ion-input>-->
+            <ion-select  interface="alert" 
+            id="deri_fled_mvact" name="deri_fled_mvact"  
+            #ownercomply="ngModel"
+            [(ngModel)]="deri_fled_mvact" 
+            required 
+            > 
+               <ion-select-option value="yes"> Yes
+               </ion-select-option>
+               <ion-select-option value="no"> No
+               </ion-select-option>
+               
+             </ion-select>
+
+          </ion-item>
+          <div *ngIf="f.submitted && ownercomply.invalid">
+            <p class='errormsg'*ngIf="ownercomply.errors.required">
+              In case the driver fled from the spot,did the owner comply with the provisions of section 133 of MV Act is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+
+    
+     <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Any other information regarding the conduct of the Accused
+              <ion-icon  class='mandatory'></ion-icon>
+            </ion-label>
+            <ion-input  #conductoftheaccused="ngModel"
+            id="acc_other_information" name="acc_other_information"  
+            [(ngModel)]="acc_other_information" 
+            required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && conductoftheaccused.invalid">
+            <p class='errormsg'*ngIf="conductoftheaccused.errors.required">
+             This Field is Required
+            </p>     
+          </div>
+          </ion-col>
+     </ion-row>
+
+
+   
+     <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Apparent contributing circumstances
+            <ion-icon  class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select  multiple="true"  interface="alert" #aggressivedriving="ngModel"
+          id="acc_apaent_contributing_cir" name="acc_apaent_contributing_cir"  
+          [(ngModel)]="acc_apaent_contributing_cir" 
+          required
+          > 
+             <ion-select-option value="1">Driving without valid driving license
+             </ion-select-option>
+             <ion-select-option value="2">Driving while disqualified
+             </ion-select-option>
+             <ion-select-option value="3">Learner driving without supervision
+            </ion-select-option>
+            <ion-select-option value="4"> Vehicle not insured
+            </ion-select-option>
+            <ion-select-option value="5"> Driving a stolen vehicle
+
+            </ion-select-option>
+            <ion-select-option value="6">Vehicle taken out without the consent of the owner
+              
+            </ion-select-option>
+            <ion-select-option value="7"> Driving dangerously or at excessive speed
+            </ion-select-option>
+            <ion-select-option value="8"> Dangerously loaded vehicle/ Overloaded
+            </ion-select-option>
+            <ion-select-option value="9"> Parking on the wrong side of the road
+            </ion-select-option>
+            <ion-select-option value="10"> Improper parking/ Parking on wrong side of road
+            </ion-select-option>
+            <ion-select-option value="11"> Non-observance of traffic rules
+            </ion-select-option>
+            <ion-select-option value="12"> Poorly maintained vehicle
+            </ion-select-option>
+            <ion-select-option value="13"> Fake/forged driving license
+            </ion-select-option>
+            <ion-select-option value="14"> History of convulsions/ seizures
+            </ion-select-option>
+            <ion-select-option value="15"> Fatigued/ Sleepy
+            </ion-select-option>
+             <ion-select-option value="16"> Guilty of violation of traffic rules in the past
+            </ion-select-option>
+             <ion-select-option value="17"> Previous convictions
+            </ion-select-option>
+            <ion-select-option value="18"> Suffering from medical condition that impairs driving
+            </ion-select-option>
+            <ion-select-option value="19"> Using mobile phone while driving (Handheld)
+            </ion-select-option>
+            <ion-select-option value="20"> Using mobile phone while driving (Handsfree)
+            </ion-select-option>
+            <ion-select-option value="21"> More than one injured/ dead
+            </ion-select-option>
+             <ion-select-option value="22"> Under the influence of alcohol or drugs
+            </ion-select-option>
+        
+           </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && aggressivedriving.invalid">
+          <p class='errormsg'*ngIf="aggressivedriving.errors.required">
+            irreIponsible Behaviour is Required is Required
+          </p>     
+        </div>
+        </ion-col>
+</ion-row>   
+  
+          
+     
+     <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Aggressive Driving
+            <ion-icon  class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select  multiple="true" interface="alert" #aggressivedriving="ngModel"
+          id="acc_aggressive_driving" name="acc_aggressive_driving"  
+          [(ngModel)]="acc_aggressive_driving" 
+          required
+          > 
+             <ion-select-option value="1">Jumping Red Light
+             </ion-select-option>
+             <ion-select-option value="2">Abrupt braking
+             </ion-select-option>
+             <ion-select-option value="3">Neglect to keep to the left of road
+            </ion-select-option>
+            <ion-select-option value="4"> Criss Cross Driving
+            </ion-select-option>
+            <ion-select-option value="5"> Driving on the wrong side
+
+            </ion-select-option>
+            <ion-select-option value="6">Driving close to vehicle in front
+              
+            </ion-select-option>
+            <ion-select-option value="7"> Inappropriate attempts to overtake
+            </ion-select-option>
+            <ion-select-option value="8"> Cutting in after overtaking
+            </ion-select-option>
+            <ion-select-option value="9"> Exceeding Speed Limit
+            </ion-select-option>
+            <ion-select-option value="10"> Racing/ Competitive Driving
+            </ion-select-option>
+            <ion-select-option value="11"> Disregarding any warnings
+            </ion-select-option>
+            <ion-select-option value="12"> Overtaking where prohibited
+            </ion-select-option>
+            <ion-select-option value="13"> Driving with loud music
+            </ion-select-option>
+            <ion-select-option value="14"> Improper reversing
+            </ion-select-option>
+            <ion-select-option value="15"> Improper passing
+            </ion-select-option>
+             <ion-select-option value="16"> Improper turning
+            </ion-select-option>
+             <ion-select-option value="17"> Turning without indication
+            </ion-select-option>
+            <ion-select-option value="18"> Driving in no-entry zone
+            </ion-select-option>
+            <ion-select-option value="19"> Not slowing at junctions/ crossings
+            </ion-select-option>
+            <ion-select-option value="20"> Turning with indication
+            </ion-select-option>
+            <ion-select-option value="21"> Not respecting stop sign
+            </ion-select-option>
+             <ion-select-option value="22"> Not respecting right of way to pedestrians
+            </ion-select-option>
+        
+           </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && aggressivedriving.invalid">
+          <p class='errormsg'*ngIf="aggressivedriving.errors.required">
+            Aggressive Driving is Required
+          </p>     
+        </div>
+        </ion-col>
+</ion-row>
+
+
+   
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>IrreSponsible  Behaviour
+            <ion-icon  class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select   multiple="true" interface="alert" #irresponsiblebehaviour="ngModel"
+          id="acc_irresponsible_behaviour" name="acc_irresponsible_behaviour"  
+          [(ngModel)]="acc_irresponsible_behaviour" 
+          required
+          > 
+             <ion-select-option value="1">Failing to stop after accident
+             </ion-select-option>
+             <ion-select-option value="2">Ran away from the spot after leaving the vehicle
+             </ion-select-option>
+             <ion-select-option value="3">Destruction or attempt to destroy the evidence
+            </ion-select-option>
+            <ion-select-option value="4"> Falsely claiming that one of the victims was responsible for the accident
+            </ion-select-option>
+            <ion-select-option value="5"> Trying to throw the victim off the bonnet of the vehicle by swerving in order to escape
+
+            </ion-select-option>
+            <ion-select-option value="6">Causing death/injury in the course of dangerous driving post commission of  crime or chased by police in an attempt to avoid detection or apprehension
+              
+            </ion-select-option>
+            <ion-select-option value="7"> Offence committed while the offender was on bail
+            </ion-select-option>
+            <ion-select-option value="8"> Took any false defence
+            </ion-select-option>
+            <ion-select-option value="9"> Misled the investigation
+            </ion-select-option>
+            <ion-select-option value="10"> Post-accident road rage behaviour
+            </ion-select-option>
+           </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && irresponsiblebehaviour.invalid">
+          <p class='errormsg'*ngIf="irresponsiblebehaviour.errors.required">
+            IrreSponsible  Behaviour is Required is Required
+          </p>     
+        </div>
+        </ion-col>
+</ion-row>
+     
+     <ion-row>
+      <ion-col width-50 style="text-align: right" color='primary'>
+         <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+      </ion-col>
+       <ion-col width-50 style="text-align: left"  color='primary'>
+         <ion-button color="light"  type="submit">Save</ion-button>
+       </ion-col>
+     </ion-row>
+        </div>
+    </form>
+  </ion-content>

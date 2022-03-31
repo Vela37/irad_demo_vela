@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>FIR INFORMATION</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor ion-text-wrap" position="floating">
+          FIR/CSR Number
+        </ion-label>
+        <ion-input (ionChange)="getChangeFlag($event)" [(ngModel)]="firNumbUp"></ion-input>
+      </ion-item>
+      <div *ngIf="flagmessage">
+        <p style="color: red;">Enter the FIR/CSR Number</p>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <!-- <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor ion-text-wrap" position="stacked">
+          Act / Section
+        </ion-label>
+        <ion-select
+          class="ion-text-wrap"
+          [(ngModel)]="actSection"
+         
+          multiple='true'
+        >
+          <ion-select-option
+            *ngFor="let sec of sectionsList; let i = index"
+            value="{{ sec.value }}" >       {{ sec.value+' - '+sec.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="flagmessage1">
+        <p *ngIf="flagmessage1" style="color: red;">Select  Act / Section</p>
+      </div>
+    </ion-col>
+  </ion-row> -->
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor ion-text-wrap" position="stacked">
+          Act
+        </ion-label>
+        <!-- <ion-input (ionChange)="getActChangeFlag($event)" [(ngModel)]="act"></ion-input> -->
+        <ion-select class="ion-text-wrap" (ionChange)="getActChangeFlag($event)" [(ngModel)]="act" multiple='true'>
+        <ion-select-option *ngFor="let v of acts; let i = index" value="{{ v.code }}"> {{v.value }}
+        </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="flagmessage1">
+        <p style="color: red;">Enter the Act</p>
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor ion-text-wrap" position="stacked">
+          Sections
+        </ion-label>
+        <!-- <ion-input (ionChange)="getSectionChangeFlag($event)" [(ngModel)]="section"></ion-input> -->
+        <ion-select class="ion-text-wrap" [(ngModel)]="section" multiple='true'>
+        <ion-select-option *ngFor="let v of sectionsList; let i = index" value="{{ v.code }}"> {{v.value }}
+        </ion-select-option>
+      </ion-select>
+      </ion-item>
+      <div *ngIf="flagmessage2">
+        <p style="color: red;">Enter the Section</p>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor ion-text-wrap " position="stacked">
+          Accused
+        </ion-label>
+        <ion-select class="ion-text-wrap" [(ngModel)]="accused" multiple='true'>
+          <ion-select-option *ngFor="let v of vehList; let i = index" value="{{ v.value }}"> {{ v.value+' - '+v.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="flagmessage3">
+        <p style="color: red;">Select Accused Vehicle </p>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor ion-text-wrap " position="stacked">
+          FIR Date Time
+        </ion-label>
+        <ion-datetime   [(ngModel)]="firdatetime"  displayFormat="D MMM YYYY hh:mm:A" [min]="2021"
+              pickerFormat="" display-timezone="utc" required></ion-datetime> 
+      </ion-item>
+     
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="cancelmodal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="sendFir()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

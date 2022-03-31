@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Add Police Department User
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar >
+    <div  class="alignme-center" color="primary" style="width: 100%;"> {{title}} {{admin.name }} ({{admin.code }}) </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <!-- <ion-row>
+       <ion-col>
+   
+         <ion-item >
+           <ion-label position="floating" class='fcolor'>{{'usermanagement.districtuser_creation.districtlist' | translate:params }}
+           </ion-label>
+           <ion-select [(ngModel)]="districtdata.district" interface="alert"> <!- -(ionChange)="changeseveriy($event)" - ->
+              <ion-select-option *ngFor="let d of psDistrictOptions; let i = index" value="{{d.id}}">
+               {{d.name}}
+             </ion-select-option> 
+           </ion-select>
+         </ion-item>
+       </ion-col>
+     </ion-row> -->
+     
+     <ion-row> 
+          
+       <ion-col>
+         <ion-item>
+           <ion-label position="floating">{{'usermanagement.stationuser_creation.name' | translate:params }}</ion-label>
+           <ion-input [(ngModel)]="userdata.name" required="true" max="100" ></ion-input>
+         </ion-item>
+     </ion-col>
+     </ion-row>
+   
+     <ion-row> 
+          
+       <ion-col>
+         <ion-item>
+           <ion-label position="floating">{{'usermanagement.stationuser_creation.loginid' | translate:params }}</ion-label>
+           <ion-input [(ngModel)]="userdata.login_id" required="true" minlength="3"></ion-input>
+         </ion-item>
+     </ion-col>
+     </ion-row>
+   
+     <ion-row> 
+       <ion-col>
+         <ion-item>
+           <ion-label position="floating" >{{'usermanagement.stationuser_creation.mobile' | translate:params }}</ion-label>
+           <ion-input [(ngModel)]="userdata.mobile" required="true" type="tel" maxlength="10" (keyup)="checkmobile($event)"></ion-input>
+         </ion-item>
+     </ion-col>
+     </ion-row>
+   
+     <ion-row> 
+       <ion-col>
+         <ion-item>
+           <ion-label position="floating">{{'usermanagement.stationuser_creation.email' | translate:params }}</ion-label>
+           <ion-input [(ngModel)]="userdata.email" required="true" type="email" max="100"
+           pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+         </ion-item>
+     </ion-col>
+     </ion-row>
+
+     <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.transport.employee_id' | translate:params }}
+          </ion-label>
+          <ion-input [(ngModel)]="userdata.employee_id" required="true" minlength="3"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+     <ion-row *ngIf="message!=null"> 
+       <ion-col>
+         <ion-text *ngFor="let msg of message; let i = index">        {{msg}}. <br></ion-text>
+     </ion-col>
+     </ion-row>
+
+     <ion-card>
+      <ion-item>
+        <ion-card-subtitle color="primary" >NOTE </ion-card-subtitle>
+      </ion-item>
+  
+      <ion-card-content>
+       <ion-grid>
+         <ion-row >
+           <ion-col style="color:#808080">Usename needs to be maintained uniformly in a combination of State short name ,District short name ,station code and employee id </ion-col>         
+         </ion-row>
+         <ion-row >
+          <ion-col style="color:#808080">Ex. TAMIL NAMDU - <b>TN</b> , Vellore - <b>VLR</b>,  PS code - <b>14</b>,  EMPCODE- <b>123</b> = ><b> TNVLR14123 </b>  </ion-col>         
+        </ion-row>
+         <ion-row >
+          <ion-col style="color:#808080">Login Id, Mobile No and Email Id Should Not Have White-spaces</ion-col>         
+        </ion-row>
+       </ion-grid>
+      </ion-card-content>
+      </ion-card>
+   
+     </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="validationCheck()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

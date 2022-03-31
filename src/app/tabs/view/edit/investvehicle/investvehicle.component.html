@@ -1,0 +1,898 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Vehicle Details </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-card color="light" *ngIf="vehno">
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+             <ion-item>
+              <ion-label position="floating"     style="font-weight:bold; color: rgb(248, 16, 237);" position="fixed">Vehicle No
+          
+              </ion-label>
+              <ion-select slot="end" [(ngModel)]='vehno.vehlist' interface="alert" (ionChange)="gettingDriverDetails($event)">
+                <ion-select-option *ngFor="let item of accidentData" [value]="item" > {{item.vehicle_reg_no}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-title *ngIf="vehno.vehlist">
+        <ion-segment scrollable>
+          <ion-segment-button (click)="viewVehOwner()" checked>
+            <ion-label class='fcolor'> Owner 
+            </ion-label>
+          </ion-segment-button>
+          <ion-segment-button (click)="viewVehDriver()">
+            <ion-label class='fcolor'> Driver 
+            </ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-title>
+    </ion-card>
+  
+
+
+ 
+
+
+
+<ion-content *ngIf="segflag==0">
+  <!--
+    IF driver or Owner Not selected
+  -->
+ </ion-content>
+
+
+ <ion-content *ngIf="segflag==1">
+  
+<div *ngIf="owner_save_flag=='1'"  style="text-align:center;margin-top: 5px;color: brown;">
+  Owner Details saved already
+</div>
+
+
+
+
+  <div *ngIf="owner_save_flag=='0'">
+
+    <form name="form" 
+    (ngSubmit)="f.form.valid && storeownerdetails()" 
+    #f="ngForm" > 
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' >Mobile no</ion-label>
+          <ion-input  type="tel" maxlength="10" 
+          id="owner_mobile_no" name="owner_mobile_no"  
+          #ownermobile_no="ngModel"
+          [(ngModel)]="owner_mobile_no" required></ion-input>
+        </ion-item>
+        <div *ngIf="f.submitted && ownermobile_no.invalid">
+          <p class='errormsg'*ngIf="ownermobile_no.errors.required">
+            Mobile no is Required      
+          </p>     
+        </div>
+      </ion-col>
+    </ion-row>
+
+ 
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor'>Occupation</ion-label>
+          <ion-select  id="owner_occupation" name="owner_occupation"  
+          #owneroccupation="ngModel"
+      [(ngModel)]="owner_occupation" >
+            <ion-select-option *ngFor="let p of occupation; let j = index" [value]=p> {{p.name}}
+            </ion-select-option>
+
+          </ion-select> <div *ngIf="f.submitted && owneroccupation.invalid">
+            <p class='errormsg'*ngIf="owneroccupation.errors.required">
+              Occupation is Required      
+            </p>     
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' >Father's name</ion-label>
+          <ion-input    id="owner_father_name" name="owner_father_name"  
+          #ownerfather_name="ngModel"
+           [(ngModel)]="owner_father_name"  ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor'>Vehicle use type</ion-label>
+          <ion-select id="owner_veh_type" name="owner_veh_type"  
+          #ownervehtype="ngModel" 
+          [(ngModel)]="owner_veh_type" >
+            <ion-select-option value="1">Private Vehicle</ion-select-option>
+            <ion-select-option value="2">Public Service Vehicle</ion-select-option>
+            <ion-select-option value="3">Goods & carriage</ion-select-option>
+            <ion-select-option value="4">Taxi/hired vehicle</ion-select-option>
+            <ion-select-option value="5">Educational institute bus</ion-select-option>
+            <ion-select-option value="6">Garbage truck</ion-select-option>
+            <ion-select-option value="7">Others</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+   
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' >Vehicle Driven By</ion-label>
+          <ion-input    id="vehicle_driven_by" name="vehicle_driven_by"  
+          #vehicledriven_by="ngModel"
+           [(ngModel)]="vehicle_driven_by"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor'>Permit and fitness verified from authority?</ion-label>
+          <ion-select  id="permit_fitness_verified" name="permit_fitness_verified"  
+          #permitfitnessverifiedon="ngModel" 
+          [(ngModel)]="permit_fitness_verified" required>
+            <ion-select-option value="true">Yes</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && permitfitnessverifiedon.invalid">
+          <p class='errormsg'*ngIf="permitfitnessverifiedon.errors.required">
+            This field is Required      
+          </p>     
+        </div>
+      </ion-col>
+    </ion-row>
+<ion-row>
+      <ion-col *ngIf="permit_fitness_verified=='false'" >
+        <ion-item>
+          <ion-label position="floating" class='fcolor' >Reason for not verified</ion-label>
+          <ion-input id="permit_fitness_verified_reasons" name="permit_fitness_verified_reasons"  
+          #permitfitnessverifiedreasons="ngModel"
+          [(ngModel)]="permit_fitness_verified_reasons"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row >
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor'>Reported the accident to the insurance company?</ion-label>
+          <ion-select  id="owner_report_acc" name="owner_report_acc"  
+          #ownerreportacc="ngModel" 
+          [(ngModel)]="owner_report_acc" required>
+            <ion-select-option value="true">Yes</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && ownerreportacc.invalid">
+          <p class='errormsg'*ngIf="ownerreportacc.errors.required">
+            This field is Required      
+          </p>     
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="owner_report_acc=='true'">
+      <ion-col>
+        <ion-item>
+          <ion-label class="ion-text-wrap fcolor" position="floating" class='fcolor' >Owner reported date
+          </ion-label>
+          <ion-datetime   id="owner_report_dt" name="owner_report_dt"  
+          #ownerreportdt="ngModel"
+          [(ngModel)]="owner_report_dt" displayFormat="D MMM YYYY hh:mm:A" 
+              pickerFormat="" display-timezone="utc" required></ion-datetime> <!--(ionChange)="updateMyDate($event)" -->
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+ 
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' >Details of previous insurance policies?</ion-label>
+          <ion-input id="owner_details_pre_ins" name="owner_details_pre_ins"  
+          #ownerdetailspreins="ngModel"
+          [(ngModel)]="owner_details_pre_ins"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' >Details of insurance claims made in last 3 years?</ion-label>
+          <ion-input  id="owner_ins_claims" name="owner_ins_claims"  
+          #ownerinsclaims="ngModel"
+           [(ngModel)]="owner_ins_claims"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor'>Driver fled from spot,did owner produce the driver before the police?</ion-label>
+          <ion-select  id="owner_driver_ran_ownerproduce" name="owner_driver_ran_ownerproduce"  
+          #ownerdriverran_ownerproduce="ngModel"
+          [(ngModel)]="owner_driver_ran_ownerproduce" required>
+            <ion-select-option value="true">Yes</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && ownerdriverran_ownerproduce.invalid">
+          <p class='errormsg'*ngIf="ownerdriverran_ownerproduce.errors.required">
+            This field is Required      
+          </p>     
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor'>Amount paid to the claimants either on account of settlement of criminal case or compensation?
+          </ion-label>
+          <ion-select id="owner_claimants_settlement" name="owner_claimants_settlement"  
+          #ownerclaimantsettlement="ngModel"
+          [(ngModel)]="owner_claimants_settlement" required>
+            <ion-select-option value="true">Yes</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="f.submitted && ownerclaimantsettlement.invalid">
+          <p class='errormsg'*ngIf="ownerclaimantsettlement.errors.required">
+            This field is Required      
+          </p>     
+        </div>
+      </ion-col>
+    </ion-row> 
+    <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row>
+       
+        
+          <ion-col>
+            <ion-button type="submit"expand="full">
+              save
+              </ion-button> 
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+
+    </form>
+  </div>
+ 
+
+ 
+
+ </ion-content>
+<!-------------------------------------------------------------------------------------------------------------------------------------->
+ <ion-content *ngIf="segflag==2">
+
+  <div *ngIf="driver_save_flag=='1'" style="text-align:center;margin-top: 5px;color: brown;">
+   <span style="color:rgb(8, 129, 3);font-weight: bold;">{{vehicleinfo.drivername}}</span>
+   <br>
+    Driver Details saved already
+   
+  </div>
+  <div *ngIf="driver_save_flag=='0'">
+
+  
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'  class='fcolor'>Driver name 
+            </ion-label>
+            <ion-input  [(ngModel)]="vehicleinfo.drivername" readonly></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Email ID</ion-label>
+            <ion-input  [(ngModel)]="emailid"    pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+            
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Father's name</ion-label>
+            <ion-input  [(ngModel)]="driver_father_name"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Km driven in trip</ion-label>
+            <ion-input  [(ngModel)]="km_driven"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+      
+  
+     
+     
+  
+    
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Whether driving without supervision</ion-label>
+            <ion-select  [(ngModel)]="driver_without_supervision" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Lapsed learner's license</ion-label>
+            <ion-select  [(ngModel)]="driver_lapsed_learner_lic" >
+              <ion-select-option value="Yes">Yes</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+              <ion-select-option value="Not Applicable">Not Applicable</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+   
+  
+    
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Findings based on scientific report?</ion-label>
+            <ion-select  [(ngModel)]="driver_scientific_report" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Driver of the offending vehicle found on the spot</ion-label>
+            <ion-select  [(ngModel)]="offending_vehicle_spotted" >
+              <ion-select-option value="Yes">Yes</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Offending vehicle impounded by the police</ion-label>
+            <ion-select  [(ngModel)]="vehicle_impounded_police" >
+              <ion-select-option value="Yes">Yes</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Whether carrying any mobile phone at the time of accident?</ion-label>
+            <ion-select  [(ngModel)]="driver_mobile_usage" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row *ngIf="this.driver_mobile_usage=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Mobile no</ion-label>
+            <ion-input  type="tel" maxlength="10" [(ngModel)]="driver_mobile_no"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row *ngIf="this.driver_mobile_usage=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >IMEI no</ion-label>
+            <ion-input  [(ngModel)]="driver_imei"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row  *ngIf="this.driver_mobile_usage=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Make & Model</ion-label>
+            <ion-input  [(ngModel)]="driver_make_model"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Whether driver has previously involved in motor accident case?</ion-label>
+            <ion-select  [(ngModel)]="previousacc" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row *ngIf="previousacc=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >FIR Number and Station</ion-label>
+            <ion-input  [(ngModel)]="previousaccfir"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+     
+  <!--
+    <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Educational Qualification</ion-label>
+            <ion-select  [(ngModel)]="vehicleinfo.drivereducation" >
+              <ion-select-option value="1">Primary</ion-select-option>
+              <ion-select-option value="2">SSC</ion-select-option>
+              <ion-select-option value="3">HSC</ion-select-option>
+              <ion-select-option value="4">Graduate</ion-select-option>
+              <ion-select-option value="5">Post Graduate</ion-select-option>
+              <ion-select-option value="6">Doctorate</ion-select-option>
+              <ion-select-option value="7">Uneducated</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  -->
+    
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>License suspended/cancelled</ion-label>
+            <ion-select  [(ngModel)]="driver_license_suspended" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="this.driver_license_suspended=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Suspended reasons</ion-label>
+          <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>
+              Victim/ Patient Disposition?
+            </ion-label>
+            <ion-select  [(ngModel)]="vehicleinfo.victimdisposition" cancelText="Cancel" interface="alert">
+              <ion-select-option value="Discharged">Discharged</ion-select-option>
+              <ion-select-option value="LAMA (Left Against Medical advice)">LAMA (Left Against Medical advice)</ion-select-option>
+              <ion-select-option value="Transferred">Transferred</ion-select-option>
+              <ion-select-option value="DAMA (Discharged Against Medical advice)">DAMA (Discharged Against Medical advice)</ion-select-option>
+              <ion-select-option value="Abscond">Abscond</ion-select-option>
+              <ion-select-option value="Died">Died</ion-select-option>
+              <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Bank name</ion-label>
+            <ion-input  [(ngModel)]="bank_name"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Account holder name </ion-label>
+            <ion-input  [(ngModel)]="acc_holdername"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Account number</ion-label>
+            <ion-input  [(ngModel)]="acc_number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >IFSC code</ion-label>
+            <ion-input  [(ngModel)]="ifsc_code"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Bank address</ion-label>
+            <ion-input  [(ngModel)]="bank_address"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Marital status </ion-label>
+            <ion-select  [(ngModel)]="dri_marital_status" >
+              <ion-select-option value="Married">Married</ion-select-option>
+              <ion-select-option value="Unmarried">UnMarried</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Whether any permanent disability?
+            </ion-label>
+            <ion-select  [(ngModel)]="permanent_disability" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row *ngIf="vehicleinfo.permanentDisability=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >If yes, give details
+            </ion-label>
+            <ion-input [(ngModel)]="permanent_disability_details"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Sole earning member of the family?</ion-label>
+            <ion-select  [(ngModel)]="sole_earning_member" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Nature and description of injury</ion-label>
+            <ion-input  [(ngModel)]="natureofinjury"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Injury Type</ion-label>
+            <ion-input  [(ngModel)]="injury_type"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Details of medical treatment</ion-label>
+            <ion-input  [(ngModel)]="treatment_details_of_deceased"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Hospital Details</ion-label>
+            <ion-input  [(ngModel)]="hospitaldetails"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label class="ion-text-wrap fcolor" position="floating" class='fcolor' >Date of Death
+            </ion-label>
+            <ion-datetime  [(ngModel)]="driver_date_of_death" displayFormat="D MMM YYYY hh:mm:A" 
+                pickerFormat="" display-timezone="utc"></ion-datetime> <!--(ionChange)="updateMyDate($event)" -->
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Details of medical expenses incurred</ion-label>
+            <ion-input  [(ngModel)]="expense_details_of_deceased"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--
+   <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Name of the occupation</ion-label>
+            <ion-input  [(ngModel)]="vehicleinfo.drioccupationName" ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      -->
+     
+      
+      
+      
+    
+  
+      
+  
+
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Whether license has been verified?</ion-label>          
+            <ion-select   [(ngModel)]="dri_license_authority">
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf="dri_license_authority=='false'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >If no, give reasons
+            </ion-label>
+            <ion-input [(ngModel)]="license_verfied"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Victim type</ion-label>
+            <ion-select  [(ngModel)]="vehicleinfo.victimType" >
+              <ion-select-option value="Pedestrian/Bystander">Pedestrian/Bystander</ion-select-option>
+              <ion-select-option value="Cyclist">Cyclist</ion-select-option>
+              <ion-select-option value="Two-wheeler">Two-wheeler</ion-select-option>
+              <ion-select-option value="In other Vehicle">In other Vehicle</ion-select-option>
+              <ion-select-option value="others">others</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Employed or not?</ion-label>
+            <ion-select  [(ngModel)]="vehicleinfo.dri_employed_or_not" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row *ngIf="vehicleinfo.dri_employed_or_not=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Name and address of employer</ion-label>
+            <ion-input  [(ngModel)]="dri_name_add_employer"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row *ngIf="vehicleinfo.dri_employed_or_not=='true'">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Monthly income(Rupees)</ion-label>
+            <ion-input  [(ngModel)]="driver_income"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Whether you are assessed to income tax?</ion-label>
+            <ion-select  [(ngModel)]="dri_assessed_to_income_tax" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>Whether the injured got reimbursement of medical expenses?</ion-label>
+            <ion-select  [(ngModel)]="vehicleinfo.drireimbursementMedicalexpense" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Injured was provided cashless treatment by any insurance company/ govt scheme?</ion-label>          
+            <ion-select  [(ngModel)]="vehicleinfo.dricashlessTreatment" >
+              <ion-select-option value="true">Yes</ion-select-option>
+              <ion-select-option value="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Loss/damage to the property</ion-label>
+            <ion-textarea  [(ngModel)]="dri_loss_to_property" rows="5" cols="20" placeholder="Enter any notes here..."></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Value of loss suffered</ion-label>
+            <ion-textarea  [(ngModel)]="dri_value_of_loss" rows="5" cols="20" placeholder="Enter any notes here..."></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Any additional information</ion-label>
+            <ion-textarea  [(ngModel)]="dri_additional_info" rows="5" cols="20" placeholder="Enter any notes here..."></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label  position="floating" class='fcolor' >Amount of relief claimed</ion-label>
+            <ion-input  [(ngModel)]="dri_relief_amount"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+    
+  
+    
+    
+  
+     
+  
+      <!------------------------------------------------------------------------------------->
+  
+    
+    
+     
+  
+   
+  
+  
+      <ion-footer translucent="true" class="tab1-footer">
+        <ion-grid>
+          <ion-row>
+         
+          
+            <ion-col>
+              <ion-button  (click)="storedriverdetails()" expand="full">
+                Save 
+                </ion-button> 
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+  
+  </div>
+  <ion-title>
+    <ion-segment scrollable>
+      <ion-segment-button (click)="addfamilymembers()">
+        <ion-label class='fcolor'> Add Family 
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="addchild()">
+        <ion-label class='fcolor'>Add Child 
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-title>
+ </ion-content>
+
+ 

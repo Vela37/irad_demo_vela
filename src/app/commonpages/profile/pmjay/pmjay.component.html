@@ -1,0 +1,357 @@
+<ion-header>
+  <ion-toolbar color="hospital">
+    <ion-title class='txtalign'>
+      PMJAY 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="light" [hidden]="true">
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+     PAN card Holder name 
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.pan_card_holder_name}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+     PAN Card Number
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.pan_card_nuber}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+     Account Holder Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.account_holder_name}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+    Account Number
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.account_number}}
+        </div>
+      </ion-col>
+    </ion-row>
+     
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+    Name of the Bank Account of Hospital
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.branch_name}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+   
+
+    
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+   IFSC Code
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.ifsc_code}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+   Bank Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.bankname}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+          NHA Officer Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.nha_officername}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+          NHA Officer Number
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.nha_officernumber}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+          NHA Officer Email Id
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.nha_officeremailid}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    
+    <ion-row>
+      <ion-col>
+        <div class='labelclr'>
+          NHA Officer Landline
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{pmjayinfo.nha_officerlandline}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    
+
+
+     </ion-card>
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid>
+
+      
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>PAN card Holder name </ion-label>
+      <ion-input   class='uppercase' id="pan_card_holder_name" name="pan_card_holder_name"  
+            #pan_card_holder_nameInput="ngModel"
+            [(ngModel)]="pmjayinfo.pan_card_holder_name" 
+            ></ion-input>
+                    </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>PAN Card Number </ion-label>
+
+            <ion-input   class='uppercase' id="pan_card_nuber" name="pan_card_nuber"  
+            #pan_card_nuberInput="ngModel"
+            [(ngModel)]="pmjayinfo.pan_card_nuber" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Account Holder Name
+            </ion-label>
+
+            <ion-input   class='uppercase' id="account_holder_name" name="account_holder_name"  
+            #account_holder_nameInput="ngModel"
+            [(ngModel)]="pmjayinfo.account_holder_name" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Account Number
+            </ion-label>
+
+            <ion-input   class='uppercase' id="account_number" name="account_number"  
+            #account_numberInput="ngModel"
+            [(ngModel)]="pmjayinfo.account_number" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Name of the Bank Account of Hospital
+            </ion-label>
+
+            <ion-input   class='uppercase' id="branch_name" name="branch_name"  
+            #branch_nameeInput="ngModel"
+            [(ngModel)]="pmjayinfo.branch_name" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+
+      
+    
+
+      
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>IFSC Code
+            </ion-label>
+            <ion-input   class='uppercase' id="ifsc_code" name="ifsc_code"  
+            #ifsc_codeInput="ngModel"
+            [(ngModel)]="pmjayinfo.ifsc_code" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+       
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Bank Name
+            </ion-label>
+
+            <ion-input   class='uppercase' id="bankname" name="bankname"  
+            #banknameInput="ngModel"
+            [(ngModel)]="pmjayinfo.bankname" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>NHA Nodal officer name
+            </ion-label>
+
+            <ion-input   class='uppercase' id="nha_officername" name="nha_officername"  
+            #nha_officernameInput="ngModel"
+            [(ngModel)]="pmjayinfo.nha_officername" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>NHA Nodal officer number
+            </ion-label>
+
+            <ion-input   class='uppercase' id="nha_officernumber" name="nha_officernumber"  
+            #nha_officernumberInput="ngModel"
+            [(ngModel)]="pmjayinfo.nha_officernumber" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>NHA Nodal officer email id
+            </ion-label>
+
+            <ion-input   class='uppercase' id="nha_officeremailid" name="nha_officeremailid"  
+            #nha_officeremailidInput="ngModel"
+            [(ngModel)]="pmjayinfo.nha_officeremailid" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Hospital Admission Desk Landline no
+            </ion-label>
+
+            <ion-input   class='uppercase' id="nha_officerlandline" name="nha_officerlandline"  
+            #nha_officerlandlineInput="ngModel"
+            [(ngModel)]="pmjayinfo.nha_officerlandline" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+    </ion-grid>
+    <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+  
+          <ion-col>
+            <ion-button expand="block" (click)="closemodal()" color='danger'>
+              <ion-icon name="arrow-back"></ion-icon>
+              &nbsp;&nbsp;&nbsp;CANCEL
+  
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color='success' type="submit">
+  
+  
+              <ion-icon name="git-pull-request"></ion-icon>&nbsp;&nbsp;&nbsp;SAVE
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+    </form>
+ 
+ 
+
+</ion-content>
+

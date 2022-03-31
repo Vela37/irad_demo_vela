@@ -1,0 +1,907 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Documents Uploads </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header class="ion-no-border">
+
+  <ion-title>
+
+    <ion-segment scrollable>
+      <ion-segment-button (click)="viewGeneral()" checked>
+        <ion-label> General
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="viewVehicle()">
+        <ion-label> Vehicle
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="viewPassenger()">
+        <ion-label> Passenger
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="viewPedestrian()">
+        <ion-label> Pedestrian
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-title>
+
+</ion-header>
+
+<ion-content *ngIf="segflag==1">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>FIR </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input  type='file' accept="application/pdf, image/*"
+              (ionChange)="changeListener($event,1,1)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[1]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,1)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,1,'Fir')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Site Plan </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,2)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[2]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,2)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,2,'Site Plan')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+ 
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photographs of the scene of accident from all angles </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,3)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[3]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,3)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,3,'Photographs of the scene of accident from all angles')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photographs of all the vehicles involved in the accident from all angles </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,4)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[4]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,4)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,4,'Photographs of all the vehicles involved in the accident from all angles')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>CCTV Footage of the accident </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,5)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[5]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,5)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,5,'CCTV Footage of the accident')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Report Under Section 173 Cr.P.C </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,6)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[6]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,6)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,6,'Report Under Section 173 Cr.P.C')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Documents from the driver </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,7)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[7]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,7)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,7,'Documents from the driver')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Documents from the owner </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,8)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[8]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,8)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,8,'Documents from the owner')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Documents from the insurance company </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,9)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[9]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,9)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,9,'Documents from the insurance company')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Documents from the claimant's </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,10)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[10]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,10)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,10,'Documents from the claimants')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Documents from the registration authorities</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,11)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[11]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(1,11)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,11,'Documents from the registration authorities')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Documents from the hospital </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,1,12)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="generaldocData[12]!=null">
+          <ion-icon  name="eye" (click)="viewPdf(1,12)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(1,12,'Documents from the hospital')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>
+
+
+ <ion-content *ngIf="segflag==2">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Registration certificate of vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,1)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[1]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,1)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,1,'Registration certificate of vehicle')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'> Insurance policy of offending vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,2)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[2]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,2)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,2,'Insurance policy of offending vehicle')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Permit(for commercial vehicle) </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,3)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[3]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,3)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,3,'Permit(for commercial vehicle)')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Fitness certificate(for commercial vehicle)</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,4)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[4]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,4)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,4,'Fitness certificate(for commercial vehicle)')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Proof of Identification of owner of vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,5)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[5]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,5)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,5,'Proof of Identification of owner of vehicle')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photograph and specimen signature of the owner's of the involved vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,6)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[6]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,6)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,6,'Photograph and specimen signature of the owner of the involved vehicle')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Driving License</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,7)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[7]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,7)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,7,'Driving License')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Proof of identification </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,8)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[8]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,8)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,8,'Proof of identification')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photograph and specimen signature of the driver's of the involved vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,9)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[9]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,9)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,9,'Photograph and specimen signature of the driver of the involved vehicle')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Proof of employment of driver such as appointment letter,salary slips, duty register
+          </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,10)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[10]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,10)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,10,'Proof of employment of driver such as appointment letter & salary slips and duty register')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Legal heir of victim </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,11)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[11]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,11)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,11,'Legal heir of victim')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Post Morterm report</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,12)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[12]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,12)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,12,'Post Morterm report')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Death Certificate</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,13)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[13]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,13)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,13,'Death Certificate')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,14)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[14]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,14)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,14,'Photographs and proof of identity of the deceased')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,15)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[15]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(2,15)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,15,'Medico Legal case')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Multi angle photographs of the injured</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,2,16)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="vehicledocData[16]!=null">
+          <ion-icon  name="eye" (click)="viewPdf(2,16)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(2,16,'Multi angle photographs of the injured')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>
+
+
+<ion-content *ngIf="segflag==3">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Legal heir of victim</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,3,1)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="passengerdocData[1]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(3,1)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(3,1,'Legal heir of victim')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Post Morterm report</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,3,2)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="passengerdocData[2]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(3,2)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(3,2,'Post Morterm report')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Death Certificate</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,3,3)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="passengerdocData[3]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(3,3)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(3,3,'Death Certificate')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,3,4)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="passengerdocData[4]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(3,4)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(3,4,'Photographs and proof of identity of the deceased')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,3,5)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="passengerdocData[5]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(3,5)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(3,5,'Medico Legal case')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Multi angle photographsof the injured</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,3,6)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="passengerdocData[6]!=null">
+          <ion-icon  name="eye" (click)="viewPdf(3,6)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(3,6,'Multi angle photographsof the injured')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>
+
+<ion-content *ngIf="segflag==4">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Legal heir of victim</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,4,1)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="pedestriandocData[1]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(4,1)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(4,1,'Legal heir of victim')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Post Morterm report</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,4,2)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="pedestriandocData[2]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(4,2)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(4,2,'Post Morterm report')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Death Certificate</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,4,3)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="pedestriandocData[3]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(4,3)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(4,3,'Death Certificate')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,4,4)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="pedestriandocData[4]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(4,4)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(4,4,'Photographs and proof of identity of the deceased')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,4,5)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="pedestriandocData[5]!=''">
+          <ion-icon  name="eye" (click)="viewPdf(4,5)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(4,5,'Medico Legal case')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=6>
+          <ion-item class='fcolor'>Multi angle photographs of the injured</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <div style='text-align: center;margin-top: 10px;'>
+            <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event,4,6)">
+            </ion-input>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="pedestriandocData[6]!=null">
+          <ion-icon  name="eye" (click)="viewPdf(4,6)" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-icon></ion-icon>
+          <ion-icon  name="cloud-upload-outline" (click)="uploadPdf(4,6,'Multi angle photographs of the injured')" style='text-align: center;margin-top: 10px;' class='ion-icon'></ion-icon>
+          <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'>
+          </ion-spinner>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card>
+</ion-content> 
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

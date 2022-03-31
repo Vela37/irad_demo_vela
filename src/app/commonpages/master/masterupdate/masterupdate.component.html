@@ -1,0 +1,180 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{humanize(tableName) }} - UPDATE</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item>
+      <ion-card-subtitle color="primary" >English</ion-card-subtitle>
+    </ion-item>
+
+    <ion-card-content>
+     <ion-grid>
+       <ion-row >
+         <ion-col style="color:#808080">{{selecteddata.en}}</ion-col>         
+       </ion-row>
+       
+     </ion-grid>
+    </ion-card-content>
+    </ion-card>
+
+  <ion-row *ngIf="ln=='en'">
+    <ion-col>
+      <ion-item>
+        <ion-label  class='fcolor ion-text-wrap' position="floating">
+          English
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.en"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='ta'">
+    <ion-col>
+      <ion-item>
+        <ion-label  class='fcolor ion-text-wrap' position="floating">
+          Tamil
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.ta"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='hi'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Hindi
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.hi"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='te'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Telugu
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.te"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='kn'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Karnataka
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.kn"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='mr'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Maharashtra
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.mr"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='asm'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Assamese
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.asm"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='od'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Odia
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.od"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='pa'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Punjabi
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.pa"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='ml'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Malayalam
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.ml"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ln=='gu'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Gujarati
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.gu"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+   <ion-row *ngIf="ln=='dispid'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Order By
+        </ion-label>
+        <ion-input [(ngModel)]="selecteddata.dispid"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row> 
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="updateColumn()"> &nbsp; Update &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

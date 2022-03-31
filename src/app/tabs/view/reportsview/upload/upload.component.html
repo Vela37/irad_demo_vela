@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Documents Uploads </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row > 
+    <ion-col>
+      <ion-item class='fcolor'>Form 1 (First Accident Report)</ion-item>
+        
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+      
+        <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event)">
+        </ion-input>
+        
+      </ion-item>
+    </ion-col>
+    
+  </ion-row>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

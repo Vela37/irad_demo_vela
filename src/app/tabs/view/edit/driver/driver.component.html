@@ -1,0 +1,412 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      {{titlevechile}} - {{driverinfo.ser_name}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-grid class='ion-no-padding'>
+  <ion-row>
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+
+        <ion-label position="floating" class='fcolor'>{{'acctab1.acc.driver.nationality' | translate:params}}
+        </ion-label>
+
+        <ion-select [(ngModel)]="driverinfo.nationality" (ionChange)="changenationality($event)" interface="alert">
+          <ion-select-option value="0">{{'commonlinks.indian' | translate:params}}</ion-select-option>
+          <ion-select-option value="1">{{'commonlinks.foreigner' | translate:params}}</ion-select-option>
+
+
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+ <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+
+        <ion-label position="stacked" class='fcolor'>{{'acctab1.acc.driver.occupation' | translate:params}}
+        </ion-label>
+
+        <ion-select multiple="false" [(ngModel)]="driverinfo.occupation" interface="alert">
+          <ion-select-option *ngFor="let d of options12; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+
+
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>{{'acctab1.acc.pedestrians.injurytype' | translate:params}}
+        </ion-label>
+        <ion-select multiple="true" [(ngModel)]="driverinfo.injurytype" interface="alert">
+          <ion-select-option *ngFor="let d of options11; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+
+
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>
+          {{'acctab1.acc.pedestrians.education' | translate:params}} </ion-label>
+        <ion-select [(ngModel)]="driverinfo.education" interface="alert">
+          <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position='stacked' class='fcolor'>{{'acctab1.acc.driver.cell' | translate:params}}</ion-label>
+        <ion-select [(ngModel)]="driverinfo.cellphonedriving" interface="alert">
+          <ion-select-option value="yes"> {{'commonlinks.yes' | translate:params}}</ion-select-option>
+          <ion-select-option value="no"> {{'commonlinks.no' | translate:params}}</ion-select-option>
+
+        </ion-select>
+      </ion-item>
+
+
+    </ion-col>
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>{{'acctab1.acc.driver.severity' | translate:params}}
+        </ion-label>
+        <ion-select [(ngModel)]="driverinfo.injury_severity" interface="alert"> <!--(ionChange)="changeseveriy($event)" -->
+          <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>
+          {{'acctab1.acc.driver.cause_acc.seatbelt' | translate:params}}</ion-label>
+        <ion-select [(ngModel)]="driverinfo.safety_device" interface="alert">
+          <ion-select-option value="yes"> {{'commonlinks.yes' | translate:params}}</ion-select-option>
+          <ion-select-option value="no"> {{'commonlinks.no' | translate:params}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>
+          {{'acctab1.acc.driver.cause_acc.drunkdrive' | translate:params}}</ion-label>
+        <ion-select [(ngModel)]="driverinfo.drunk" interface="alert">
+          <ion-select-option value="yes"> {{'commonlinks.yes' | translate:params}}</ion-select-option>
+          <ion-select-option value="no"> {{'commonlinks.no' | translate:params}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>
+          {{'acctab1.acc.pedestrians.modeoftranport' | translate:params}}</ion-label>
+        <ion-select [(ngModel)]="driverinfo.modeoftransport" interface="alert">
+          <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>
+          {{'acctab1.acc.pedestrians.tranporttime' | translate:params}}</ion-label>
+        <ion-select [(ngModel)]="driverinfo.hospitaldelay" interface="alert">
+          <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+  
+      <ion-item [hidden]="datacombo">
+        <ion-label position="stacked" class='fcolor'>
+          Driving License Type</ion-label>
+        <ion-select [(ngModel)]="driverinfo.drivinglicencetype" interface="alert">
+          <ion-select-option *ngFor="let d of options16; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+    </ion-col>
+    </ion-row>
+  <ion-row>
+
+    <ion-col>
+
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+      <ion-item [hidden]="datacombo">
+        <ion-label [hidden]="!nationality_flag" position="floating" class='fcolorred'>
+          {{'acctab1.acc.driver.licensenumber' | translate:params}}</ion-label>
+        <ion-label [hidden]="nationality_flag" position="floating" class='fcolorred'>
+          {{'acctab1.acc.driver.intlicensenumber' | translate:params}}</ion-label>
+
+        <ion-input [(ngModel)]="driverinfo.license_number" class="ion-text-uppercase" >
+        </ion-input>
+      </ion-item>
+
+     
+    </ion-col>
+
+    <ion-col class='txtalign' [hidden]="nationality_flag">
+
+    </ion-col>
+    <ion-col class='txtalign' [hidden]="!nationality_flag">
+      <ion-label class='fcolor' position="floating"></ion-label>
+      <ion-button shape="round" [hidden]="saratiflag"  color='tertiary' (click)="getsarthi()"> <!--[disabled]="noedit"-->
+        <ion-icon name="cloud-download"></ion-icon>&nbsp;&nbsp;&nbsp;SARATHI
+      </ion-button>
+      <ion-button [hidden]="!saratiflag" shape="round" color='tertiary'>
+        <ion-spinner name="circles"> </ion-spinner>&nbsp; Loading
+      </ion-button>
+
+    </ion-col>
+  </ion-row>        
+
+        <ion-row>
+          <ion-col>
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'>{{'acctab1.acc.driver.Drivername' | translate:params}}
+              </ion-label>
+              <ion-input [(ngModel)]="driverinfo.ser_name"></ion-input>
+            </ion-item>
+
+            
+          </ion-col>
+
+        
+          <ion-col size=4>
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'>Age
+              </ion-label>
+              <ion-input [(ngModel)]="driverinfo.age" (ionChange)="checkage($event)"></ion-input>
+            </ion-item>
+
+            
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+          <ion-col>
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'>{{'acctab1.acc.driver.class' | translate:params}}
+              </ion-label>
+              <ion-input [(ngModel)]="driverinfo.vehilceclass"></ion-input>
+            </ion-item>
+           
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col>
+
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="stacked" class='fcolor'>{{'acctab1.acc.driver.gender' | translate:params}}
+              </ion-label>
+              <ion-select [(ngModel)]="driverinfo.ser_gender" interface="alert">
+                <ion-select-option value="Male">{{'commonlinks.male' | translate:params}}</ion-select-option>
+                <ion-select-option value="Female">{{'commonlinks.female' | translate:params}}</ion-select-option>
+                <ion-select-option value="tg">{{'commonlinks.tg' | translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'> {{'acctab1.acc.driver.Moblie_num' | translate:params}}
+              </ion-label>
+              <ion-input [(ngModel)]="driverinfo.ser_mobileno" type='number' (ionChange)="checkdigits($event,10)"></ion-input>
+            </ion-item>
+
+          
+            
+          </ion-col>
+
+          <ion-col>
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'> Current Mobile number
+              </ion-label>
+              <ion-input [(ngModel)]="driverinfo.mobile_no" type="number" (ionChange)="checkdigits($event,10)"></ion-input>
+            </ion-item>
+
+          
+            
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+
+          <ion-col>
+
+            <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'>{{'acctab1.acc.pedestrians.address' | translate:params}}
+              </ion-label>
+              <ion-input [(ngModel)]="driverinfo.residence"></ion-input>
+            </ion-item>
+           
+            
+          </ion-col>
+
+        </ion-row>
+       
+
+
+</ion-grid>
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

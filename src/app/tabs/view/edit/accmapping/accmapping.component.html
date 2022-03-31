@@ -1,0 +1,237 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Accident Id Linking</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle style='color:teal;font-weight:bold;'>Patient Name</ion-card-subtitle>
+      <ion-card-title> <span style='color:#e30b89;font-weight:bold;text-transform: capitalize;'>{{pname}}</span></ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>
+        <ion-col>
+          <span style='color:#045eb3;font-weight:bold;'>  Gender</span>
+        </ion-col>
+        <ion-col>{{gender}}
+        </ion-col>
+          </ion-row>
+        
+
+              <ion-row>
+                <ion-col>
+                  <span style='color:#045eb3;font-weight:bold;'>  Hospital Admission date</span>
+                </ion-col>
+                <ion-col>{{timeof_arrival}}
+                </ion-col>
+                  </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <span style='color:#045eb3;font-weight:bold;'>  Address</span>
+            </ion-col>
+            <ion-col>{{address}}
+            </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span style='color:#045eb3;font-weight:bold;'>Hospital Name</span>
+                </ion-col>
+                <ion-col>{{hpname}}
+                              </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col>
+                      <span style='color:#045eb3;font-weight:bold;'>Hospital Address</span>
+                    </ion-col>
+                    <ion-col>{{hpaddr}}
+                                  </ion-col>
+                      </ion-row>
+                
+       </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card [hidden]="type4">
+    <ion-card-header>
+      <ion-card-subtitle style='color:orangered;font-weight:bold;'>Place of accident</ion-card-subtitle>
+      <ion-card-title> <span style='color:#e30b89;font-weight:bold;text-transform: capitalize;'>{{accinfo.landmarks}}</span></ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>
+        <ion-col>
+          <span style='color:#045eb3;font-weight:bold;'>  Time of Accident</span>
+        </ion-col>
+        <ion-col>{{accinfo.date}}
+        </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <span style='color:#045eb3;font-weight:bold;'>Reported Date</span>
+            </ion-col>
+            <ion-col>{{accinfo.rdate}}
+            </ion-col>
+              </ion-row>
+        
+
+              <ion-row>
+                <ion-col>
+                  <span style='color:#045eb3;font-weight:bold;'>FIR Number</span>
+                </ion-col>
+                <ion-col>{{accinfo.fir_number}}
+                </ion-col>
+                  </ion-row>
+
+         
+            
+
+                
+       </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+  
+  
+
+
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>  
+        <ion-col>  
+          <ion-item>
+            <ion-label class="fcolor"  position="floating">
+              Accident Location
+              </ion-label>
+          <ion-select  [(ngModel)]="psaccid"  (ionChange)="showpersons($event)">
+            <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option>
+          </ion-select>
+          </ion-item>
+      </ion-col>         
+     </ion-row>
+
+
+     <ion-row>  
+      <ion-col>  
+        <ion-item>
+          <ion-label class="fcolor" position="floating">
+           Select Victim Type
+            </ion-label>
+        <ion-select [(ngModel)]="ptype" (ionChange)="showtype($event)">
+          <ion-select-option value="Driver">Driver</ion-select-option>
+          <ion-select-option value="Passenger">Passenger</ion-select-option>
+          <ion-select-option value="Pedestrian">Pedestrain</ion-select-option>
+        </ion-select>
+        </ion-item>
+    </ion-col>         
+   </ion-row>
+
+   <ion-row [hidden]="type1">  
+    <ion-col>  
+      <ion-item>
+        <ion-label class="fcolor" class="fcolor" position="floating">
+         Select Driver
+          </ion-label>
+      <ion-select  [(ngModel)]="drid">
+        <ion-select>
+          <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-select>
+      </ion-item>
+  </ion-col>         
+ </ion-row>
+
+ <ion-row [hidden]="type2">  
+  <ion-col>  
+    <ion-item>
+      <ion-label class="fcolor" class="fcolor" position="floating">
+       Select Passenger
+        </ion-label>
+    <ion-select [(ngModel)]="paid">
+      <ion-select>
+        <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-select>
+    </ion-item>
+</ion-col>         
+</ion-row>
+
+
+<ion-row [hidden]="type3">  
+  <ion-col>  
+    <ion-item>
+      <ion-label class="fcolor" class="fcolor" position="floating">
+       Select Pedestrian
+        </ion-label>
+    <ion-select  [(ngModel)]="prid">
+      <ion-select>
+        <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-select>
+    </ion-item>
+</ion-col>         
+</ion-row>
+
+          </ion-grid>
+     
+        </ion-card-content>
+          </ion-card>
+
+         
+        
+  
+  <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+        
+          <ion-col>
+            <ion-button expand="block"   (click)="closemodal()" color='danger'>
+              <ion-icon name="arrow-back"></ion-icon>
+              &nbsp;&nbsp;&nbsp;CANCEL
+    
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block"   color='success' (click)='linkprocess()'>
+            
+    
+              <ion-icon name="git-pull-request" ></ion-icon>&nbsp;&nbsp;&nbsp;LINK to ACCIDENT ID
+    
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+ 
+</ion-content>
+
+
+
+
+
+
+
+

@@ -1,0 +1,317 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DRUNK AND DRIVE TEST REQUEST</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle><span class='fcolor'>Person Name</span></ion-card-subtitle>
+      <ion-card-title> <span style='color:brown;font-weight:bold;text-transform: capitalize;'> {{name}}</span></ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>
+        <ion-col>
+        <span class='fcolor'>Gender</span>
+        </ion-col> 
+        <ion-col>
+          {{gender}}
+                  </ion-col> 
+        <ion-col color='primary'>
+          <span class='fcolor'>Age</span>
+        </ion-col>
+
+        <ion-col>
+         {{age}}
+          </ion-col>
+
+          </ion-row>
+          
+
+  
+                  <ion-row>
+                    <ion-col>
+                      <span class='fcolor'>Current Address</span>
+                    </ion-col> 
+                    <ion-col>
+                      {{address}}
+                              </ion-col> 
+                      </ion-row>
+           
+                    
+
+                          <ion-row>
+                            <ion-col>
+                            <span class='fcolor'>Requisition (if any) from</span>
+                            </ion-col> 
+                            <ion-col>
+                            Police Station
+                                      </ion-col> 
+                              </ion-row>  
+
+                              <ion-row>
+                                <ion-col>
+                                <span class='fcolor'>Requisiting Officer</span>
+                                </ion-col> 
+                                <ion-col>
+                                Officer Name
+                                          </ion-col> 
+                                  </ion-row> 
+                              
+                    
+       </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    
+     
+     
+  <div [hidden]="flag"> 
+    <form name="ddform" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>      <ion-grid>
+     
+
+      
+    <ion-row>
+        
+      <ion-col>   
+        <ion-item>
+          <ion-label class="fcolor">
+            District
+            </ion-label>
+            <ion-select (ionChange)="showdistriict($event)" id="district" name="district"  
+            #districtInput="ngModel"
+            [(ngModel)]="district" 
+            required>
+              <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                {{d.name}}
+              </ion-select-option>
+            </ion-select>
+
+           
+             
+          </ion-item> 
+          <div *ngIf="f.submitted && districtInput.invalid">
+            <p class='errormsg'*ngIf="districtInput.errors.required">
+                               District Required
+            </div>
+     </ion-col> 
+
+
+              
+        </ion-row>  
+        <ion-row>
+        
+        
+
+                    <ion-col>   
+                      <ion-item>
+                        <ion-label class="fcolor">
+                          Hospital Name
+                          </ion-label>
+                          <ion-select id="hpname" name="hpname"  
+                          #hpnameInput="ngModel"
+                          [(ngModel)]="hpname" 
+                          required>
+                            <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                              {{d.name}}
+                            </ion-select-option>
+                          </ion-select>
+            
+            
+                                 
+            
+            
+                         
+                           
+                        </ion-item> 
+                        <div *ngIf="f.submitted && hpnameInput.invalid">
+                          <p class='errormsg' *ngIf="hpnameInput.errors.required">
+                            Hospital Name Required
+                          </div>
+                   </ion-col> 
+                  
+            </ion-row>  
+    <ion-row>    
+    <ion-col>
+    <ion-item>
+      <ion-label class="fcolor">
+        Crime No.
+        </ion-label>
+        <ion-input   id="firnumber" name="firnumber"  
+               #firnumberInput="ngModel"
+               [(ngModel)]="firnumber" 
+               minlength=2 
+               maxlength=20 
+               ></ion-input>
+       
+      </ion-item> 
+      <div *ngIf="f.submitted && firnumberInput.invalid">
+        <p class='errormsg'*ngIf="firnumberInput.errors.required">
+          Crime No. Required
+        </p>
+        <p class='errormsg'*ngIf="firnumberInput.errors.minlength">
+          Crime No. Minimum 2
+        </p>
+        <p *ngIf="firnumberInput.errors.maxlength">
+          Crime No. Maximum 10
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+  <ion-footer translucent="true" class="tab1-footer">
+    <ion-grid>
+      <ion-row justify-content-around>
+      
+        <ion-col>
+          <ion-button expand="block"   (click)="closemodal()" color='danger'>
+            <ion-icon name="arrow-back"></ion-icon>
+            &nbsp;&nbsp;&nbsp;CANCEL
+  
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block"   color='success' type="submit">
+          
+  
+            <ion-icon name="git-pull-request" ></ion-icon>&nbsp;&nbsp;&nbsp;GENERATE
+  
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</form>
+  </div>
+  <div [hidden]="flagtwo">
+
+  
+    <ion-card color='light'>
+      <ion-card-header>
+        <ion-card-subtitle color='tertiary'><span>Hospital Name</span></ion-card-subtitle>
+        <ion-card-title> <span style='color:rgb(2, 100, 192);font-weight:bold;text-transform: capitalize;'>{{nameofhospital}}</span></ion-card-title>
+      </ion-card-header>
+    
+  
+  
+      <ion-card-content>
+       <ion-grid>
+       
+            
+  
+    
+                   
+             
+                      
+  
+                           
+  
+                                <ion-row>
+                                  <ion-col>
+                                  <span class='fcolor'>State</span>
+                                  </ion-col> 
+                                  <ion-col>
+                                 {{state}}
+                                            </ion-col> 
+                                    </ion-row> 
+                                    <ion-row>
+                                      <ion-col>
+                                      <span class='fcolor'>District</span>
+                                      </ion-col> 
+                                      <ion-col>
+                                        {{hpdistrict}}
+                                                </ion-col> 
+                                        </ion-row> 
+                                        <ion-row>
+                                          <ion-col>
+                                          <span class='fcolor'>Address</span>
+                                          </ion-col> 
+                                          <ion-col>
+                                            {{hpaddress}}
+                                                    </ion-col> 
+                                            </ion-row> 
+
+
+                                            <ion-row>
+                                              <ion-col>
+                                              <span class='fcolor'>Pin code</span>
+                                              </ion-col> 
+                                              <ion-col>
+                                                {{hppincode}}
+                                                        </ion-col> 
+                                                </ion-row> 
+
+                                                <ion-row>
+                                                  <ion-col>
+                                                  <span class='fcolor'>Drunk and drive test facility</span>
+                                                  </ion-col> 
+                                                  <ion-col>
+                                                    {{ddfacility}}
+                                                            </ion-col> 
+                                                    </ion-row> 
+                                                <ion-row>
+                                                  <ion-col>
+                                                  <span class='fcolor'>PostMortem Facility</span>
+                                                  </ion-col> 
+                                                  <ion-col>
+                                                    {{hppostmorterm}}
+                                                            </ion-col> 
+                                                    </ion-row> 
+
+
+                                            <ion-row>
+                                              <ion-col>
+                                              <span class='fcolor'>Hospital Type</span>
+                                              </ion-col> 
+                                              <ion-col>
+                                                {{hptype}}
+                                                        </ion-col> 
+                                                </ion-row> 
+                                
+                      
+         </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+
+    <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+        
+          <ion-col>
+            <ion-button expand="block"   (click)="closemodal()" color='danger'>
+              <ion-icon name="arrow-back"></ion-icon>
+              &nbsp;&nbsp;&nbsp;CANCEL
+    
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block"   color='success' (click)="givereqeusttosamehp()">
+            
+    
+              <ion-icon name="git-pull-request" ></ion-icon>&nbsp;&nbsp;&nbsp;GENERATE
+    
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+    </div>
+
+</ion-content>
+
+
+
+
+
+
+
+

@@ -1,0 +1,119 @@
+ion-content {
+  --background: radial-gradient(at 0 90%, rgb(244, 245, 178), #b4f3a4);
+}
+
+.vcenter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.image {
+  height: 120px;
+  width: 180px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px gray;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.t1 {
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 60px;
+  color: black;
+  text-align: center;
+}
+
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.card-img-absolutes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.bgcolor {
+  background-color: #f7f7f7;
+  border: solid 1px #ddd;
+  padding: 10px;
+}
+
+ion-card {
+  display: flex;
+  flex-direction: column;
+
+  //margin: 0 !important;
+}
+
+table,
+th,
+td {
+  border: none;
+
+  border-spacing: 4px;
+  border-collapse: separate;
+}
+
+.fatalbg {
+  background: linear-gradient(to right, #f27d95, #e10a43c4) !important;
+}
+
+.grevbg {
+  background: linear-gradient(to right, #ffbf96, #fe7096) !important;
+}
+
+.simphbg {
+  background: linear-gradient(to right, #ffd265, #ffd265 99%) !important;
+}
+
+.simpnhbg {
+  background: linear-gradient(to right, #79d9d9, #79d9d9 99%) !important;
+}
+
+.vehbg {
+  background: linear-gradient(to right, #7dbfec, #7dbfec 99%) !important;
+}
+
+.deadbg {
+  background: linear-gradient(to right, #ff718e, #fe7096) !important;
+}
+.injbg {
+  background: linear-gradient(to right, #fbaf63, #fbaf63 99%) !important;
+}
+
+ion-col {
+  text-align: center;
+}
+.grid {
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+  min-width: 60px;
+}
+.tdbg {
+  width: 250px;
+  height: 180px;
+  background-image: "assets/images/circle.svg";
+  background-repeat: no-repeat;
+  background-size: 250px 180px;
+  border: 1px solid black;
+}
+.card-img-absolutes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}

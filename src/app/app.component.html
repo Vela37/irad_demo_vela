@@ -1,0 +1,203 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <!--  our side menu  -->
+    <ion-menu color="primary">
+     
+      <ion-item-divider style="background-color: white;">
+        <ion-grid>
+          <ion-row color="primary" class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center" size="1"></ion-col>
+            <ion-col class="ion-align-self-center">
+              <div class="ion-text-center">
+                <ion-img
+                  style="
+                    text-align: center;
+                    max-width: 132px;
+                    max-height: 20vh;
+                    margin-left: 32px;
+                  "
+                  class="ion-margin-top"
+                  alt="iRAD "
+                  src="assets/logos/Morth.jpg"
+                ></ion-img>
+              </div>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="2"></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-divider>
+
+      <ion-content>
+        <ion-list>
+          <ion-item style="background-color: turquoise" *ngIf="isAuthenticated">
+            <ion-avatar slot="start">
+              <img [src]="img">
+            </ion-avatar> 
+            <ion-label
+              style="
+                color: #3880ff;
+               
+                font-weight: bolder;
+                white-space: break-spaces;
+              "
+              >{{name}}
+              
+              <ion-icon name="notifications-outline" color="danger"  [routerLink]="['/notification']"></ion-icon>
+              </ion-label
+            >
+          </ion-item>
+
+          <ion-menu-toggle
+            color="primary"
+            auto-hide="false"
+            *ngFor="let p of pages"
+          >
+            <app-menu-item [link]="p"></app-menu-item>
+            <!-- <app-menu-item [link]="p"></app-menu-item> -->
+          </ion-menu-toggle>
+
+          <ion-item *ngIf="isAuthenticated" (click)="onLogout()">
+            <ion-icon
+              style="color: #f01520"
+              name="log-out"
+              slot="start"
+            ></ion-icon>
+            <ion-label
+              style="
+                color: #f01520;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: default;
+              "
+              >Logout</ion-label
+            >
+          </ion-item>
+
+          <!-- <ion-item *ngIf="isAuthenticated">
+            <ion-grid>
+              <ion-row color="primary" class="ion-justify-content-center">
+                <ion-col class="ion-align-self-center" size="1"></ion-col>
+                <ion-col class="ion-align-self-center">
+                  <div class="ion-text-center">
+                    <ion-img
+                      style="
+                        text-align: center;
+                        max-width: 200px;
+                        max-height: 22vh;
+                      "
+                      class="ion-margin-top"
+                      alt="iRAD "
+                      src="assets/logos/Morth.jpg"
+                    ></ion-img>
+                  </div>
+                </ion-col>
+                <ion-col class="ion-align-self-center" size="2"></ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item> -->
+        </ion-list>
+        <!--   <ion-list>
+          <ion-item>
+            <ion-select placeholder="Select Language" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+              <ion-select-option value="en">English</ion-select-option>
+              <ion-select-option value="ta">தமிழ்</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list> -->
+      </ion-content>
+
+      <!--
+      <ion-item-divider >
+        <ion-label>
+          {{'commonlinks.design' | translate:params}}
+        </ion-label>
+        
+      </ion-item-divider>
+
+      
+    <ion-item-divider>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; <ion-img style='text-align:center ; height:50px'alt="NIC Logo" src="assets/logos/nic_logo.png"></ion-img>
+      </ion-item-divider>
+    
+
+
+  
+  
+      <ion-item-divider style='text-align:center ;' >
+          <ion-label style='text-align:center ;'>
+            Conceptualized by
+          </ion-label>
+      </ion-item-divider>
+      
+        <ion-item-divider >
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <ion-img style='text-align:center ; height:50px'alt="NIC Logo" src="assets/logos/iit.png"></ion-img>
+        </ion-item-divider> -->
+      <!-- 
+      <ion-item-divider *ngIf="!isAuthenticated">
+        <ion-grid>
+
+          <ion-row color="primary" class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center" size="1"></ion-col>
+            <ion-col class="ion-align-self-center">
+              <div class="ion-text-center">
+                <ion-img style='text-align:center; max-width:200px; max-height:22vh' class="ion-margin-top" alt="iRAD "
+                  src="assets/logos/Morth.jpg"></ion-img>
+              </div>
+            </ion-col>
+            <ion-col class="ion-align-self-center" size="2"></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-divider> -->
+
+      <!-- <ion-item-divider style="text-align: center">
+        <ion-toolbar class="sidemenu">
+          <ion-img
+            style="text-align: center; height: 60px"
+            class="ion-margin-top"
+            alt="iRAD "
+            src="assets/logos/irad_logo1.png"
+          ></ion-img>
+     
+               <ion-avatar slot="start">
+            <img [src]="img">
+          </ion-avatar> <ion-label style='color:rgb(243, 26, 26); text-shadow: 0 0 6px rgb(238, 231, 231);font-weight:bold; '>Demo </ion-label> 
+          <ion-label style='color:#fff; text-shadow: 0 0 6px #000;font-weight:bold; '>{{name}}
+            <ion-badge color="danger" slot="end"><ion-icon name="notifications-circle-outline" (click)="openNotification()"></ion-icon> 0</ion-badge>
+
+          </ion-label>
+
+          <br /><br />
+        </ion-toolbar>
+      </ion-item-divider> -->
+
+      <ion-item-divider style="text-align: center; background-color: white;">
+        <ion-toolbar class="sidemenu">
+          <ion-img
+            style="text-align: center; height: 60px;margin-right: 26px;"
+            class="ion-margin-top"
+            alt="iRAD "
+            src="assets/logos/irad_logo1.png"
+          ></ion-img>
+
+          <br />
+        </ion-toolbar>
+      </ion-item-divider>
+
+      <ion-item-divider>
+        <ion-label color="medium">
+          <span style="color: red"> Demo </span>
+          <span class="owncolor"> Version : </span>{{ version }}
+        </ion-label>
+      </ion-item-divider>
+    </ion-menu>
+    <!-- the main content -->
+    <ion-router-outlet id="main-content" main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
+<!-- <style>
+  ion-toolbar {
+
+    --background: url(assets/icon/menu5.jpg) 0 0/100% 100% no-repeat;
+
+  }
+</style> -->

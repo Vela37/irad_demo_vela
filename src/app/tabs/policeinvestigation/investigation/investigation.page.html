@@ -1,0 +1,402 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>DAR - Investigation Details </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  
+  <ion-grid>
+
+
+    <ion-row *ngIf="selacc">
+      <ion-col col-12 class=''>
+      
+        <ion-card  class="severity{{selacc.severity}} ion-text-center">
+          <ion-card-header>
+            <ion-card-subtitle>
+              Accident Id: <b>{{selacc.accid.slice(-4) }} </b>
+              <span *ngIf="selacc.fir"> - FIR/CSR : <b>{{selacc.fir }} </b> </span>
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{selacc.landmark}}, On {{selacc.datetime}} ({{selacc.severity_desc}})
+            <ion-label class="alignme-right"> </ion-label>
+          </ion-card-content>
+          <ion-item class="severity{{selacc.severity}}" >
+         
+    
+            <span  style="display: flex;flex: 1; text-align: center; white-space: nowrap; font-size: 14px; font-weight: bold; color: #000;"> 
+            &nbsp; 
+            <span >PS: {{selacc.ps}}   </span>
+           
+             
+            </span>
+          </ion-item>
+    
+        </ion-card>
+
+
+
+      </ion-col>
+    </ion-row>
+    
+    <ion-row *ngIf="user.dept=='1'">
+      <ion-col col-6>
+        <ion-card  class="ion-padding ion-text-center gbox1" (click)="goToInvestGeneral()">
+          <ion-icon name="terminal-outline" size='large' class='icongbox1'></ion-icon>
+         <h6 style="font-weight: bold;">General </h6>  
+          <!-- <h6 class='clr' style="color: green;" >Completed</h6> -->
+          <!-- <h6 class='clr' style="color: brown;" >Pending</h6> -->
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="user.dept=='1'">
+      <ion-col size="6">
+        <ion-card class="ion-padding ion-text-center gboxveh" (click)="goToInvestVehicle()">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Vehicle</h6>
+<!--
+ <h6 class='clr' style="color: green;" *ngIf="!(v_total - v_pending)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(v_total - v_pending)"> Pending - {{v_total - v_pending }} of
+            {{v_total}}</h6>
+-->
+         
+
+          <!-- <h6 class='clr' style="color: green;">Click to view </h6> -->
+          <!-- <h6 class='clr'  style="color: green;" *ngIf="genral">Completed</h6>
+            <h6 class='clr' style="color: brown;" *ngIf="!genral">Pending</h6> (role==80 || role==50 ) && selacc -->
+
+        </ion-card>
+      </ion-col>
+<!--
+<ion-col col-6>
+        <ion-card  class="ion-padding ion-text-center gboxwitness" (click)="goToAddwitness()">
+          <ion-icon name="terminal-outline" size='large' class='icongbox1'></ion-icon>
+         <h6 style="font-weight: bold;">Additional Witness </h6> 
+        
+        </ion-card>
+      </ion-col>
+-->
+      
+
+
+
+
+      <ion-col size="6">
+        <ion-card class="ion-padding ion-text-center gboxpass" (click)="goToInvestPassenger()">
+          <ion-icon name="people" name="person" size='large' class='icongbox7'></ion-icon>
+
+          <h6 style="font-weight: bold;">Passenger</h6>
+<!--
+ <h6 class='clr' style="color: green;" *ngIf="!(v_total - v_pending)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(v_total - v_pending)"> Pending - {{v_total - v_pending }} of
+            {{v_total}}</h6>
+-->
+         
+
+          <!-- <h6 class='clr'>{{v_pending}}/{{v_total}} {{v_total - v_pending }}</h6> -->
+
+          <!-- <h6 class='clr' style="color: green;" >Completed</h6> -->
+          <!-- <h6 class='clr' style="color: brown;" > Pending - {{v_total - v_pending }} of
+            {{v_total}}</h6> -->
+
+
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6" *ngIf="user.dept=='1'">
+        <ion-card class="ion-padding ion-text-center gboxped" style="color: orangered;" (click)="goToInvestPedestrian()" >
+
+
+          <ion-icon name="walk" size='large' class='icongbox1'></ion-icon>
+
+          <h6 style="font-weight: bold;">Pedestrian</h6>
+<!--
+  <h6 class='clr' style="color: green;" *ngIf="!(v_total - v_pending)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(v_total - v_pending)"> Pending - {{v_total - v_pending }} of
+            {{v_total}}</h6>
+-->
+        
+
+          <!-- <h6 class='clr'>{{p_pending}}/{{p_total}}</h6> -->
+          <!-- <h6 class='clr' style="color: orangered;" *ngIf="(p_total==0)">No Passenger</h6> -->
+          <!-- <h6 class='clr' style="color: green;" *ngIf="!(p_total - p_pending) && (p_total!=0)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(p_total - p_pending)"> Pending - {{p_total - p_pending }} of
+            {{p_total}}</h6> -->
+
+        </ion-card>
+      </ion-col>
+
+      
+<ion-col size="6">
+  <ion-card  class="ion-padding ion-text-center gboxpett" (click)="petioner()">
+    <ion-icon name="book-outline" size='large' class='icongbox1'></ion-icon>
+   <h6 style="font-weight: bold;">Claim of Petitioner </h6> 
+    <!-- <h6 class='clr' style="color: green;" >Completed</h6> -->
+    <!-- <h6 class='clr' style="color: brown;" >Pending</h6> -->
+
+  </ion-card>
+</ion-col>
+    </ion-row>
+
+   
+
+    <!--<ion-row *ngIf="user.dept=='5'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxins" (click)="addcourtdata()">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Case Details</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>-->
+     
+    <ion-row *ngIf="user.dept=='5'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center tribu" (click)="tribunal()">
+          <ion-icon name="newspaper-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">SUMMARY OF THE COMPUTATION</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="user.dept=='5'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center tribu1" (click)="compliancepopup()">
+          <ion-icon name="pencil-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">MACT Compliance</h6>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center tribu2" (click)="awardpopup()">
+          <ion-icon name="ribbon-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">MACT Awards</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+<!--
+    <ion-row *ngIf="user.dept=='7'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxins" (click)="addinsdata()">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Insurance Details</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>-->
+
+  <!--- <ion-row *ngIf="user.dept=='6'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxssla" (click)="addlegaldata()">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">State Legal Service</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>-->
+
+    <ion-row *ngIf="user.dept=='7'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxssla1" (click)="addinsdatavehicle()">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Vehicle Insurance</h6>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxssla2" (click)="addinsdatavictim()">
+          <ion-icon name="body-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Victim Details</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+   <!-- <ion-row *ngIf="user.dept=='7'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxssla1" (click)="form15()">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Form 15</h6>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxssla2" (click)="form16()">
+          <ion-icon name="body-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Form 16</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>-->
+
+    <ion-row *ngIf="user.dept=='6'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxsslains" (click)="addlegaldata()">
+          <ion-icon name="reader-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">General</h6>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center acccc" (click)="addlegaldata2()">
+          <ion-icon name="person-circle-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Accused</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="user.dept=='6'">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gboxssla" (click)="addlegaldata3()">
+          <ion-icon name="body-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Victim Details</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+
+
+    <ion-row>
+      
+      <!-- <ion-col col-6>
+        <ion-card  class="ion-padding ion-text-center gboxdoc" (click)="gotoUpload()">
+          <ion-icon name="document" size='large' class='icongbox1'></ion-icon>
+         <h6 style="font-weight: bold;">Upload Documents </h6> 
+
+        </ion-card>
+      </ion-col> -->
+
+      
+      <!-- <ion-col col-6 (click)="reports()">
+        <ion-card class="ion-padding ion-text-center gboxreports">
+          <ion-icon name="reader-outline" size='large' class='icongbox7'></ion-icon>
+          <h6 style="font-weight: bold;">Reports</h6>
+          <!- - <h6 class='clr' style="color: green;">Click to view </h6> - ->
+          <!- - <h6 class='clr'  style="color: green;" *ngIf="genral">Completed</h6>
+            <h6 class='clr' style="color: brown;" *ngIf="!genral">Pending</h6> (role==80 || role==50 ) && selacc - ->
+
+        </ion-card>
+      </ion-col> -->
+
+      
+     
+    </ion-row>
+
+    <ion-row >
+      <ion-col col-6>
+        <ion-button (click)="reports()" color="danger" expand="block">Reports</ion-button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-button routerLink="/darview" color="warning" expand="block">View Entered Details</ion-button>
+      </ion-col>
+    </ion-row>
+
+    
+
+    <!-- <ion-row>
+      <ion-col class="grid injbg " (click)="goToInvestGeneral()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image" />
+        <span
+          style='color: rgb(65, 64, 64);padding:0px;font-size:18px;text-transform: capitalize;'>{{patientname}}</span>
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">General</p>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col class="grid grevbg " (click)="goToInvestVehicle()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image" />
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Vehicle</p>
+      </ion-col>
+
+
+
+      <ion-col class="grid grevbgadd " (click)="goToInvestPassenger()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image" />
+
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Passenger</p>
+
+      </ion-col>
+
+
+
+
+
+
+      <!- - 
+  <ion-col class="grid simpnhbg " (click)="patienreports()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+       
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Reports</p>
+
+      </ion-col>
+     
+            -->
+
+    <!-- </ion-row>
+
+    <ion-row>
+      <ion-col class="grid grevbgadd " (click)="goToInvestPedestrian()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image" />
+
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Pedestrian</p>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+
+      <ion-col class="grid simpnhbg " (click)="patienreports()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image" />
+
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Reports</p>
+
+      </ion-col>
+    </ion-row>
+
+
+
+
+ --> 
+
+  </ion-grid>
+  <!--
+<ion-card *ngIf="accinformation" color='light'>
+  <ion-card-content >
+    <ion-grid>
+   
+    <ion-row>
+      <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Place of accident</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>{{accinformation.landmarks}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Location Information</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{accinformation.road_details}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Accident date and time</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{accinformation.date_time}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Police station name</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{accinformation.psname}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Accident ID</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{data.accident_id}}</ion-col>
+    </ion-row>
+         </ion-grid>
+
+       
+  </ion-card-content>
+ 
+</ion-card>
+-->
+ 
+
+</ion-content>

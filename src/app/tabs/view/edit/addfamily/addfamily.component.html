@@ -1,0 +1,150 @@
+<ion-header translucent>
+  <ion-toolbar color="primary" >
+   
+   <ion-title class="alignme-center"> Family Details</ion-title>
+   <ion-buttons slot="end">
+    <ion-button  (click)="closeModal()">
+      <ion-icon name="close" slot="end"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form name="form" 
+  (ngSubmit)="f.form.valid  && savebutton()" 
+  #f="ngForm" > 
+
+  <ion-grid>
+  
+    
+    <ion-card>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Name</ion-label>
+            <ion-input    id="fname" name="fname"  
+            #childnamereq="ngModel"
+            [(ngModel)]="fname" 
+            required></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && childnamereq.invalid">
+            <p class='errormsg'*ngIf="childnamereq.errors.required">
+              Name is Required      
+            </p>     
+          </div>
+        </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Age</ion-label>
+          <ion-input    id="age" name="age"  
+          #childschoolreq="ngModel"
+          [(ngModel)]="age" 
+          required></ion-input>
+        </ion-item>
+    
+      </ion-col>
+    </ion-row>
+    
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Address</ion-label>
+          <ion-input    id="address" name="address"  
+          #addresson="ngModel"
+          [(ngModel)]="address" 
+          required></ion-input>
+        </ion-item>
+    
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Contact number</ion-label>
+          <ion-input   id="contact_number" name="contact_number"  type="text"  pattern="\d*" maxlength="10" 
+          #contactnumber="ngModel"
+          [(ngModel)]="contact_number" 
+          required></ion-input>
+        </ion-item>
+    
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Gender</ion-label>
+     
+          <ion-select  id="fgender"
+          name="fgender"
+          #showhpInput="ngModel"
+           [(ngModel)]="fgender">       
+            <ion-select-option value="Male">Male</ion-select-option>
+            <ion-select-option value="Female">Female</ion-select-option>
+            <ion-select-option value="TG">TG</ion-select-option>
+          </ion-select>
+
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Marital Status</ion-label>
+          <ion-select  id="martialstatus"
+          name="martialstatus"
+          #showhpInput="ngModel"
+           [(ngModel)]="martialstatus">       
+            <ion-select-option value="Yes">Yes</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+ 
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Relation</ion-label>
+           
+          <ion-select interface="alert" 
+          id="frelation"
+          name="frelation"
+           [(ngModel)]="frelation">      
+          <ion-select-option *ngFor="let d of addfamilymembers; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+      </ion-select>
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    </ion-card>
+
+    <ion-row>
+      <ion-col width-50 style="text-align: right">
+         <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+      </ion-col>
+       <ion-col width-50 style="text-align: left">
+         <ion-button color="light"   type="submit" >Save</ion-button>
+       </ion-col>
+     </ion-row>
+  </ion-grid>
+</form>
+
+</ion-content>

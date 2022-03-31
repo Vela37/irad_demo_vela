@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar color="primary txtalign">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Witness</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+  
+  <form name="form" 
+  (ngSubmit)="f.form.valid" 
+  #f="ngForm" > 
+  <ion-card >
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Name</ion-label>
+          <ion-input    id="name" name="name"  
+          #witnessnamereq="ngModel"
+          [(ngModel)]="witnessinfo.name" 
+          required></ion-input>
+        </ion-item>
+        <div *ngIf="f.submitted && witnessnamereq.invalid">
+          <p class='errormsg'*ngIf="witnessnamereq.errors.required">
+            Name is Required      
+          </p>     
+        </div>
+      </ion-col>
+  </ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Gender</ion-label>
+ 
+
+      <ion-select  id="gender" name="gender"  
+      #witnessgenderreq="ngModel"
+      [(ngModel)]="witnessinfo.gender" required >
+        <ion-select-option value="Male">Male</ion-select-option>
+        <ion-select-option value="Female">Female</ion-select-option>
+        <ion-select-option value="TG">TG</ion-select-option>
+
+      </ion-select>
+
+
+    </ion-item>
+    <div *ngIf="f.submitted && witnessgenderreq.invalid">
+      <p class='errormsg'*ngIf="witnessgenderreq.errors.required">
+        Gender is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Age</ion-label>
+ 
+      <ion-input  type="number"   id="age" name="age"  
+      #witnessagereq="ngModel"
+      [(ngModel)]="witnessinfo.age" 
+      required></ion-input>
+
+    </ion-item>
+    <div *ngIf="f.submitted && witnessagereq.invalid">
+      <p class='errormsg'*ngIf="witnessagereq.errors.required">
+        Age is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Occupation</ion-label>
+      <ion-input    id="occupation" name="occupation"  
+      #witnessoccupationreq="ngModel"
+      [(ngModel)]="witnessinfo.occupation" 
+      required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && witnessoccupationreq.invalid">
+      <p class='errormsg'*ngIf="witnessoccupationreq.errors.required">
+        Occupation is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Mobile Number</ion-label>
+      <ion-input    id="mobile" name="mobile"    type="tel"  maxlength="10"  
+      #witnessnoreq="ngModel"
+      [(ngModel)]="witnessinfo.mobile" 
+      required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && witnessnoreq.invalid">
+      <p class='errormsg'*ngIf="witnessnoreq.errors.required">
+        Mobile Number is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Address</ion-label>
+      <ion-input    id="address" name="address"  
+      #witnessaddressreq="ngModel"
+      [(ngModel)]="witnessinfo.address" 
+      required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && witnessaddressreq.invalid">
+      <p class='errormsg'*ngIf="witnessaddressreq.errors.required">
+        Address is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Witness Statement</ion-label>
+      <ion-textarea  id="staement" name="staement"  
+      #witnessdetailsreq="ngModel"
+      [(ngModel)]="witnessinfo.staement" 
+      requiredrows="5" cols="20"
+      placeholder="Enter any notes here..."></ion-textarea>
+    </ion-item>
+   
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col width-50 style="text-align: right">
+     <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+  </ion-col>
+   <ion-col width-50 style="text-align: left">
+     <ion-button color="light"  (click)="savebutton()" type="submit" >Save</ion-button>
+   </ion-col>
+ </ion-row>
+
+
+  </ion-card>
+</form>
+
+</ion-content>

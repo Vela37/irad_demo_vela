@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/acctabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'commonlinks.picklocation' | translate:params}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="mapId_cap" style="width: 100%; height: 100%"> </div>
+
+  <ion-fab vertical="bottom" *ngIf="isLocationFound" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="setLocation()">
+      <ion-icon name="checkbox"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" *ngIf="false" horizontal="left" slot="fixed">
+    
+      <ion-button expand="full" color="warning">Locating...</ion-button>
+    
+  </ion-fab>
+  <ion-fab vertical="bottom" *ngIf="false"  horizontal="left" slot="fixed">
+    
+      <ion-button (click)="getLocationCoordinates()" expand="full" color="warning">Please Enable Location</ion-button>
+    
+  </ion-fab>
+  <ion-fab  *ngIf="!isLocationFound" vertical="center" horizontal="left" slot="fixed">
+    
+    <ion-button (click)="getLocationCoordinates()" expand="full" color="danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please Allow Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+  
+</ion-fab>
+
+<!--
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="getLocationCoordinates()">
+      <ion-icon name="locate"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> 
+-->
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button size="small" title="Your Location" [color]="isTracking ? 'primary' : 'light' " (click)="locTrack()" >
+      <ion-icon name="locate"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button size="small" title="Move control" [color]="isDragging ? 'primary' : 'light' " (click)="mapDrgg()" >
+      <ion-icon name="move"></ion-icon>
+    </ion-fab-button>
+   <!-- <ion-fab-list side="top">
+      <ion-fab-button [color]="isTracking ? 'primary' : 'light' " (click)="locTrack()" >
+        <ion-icon name="locate"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="light">
+        <ion-icon name="map"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="light">
+        <ion-icon name="map"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list> -->
+  </ion-fab>
+
+
+</ion-content>
+<!--<link rel="stylesheet" href="assets/leaflet/L.Control.BetterScale.css" />
+  <script src="assets/leaflet/L.Control.BetterScale.js"></script> -->

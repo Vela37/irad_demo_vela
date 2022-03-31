@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar color="primary" *ngIf="user.role!='35'">
+    <ion-title class='txtalign' *ngIf="user.office_id=='PTW'">
+      Create  DMTO 
+    </ion-title>
+    <ion-title class='txtalign' *ngIf="user.office_id!='PTW'">
+      Create RTO 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary" *ngIf="user.role=='35'">
+    <ion-title class='txtalign'>
+      Create  Unit Office 
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.stationuser_creation.name' | translate:params }}</ion-label>
+          <ion-input [(ngModel)]="rto.name" required="true" max="100"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="this.rtodata==''">
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" *ngIf="user.office_id=='PTW'" >DMTO Code (PTW)   </ion-label>
+          <ion-label position="floating" *ngIf="user.office_id!='PTW'" >RTO Code   </ion-label>
+          <ion-input [(ngModel)]="rto.rto_code" placeholder=" 2 or 3 Digit code" required="true" maxlength="3">{{RTO_Label}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="this.rtodata!=''">
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Unit Office / MTO code</ion-label>
+           <ion-input  [(ngModel)]="rto.uo_code" placeholder=" Unit office code" class="ion-text-uppercase" required="true" maxlength="2"><p value="Readonly" readonly disabled="true"> {{office_code}}</p></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.transport.address' | translate:params }}
+          </ion-label>
+          <ion-input [(ngModel)]="rto.address" required="true" rows="6" cols="20"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    
+    <ion-row *ngIf="message!=null">
+      <ion-col>
+        <ion-text *ngFor="let msg of message; let i = index"> {{msg}}. <br></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-item>  
+      <ion-label>RTO Code</ion-label>  
+      <ion-textarea  placeholder="Enter some notes here..."></ion-textarea>  
+    </ion-item>   -->
+
+    <ion-card>
+      <ion-item>
+        <ion-card-subtitle color="primary" >{{'usermanagement.popup_common.note' | translate:params }} </ion-card-subtitle>
+      </ion-item>
+  
+      <ion-card-content>
+       <ion-grid>
+         <ion-row color="secondary" >
+           <ion-col style="color: 	#808080">{{'usermanagement.popup_common.rto_creation1' | translate:params }} </ion-col>         
+         </ion-row>
+         <ion-row >
+          <ion-col style="color: 	#808080">{{'usermanagement.popup_common.rto_creation2' | translate:params }}</ion-col>         
+        </ion-row>
+       </ion-grid>
+      </ion-card-content>
+      </ion-card>
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary"> 
+          <ion-label (click)="validationCheck()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

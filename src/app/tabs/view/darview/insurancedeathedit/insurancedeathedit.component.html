@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Insurance Death  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Income of the deceased(A)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_income" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Add Future Prospect(B)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_future_prospects" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Less-Personal expenses of the deceased(C) 
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_less_personal_expenses" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Monthly loss of dependency[(A+B)-C=D] 
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_monthly_loss_depedency" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Annual loss of dependency(D*12)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_anual_loss_depedency" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Multiplier(E)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_mulltiplier" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Total loss of dependency(E*12*D=F)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_total_loss_dependency" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Medical Expenses(G)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_medical_expenses" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Compensation for loss of consortium(H)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_loss_consortium" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Compensation for loss for love and affection(I)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_loss_for_love_affection" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Compensation for loss of estate(J)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_loss_estate" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+    <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Compensation toward funeral expenses(K)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_loss_funeral_expenses" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row> 
+   <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Total  Compensation(F+G+H+I+J+K=L)
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insurancedeath.death_total_compensation" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row> 
+  
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"(click)="saveModal()">Save</ion-button>
+     </ion-col>
+   </ion-row>
+
+
+</ion-content>

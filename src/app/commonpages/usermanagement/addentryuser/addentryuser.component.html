@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar color="hospital">
+    <ion-title>Add user</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color='light'>
+<form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>      <ion-grid>
+     
+
+ 
+ 
+<ion-row>    
+  <ion-col>
+  <ion-item>
+    <ion-label  position="floating" class="fcolor">
+      Login ID
+      </ion-label>
+      <ion-input   id="loginid" name="loginid"  
+             #loginidInput="ngModel"
+             [(ngModel)]="loginid" 
+             minlength=2 
+             maxlength=20 
+             required></ion-input>
+     
+    </ion-item> 
+    <div *ngIf="f.submitted && loginidInput.invalid">
+      <p class='errormsg'*ngIf="loginidInput.errors.required">
+        Login ID required
+      </p>
+     
+    </div>
+  </ion-col>
+</ion-row>
+<ion-row>    
+  <ion-col>
+  <ion-item>
+    <ion-label  position="floating" class="fcolor">
+      Email ID
+      </ion-label>
+      <ion-input   id="emailid" name="emailid"  
+             #emailidInput="ngModel"
+             [(ngModel)]="emailid"
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  
+             ></ion-input>
+     
+    </ion-item> 
+    <div *ngIf="f.submitted && emailidInput.invalid">
+     <!--
+      <p class='errormsg'*ngIf="emailidInput.errors.required">
+        Email required
+      </p>
+      -->
+      <p class='errormsg'*ngIf="emailidInput.errors.pattern">
+        This is not a valid Email!!!
+      </p>
+     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>    
+  <ion-col>
+  <ion-item>
+    <ion-label  position="floating" class="fcolor">
+     Mobile Number
+      </ion-label>
+      <ion-input (ionChange)="checkmobile($event)" type='number' id="mobilenr" name="mobilenr"  
+             #mobilenrInput="ngModel"
+             [(ngModel)]="mobilenr" 
+             required></ion-input>
+     
+    </ion-item> 
+    <div *ngIf="f.submitted && mobilenrInput.invalid">
+      <p class='errormsg'*ngIf="mobilenrInput.errors.required">
+        Mobile Number
+      </p>
+     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>    
+  <ion-col>
+  <ion-item>
+    <ion-label  position="floating" class="fcolor">
+     Password
+      </ion-label>
+      <ion-input   id="Password" name="Password"  
+             #PasswordInput="ngModel"
+             [(ngModel)]="Password" 
+             minlength=2 
+             maxlength=15 
+             required></ion-input>
+     
+    </ion-item> 
+    <div *ngIf="f.submitted && PasswordInput.invalid">
+      <p class='errormsg'*ngIf="PasswordInput.errors.required">
+        Password required
+      </p>
+     
+    </div>
+  </ion-col>
+</ion-row>
+
+
+  
+</ion-grid>
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row justify-content-around>
+    
+      <ion-col>
+        <ion-button expand="block"   (click)="closemodal()" color='danger'>
+          <ion-icon name="arrow-back"></ion-icon>
+          &nbsp;&nbsp;&nbsp;CANCEL
+
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block"   color='success' type="submit">
+        
+
+          <ion-icon name="git-pull-request" ></ion-icon>&nbsp;&nbsp;&nbsp;ADD
+
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+</form>
+</ion-content>

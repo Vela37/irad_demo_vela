@@ -1,0 +1,2001 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Documents Uploads </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header class="ion-no-border">
+
+  <ion-title>
+
+    <ion-segment scrollable>
+      <ion-segment-button (click)="viewGeneral()" checked>
+        <ion-label> General
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="viewVehicle()">
+        <ion-label> Vehicle
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="viewPassenger()">
+        <ion-label> Passenger
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="viewPedestrian()">
+        <ion-label> Pedestrian
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-title>
+
+</ion-header>
+
+<ion-content *ngIf="segflag==1">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>FIR </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon style="float: right;" (click)="pickFile(1,1)" type="file" name="document" size='large'
+              class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[1]==1" (click)="uploadingdoc(1,1,'Fir')" color="primary" class="ion-icon"
+              name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[1]==1" name="eye" (click)="viewPdf(1,1)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Site Plan </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,2)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[2]==1" (click)="uploadingdoc(1,2,'Site Plan')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[2]==1" name="eye" (click)="viewPdf(1,2)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photographs of the scene of accident from all angles </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,3)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[3]==1"
+              (click)="uploadingdoc(1,3,'Photographs of the scene of accident from all angles')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[3]==1" name="eye" (click)="viewPdf(1,3)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photographs of all the vehicles involved in the accident from all angles </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,4)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[4]==1"
+              (click)="uploadingdoc(1,4,'Photographs of all the vehicles involved in the accident from all angles')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[4]==1" name="eye" (click)="viewPdf(1,4)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[4]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>CCTV Footage of the accident </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,5)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[5]==1" (click)="uploadingdoc(1,5,'CCTV Footage of the accident')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[5]==1" name="eye" (click)="viewPdf(1,5)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[5]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Report Under Section 173 Cr.P.C </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,6)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[6]==1" (click)="uploadingdoc(1,6,'Report Under Section 173 Cr.P.C')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[6]==1" name="eye" (click)="viewPdf(1,6)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[6]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[6]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Documents from the driver </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,7)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[7]==1" (click)="uploadingdoc(1,7,'Documents from the driver')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[7]==1" name="eye" (click)="viewPdf(1,7)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[7]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[7]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Documents from the owner </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,8)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[8]==1" (click)="uploadingdoc(1,8,'Documents from the owner')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[8]==1" name="eye" (click)="viewPdf(1,8)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[8]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[8]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Documents from the insurance company </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,9)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[9]==1" (click)="uploadingdoc(1,9,'Documents from the insurance company')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[9]==1" name="eye" (click)="viewPdf(1,9)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[9]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[9]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Documents from the claimant's </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,10)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[10]==1" (click)="uploadingdoc(1,10,'Documents from the claimants')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[10]==1" name="eye" (click)="viewPdf(1,10)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[10]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Documents from the registration authorities </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,11)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[11]==1"
+              (click)="uploadingdoc(1,11,'Documents from the registration authorities')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[11]==1" name="eye" (click)="viewPdf(1,11)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[11]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[11]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Documents from the hospital </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(1,12)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[12]==1" (click)="uploadingdoc(1,12,'Documents from the hospital')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadgeneral[12]==1" name="eye" (click)="viewPdf(1,12)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadgeneral[12]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadgeneral[12]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      
+      <!---------------------------------------------------------------------------------------------------->
+
+      <!-- <ion-row>
+      <ion-col size=10>
+        <ion-item class='fcolor'>FIR </ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,1)" type="file"name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[1]==1" (click)="uploadingdoc(1,1,'Fir')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          
+          <ion-spinner *ngIf="uploadgeneral[1]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+          <!-- <img  class="imgpreview" (click)="previewimg(1,0)" [src]="restingPlacePhotos[0]">
+          <img *ngIf="restingPlacePhotos.length >=2" class="imgpreview" (click)="previewimg(1,1)" [src]="restingPlacePhotos[1]">
+          <img *ngIf="restingPlacePhotos.length >=3" class="imgpreview" (click)="previewimg(1,2)" [src]="restingPlacePhotos[2]"> 
+          
+          <ion-spinner *ngIf="photos_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row> 
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'> Site Plan</ion-item>
+        <ion-item>
+          <ion-icon (click)="pickFile(1,2)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[2]==1" (click)="uploadingdoc(1,2,'Site Plan')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[2]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+          <!-- <img *ngIf="damageToVehiclePhotos.length >=1" class="imgpreview" (click)="selectImage(2,0)" [src]="damageToVehiclePhotos[0]">
+          <img *ngIf="damageToVehiclePhotos.length >=2" class="imgpreview" (click)="selectImage(2,1)" [src]="damageToVehiclePhotos[1]">
+          <img *ngIf="damageToVehiclePhotos.length >=3" class="imgpreview" (click)="selectImage(2,2)" [src]="damageToVehiclePhotos[2]">
+
+          <ion-icon *ngIf="photos_us[2]==5" (click)="uploadingpic(2)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[2]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'> Photographs of the scene of accident from all angles </ion-item>
+        <ion-item>
+          <ion-icon (click)="pickFile(1,3)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[3]==1" (click)="uploadingdoc(1,3,'Photographs of the scene of accident from all angles')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[3]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+          <!-- <img *ngIf="damageToPropertyPhotos.length >=1" class="imgpreview" (click)="selectImage(11,0)" [src]="damageToPropertyPhotos[0]">
+          <img *ngIf="damageToPropertyPhotos.length >=2" class="imgpreview" (click)="selectImage(11,1)" [src]="damageToPropertyPhotos[1]">
+          <img *ngIf="damageToPropertyPhotos.length >=3" class="imgpreview" (click)="selectImage(11,2)" [src]="damageToPropertyPhotos[2]">
+
+          <ion-icon *ngIf="photos_us[11]==5" (click)="uploadingpic(11)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[11]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[11]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'> Photographs of all the vehicles involved in the accident from all angles </ion-item>
+        <ion-item>
+          <ion-icon (click)="pickFile(1,4)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[4]==1" (click)="uploadingdoc(1,4,'Photographs of all the vehicles involved in the accident from all angles')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[4]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[4]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+          <!-- <img *ngIf="obstructionOfObjectsPhotos.length >=1" class="imgpreview" (click)="selectImage(3,0)" [src]="obstructionOfObjectsPhotos[0]">
+          <img *ngIf="obstructionOfObjectsPhotos.length >=2" class="imgpreview" (click)="selectImage(3,1)" [src]="obstructionOfObjectsPhotos[1]">
+          <img *ngIf="obstructionOfObjectsPhotos.length >=3" class="imgpreview" (click)="selectImage(3,2)" [src]="obstructionOfObjectsPhotos[2]">
+
+          <ion-icon *ngIf="photos_us[3]==5" (click)="uploadingpic(3)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[3]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        <ion-item class='fcolor'>CCTV Footage of the accident</ion-item>
+        <ion-item>
+          <ion-icon (click)="pickFile(1,5)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[5]==1" (click)="uploadingdoc(1,5,'CCTV Footage of the accident')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[5]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[5]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+         
+          <!-- <img *ngIf="junctionTypePhotos.length >=1" class="imgpreview" (click)="selectImage(4,0)" [src]="junctionTypePhotos[0]">
+          <img *ngIf="junctionTypePhotos.length >=2" class="imgpreview" (click)="selectImage(4,1)" [src]="junctionTypePhotos[1]">
+          <img *ngIf="junctionTypePhotos.length >=3" class="imgpreview" (click)="selectImage(4,2)" [src]="junctionTypePhotos[2]">
+          <ion-icon *ngIf="photos_us[4]==5" (click)="uploadingpic(4)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[4]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[4]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'>Report Under Section 173 Cr.P.C</ion-item>
+        <ion-item>
+          <ion-icon (click)="pickFile(1,6)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[6]==1" (click)="uploadingdoc(1,6,'Report Under Section 173 Cr.P.C')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[6]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[6]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="roadSurfacePhotos.length >=1" class="imgpreview" (click)="selectImage(5,0)" [src]="roadSurfacePhotos[0]">
+          <img *ngIf="roadSurfacePhotos.length >=2" class="imgpreview" (click)="selectImage(5,1)" [src]="roadSurfacePhotos[1]">
+          <img *ngIf="roadSurfacePhotos.length >=3" class="imgpreview" (click)="selectImage(5,2)" [src]="roadSurfacePhotos[2]">
+          <ion-icon *ngIf="photos_us[5]==5" (click)="uploadingpic(5)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[5]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[5]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'>
+          Documents from the driver</ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,7)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[7]==1" (click)="uploadingdoc(1,7,'Documents from the driver')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[7]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[7]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="skidMarksPhotos.length >=1" class="imgpreview" (click)="selectImage(6,0)" [src]="skidMarksPhotos[0]">
+          <img *ngIf="skidMarksPhotos.length >=2" class="imgpreview" (click)="selectImage(6,1)" [src]="skidMarksPhotos[1]">
+          <img *ngIf="skidMarksPhotos.length >=3" class="imgpreview" (click)="selectImage(6,2)" [src]="skidMarksPhotos[2]">
+          <ion-icon *ngIf="photos_us[6]==5" (click)="uploadingpic(6)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[6]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[6]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'>
+          Documents from the owner</ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,8)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[8]==1" (click)="uploadingdoc(1,8,'Documents from the owner')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[8]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[8]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="surroundingsPhotos.length >=1" class="imgpreview" (click)="selectImage(7,0)" [src]="surroundingsPhotos[0]">
+          <img *ngIf="surroundingsPhotos.length >=2" class="imgpreview" (click)="selectImage(7,1)" [src]="surroundingsPhotos[1]">
+          <img *ngIf="surroundingsPhotos.length >=3" class="imgpreview" (click)="selectImage(7,2)" [src]="surroundingsPhotos[2]">
+          <ion-icon *ngIf="photos_us[7]==5" (click)="uploadingpic(7)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[7]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[7]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'>
+          Documents from the insurance company</ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,9)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[9]==1" (click)="uploadingdoc(1,9,'Documents from the insurance company')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[9]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[9]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="contributedAccidentPhotos.length >=1" class="imgpreview" (click)="selectImage(8,0)" [src]="contributedAccidentPhotos[0]">
+          <img *ngIf="contributedAccidentPhotos.length >=2" class="imgpreview" (click)="selectImage(8,1)" [src]="contributedAccidentPhotos[1]">
+          <img *ngIf="contributedAccidentPhotos.length >=3" class="imgpreview" (click)="selectImage(8,2)" [src]="contributedAccidentPhotos[2]">
+          <ion-icon *ngIf="photos_us[8]==5" (click)="uploadingpic(8)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[8]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[8]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class='fcolor'>
+          Documents from the claimant's</ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,10)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[10]==1" (click)="uploadingdoc(1,10,'Documents from the claimants')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[10]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[10]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="otherimg1Photos.length >=1" class="imgpreview" (click)="selectImage(9,0)" [src]="otherimg1Photos[0]">
+          <img *ngIf="otherimg1Photos.length >=2" class="imgpreview" (click)="selectImage(9,1)" [src]="otherimg1Photos[1]">
+          <img *ngIf="otherimg1Photos.length >=3" class="imgpreview" (click)="selectImage(9,2)" [src]="otherimg1Photos[2]">
+          <ion-icon *ngIf="photos_us[9]==5" (click)="uploadingpic(9)" color="primary" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="photos_us[9]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[9]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        <ion-item class='fcolor'>
+          Documents from the registration authorities</ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,11)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[11]==1" (click)="uploadingdoc(1,11,'Documents from the registration authorities')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[11]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[11]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+          <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+          <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+          <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+          <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        <ion-item class='fcolor'>
+          Documents from the hospital</ion-item>
+          <ion-item>
+          <ion-icon (click)="pickFile(1,12)" name="document" size='large' class='imgpreview'>
+            <ion-input size='large' type='file' class='fload'></ion-input>
+          </ion-icon>
+          <ion-icon *ngIf="uploadgeneral[12]==1" (click)="uploadingdoc(1,12,'Documents from the hospital')" color="primary" class="ion-icon" name="arrow-up-circle">
+          </ion-icon>
+          <ion-spinner *ngIf="uploadgeneral[12]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="uploadgeneral[12]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+        
+          <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+          <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+          <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+          <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+          <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+          <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+        </ion-item>
+      </ion-col>
+    </ion-row>-->
+
+    </ion-grid>
+
+  </ion-card>
+</ion-content>
+
+
+<ion-content *ngIf="segflag==2">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Registration certificate of vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,1)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[1]==1" (click)="uploadingdoc(2,1,'Registration certificate of vehicle')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[1]==1" name="eye" (click)="viewPdf(2,1)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'> Insurance policy of offending vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,2)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[2]==1" (click)="uploadingdoc(2,2,'Insurance policy of offending vehicle')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[2]==1" name="eye" (click)="viewPdf(2,2)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Permit(for commercial vehicle) </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,3)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[3]==1" (click)="uploadingdoc(2,3,'Permit(for commercial vehicle)')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[3]==1" name="eye" (click)="viewPdf(2,3)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Fitness certificate(for commercial vehicle)</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,4)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[4]==1"
+              (click)="uploadingdoc(2,4,'Fitness certificate(for commercial vehicle)')" color="primary" class="ion-icon"
+              name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[4]==1" name="eye" (click)="viewPdf(2,4)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[4]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Proof of Identification of owner of vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,5)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+
+            <ion-icon *ngIf="uploadvehicle[5]==1"
+              (click)="uploadingdoc(2,5,'Proof of Identification of owner of vehicle')" color="primary" class="ion-icon"
+              name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[5]==1" name="eye" (click)="viewPdf(2,5)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[5]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photograph and specimen signature of the owner's of the involved vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,6)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[6]==1"
+              (click)="uploadingdoc(2,6,'Photograph and specimen signature of the owner of the involved vehicle')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[6]==1" name="eye" (click)="viewPdf(2,6)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[6]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[6]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Driving License</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,7)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[7]==1" (click)="uploadingdoc(2,7,'Driving License')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[7]==1" name="eye" (click)="viewPdf(2,7)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[7]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[7]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Proof of identification </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,8)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+
+            <ion-icon *ngIf="uploadvehicle[8]==1" (click)="uploadingdoc(2,8,'Proof of identification')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[8]==1" name="eye" (click)="viewPdf(2,8)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[8]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[8]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photograph and specimen signature of the driver's of the involved vehicle </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,9)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[9]==1"
+              (click)="uploadingdoc(2,9,'Photograph and specimen signature of the driver of the involved vehicle')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[9]==1" name="eye" (click)="viewPdf(2,9)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[9]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[9]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Proof of employment of driver such as appointment letter,salary slips, duty register
+          </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,10)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[10]==1"
+              (click)="uploadingdoc(2,10,'Proof of employment of driver such as appointment letter & salary slips and duty register')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[10]==1" name="eye" (click)="viewPdf(2,10)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[10]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Legal heir of victim </ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,11)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+
+            <ion-icon *ngIf="uploadvehicle[11]==1" (click)="uploadingdoc(2,11,'Legal heir of victim')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[11]==1" name="eye" (click)="viewPdf(2,11)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[11]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[11]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Post Morterm report</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,12)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[12]==1" (click)="uploadingdoc(2,12,'Post Morterm report')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[12]==1" name="eye" (click)="viewPdf(2,12)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[12]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[12]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Death Certificate</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,13)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[13]==1" (click)="uploadingdoc(2,13,'Death Certificate')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[13]==1" name="eye" (click)="viewPdf(2,13)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[13]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[13]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,14)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[14]==1"
+              (click)="uploadingdoc(2,14,'Photographs and proof of identity of the deceased')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[14]==1" name="eye" (click)="viewPdf(2,14)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[14]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[14]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,15)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[15]==1" (click)="uploadingdoc(2,15,'Medico Legal case')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[15]==1" name="eye" (click)="viewPdf(2,15)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[15]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[15]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Multi angle photographs of the injured</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,16)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[16]==1" (click)="uploadingdoc(2,16,'Multi angle photographs of the injured')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[16]==1" name="eye" (click)="viewPdf(2,16)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadvehicle[16]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadvehicle[16]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!------------------------------------------------------------------------------------->
+
+      <!-- <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Registration certificate of vehicle</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,1)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[1]==1" (click)="uploadingdoc(2,1,'Registration certificate of vehicle')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+           
+            <!-- <img  class="imgpreview" (click)="previewimg(1,0)" [src]="restingPlacePhotos[0]">
+            <img *ngIf="restingPlacePhotos.length >=2" class="imgpreview" (click)="previewimg(1,1)" [src]="restingPlacePhotos[1]">
+            <img *ngIf="restingPlacePhotos.length >=3" class="imgpreview" (click)="previewimg(1,2)" [src]="restingPlacePhotos[2]"> 
+            <ion-icon *ngIf="photos_us[1]==5" (click)="uploadingpic(1)" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+   
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> Insurance policy of offending vehicle</ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,2)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[2]==1" (click)="uploadingdoc(2,2,'Insurance policy of offending vehicle')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="damageToVehiclePhotos.length >=1" class="imgpreview" (click)="selectImage(2,0)" [src]="damageToVehiclePhotos[0]">
+            <img *ngIf="damageToVehiclePhotos.length >=2" class="imgpreview" (click)="selectImage(2,1)" [src]="damageToVehiclePhotos[1]">
+            <img *ngIf="damageToVehiclePhotos.length >=3" class="imgpreview" (click)="selectImage(2,2)" [src]="damageToVehiclePhotos[2]">
+  
+            <ion-icon *ngIf="photos_us[2]==5" (click)="uploadingpic(2)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[2]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+  
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> Permit(for commercial vehicle) </ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,3)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[3]==1" (click)="uploadingdoc(2,3,'Permit(for commercial vehicle)')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="damageToPropertyPhotos.length >=1" class="imgpreview" (click)="selectImage(11,0)" [src]="damageToPropertyPhotos[0]">
+            <img *ngIf="damageToPropertyPhotos.length >=2" class="imgpreview" (click)="selectImage(11,1)" [src]="damageToPropertyPhotos[1]">
+            <img *ngIf="damageToPropertyPhotos.length >=3" class="imgpreview" (click)="selectImage(11,2)" [src]="damageToPropertyPhotos[2]">
+  
+            <ion-icon *ngIf="photos_us[11]==5" (click)="uploadingpic(11)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[11]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[11]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+  
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Fitness certificate(for commercial vehicle) </ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,4)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[4]==1" (click)="uploadingdoc(2,4,'Fitness certificate(for commercial vehicle)')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="obstructionOfObjectsPhotos.length >=1" class="imgpreview" (click)="selectImage(3,0)" [src]="obstructionOfObjectsPhotos[0]">
+            <img *ngIf="obstructionOfObjectsPhotos.length >=2" class="imgpreview" (click)="selectImage(3,1)" [src]="obstructionOfObjectsPhotos[1]">
+            <img *ngIf="obstructionOfObjectsPhotos.length >=3" class="imgpreview" (click)="selectImage(3,2)" [src]="obstructionOfObjectsPhotos[2]">
+  
+            <ion-icon *ngIf="photos_us[3]==5" (click)="uploadingpic(3)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[3]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+  
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>Proof of Identification of owner of vehicle</ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,5)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            
+            <ion-icon *ngIf="uploadvehicle[5]==1" (click)="uploadingdoc(2,5,'Proof of Identification of owner of vehicle')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="junctionTypePhotos.length >=1" class="imgpreview" (click)="selectImage(4,0)" [src]="junctionTypePhotos[0]">
+            <img *ngIf="junctionTypePhotos.length >=2" class="imgpreview" (click)="selectImage(4,1)" [src]="junctionTypePhotos[1]">
+            <img *ngIf="junctionTypePhotos.length >=3" class="imgpreview" (click)="selectImage(4,2)" [src]="junctionTypePhotos[2]">
+            <ion-icon *ngIf="photos_us[4]==5" (click)="uploadingpic(4)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[4]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Photograph and specimen signature of the owner's of the involved vehicle</ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(2,6)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[6]==1" (click)="uploadingdoc(2,6,'Photograph and specimen signature of the owner of the involved vehicle')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="roadSurfacePhotos.length >=1" class="imgpreview" (click)="selectImage(5,0)" [src]="roadSurfacePhotos[0]">
+            <img *ngIf="roadSurfacePhotos.length >=2" class="imgpreview" (click)="selectImage(5,1)" [src]="roadSurfacePhotos[1]">
+            <img *ngIf="roadSurfacePhotos.length >=3" class="imgpreview" (click)="selectImage(5,2)" [src]="roadSurfacePhotos[2]">
+            <ion-icon *ngIf="photos_us[5]==5" (click)="uploadingpic(5)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[5]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            Driving License</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,7)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[7]==1" (click)="uploadingdoc(2,7,'Driving License')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="skidMarksPhotos.length >=1" class="imgpreview" (click)="selectImage(6,0)" [src]="skidMarksPhotos[0]">
+            <img *ngIf="skidMarksPhotos.length >=2" class="imgpreview" (click)="selectImage(6,1)" [src]="skidMarksPhotos[1]">
+            <img *ngIf="skidMarksPhotos.length >=3" class="imgpreview" (click)="selectImage(6,2)" [src]="skidMarksPhotos[2]">
+            <ion-icon *ngIf="photos_us[6]==5" (click)="uploadingpic(6)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[6]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[6]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            Proof of identification</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,8)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            
+            <ion-icon *ngIf="uploadvehicle[8]==1" (click)="uploadingdoc(2,8,'Proof of identification')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="surroundingsPhotos.length >=1" class="imgpreview" (click)="selectImage(7,0)" [src]="surroundingsPhotos[0]">
+            <img *ngIf="surroundingsPhotos.length >=2" class="imgpreview" (click)="selectImage(7,1)" [src]="surroundingsPhotos[1]">
+            <img *ngIf="surroundingsPhotos.length >=3" class="imgpreview" (click)="selectImage(7,2)" [src]="surroundingsPhotos[2]">
+            <ion-icon *ngIf="photos_us[7]==5" (click)="uploadingpic(7)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[7]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[7]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            Photograph and specimen signature of the driver's of the involved vehicle</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,9)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[9]==1" (click)="uploadingdoc(2,9,'Photograph and specimen signature of the driver of the involved vehicle')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="contributedAccidentPhotos.length >=1" class="imgpreview" (click)="selectImage(8,0)" [src]="contributedAccidentPhotos[0]">
+            <img *ngIf="contributedAccidentPhotos.length >=2" class="imgpreview" (click)="selectImage(8,1)" [src]="contributedAccidentPhotos[1]">
+            <img *ngIf="contributedAccidentPhotos.length >=3" class="imgpreview" (click)="selectImage(8,2)" [src]="contributedAccidentPhotos[2]">
+            <ion-icon *ngIf="photos_us[8]==5" (click)="uploadingpic(8)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[8]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[8]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            Proof of employment of driver such as appointment letter,salary slips, duty register</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,10)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[10]==1" (click)="uploadingdoc(2,10,'Proof of employment of driver such as appointment letter & salary slips and duty register')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg1Photos.length >=1" class="imgpreview" (click)="selectImage(9,0)" [src]="otherimg1Photos[0]">
+            <img *ngIf="otherimg1Photos.length >=2" class="imgpreview" (click)="selectImage(9,1)" [src]="otherimg1Photos[1]">
+            <img *ngIf="otherimg1Photos.length >=3" class="imgpreview" (click)="selectImage(9,2)" [src]="otherimg1Photos[2]">
+            <ion-icon *ngIf="photos_us[9]==5" (click)="uploadingpic(9)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[9]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[9]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>
+            Legal heir of victim</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,11)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            
+            <ion-icon *ngIf="uploadvehicle[11]==1" (click)="uploadingdoc(2,11,'Legal heir of victim')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+            <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+            <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+            <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>
+            Post Morterm report</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,12)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[12]==1" (click)="uploadingdoc(2,12,'Post Morterm report')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+            <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+            <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+            <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>
+            Death Certificate</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,13)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[13]==1" (click)="uploadingdoc(2,13,'Death Certificate')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+            <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+            <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+            <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>
+            Photographs and proof of identity of the deceased</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,14)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[14]==1" (click)="uploadingdoc(2,14,'Photographs and proof of identity of the deceased')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+            <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+            <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+            <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>
+            Medico Legal case</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,15)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[15]==1" (click)="uploadingdoc(2,15,'Medico Legal case')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+            <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+            <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+            <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>
+            Multi angle photographs of the injured</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(2,16)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadvehicle[16]==1" (click)="uploadingdoc(2,16,'Multi angle photographs of the injured')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="otherimg2Photos.length >=1" class="imgpreview" (click)="selectImage(10,0)" [src]="otherimg2Photos[0]">
+            <img *ngIf="otherimg2Photos.length >=2" class="imgpreview" (click)="selectImage(10,1)" [src]="otherimg2Photos[1]">
+            <img *ngIf="otherimg2Photos.length >=3" class="imgpreview" (click)="selectImage(10,2)" [src]="otherimg2Photos[2]">
+            <ion-icon *ngIf="photos_us[10]==5" (click)="uploadingpic(10)" color="primary" name="arrow-up-circle">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>-->
+
+
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>
+
+
+<ion-content *ngIf="segflag==3">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Legal heir of victim</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,1)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[1]==1" (click)="uploadingdoc(3,1,'Legal heir of victim')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[1]==1" name="eye" (click)="viewPdf(3,1)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpassenger[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpassenger[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Post Morterm report</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,2)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[2]==1" (click)="uploadingdoc(3,2,'Post Morterm report')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[2]==1" name="eye" (click)="viewPdf(3,2)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpassenger[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpassenger[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Death Certificate</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,3)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[3]==1" (click)="uploadingdoc(3,3,'Death Certificate')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[3]==1" name="eye" (click)="viewPdf(3,3)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpassenger[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpassenger[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,4)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[4]==1"
+              (click)="uploadingdoc(3,4,'Photographs and proof of identity of the deceased')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[4]==1" name="eye" (click)="viewPdf(3,4)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpassenger[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpassenger[4]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,5)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[5]==1" (click)="uploadingdoc(3,5,'Medico Legal case')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[5]==1" name="eye" (click)="viewPdf(3,5)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpassenger[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpassenger[5]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Multi angle photographsof the injured</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,6)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[6]==1" (click)="uploadingdoc(3,6,'Multi angle photographsof the injured')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[6]==1" name="eye" (click)="viewPdf(3,6)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpassenger[6]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpassenger[6]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!---------------------------------------------------------------------------------->
+
+      <!-- <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Legal heir of victim</ion-item>
+            <ion-item>
+            <ion-icon (click)="pickFile(3,1)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[1]==1" (click)="uploadingdoc(3,1,'Legal heir of victim')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+           
+            <!-- <img  class="imgpreview" (click)="previewimg(1,0)" [src]="restingPlacePhotos[0]">
+            <img *ngIf="restingPlacePhotos.length >=2" class="imgpreview" (click)="previewimg(1,1)" [src]="restingPlacePhotos[1]">
+            <img *ngIf="restingPlacePhotos.length >=3" class="imgpreview" (click)="previewimg(1,2)" [src]="restingPlacePhotos[2]"> 
+            <ion-icon *ngIf="photos_us[1]==5" (click)="uploadingpic(1)" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+   
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> Post Morterm report</ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,2)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[2]==1" (click)="uploadingdoc(3,2,'Post Morterm report')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="damageToVehiclePhotos.length >=1" class="imgpreview" (click)="selectImage(2,0)" [src]="damageToVehiclePhotos[0]">
+            <img *ngIf="damageToVehiclePhotos.length >=2" class="imgpreview" (click)="selectImage(2,1)" [src]="damageToVehiclePhotos[1]">
+            <img *ngIf="damageToVehiclePhotos.length >=3" class="imgpreview" (click)="selectImage(2,2)" [src]="damageToVehiclePhotos[2]">
+  
+            <ion-icon *ngIf="photos_us[2]==5" (click)="uploadingpic(2)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[2]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+  
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Death Certificate </ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,3)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[3]==1" (click)="uploadingdoc(3,3,'Death Certificate')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="damageToPropertyPhotos.length >=1" class="imgpreview" (click)="selectImage(11,0)" [src]="damageToPropertyPhotos[0]">
+            <img *ngIf="damageToPropertyPhotos.length >=2" class="imgpreview" (click)="selectImage(11,1)" [src]="damageToPropertyPhotos[1]">
+            <img *ngIf="damageToPropertyPhotos.length >=3" class="imgpreview" (click)="selectImage(11,2)" [src]="damageToPropertyPhotos[2]">
+  
+            <ion-icon *ngIf="photos_us[11]==5" (click)="uploadingpic(11)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[11]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[11]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+  
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased </ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,4)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[4]==1" (click)="uploadingdoc(3,4,'Photographs and proof of identity of the deceased')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="obstructionOfObjectsPhotos.length >=1" class="imgpreview" (click)="selectImage(3,0)" [src]="obstructionOfObjectsPhotos[0]">
+            <img *ngIf="obstructionOfObjectsPhotos.length >=2" class="imgpreview" (click)="selectImage(3,1)" [src]="obstructionOfObjectsPhotos[1]">
+            <img *ngIf="obstructionOfObjectsPhotos.length >=3" class="imgpreview" (click)="selectImage(3,2)" [src]="obstructionOfObjectsPhotos[2]">
+  
+            <ion-icon *ngIf="photos_us[3]==5" (click)="uploadingpic(3)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[3]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+  
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,5)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[5]==1" (click)="uploadingdoc(3,5,'Medico Legal case')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="junctionTypePhotos.length >=1" class="imgpreview" (click)="selectImage(4,0)" [src]="junctionTypePhotos[0]">
+            <img *ngIf="junctionTypePhotos.length >=2" class="imgpreview" (click)="selectImage(4,1)" [src]="junctionTypePhotos[1]">
+            <img *ngIf="junctionTypePhotos.length >=3" class="imgpreview" (click)="selectImage(4,2)" [src]="junctionTypePhotos[2]">
+            <ion-icon *ngIf="photos_us[4]==5" (click)="uploadingpic(4)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[4]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+  
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>Multi angle photographsof the injured</ion-item>
+          <ion-item>
+            <ion-icon (click)="pickFile(3,6)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpassenger[6]==1" (click)="uploadingdoc(3,6,'Multi angle photographsof the injured')" color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <!-- <img *ngIf="roadSurfacePhotos.length >=1" class="imgpreview" (click)="selectImage(5,0)" [src]="roadSurfacePhotos[0]">
+            <img *ngIf="roadSurfacePhotos.length >=2" class="imgpreview" (click)="selectImage(5,1)" [src]="roadSurfacePhotos[1]">
+            <img *ngIf="roadSurfacePhotos.length >=3" class="imgpreview" (click)="selectImage(5,2)" [src]="roadSurfacePhotos[2]">
+            <ion-icon *ngIf="photos_us[5]==5" (click)="uploadingpic(5)" color="primary" name="arrow-up-circle">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[5]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+          </ion-item>
+        </ion-col>
+      </ion-row>-->
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>
+
+<ion-content *ngIf="segflag==4">
+  <ion-card class='bgcolor1'>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Legal heir of victim</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(4,1)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[1]==1" (click)="uploadingdoc(4,1,'Legal heir of victim')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[1]==1" name="eye" (click)="viewPdf(4,1)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpedestrian[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpedestrian[1]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Post Morterm report</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(4,2)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[2]==1" (click)="uploadingdoc(4,2,'Post Morterm report')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[2]==1" name="eye" (click)="viewPdf(4,2)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpedestrian[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpedestrian[2]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Death Certificate</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(4,3)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[3]==1" (click)="uploadingdoc(4,3,'Death Certificate')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[3]==1" name="eye" (click)="viewPdf(4,3)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpedestrian[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpedestrian[3]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Photographs and proof of identity of the deceased</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(4,4)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[4]==1"
+              (click)="uploadingdoc(4,4,'Photographs and proof of identity of the deceased')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[4]==1" name="eye" (click)="viewPdf(4,4)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpedestrian[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpedestrian[4]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Medico Legal case</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(4,5)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[5]==1" (click)="uploadingdoc(4,5,'Medico Legal case')" color="primary"
+              class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[5]==1" name="eye" (click)="viewPdf(4,5)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpedestrian[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpedestrian[5]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size=8>
+          <ion-item class='fcolor'>Multi angle photographsof the injured</ion-item>
+
+        </ion-col>
+        <ion-col size=4>
+          <ion-icon style="float: right;">
+            Sample
+          </ion-icon>
+          <ion-item>
+            <ion-icon (click)="pickFile(4,6)" name="document" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[6]==1" (click)="uploadingdoc(4,6,'Multi angle photographsof the injured')"
+              color="primary" class="ion-icon" name="arrow-up-circle">
+            </ion-icon>
+            <ion-icon *ngIf="uploadpedestrian[6]==1" name="eye" (click)="viewPdf(4,6)" style='text-align: center;' class='ion-icon'></ion-icon>
+
+            <ion-spinner *ngIf="uploadpedestrian[6]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="uploadpedestrian[6]==3" color="primary" name="checkmark-done-circle"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!----------------------------------------------------------------------------->
+
+      <!--<ion-row>
+          <ion-col>
+            <ion-item class='fcolor'>Legal heir of victim</ion-item>
+              <ion-item>
+              <ion-icon (click)="pickFile(4,1)" name="document" size='large' class='imgpreview'>
+                <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+              </ion-icon>
+              <ion-icon *ngIf="uploadpassenger[1]==1" (click)="uploadingdoc(4,1,'Legal heir of victim')" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+             
+              <!-- <img  class="imgpreview" (click)="previewimg(1,0)" [src]="restingPlacePhotos[0]">
+              <img *ngIf="restingPlacePhotos.length >=2" class="imgpreview" (click)="previewimg(1,1)" [src]="restingPlacePhotos[1]">
+              <img *ngIf="restingPlacePhotos.length >=3" class="imgpreview" (click)="previewimg(1,2)" [src]="restingPlacePhotos[2]"> 
+              <ion-icon *ngIf="photos_us[1]==5" (click)="uploadingpic(1)" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+              <ion-spinner *ngIf="photos_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="photos_us[1]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row>
+          <ion-col>
+            <ion-item class='fcolor'> Post Morterm report</ion-item>
+            <ion-item>
+              <ion-icon (click)="pickFile(4,2)" name="document" size='large' class='imgpreview'>
+                <ion-input size='large' type='file' class='fload'></ion-input>
+              </ion-icon>
+              <ion-icon *ngIf="uploadpassenger[2]==1" (click)="uploadingdoc(4,2,'Post Morterm report')" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+              <!-- <img *ngIf="damageToVehiclePhotos.length >=1" class="imgpreview" (click)="selectImage(2,0)" [src]="damageToVehiclePhotos[0]">
+              <img *ngIf="damageToVehiclePhotos.length >=2" class="imgpreview" (click)="selectImage(2,1)" [src]="damageToVehiclePhotos[1]">
+              <img *ngIf="damageToVehiclePhotos.length >=3" class="imgpreview" (click)="selectImage(2,2)" [src]="damageToVehiclePhotos[2]">
+    
+              <ion-icon *ngIf="photos_us[2]==5" (click)="uploadingpic(2)" color="primary" name="arrow-up-circle">
+              </ion-icon>
+              <ion-spinner *ngIf="photos_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="photos_us[2]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+    
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row>
+          <ion-col>
+            <ion-item class='fcolor'>Death Certificate </ion-item>
+            <ion-item>
+              <ion-icon (click)="pickFile(4,3)" name="document" size='large' class='imgpreview'>
+                <ion-input size='large' type='file' class='fload'></ion-input>
+              </ion-icon>
+              <ion-icon *ngIf="uploadpassenger[3]==1" (click)="uploadingdoc(4,3,'Death Certificate')" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+              <!-- <img *ngIf="damageToPropertyPhotos.length >=1" class="imgpreview" (click)="selectImage(11,0)" [src]="damageToPropertyPhotos[0]">
+              <img *ngIf="damageToPropertyPhotos.length >=2" class="imgpreview" (click)="selectImage(11,1)" [src]="damageToPropertyPhotos[1]">
+              <img *ngIf="damageToPropertyPhotos.length >=3" class="imgpreview" (click)="selectImage(11,2)" [src]="damageToPropertyPhotos[2]">
+    
+              <ion-icon *ngIf="photos_us[11]==5" (click)="uploadingpic(11)" color="primary" name="arrow-up-circle">
+              </ion-icon>
+              <ion-spinner *ngIf="photos_us[11]==2" color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="photos_us[11]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+    
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    
+    
+    
+        <ion-row>
+          <ion-col>
+            <ion-item class='fcolor'>Photographs and proof of identity of the deceased </ion-item>
+            <ion-item>
+              <ion-icon (click)="pickFile(4,4)" name="document" size='large' class='imgpreview'>
+                <ion-input size='large' type='file' class='fload'></ion-input>
+              </ion-icon>
+              <ion-icon *ngIf="uploadpassenger[4]==1" (click)="uploadingdoc(4,4,'Photographs and proof of identity of the deceased')" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+              <!-- <img *ngIf="obstructionOfObjectsPhotos.length >=1" class="imgpreview" (click)="selectImage(3,0)" [src]="obstructionOfObjectsPhotos[0]">
+              <img *ngIf="obstructionOfObjectsPhotos.length >=2" class="imgpreview" (click)="selectImage(3,1)" [src]="obstructionOfObjectsPhotos[1]">
+              <img *ngIf="obstructionOfObjectsPhotos.length >=3" class="imgpreview" (click)="selectImage(3,2)" [src]="obstructionOfObjectsPhotos[2]">
+    
+              <ion-icon *ngIf="photos_us[3]==5" (click)="uploadingpic(3)" color="primary" name="arrow-up-circle">
+              </ion-icon>
+              <ion-spinner *ngIf="photos_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="photos_us[3]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+    
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row >
+          <ion-col>
+            <ion-item class='fcolor'>Medico Legal case</ion-item>
+            <ion-item>
+              <ion-icon (click)="pickFile(4,5)" name="document" size='large' class='imgpreview'>
+                <ion-input size='large' type='file' class='fload'></ion-input>
+              </ion-icon>
+              <ion-icon *ngIf="uploadpassenger[5]==1" (click)="uploadingdoc(4,5,'Medico Legal case')" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+              <!-- <img *ngIf="junctionTypePhotos.length >=1" class="imgpreview" (click)="selectImage(4,0)" [src]="junctionTypePhotos[0]">
+              <img *ngIf="junctionTypePhotos.length >=2" class="imgpreview" (click)="selectImage(4,1)" [src]="junctionTypePhotos[1]">
+              <img *ngIf="junctionTypePhotos.length >=3" class="imgpreview" (click)="selectImage(4,2)" [src]="junctionTypePhotos[2]">
+              <ion-icon *ngIf="photos_us[4]==5" (click)="uploadingpic(4)" color="primary" name="arrow-up-circle">
+              </ion-icon>
+              <ion-spinner *ngIf="photos_us[4]==2" color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="photos_us[4]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    
+    
+        <ion-row>
+          <ion-col>
+            <ion-item class='fcolor'>Multi angle photographsof the injured</ion-item>
+            <ion-item>
+              <ion-icon (click)="pickFile(4,6)" name="document" size='large' class='imgpreview'>
+                <ion-input size='large' type='file' class='fload'></ion-input>
+              </ion-icon>
+              <ion-icon *ngIf="uploadpassenger[6]==1" (click)="uploadingdoc(4,6,'Multi angle photographsof the injured')" color="primary" class="ion-icon" name="arrow-up-circle">
+              </ion-icon>
+              <!-- <img *ngIf="roadSurfacePhotos.length >=1" class="imgpreview" (click)="selectImage(5,0)" [src]="roadSurfacePhotos[0]">
+              <img *ngIf="roadSurfacePhotos.length >=2" class="imgpreview" (click)="selectImage(5,1)" [src]="roadSurfacePhotos[1]">
+              <img *ngIf="roadSurfacePhotos.length >=3" class="imgpreview" (click)="selectImage(5,2)" [src]="roadSurfacePhotos[2]">
+              <ion-icon *ngIf="photos_us[5]==5" (click)="uploadingpic(5)" color="primary" name="arrow-up-circle">
+              </ion-icon>
+              <ion-spinner *ngIf="photos_us[5]==2" color="secondary" name="circles"> </ion-spinner>
+              <ion-icon *ngIf="photos_us[5]==3" color="primary" name="checkmark-done-circle"></ion-icon> 
+            </ion-item>
+          </ion-col>
+        </ion-row>-->
+    </ion-grid>
+  </ion-card>
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <!-- <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+</ion-footer>

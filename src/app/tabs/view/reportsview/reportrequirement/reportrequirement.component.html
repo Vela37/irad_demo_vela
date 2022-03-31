@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Report Requirements</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+ 
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-skeleton-text animated style="width: 100%" [hidden]="!vehiclecombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%" [hidden]="!vehiclecombo"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%" [hidden]="!vehiclecombo"></ion-skeleton-text>
+      <ion-item [hidden]="vehiclecombo">
+        <ion-label position="floating" class='fcolor'>Vehicle No
+          <ion-icon name="star" class='mandatory'></ion-icon>
+        </ion-label>
+        <ion-select [(ngModel)]='vehno.vehlist' interface="alert" (ionChange)="getDriverDetails($event)">
+          <ion-select-option *ngFor="let item of accidentData" [value]="item" > {{item.vehicle_reg_no}}
+          </ion-select-option>
+
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+ 
+
+  <!-- <ion-row *ngIf="flagId!='1'">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          Types
+        </ion-label>
+        <ion-select 
+        (ionChange)="getParticularDetails($event)" placeholder="Select One" cancelText="Cancel" interface="alert">
+          <ion-select-option value="1">Passenger</ion-select-option>
+          <ion-select-option value="2">Pedestrian</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="mode_name!=''">
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="floating">
+          {{this.mode_name}}
+        </ion-label>
+        <ion-select [(ngModel)]='details.details_ref_id' interface="alert" (ionChange)="setDetails($event)">
+          <ion-select-option *ngFor="let p of pass; let j = index" value={{p}}> {{p.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row> -->
+
+  
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label>Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="goToReport()"> &nbsp; Submit &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-footer>

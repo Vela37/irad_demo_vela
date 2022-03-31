@@ -1,0 +1,13 @@
+
+<ion-content color='medium'>
+  <div style='text-align: center;margin-top: 10px;'>
+    <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event)" *ngIf="showflag=='1'"></ion-input>
+      <ion-spinner name="lines" *ngIf="showflag=='0'" style='text-align: center;margin-top: 10px;' size='large'></ion-spinner>
+  
+    </div>
+  </ion-content>
+  
+  
+  
+  
+  

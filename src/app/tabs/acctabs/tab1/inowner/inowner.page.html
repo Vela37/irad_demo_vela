@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>Back</ion-back-button>
+    </ion-buttons>
+      <ion-title>Vehicle Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="ingeneralform"  (ngSubmit)="addinvestigation()" novalidate> 
+    <ion-grid> 
+       
+      <ion-row>
+        <ion-col>
+            <ion-item> 
+                <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.permitspeed'|translate:params}}
+                    </ion-label>
+                    <ion-select formControlName="vehicle_id">
+                        <ion-select-option value="Oriented">speed list 1</ion-select-option>
+                        <ion-select-option value="Disoriented">speed list 2</ion-select-option>
+                     </ion-select>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+              <ion-item> 
+                  <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.estimatedspeed'|translate:params}}
+        
+                      </ion-label>
+                      <ion-select formControlName="vehicle_id">
+                          <ion-select-option value="Oriented">speed list 1</ion-select-option>
+                          <ion-select-option value="Disoriented">speed list 2</ion-select-option>
+                       </ion-select>
+              </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+              <ion-item> 
+                  <ion-label  class='fcolor ion-text-wrap'>direction of vehicle <span style='color:red;'>Colliosn nature</span>
+        
+        
+                      </ion-label>
+                      <ion-button>
+                          Show
+                      </ion-button>
+                  
+
+              </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+              <ion-item> 
+                  <ion-label  class='fcolor ion-text-wrap'>Direction  of movement 
+                      </ion-label>
+                      <ion-select formControlName="vehicle_id">
+                          <ion-select-option value="Oriented">North</ion-select-option>
+                          <ion-select-option value="Disoriented">East</ion-select-option>
+                          <ion-select-option value="Disoriented">South</ion-select-option>
+                          <ion-select-option value="Disoriented">West</ion-select-option>
+                       </ion-select>
+                  
+
+              </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+              
+              <ion-item>     
+                  <ion-label   class='fcolor ion-text-wrap'>{{'smallinvest.driverfled'|translate:params}}</ion-label>
+                  <ion-toggle   (click)="addValue()" checked="true"></ion-toggle>    
+          </ion-item>
+          </ion-col>
+
+          <ion-col>
+              
+              <ion-item>     
+                  <ion-input type='file' formControlName="driver_id"></ion-input>
+          </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+              
+              <ion-item>     
+                  <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.ownerreportedinsurance'|translate:params}}
+                    </ion-label>
+                  <ion-toggle   (click)="addValue()" checked="true"></ion-toggle>    
+          </ion-item>
+          </ion-col>
+
+          <ion-col>
+              
+              <ion-item>     
+                  <ion-datetime  formControlName='vehicle_id' MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+
+          </ion-item>
+          </ion-col>
+ 
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+      <ion-item>     
+          <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.dischargedduties'|translate:params}}
+            </ion-label>
+          <ion-toggle   (click)="addValue()"></ion-toggle>    
+  </ion-item>
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+    <ion-col>
+        <ion-item>     
+            <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.dischargeddutieson'|translate:params}}
+              </ion-label>
+              <ion-datetime  formControlName='vehicle_id' MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+
+    </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+        <ion-item> 
+            <ion-label position="floating" class='fcolor ion-text-wrap'>{{'smallinvest.uninsuredvehicle'|translate:params}}</ion-label>
+            <ion-select formControlName="vehicle_id">
+                <ion-select-option value="YES">YES</ion-select-option>
+                <ion-select-option value="NO">NO</ion-select-option>  
+                <ion-select-option value="NO">Not  Applicable</ion-select-option>  
+             </ion-select>  
+        </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+        <ion-item> 
+            <ion-label position="floating" class='fcolor ion-text-wrap'>{{'smallinvest.ownerpaidvictim'|translate:params}}    
+              </ion-label>
+             
+              <ion-input  formControlName="driver_id"></ion-input>
+
+        </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+        <ion-item> 
+            <ion-label position="floating" class='fcolor ion-text-wrap'> {{'smallinvest.drivenby'|translate:params}}
+  
+                </ion-label>
+                <ion-select formControlName="vehicle_id">
+                    <ion-select-option value="YES">Owner</ion-select-option>
+                    <ion-select-option value="NO">Paid  Driver</ion-select-option>  
+                    <ion-select-option value="NO">Other (Specify)</ion-select-option>  
+                    
+                 </ion-select>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+        <ion-item>     
+            <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.section133'|translate:params}}
+              </ion-label>
+            <ion-toggle   (click)="addValue()"></ion-toggle>    
+    </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col>
+          <ion-item>     
+              <ion-label  class='fcolor ion-text-wrap'>{{'smallinvest.section187'|translate:params}}
+                </ion-label>
+              <ion-toggle   (click)="addValue()"></ion-toggle>    
+      </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-item>     
+              <ion-label  class='fcolor ion-text-wrap'> {{'smallinvest.drivenbyknowledge'|translate:params}}
+                </ion-label>
+              <ion-toggle   (click)="addValue()" checked="true"></ion-toggle>    
+      </ion-item>
+      </ion-col>
+    </ion-row>
+
+                            </ion-grid> 
+                          </form>
+
+    
+</ion-content>

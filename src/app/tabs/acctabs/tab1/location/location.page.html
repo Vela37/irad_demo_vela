@@ -1,0 +1,427 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/acctabs/tab2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{ 'acctab1.accdetails' | translate:params }}
+    </ion-title>
+  
+    <!-- <ion-buttons   slot="end">
+      <ion-button  (click)="goonline()"[hidden]='offlineflag' fill='outline'>Offline</ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class='ion-no-padding'>
+
+
+
+
+  <ion-grid class='ion-no-padding'>
+
+    <ion-row *ngIf="false">
+      <ion-col>
+        <ion-item>
+          
+          <ion-label class='fcolor3'>{{'acctab1.loc.officename' | translate:params}}:&nbsp;</ion-label>
+          <ion-label class='fcolor2'>{{ officename }}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="false">
+      <ion-col>
+        <ion-item>
+          <ion-label class="ion-text-wrap fcolor" position="floating">{{ 'acctab1.loc.accdt' | translate:params }}
+          </ion-label>
+          <ion-datetime   [(ngModel)]="datetime" [value]='accdatetime' displayFormat="D MMM YYYY hh:mm:A" [min]="mindate"
+            [max]="maxdate"  pickerFormat="" display-timezone="utc" required></ion-datetime> <!--(ionChange)="updateMyDate($event)" -->
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="false" >
+      <ion-col>
+        <ion-item>
+          <ion-label class="ion-text-wrap fcolor" position="floating">{{ 'acctab1.loc.repdt' | translate:params }}
+          </ion-label>
+          <ion-datetime  [(ngModel)]="repdatetime" [value]='repdatetime' displayFormat="D MMM YYYY hh:mm:A" [min]="datetime"
+            [max]="maxdate"  pickerFormat="" display-timezone="utc" required></ion-datetime> <!--(ionChange)="updateMyDate($event)" -->
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+  <!--  <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="ion-text-wrap fcolor" position="floating">{{ 'acctab1.loc.accdt' | translate:params }}  </ion-label>
+
+        <table><tr>
+          <td><ion-input placeholder='Accident Date' value=""  name="date" type="date" [(ngModel)]='accdate' format="dd-mmm-yyyy" [min]="mindate" [max]="maxdate" required></ion-input></td>
+         <td>&nbsp;&nbsp;&nbsp;</td>
+          <td><ion-input name="time" type="time"   [(ngModel)]="acctime"  required></ion-input></td>
+
+        </tr></table>
+          
+          
+        </ion-item>
+
+      </ion-col>
+    </ion-row> -->
+
+
+    <ion-row >
+      <ion-col  size="12"> 
+        <ion-item>
+          <ion-label class='ion-text-wrap fcolor'>{{'acctab1.loc.accdt' | translate:params }}  </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item size="6">
+          <ion-input (ionChange)="accDateChange($event)" placeholder='Accident Date'  class="dtinput" name="date" type="date" [(ngModel)]='accdate' format="dd/MM/yyyy" [min]="mindate" [max]="maxdate" required>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+   
+      <ion-col>
+        <ion-item size="6">
+          <ion-input (ionChange)="accTimeChange()" class="dtinput" name="time" type="time" [min]="mintime" [max]="maxtime"  [(ngModel)]="acctime"  required></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col  size="12"> 
+        <ion-item>
+          <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.reporting' | translate:params }}  {{ 'acctab1.loc.date' | translate:params }} & {{ 'acctab1.loc.time' | translate:params }}</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input class="dtinput" placeholder='Reporting Date' value=""  name="rdate" type="date" [(ngModel)]='repdate' format="dd/MM/yyyy" [min]="accdate" [max]="maxdate" required></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input  class="dtinput" name="time" type="time" (ionChange)="checkReportingDate()"  [(ngModel)]="reptime"  required></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+     
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item *ngIf="!disable_btn">
+           <ion-label class='fcolor' position="floating">{{'acctab1.location' | translate:params}}</ion-label> 
+         
+         <!-- <ion-icon name="location-outline" (click)="pickLoc()" color="primary" slot="start"></ion-icon> -->
+          <ion-input maxlength="100" (ionFocus)="pickLoc()" [disabled]="locdisable" [value]='accloc' readonly ></ion-input>
+          <ion-icon name="location-outline" slot="end" ></ion-icon>
+
+        </ion-item>
+
+        <ion-item *ngIf="disable_btn">
+          <ion-label class='fcolor' position="floating">{{'acctab1.location' | translate:params}}</ion-label> 
+        
+        <!-- <ion-icon name="location-outline" (click)="pickLoc()" color="primary" slot="start"></ion-icon> -->
+         <ion-input maxlength="100" (click)="getCurrentGPSCoordinates()" [disabled]="locdisable" [value]='accloc' readonly ></ion-input>
+       </ion-item>
+
+      </ion-col>
+    </ion-row>
+    
+
+    <form [formGroup]="loginform" >
+    <!--  <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'>{{ 'acctab1.loc.location' | translate:params }}</ion-label>
+
+
+            <ion-chip shape="round" fill="outline" color='danger' routerLink="./map">
+              <ion-icon name="pin"></ion-icon>
+              <ion-label>{{ 'acctab1.loc.pickloc' | translate:params }}</ion-label>
+            </ion-chip>
+          </ion-item>
+
+        </ion-col>
+      </ion-row> -->
+<ion-row *ngIf="roaddisp">
+  <ion-col>
+    <ion-item>
+          <ion-input maxlength="500" formControlName='roaddetails' style='display:none' type='hidden'>
+      </ion-input>
+      <span style='color:rgb(128, 2, 245);'><span style='color:#023961;'> {{ 'acctab1.loc.title' | translate:params }}:</span>
+      {{roaddisp}}</span>
+    </ion-item>
+
+  </ion-col>
+</ion-row>
+      <ion-row *ngIf='ps_boundary && ps_boundary.name!=""'>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor' position="floating">{{ 'acctab1.loc.psjurd' | translate:params }}<span
+                class='hintmsg'>(From Map)</span></ion-label>
+            <ion-input maxlength="50" formControlName='policejur'>
+            </ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf='poi'>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor' position="floating">{{'acctab1.acc.poi' | translate:params}}<span
+                class='hintmsg'>(From Map)</span></ion-label>
+
+            <ion-select multiple="true" cancelText="cancel" okText="OK" formControlName='poi'
+              interface="action-sheet">
+
+              <ion-select-option *ngFor="let p of poi" [value]=p.name+p.distance>
+                {{p.name | titlecase}} in {{ p.distance}}
+              </ion-select-option>
+
+            </ion-select>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor' position="floating">{{'acctab1.acc.landmarkname' | translate:params}}</ion-label>
+            <ion-input maxlength="50" formControlName='lname'>
+            </ion-input>
+          </ion-item>
+          <p class='errormsg' *ngIf="isSubmitted && errorControl.lname.errors?.required">
+              {{'errmsg.flnadmark' | translate:params}} 
+          </p>
+          
+          
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor'  position="floating">{{'acctab1.acc.severity' | translate:params }}</ion-label>
+            <ion-select class="ion-text-wrap"  (ionChange)="getSeverity($event)" formControlName='mod_severity'  interface="alert">
+                <ion-select-option   *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option> 
+            </ion-select>
+          </ion-item>
+          <p class='errormsg' *ngIf="isSubmitted && errorControl.mod_severity.errors?.required">
+              {{'errmsg.vdseverity' | translate:params}}           </p>
+              <p class='errormsg' [hidden]="fatalflag">
+                {{'errmsg.fatalwarning' | translate:params}}               </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='ion-text-wrap fcolor' position="floating">{{'acctab1.acc.vehicle1' | translate:params}}
+            </ion-label>
+
+            <ion-select formControlName='vehiclecnt' (ionChange)="vehicleInputChange($event,vehicleInput)">
+              <ion-select-option *ngFor="let val of vehicleInput; let i = index" [value]="i+1">
+                {{i+1}}
+              </ion-select-option>
+              <ion-select-option value="more">more</ion-select-option>
+              
+            </ion-select>
+          </ion-item>
+          <p class='errormsg' *ngIf="isSubmitted && errorControl.vehiclecnt.errors?.required">
+              {{'errmsg.fnoofvehile' | translate:params}} 
+          </p>
+          
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col>
+
+
+
+        </ion-col>
+        <ion-col>
+          <ion-item class="txtalign">
+            <ion-label class='ion-text-wrap fcolor'>  {{ 'acctab1.loc.injured' | translate:params }}</ion-label>
+
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="txtalign">
+            <ion-label class='ion-text-wrap fcolor'> {{ 'acctab1.loc.died' | translate:params }} </ion-label>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+
+            <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.driver' | translate:params }} </ion-label>
+
+
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          
+            <ion-select formControlName='driver_injured' [disabled]="countinj" >
+              <ion-select-option *ngFor="let i of numberInputDriver" [value]="i">
+                {{i}}
+              </ion-select-option>
+
+            </ion-select>
+          
+        </ion-col>
+        <ion-col>
+         
+            <ion-select formControlName='driver_dead'  [disabled]="countdead" >
+              <ion-select-option  *ngFor="let i of numberInputDriver" [value]="i">
+                {{i}} 
+              </ion-select-option>
+            </ion-select>
+          
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+
+            <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.passenger' | translate:params }}</ion-label>
+
+
+          </ion-item>
+        </ion-col>
+        <ion-col>
+        
+            <ion-select [disabled]="countinj" formControlName='pass_injured' >
+              <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                {{i}}
+              </ion-select-option>
+            </ion-select>
+          
+        </ion-col>
+        <ion-col>
+         
+            <ion-select formControlName='pass_dead' [disabled]="countdead" >
+              <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                {{i}}
+              </ion-select-option>
+            </ion-select>
+          
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+
+            <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.pedestrian' | translate:params }} </ion-label>
+
+
+          </ion-item>
+        </ion-col>
+        <ion-col>
+         
+            <ion-select [disabled]="countinj" formControlName='ped_injured' >
+              <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                {{i}}
+              </ion-select-option>
+            </ion-select>
+        
+        </ion-col>
+        <ion-col>
+        
+            <ion-select formControlName='ped_dead' [disabled]="countdead" interface="alert">
+              <ion-select-option disabled>
+                select
+              </ion-select-option>
+              <ion-select-option *ngFor="let i of numberinput" [value]="i" class='ion-text-wrap'>
+                {{i}}
+              </ion-select-option>
+            </ion-select>
+         
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+
+            <!-- <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.animal' | translate:params }} </ion-label> -->
+            <ion-label class='ion-text-wrap fcolor'>{{ 'acctab1.loc.animal' | translate:params }} </ion-label>
+
+
+          </ion-item>
+        </ion-col>
+        <ion-col>
+         
+            <ion-select formControlName='animal_injured' >
+              <ion-select-option *ngFor="let i of numberinput" [value]="i">
+                {{i}}
+              </ion-select-option>
+            </ion-select>
+        
+        </ion-col>
+        <ion-col>
+        
+            <ion-select formControlName='animal_dead' interface="alert">
+              <ion-select-option disabled>
+                select
+              </ion-select-option>
+              <ion-select-option *ngFor="let i of numberinput" [value]="i" class='ion-text-wrap'>
+                {{i}}
+              </ion-select-option>
+            </ion-select>
+         
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col> 
+          <ion-button type="button" *ngIf="!isLoading" shape="round" fill="outline" color='danger'
+            (click)="resetaccident()" expand="block">{{'commonlinks.reset' | translate:params}}</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="button" *ngIf="!isLoading" shape="round" fill="outline" color='success'
+            (click)="addaccident()" expand="block"> {{'commonlinks.save' | translate:params}} </ion-button>
+
+          <ion-button *ngIf="isLoading" shape="round" fill="outline" color='success' expand="block">
+            <ion-spinner name="circles"> </ion-spinner>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+
+
+    </form>
+
+  </ion-grid>
+
+<style>
+  .dtinput{
+    background-color: #f0f5ff;
+    border-radius: 5px;
+    color: #023961;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+  }
+</style>
+
+</ion-content>

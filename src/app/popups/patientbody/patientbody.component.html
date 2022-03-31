@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>General Condtion's</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+         
+    <ion-col>
+              <ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+                Systolic BP 
+              </ion-label>
+            <ion-input [(ngModel)]="systalicbp"></ion-input>
+              </ion-item>
+</ion-col>
+<ion-col>
+  <ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+    Diastolic BP
+  </ion-label>
+<ion-input [(ngModel)]="dialisticbp"></ion-input>
+  </ion-item>
+</ion-col>
+</ion-row>
+
+<ion-row>
+         
+  <ion-col>
+            <ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+              Pulse/Heart Rate
+            </ion-label>
+          <ion-input [(ngModel)]="pulseheartrate"></ion-input>
+            </ion-item>
+</ion-col>
+<ion-col>
+<ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+  Respiratory Rate
+</ion-label>
+<ion-input [(ngModel)]="respiraterate"></ion-input>
+</ion-item>
+</ion-col>
+</ion-row>
+
+<ion-row>
+         
+  <ion-col>
+            <ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+              SPO2
+            </ion-label>
+          <ion-input [(ngModel)]="spo2"></ion-input>
+            </ion-item>
+</ion-col>
+<ion-col>
+<ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+  Temperature
+</ion-label>
+<ion-input [(ngModel)]="temperature"></ion-input>
+</ion-item>
+</ion-col>
+</ion-row>
+
+
+<ion-row>
+<ion-col>
+
+</ion-col>
+<ion-col>
+<ion-button color="success" shape="round" (click)="closemodal()">OK</ion-button>
+</ion-col>
+</ion-row>
+</ion-content>

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Road Details
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor2' position="floating">Division </ion-label>
+
+        <ion-select interface="alert" (ionChange)=onDivisionChange() [(ngModel)]="roadsel.division">
+
+          <ion-select-option   *ngFor="let d of divisionOptions; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option> 
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor2' position="floating">Sub Division </ion-label>
+  
+          <ion-select interface="alert" [(ngModel)]="roadsel.sub_division">
+  
+            <ion-select-option   *ngFor="let d of sub_divisionOptions; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option> 
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      </ion-row>
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

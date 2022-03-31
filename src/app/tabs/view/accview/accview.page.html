@@ -1,0 +1,3072 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'accview.title' | translate:params }}</ion-title>
+
+      </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refPending($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngIf="data && showfirinput">
+    <ion-item>
+      <ion-label style="color: darkslategray">
+        <strong>{{'app.accidentid' | translate:params}} : {{data.accident_id}}
+        </strong>
+      </ion-label>
+    </ion-item>
+    <ion-card-content>
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+        <ion-item>
+          <ion-label color="primary">FIR/CSR Number : </ion-label>
+          <ion-input #firinput required type="number" maxlength="4" placeholder="Enter FIR/CSR Number"
+            [(ngModel)]="firnumber"></ion-input>
+        </ion-item>
+
+        <ion-item style="float: right; border: 0px">
+          <ion-button style="width: 100px" type="button" *ngIf="!isLoading" shape="round" fill="outline" color="success"
+            (click)="updateFir()" expand="block">SAVE</ion-button>
+
+          <ion-button style="width: 100px" *ngIf="isLoading" shape="round" fill="outline" color="success"
+            expand="block">
+            <ion-spinner name="circles"> </ion-spinner>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card *ngIf="data">
+    <ion-item class="severity{{data.severity}}">
+      <ion-label style="color: darkslategray">
+        <strong>FIR</strong>
+      </ion-label>
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <ion-note class="pointer" slot="end" color="primary" *ngIf="user.dept=='1' && (user.role=='4')"
+        (click)="firEditdetails()">
+        Edit
+      </ion-note>
+
+      <ion-note class="pointer" slot="end" color="primary" *ngIf="user.dept=='1' && (user.role=='4')"   (click)="updateCCTNSdata()">      CCTNS    </ion-note>
+
+    </ion-item>
+    <ion-card-content *ngIf="false" > <!-- *ngIf="(data.fir_number==null || data.fir_number=='') && user.role=='4'"  -->
+      <ion-grid>
+        <ion-row>
+            <ion-col >
+              <ion-button color='medium'  (click)="firEditdetails()" expand="block">Add FIR </ion-button>
+          </ion-col>
+          </ion-row>
+          </ion-grid>
+    </ion-card-content>
+    <ion-card-content > <!-- *ngIf="!(data.fir_number==null || data.fir_number=='')" -->
+      <ion-grid style="color: darkslategray">
+
+        <ion-row>
+          <ion-col> FIR/CSR Number </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.fir_number|uppercase}} &nbsp; &nbsp; -->
+            <ion-col  *ngIf="data.fir_number"> {{data.fir_number|uppercase}} </ion-col>
+            <ion-col *ngIf="!data.fir_number"> NA </ion-col>
+          <!-- </ion-col> -->
+        </ion-row>
+
+        <ion-row>
+          <ion-col> Act </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.act|uppercase}} &nbsp; &nbsp;
+
+          </ion-col> -->
+          <ion-col  *ngIf="data.act"> {{data.act}} </ion-col>
+            <ion-col *ngIf="!data.act"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> Section </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.section|uppercase}} &nbsp; &nbsp;
+          </ion-col> -->
+          <ion-col  *ngIf="data.section"> {{data.section}} </ion-col>
+            <ion-col *ngIf="!data.section"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> FIR Date Time </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.section|uppercase}} &nbsp; &nbsp;
+          </ion-col> -->
+          <ion-col  *ngIf="data.firdatetime"> {{data.firdatetime}} </ion-col>
+            <ion-col *ngIf="!data.firdatetime"> NA </ion-col>
+        </ion-row>
+        
+
+        <ion-row>
+          <ion-col> Investigating Officer </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col (click)="viewProfile(data.io_user)">  {{data.io_user}} &nbsp; &nbsp;
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Field Officer </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col *ngIf='changefoflag==0'> <span  (click)="viewProfile(data.fo_user)" > {{data.fo_user}} &nbsp; &nbsp; </span>   
+
+          <span class="pointer" *ngIf="user.dept=='1' && (user.role=='4')"  (click)="changeFOUser()"> <ion-icon name="create-outline"></ion-icon></span> 
+        </ion-col>
+        <ion-col  *ngIf='changefoflag==1'>
+          <ion-label position="floating" class='fcolor' > FO Users</ion-label>
+          <ion-select class="ion-text-wrap" [(ngModel)]="fouser" interface="alert" >
+            <ion-select-option *ngFor="let u of fousers; let i = index" value="{{u.username}}">
+              {{u.username }} - {{ u.name}}
+            </ion-select-option>
+          </ion-select>
+          <span style="cursor: pointer;" class="pointer" *ngIf="user.dept=='1' && (user.role=='4')"  (click)="updateFOUser()">OK</span> 
+        </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="data">
+    <ion-item class="severity{{data.severity}}">
+      <ion-label style="color: darkslategray">
+        <strong>{{'acctab1.accdetails' | translate:params}}</strong>
+      </ion-label>
+      <!-- <ion-note slot="end" class="severity{{data.severity}}"> {{data.severity_desc}}</ion-note> -->
+      <ion-note class="pointer" slot="end" color="primary" *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)"
+        (click)="geninfoEdit()">Edit</ion-note>
+    </ion-item>
+    <ion-card-content>
+      <ion-grid style="color: darkslategray">
+
+        <ion-row>
+          <ion-col> {{'app.accidentid' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col>
+            <h2><strong>{{data.accident_id}} </strong></h2>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{ 'acctab1.loc.accdt' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{data.datetime}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{ 'acctab1.loc.reporting' | translate:params }} {{
+            'acctab1.loc.date' | translate:params }} & {{ 'acctab1.loc.time' |
+            translate:params }}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{data.repdatetime}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> {{ 'acctab1.loc.location' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col (click)="viewLocation(0)">
+            <ion-label style="display: block">
+              Lat : {{ data.latitude | slice:0:9}} Long: {{ data.longitude |
+              slice:0:9 }}
+              <img style="width: 40px; height: 35px" src="assets/icon/map-location.png" />
+            </ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{'acctab1.acc.landmarkname' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.landmarks}} </ion-col> -->
+          <ion-col  *ngIf="data.landmarks"> {{data.landmarks}} </ion-col>
+            <ion-col *ngIf="!data.landmarks"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Location Details </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.road_details}} </ion-col> -->
+          <ion-col  *ngIf="data.road_details"> {{data.road_details}} </ion-col>
+          <ion-col *ngIf="!data.road_details"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{'acctab1.acc.severity' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.severity_desc}} </ion-col> -->
+          <ion-col *ngIf="data.severity_desc"> {{data.severity_desc}} </ion-col>
+              <ion-col *ngIf="!data.severity_desc"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{'acctab1.acc.vehicle' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.vehicles_count}} </ion-col> -->
+          <ion-col  *ngIf="data.vehicles_count"> {{data.vehicles_count}} </ion-col>
+          <ion-col *ngIf="!data.vehicles_count"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{ 'acctab1.loc.passenger' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.passenger_count}} </ion-col> -->
+          <ion-col  *ngIf="data.passenger_count"> {{data.passenger_count}} </ion-col>
+          <ion-col *ngIf="!data.passenger_count"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{ 'acctab1.loc.pedestrian' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.pedestrian_count}} </ion-col> -->
+          <ion-col  *ngIf="data.pedestrian_count"> {{data.pedestrian_count}} </ion-col>
+          <ion-col *ngIf="!data.pedestrian_count"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{ 'acctab1.loc.died' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.total_dead}} </ion-col> -->
+          <ion-col  *ngIf="data.total_dead"> {{data.total_dead}} </ion-col>
+          <ion-col *ngIf="!data.total_dead"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{ 'acctab1.loc.injured' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.total_injured}} </ion-col> -->
+          <ion-col  *ngIf="data.total_injured"> {{data.total_injured}} </ion-col>
+          <ion-col *ngIf="!data.total_injured"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{ 'acctab1.loc.animal' | translate:params }} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col>
+            <span *ngIf="data.animal_inj">
+              {{data.animal_inj}} {{ 'acctab1.loc.injured' | translate:params
+              }},</span>
+            <span *ngIf="data.animal_dead">
+              {{data.animal_dead}} {{ 'acctab1.loc.died' | translate:params }}
+            </span>
+          </ion-col>
+        </ion-row>
+
+        
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.Road.road_classification' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.roadclass}} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.roadclass"> {{data.accinfo.roadclass}} </ion-col>
+          <ion-col *ngIf="!data.accinfo.roadclass"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.Road.road_name' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.road_name}} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.road_name"> {{data.accinfo.road_name}} </ion-col>
+          <ion-col *ngIf="!accinfo.road_name"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="accinfo">
+          <ion-col> {{'acctab1.acc.localbody' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.localbody_desc }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.localbody_desc"> {{data.accinfo.localbody_desc}} </ion-col>
+          <ion-col *ngIf="!data.accinfo.localbody_desc"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="accinfo">
+          <ion-col>
+            {{'acctab1.acc.collision_type' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.collisiontype }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.collisiontype"> {{data.accinfo.collisiontype}} </ion-col>
+            <ion-col *ngIf="!data.accinfo.collisiontype"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="accinfo">
+          <ion-col>
+            {{'acctab1.acc.collision_nature' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.collisionnature }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.collisionnature"> {{data.accinfo.collisionnature}} </ion-col>
+            <ion-col *ngIf="!data.accinfo.collisionnature"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="accinfo">
+          <ion-col>
+            {{'acctab1.acc.initial_observation' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.observation }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.observation"> {{data.accinfo.observation}} </ion-col>
+            <ion-col *ngIf="!data.accinfo.observation"> NA </ion-col>
+        </ion-row>
+        <ion-row *ngIf="accinfo">
+          <ion-col>
+            {{'acctab1.acc.Road.weathercnt' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.weather_desc }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.weather_desc"> {{data.accinfo.weather_desc}} </ion-col>
+            <ion-col *ngIf="!data.accinfo.weather_desc"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="accinfo">
+          <ion-col>
+            {{'acctab1.acc.Road.lightcondtion' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.lightcondition }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.lightcondition"> {{data.accinfo.lightcondition}} </ion-col>
+            <ion-col *ngIf="!data.accinfo.lightcondition"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="accinfo">
+          <ion-col>
+            {{'acctab1.acc.Road.accidentspot' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{data.accinfo.accspot }} </ion-col> -->
+          <ion-col  *ngIf="data.accinfo.accspot"> {{data.accinfo.accspot}} </ion-col>
+          <ion-col *ngIf="!data.accinfo.accspot"> NA </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="data.accinfo.visibilty">
+          <ion-col>
+            {{'acctab1.acc.Road.visibility' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{data.accinfo.visibilty }} Meters</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card *ngIf="false">
+    <ion-item>
+      <ion-label style="color: rgb(3, 148, 148)">
+        <strong>{{'acctab1.firdetails' | translate:params}} </strong>
+      </ion-label>
+      <!-- <ion-note slot="end" *ngIf="env && env != -1"> <a (click)="env=null">{{'Hide'}}</a></ion-note>  *ngIf="user.dept=='3' && (user.role=='80')" -->
+      <ion-note class="pointer" slot="end" color="primary" *ngIf="user.dept=='3' && (user.role=='75')"
+        (click)="firinfoEdit()">Reload</ion-note>
+    </ion-item>
+    <ion-card-content class="alignme-center pointer" *ngIf="!firs" (click)="showDetails('firinfo')">
+      Show Details
+    </ion-card-content>
+    <ion-card-content class="alignme-center pointer" *ngIf="firs  && firs==-1">
+      Data Not Found !
+    </ion-card-content>
+    <ion-card-content *ngIf="firs && firs != -1">
+      <ion-grid style="color: darkslategray">
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_name' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{firs.road_name}} </ion-col> -->
+          <ion-col  *ngIf="firs.road_name"> {{firs.road_name}} </ion-col>
+            <ion-col *ngIf="!firs.road_name"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.roadtype' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{firs.get_roadtype}} </ion-col> -->
+          <ion-col  *ngIf="firs.get_roadtype"> {{firs.get_roadtype}} </ion-col>
+            <ion-col *ngIf="!firs.get_roadtype"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> {{'acctab1.acc.Road.roadno' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{firs.road_number}} </ion-col> -->
+          <ion-col  *ngIf="firs.road_number"> {{firs.road_number}} </ion-col>
+          <ion-col *ngIf="!firs.road_number"> NA </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label style="color: tomato">
+        <strong>
+          {{'acctab1.vehicle' | translate:params}} / {{'acctab1.driver' |
+          translate:params}} / {{'acctab1.passenger' | translate:params}}
+          {{'app.details' | translate:params}}</strong>
+      </ion-label>
+      &nbsp;&nbsp;&nbsp; <ion-note slot="end" color="danger"> {{data.vehicle_entered}} / {{data.vehicles_count}} </ion-note>
+    </ion-item>
+
+    <ion-card-content class="alignme-center pointer" *ngIf="!vehicle" (click)="showDetails('vehicle')">
+      Show Details
+    </ion-card-content>
+    <ion-card-content class="alignme-center pointer" *ngIf="vehicle && vehicle.length==0">
+      Data Not Found !
+    </ion-card-content>
+
+    <ion-card-content *ngIf="vehicle && vehicle.length!=0">
+      <ion-segment color="danger" scrollable value="0">
+        <ion-segment-button layout="icon-end" *ngFor="let veh of vehicle; let i = index " (click)="shveh(i)">
+          <!-- <ion-icon name="call"></ion-icon> -->
+          <ion-label><strong>{{i+1}}. {{veh.vehicle_reg_no}} </strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <span *ngFor="let veh of vehicle; let i = index ">
+        <ion-grid style="color: darkslategray" *ngIf="seg==i">
+          <ion-row>
+            <ion-col size="1"><strong>{{i+1}}.</strong></ion-col>
+            <ion-col size="11" *ngIf="veh.accused_victim==''" style='color: black;font-weight: bold;'>
+              <h2 class="alignme-center">
+                <strong>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}} :
+                  <span style="text-transform: uppercase">
+                    {{veh.vehicle_reg_no}}
+                  </span>
+                </strong>
+                &nbsp;&nbsp;&nbsp; <ion-note class="pointer" slot="end" color="primary"
+                *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)" (click)="vehicleinfoedit(i)">
+                  Edit</ion-note>
+              </h2>
+            </ion-col>
+
+            <ion-col size="11" *ngIf="veh.accused_victim=='Accused'" style='color: red;font-weight: bold;'>
+              <h2 class="alignme-center">
+                <strong>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}} :
+                  <span style="text-transform: uppercase">
+                    {{veh.vehicle_reg_no}}
+                  </span>
+                </strong>
+                &nbsp;&nbsp;&nbsp;<ion-note class="pointer" slot="end" color="primary"
+                *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)" (click)="vehicleinfoedit(i)">
+                  Edit</ion-note>
+              </h2>
+            </ion-col>
+            
+            <ion-col size="11" *ngIf="veh.accused_victim=='Victim'" style='color:darkcyan;font-weight: bold;'>
+              <h2 class="alignme-center">
+                <strong>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}} :
+                  <span style="text-transform: uppercase">
+                    {{veh.vehicle_reg_no}}
+                  </span>
+                </strong>
+                &nbsp;&nbsp;&nbsp;  <ion-note class="pointer" slot="end" color="primary"
+                *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)" (click)="vehicleinfoedit(i)">
+                  Edit</ion-note>
+              </h2>
+            </ion-col>
+
+                
+            <ion-col size="11" *ngIf="veh.accused_victim=='Not Known'" style='color: black;font-weight: bold;'>
+              <h2 class="alignme-center">
+                <strong>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}} :
+                  <span style="text-transform: uppercase">
+                    {{veh.vehicle_reg_no}}
+                  </span>
+                </strong>
+                <ion-note class="pointer" slot="end" color="primary"
+                *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)" (click)="vehicleinfoedit(i)">
+                  Edit</ion-note>
+              </h2>
+            </ion-col>
+            
+          </ion-row>
+
+          <ion-row >
+            <ion-col style='font-weight: bold;'>
+              {{'acctab1.acc.veh.accusedvictim' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.accused_victim}} </ion-col> -->
+            <ion-col *ngIf="veh.accused_victim"> {{veh.accused_victim}} </ion-col>
+            <ion-col *ngIf="!veh.accused_victim"> NA </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col >
+              {{'acctab1.acc.veh.previously_involved_accidents_count' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.habitualbehicle!='1'"> {{veh.habitualbehicle}} </ion-col>
+            <ion-col *ngIf="veh.habitualbehicle=='1'"> 0 </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vehiclecategory' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col>
+              <span *ngIf="veh.vehiclecategory==1">  {{'commonlinks.motorisedfuel' | translate:params}}   </span>
+              <span *ngIf="veh.vehiclecategory==0">  {{'commonlinks.nonmotorised' | translate:params}}</span>
+              <span *ngIf="veh.vehiclecategory==2">  {{'commonlinks.motorisedelectric' | translate:params}}</span>
+            </ion-col>
+          </ion-row>
+         
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.regnstatus' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.get_regstatus}} </ion-col> -->
+            <ion-col *ngIf="veh.get_regstatus"> {{veh.get_regstatus}} </ion-col>
+            <ion-col *ngIf="!veh.get_regstatus"> NA </ion-col>
+          </ion-row>
+
+         
+
+          <ion-row *ngIf='veh.regnstatus==1'>
+            <ion-col>
+              {{'acctab1.acc.veh.registration_date' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.registration_date"> {{veh.registration_date}} </ion-col>
+            <ion-col *ngIf="!veh.registration_date"> NA </ion-col>
+          </ion-row>
+
+         
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.hitandrun' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="veh.hitandrun|titlecase"> {{veh.hitandrun|titlecase}} </ion-col>
+            <ion-col *ngIf="!veh.hitandrun"> NA </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.disposition' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.disposition}} </ion-col> -->
+            <ion-col  *ngIf="veh.disposition"> {{veh.disposition}} </ion-col>
+              <ion-col *ngIf="!veh.disposition"> NA </ion-col>
+          </ion-row>
+
+
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.manouvere' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.get_manoeuvre}} </ion-col> -->
+            <ion-col  *ngIf="veh.get_manoeuvre"> {{veh.get_manoeuvre}} </ion-col>
+              <ion-col *ngIf="!veh.get_manoeuvre"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.vdamages' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.get_vehicledamage}} </ion-col> -->
+            <ion-col  *ngIf="veh.get_vehicledamage"> {{veh.get_vehicledamage}} </ion-col>
+              <ion-col *ngIf="!veh.get_vehicledamage"> NA </ion-col>
+          </ion-row>
+
+
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.veh.owner_name' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.service_ownername|titlecase}} </ion-col> -->
+              <ion-col *ngIf="veh.service_ownername"> {{veh.service_ownername|titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.service_ownername"> NA </ion-col>
+            </ion-row>
+  
+            <ion-row>
+              <ion-col>{{'acctab1.acc.veh.owner_father_name' | translate:params}} </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.rc_f_name}} </ion-col> -->
+              <ion-col *ngIf="veh.rc_f_name"> {{veh.rc_f_name}} </ion-col>
+            <ion-col *ngIf="!veh.rc_f_name"> NA </ion-col>
+            </ion-row>
+  
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.owneraddr' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.owneraddr"> {{veh.owneraddr}} </ion-col>
+            <ion-col *ngIf="!veh.owneraddr"> NA </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="veh.vtypes">
+            <ion-col>
+              {{'acctab1.acc.veh.vehicletype' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.vtypes}} </ion-col> -->
+            <ion-col *ngIf="veh.vtypes"> {{veh.vtypes}} </ion-col>
+            <ion-col *ngIf="!veh.vtypes"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.loadcategory' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.loadcategory}}</ion-col> -->
+            <ion-col *ngIf="veh.loadcategory"> {{veh.loadcategory}} </ion-col>
+            <ion-col *ngIf="!veh.loadcategory"> NA </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.loadcondtion' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{veh.load_condtionsview}} </ion-col> -->
+            <ion-col *ngIf="veh.load_condtionsview"> {{veh.load_condtionsview}} </ion-col>
+            <ion-col *ngIf="!veh.load_condtionsview"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col> {{'acctab1.acc.veh.vcolor' | translate:params}} </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.color"> {{veh.color}} </ion-col>
+            <ion-col *ngIf="!veh.color"> NA </ion-col>
+
+          </ion-row>
+         
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.make' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.vehicle_make"> {{veh.vehicle_make}} </ion-col>
+            <ion-col *ngIf="!veh.vehicle_make"> NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.model' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.vehicle_model"> {{veh.vehicle_model}} </ion-col>
+            <ion-col *ngIf="!veh.vehicle_model"> NA </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.engine_num' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.engine_nr"> {{veh.engine_nr}} </ion-col>
+            <ion-col *ngIf="!veh.engine_nr"> NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.chase_num' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.chasis_number"> {{veh.chasis_number}} </ion-col>
+            <ion-col *ngIf="!veh.chasis_number"> NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.vehicle_cls' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.vehicle_class"> {{veh.vehicle_class}} </ion-col>
+            <ion-col *ngIf="!veh.vehicle_class"> NA </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.insurance' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.insurance_details"> {{veh.insurance_details}} </ion-col>
+            <ion-col *ngIf="!veh.insurance_details"> NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.insurancepolicy' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.insurance_policyno"> {{veh.insurance_policyno}} </ion-col>
+            <ion-col *ngIf="!veh.insurance_policyno"> NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{'acctab1.acc.veh.insurancepolicyon' |
+              translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.insurance_validity"> {{veh.insurance_validity}} </ion-col>
+            <ion-col *ngIf="!veh.insurance_validity"> NA </ion-col>
+
+          </ion-row>
+
+         
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vahan_vehicle_category' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_vch_catg"> {{veh.rc_vch_catg}} </ion-col>
+            <ion-col *ngIf="!veh.rc_vch_catg">NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.norms_description' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_norms_desc"> {{veh.rc_norms_desc}} </ion-col>
+            <ion-col *ngIf="!veh.rc_norms_desc"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.puc_certificate_upto' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="veh.rc_pucc_upto"> {{veh.rc_pucc_upto}} </ion-col>
+            <ion-col *ngIf="!veh.rc_pucc_upto">NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col> {{'acctab1.acc.veh.puc_certificate_number' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_pucc_no"> {{veh.rc_pucc_no}} </ion-col>
+            <ion-col *ngIf="!veh.rc_pucc_no"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.fuel_type' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.fuel_type"> {{veh.fuel_type}} </ion-col>
+            <ion-col *ngIf="!veh.fuel_type"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.rc_status_on' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_statuson"> {{veh.rc_statuson}} </ion-col>
+            <ion-col *ngIf="!veh.rc_statuson"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vehicle_laden_weight' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_gvw"> {{veh.rc_gvw}}</ion-col>
+            <ion-col *ngIf="!veh.rc_gvw"> NA</ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vehicle_un_laden_weight' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="veh.rc_unld_wt"> {{veh.rc_unld_wt}} </ion-col>
+            <ion-col  *ngIf="!veh.rc_unld_wt"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.no_of_cylinder' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_no_cyl"> {{veh.rc_no_cyl}} </ion-col>
+            <ion-col *ngIf="!veh.rc_no_cyl"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vehicle_cubic_capacity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_no_cyl"> {{veh.rc_cubic_cap}} </ion-col>
+            <ion-col *ngIf="!veh.rc_cubic_cap"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.seating_capacity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_seat_cap"> {{veh.rc_seat_cap}} </ion-col>
+            <ion-col *ngIf="!veh.rc_seat_cap"> NA </ion-col>
+          </ion-row>
+
+         
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.wheelbase' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_wheelbase"> {{veh.rc_wheelbase}} </ion-col>
+            <ion-col *ngIf="!veh.rc_wheelbase"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.fitness_validity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_fit_upto"> {{veh.rc_fit_upto}} </ion-col>
+            <ion-col *ngIf="!veh.rc_fit_upto"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.tax_validity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_tax_upto"> {{veh.rc_tax_upto}} </ion-col>
+            <ion-col *ngIf="!veh.rc_tax_upto"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.national_permit_no' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_np_no"> {{veh.rc_np_no}} </ion-col>
+            <ion-col *ngIf="!veh.rc_np_no"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.national_permit_validity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_np_upto"> {{veh.rc_np_upto}} </ion-col>
+            <ion-col *ngIf="!veh.rc_np_upto"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.national_permit_issued_by' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_np_issued_by"> {{veh.rc_np_issued_by}} </ion-col>
+            <ion-col *ngIf="!veh.rc_np_issued_by"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.finance_name' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_financer"> {{veh.rc_financer}} </ion-col>
+            <ion-col *ngIf="!veh.rc_financer"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.owner_permanent_address' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_permanent_address"> {{veh.rc_permanent_address}} </ion-col>
+            <ion-col *ngIf="!veh.rc_permanent_address"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.owner_present_address' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_present_address"> {{veh.rc_present_address}} </ion-col>
+            <ion-col *ngIf="!veh.rc_present_address"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vehicle_body_type_description' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="veh.rc_body_type_desc"> {{veh.rc_body_type_desc}} </ion-col>
+            <ion-col *ngIf="!veh.rc_body_type_desc"> NA </ion-col>
+          </ion-row>
+
+          <span *ngIf="veh.driver">
+            <ion-row>
+              <ion-col size="12">
+                <h2 class="alignme-center">
+                  <strong>{{'acctab1.driver' | translate:params}} ({{veh.driver.id}})
+                    <span *ngIf="veh.driver.ser_name" style="text-transform: uppercase">( {{veh.driver.ser_name}} )
+                    </span>
+                  </strong>
+                  <ion-note slot="end" color="primary" *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)"
+                    (click)="driverinfoEdit(i)">Edit</ion-note>
+                </h2>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>{{'acctab1.acc.driver.licensenumber' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col style="text-transform: uppercase" style='color: brown;font-weight: bold;'>
+                {{veh.driver.license_number | uppercase}}
+              </ion-col>
+            </ion-row>
+          
+            <ion-row>
+              <ion-col>{{'acctab1.acc.driver.habitual_offender' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.get_habitualdriver!='1'"> Yes </ion-col>
+            <ion-col *ngIf="veh.driver.get_habitualdriver=='1'"> No </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+              <ion-col>{{'acctab1.acc.driver.previously_involved_accidents' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.get_habitualdriver!='1'"> {{veh.driver.get_habitualdriver}} </ion-col>
+            <ion-col *ngIf="veh.driver.get_habitualdriver=='1'"> 0 </ion-col>
+            </ion-row>
+
+
+            
+            <ion-row>
+              <ion-col>{{'acctab1.acc.driver.driving_license_type' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col >
+                {{veh.driver.getdrivinglicencetype | titlecase}}
+              </ion-col> -->
+              <ion-col *ngIf="veh.driver.getdrivinglicencetype"> {{veh.driver.getdrivinglicencetype}} </ion-col>
+            <ion-col *ngIf="!veh.driver.getdrivinglicencetype"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.Drivername' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.ser_name | titlecase}} </ion-col> -->
+              <ion-col *ngIf="veh.driver.ser_name"> {{veh.driver.ser_name | titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_name"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>{{'acctab1.acc.driver.nationality' |
+                translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col>
+                <span *ngIf="veh.driver.nationality==0">
+                  {{'commonlinks.indian' | translate:params}}
+                </span>
+                <span *ngIf="veh.driver.nationality==1">
+                  {{'commonlinks.foreigner' | translate:params}}
+                </span>
+              </ion-col>
+
+              
+            </ion-row>
+
+
+              <ion-row *ngIf="veh.driver.nationality==1">
+                <ion-col>
+                  {{'acctab1.acc.driver.passport_number' | translate:params}}</ion-col>
+                <ion-col size="1"> : </ion-col>
+                <ion-col>  {{veh.driver.passport_nr | uppercase}}  </ion-col>
+              </ion-row>
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.pedestrians.injurytype' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.get_injury_type"> {{veh.driver.get_injury_type}}</ion-col>
+              <ion-col *ngIf="!veh.driver.get_injury_type">Nil </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.pedestrians.education' |
+                translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.get_education"> {{veh.driver.get_education}} </ion-col>
+              <ion-col *ngIf="!veh.driver.get_education">Nil </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.cell' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.cellphonedriving | titlecase}} </ion-col> -->
+              <ion-col *ngIf="veh.driver.cellphonedriving"> {{veh.driver.cellphonedriving | titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.driver.cellphonedriving"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.severity' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.severity_desc| titlecase}}</ion-col> -->
+              <ion-col *ngIf="veh.driver.severity_desc"> {{veh.driver.severity_desc}} </ion-col>
+              <ion-col *ngIf="!veh.driver.severity_desc"> NA </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.modeoftransport' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.get_mod_tran_hosp| titlecase}}</ion-col> -->
+              <ion-col *ngIf="veh.driver.get_mod_tran_hosp"> {{veh.driver.get_mod_tran_hosp | titlecase}} </ion-col>
+            <ion-col *ngIf="!veh.driver.get_mod_tran_hosp"> NA </ion-col>
+            </ion-row>
+
+            <!--
+          <ion-row>
+            <ion-col> . </ion-col>
+            <ion-col size=1> : </ion-col>
+            <ion-col><ion-button (click)="pmrequest(i)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PM Request &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button></ion-col>
+          </ion-row>
+          -->
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.cause_acc.seatbelt' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.safety_device  | titlecase}} </ion-col> -->
+              <ion-col *ngIf="veh.driver.safety_device"> {{veh.driver.safety_device | titlecase}} </ion-col>
+            <ion-col *ngIf="!veh.driver.safety_device"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.cause_acc.drunkdrive' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.drunk  | titlecase}} </ion-col> -->
+              <ion-col *ngIf="veh.driver.drunk"> {{veh.driver.drunk | titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.driver.drunk"> NA </ion-col>
+            </ion-row>
+         
+            <ion-row>
+              <ion-col>{{'acctab1.acc.pedestrians.tranporttime' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col>{{veh.driver.get_hospitaltime| titlecase}}</ion-col> -->
+              <ion-col *ngIf="veh.driver.get_hospitaltime"> {{veh.driver.get_hospitaltime | titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.driver.get_hospitaltime"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.class' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.vehilceclass"> {{veh.driver.vehilceclass| titlecase}} </ion-col>
+              <ion-col *ngIf="veh.driver.vehilceclass==''"> NA </ion-col>
+              
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.gender' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.ser_gender| titlecase}} </ion-col>    -->
+              <ion-col *ngIf="veh.driver.ser_gender"> {{veh.driver.ser_gender | titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_gender"> NA </ion-col>
+            </ion-row>
+ 
+           
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.Moblie_num' | translate:params}}               
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.mobile_no"> {{veh.driver.mobile_no}} </ion-col>
+              <ion-col *ngIf="!veh.driver.mobile_no">NA</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.current_mobile_number' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.ser_mobileno"> {{veh.driver.ser_mobileno}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_mobileno">NA</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.blood' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+            
+              <ion-col *ngIf="veh.driver.bloodgrp"> {{veh.driver.bloodgrp| titlecase}}</ion-col>
+              <ion-col *ngIf="!veh.driver.bloodgrp"> NA </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.age' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.age"> {{veh.driver.age}}</ion-col>
+              <ion-col *ngIf="!veh.driver.age"> NA </ion-col>
+            </ion-row>
+
+         
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.non_transport_dl_validity' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.ser_dlnontransvaldtill"> {{veh.driver.ser_dlnontransvaldtill}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_dlnontransvaldtill"> NA</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.transport_dl_validity' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.ser_dltransvaldtill"> {{veh.driver.ser_dltransvaldtill}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_dltransvaldtill"> NA</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.hill_dl_Validity' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.ser_dlhillvaldtill"> {{veh.driver.ser_dlhillvaldtill}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_dlhillvaldtill"> NA</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.hazardous_dl_Validity' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.ser_dlhazrdvaldtill"> {{veh.driver.ser_dlhazrdvaldtill}} </ion-col>
+              <ion-col *ngIf="!veh.driver.ser_dlhazrdvaldtill"> NA</ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.residence' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col  *ngIf="veh.driver.ser_permadd1">
+             {{veh.driver.ser_permadd1 | titlecase}} <br />
+             {{veh.driver.ser_permadd2 | titlecase}} <br />
+             {{veh.driver.ser_permadd3|titlecase}}
+              </ion-col>
+              <ion-col *ngIf="veh.driver.ser_permadd1==''"> NA </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.currentaddress' | translate:params}}
+              </ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col *ngIf="veh.driver.ser_tempadd1">
+                <span >
+                  {{veh.driver.ser_swdname  | titlecase}}, {{veh.driver.ser_tempadd1  | titlecase}}
+                  <br />
+                  {{veh.driver.ser_tempadd2  | titlecase}} <br />
+                  {{veh.driver.ser_tempadd3  | titlecase}}
+                </span>
+              </ion-col>
+              <ion-col *ngIf="veh.driver.ser_tempadd1==''"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                {{'acctab1.acc.driver.residence1' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <!-- <ion-col> {{veh.driver.residence  | titlecase}} </ion-col> -->
+              <ion-col *ngIf="veh.driver.residence"> {{veh.driver.residence  | titlecase}} </ion-col>
+              <ion-col *ngIf="!veh.driver.residence"> NA </ion-col>
+            </ion-row>
+
+      
+
+            <ion-row>
+              <ion-col>{{'commonlinks.remarks' | translate:params}}</ion-col>
+              <ion-col size="1"> : </ion-col>
+              <ion-col  *ngIf="veh.driver.remarks"> {{veh.driver.remarks}} </ion-col>
+              <ion-col *ngIf="!veh.driver.remarks"> NA </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col style="color: rgb(241, 10, 172); font-weight: bold">{{'acctab1.acc.driver.treatment_information' |
+                translate:params}}</ion-col>
+              <ion-col size="3"> : </ion-col>
+              <ion-col (click)="viewtreatment(i)" style="color: rgb(9, 103, 192)">
+                <ion-label>Click to view</ion-label>
+              </ion-col>
+            </ion-row>
+
+          
+          </span>
+          <ion-row *ngIf="veh.passengers">
+            <ion-col size="12">
+              <h2 class="alignme-center">
+                <strong>{{'acctab1.passenger' | translate:params}}(s) -
+                  {{veh.passengers.length}}
+                </strong>
+              </h2>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-grid *ngFor="let p of veh.passengers; let j = index">
+                <ion-row>
+                  <ion-col>
+                    <h2 class="alignme-center">
+                      <strong>{{j+1}}. {{p.name}} </strong>
+                      <ion-note class="pointer" slot="end" color="primary"
+                      *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)" (click)="passengerinfoEdit(i,j)">
+                        Edit</ion-note>
+                    </h2>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col>{{'acctab1.acc.pedestrians.name' |
+                    translate:params}}</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <ion-col> {{p.name}} </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>{{'acctab1.acc.pedestrians.gender_l' |
+                    translate:params}}</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <!-- <ion-col> {{p.gender}} </ion-col> -->
+                  <ion-col *ngIf="p.gender"> {{p.gender}} </ion-col>
+                  <ion-col *ngIf="!p.gender"> NA </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col>{{'acctab1.acc.pedestrians.occupation' |
+                    translate:params}}</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+                  <ion-col *ngIf="p.get_occupation"> {{p.get_occupation}} </ion-col>
+                   <ion-col *ngIf="!p.get_occupation"> NA </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col>{{'acctab1.acc.pedestrians.severity' |
+                    translate:params}}</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <!-- <ion-col> {{p.severity_desc}} </ion-col> -->
+                  <ion-col *ngIf="p.severity_desc"> {{p.severity_desc}} </ion-col>
+                   <ion-col *ngIf="!p.severity_desc"> NA </ion-col>
+                </ion-row>
+                
+                <ion-row>
+                  <ion-col>{{'acctab1.acc.driver.nationality' |
+                    translate:params}}</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <ion-col *ngIf="p.nationality==0">
+                    {{'commonlinks.indian' | translate:params}}
+                  </ion-col>
+                  <ion-col *ngIf="p.nationality==1">
+                    {{'commonlinks.foreigner' | translate:params}}
+                  </ion-col>
+                </ion-row>
+  
+               <ion-row *ngIf="p.nationality==1">
+                  <ion-col>
+                    Passport Number</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <!-- <ion-col>  {{p.passport_nr}}  </ion-col> -->
+                  <ion-col *ngIf="p.passport_nr"> {{p.passport_nr}} </ion-col>
+                  <ion-col *ngIf="!p.passport_nr"> NA </ion-col>
+                </ion-row>
+               
+                
+                <ion-row>
+                  <ion-col>{{'acctab1.acc.pedestrians.address' |
+                    translate:params}}</ion-col>
+                  <ion-col size="1"> : </ion-col>
+                  <!-- <ion-col> {{p.residence}} </ion-col> -->
+                  <ion-col *ngIf="p.residence"> {{p.residence}} </ion-col>
+              <ion-col *ngIf="!p.residence"> NA </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col style="color: rgb(241, 10, 172); font-weight: bold">{{'acctab1.acc.driver.treatment_information' |
+                    translate:params}}</ion-col>
+                  <ion-col size="3"> : </ion-col>
+                  <ion-col (click)="viewpassengerinformation(i,j)" style="color: rgb(9, 103, 192)">
+                    <ion-label>Click to view</ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+
+          <!--   <ion-row>
+          <ion-col size="12">
+            <ion-item-divider> </ion-item-divider>
+          </ion-col>
+        </ion-row>
+      -->
+        </ion-grid>
+      </span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label style="color: rgb(136, 145, 9)">
+        <strong>{{'acctab1.transport' | translate:params}} </strong>
+      </ion-label>
+      <ion-note slot="end" *ngIf="trans && trans != -1">
+        <a (click)="trans=null">{{'Hide'}}</a>
+      </ion-note>
+    </ion-item>
+    <ion-card-content class="alignme-center pointer" *ngIf="!trans" (click)="showDetails('transport')">
+      Show Details
+    </ion-card-content>
+    <ion-card-content class="alignme-center pointer" *ngIf="trans  && trans.length==0">
+      Data Not Found !
+    </ion-card-content>
+    <ion-card-content *ngIf="trans && trans.length!=0">
+      <ion-segment color="danger" scrollable value="0">
+        <ion-segment-button layout="icon-end" *ngFor="let veh of trans; let i = index " (click)="shtrans(i)">
+          <!-- <ion-icon name="call"></ion-icon> -->
+          <ion-label><strong>{{i+1}}. {{veh.veh_no}} </strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <span *ngFor="let trpv of trans; let i = index ">
+        <ion-grid style="color: darkslategray" *ngIf="segtrans==i">
+          <ion-row>
+            <ion-col>{{'acctab1.acc.veh.vehicle_rgn' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col>
+              <h2>
+                <strong>{{trpv.veh_no | uppercase}}
+                  <ion-note  *ngIf="user.dept=='2' && (user.role=='37')" class="pointer" slot="end" color="primary" (click)="transportinfoEdit(i)">Edit</ion-note>
+                </strong>
+              </h2>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.temp_regno_validity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col>
+              {{trpv.temp_regno_validity | date:"dd-MMM-yyyy"}}
+            </ion-col> -->
+            <ion-col *ngIf="trpv.temp_regno_validity"> {{trpv.temp_regno_validity}} </ion-col>
+              <ion-col *ngIf="!trpv.temp_regno_validity"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.regntype' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.rngtype}} </ion-col> -->
+            <ion-col *ngIf="trpv.rngtype"> {{trpv.rngtype}} </ion-col>
+              <ion-col *ngIf="!trpv.rngtype"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{'transport.registration_date' | translate:params}}
+            </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.registration_date"> {{trpv.registration_date}} </ion-col>
+            <ion-col *ngIf="!trpv.registration_date"> NA </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.trade_plate_issuedby' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.trade_plate_issuedby }} </ion-col> -->
+            <ion-col *ngIf="trpv.trade_plate_issuedby"> {{trpv.trade_plate_issuedby}} </ion-col>
+            <ion-col *ngIf="!trpv.trade_plate_issuedby"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.f19_tp_purpose' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.f19_tp_purpose }} </ion-col> -->
+            <ion-col *ngIf="trpv.f19_tp_purpose"> {{trpv.f19_tp_purpose}} </ion-col>
+            <ion-col *ngIf="!trpv.f19_tp_purpose"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.f19_tp_dt' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.f19_tp_dt}} </ion-col> -->
+            <ion-col *ngIf="trpv.f19_tp_dt"> {{trpv.f19_tp_dt}} </ion-col>
+            <ion-col *ngIf="!trpv.f19_tp_dt"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.owner_Sr_no' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.rc_owner_sr"> {{trpv.rc_owner_sr }} </ion-col>
+            <ion-col *ngIf="!trpv.rc_owner_sr"> NA </ion-col>          
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.vclass' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vclass }} </ion-col> -->
+            <ion-col *ngIf="trpv.vclass"> {{trpv.vclass }} </ion-col>
+            <ion-col *ngIf="!trpv.vclass"> NA </ion-col> 
+          </ion-row>
+
+         
+          <ion-row>
+            <ion-col>{{'transport.vtype' | translate:params}} </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vtype }} </ion-col> -->
+            <ion-col *ngIf="trpv.vtype=='1'">Motorized Two Wheeler</ion-col>
+            <ion-col *ngIf="trpv.vtype=='2'">Auto Rickshaw</ion-col>
+            <ion-col *ngIf="trpv.vtype=='3'">Car/Jeep/Van/Taxi</ion-col>
+            <ion-col *ngIf="trpv.vtype=='4'">Bus</ion-col>
+            <ion-col *ngIf="trpv.vtype=='5'">Truck/Lorry</ion-col>
+            <ion-col *ngIf="trpv.vtype=='6'">Heavy Articulated Vehicle/Trolley</ion-col>
+            <ion-col *ngIf="trpv.vtype=='7'">Tempo/Tractor</ion-col>
+            <ion-col *ngIf="trpv.vtype=='8'">Bicycle</ion-col>
+            <ion-col *ngIf="trpv.vtype=='9'">Cycle Rickshaw</ion-col>
+            <ion-col *ngIf="trpv.vtype=='10'">Hand Drawn Cart</ion-col>
+            <ion-col *ngIf="trpv.vtype=='11'">Animal Drawn Cart</ion-col>
+            <ion-col *ngIf="trpv.vtype=='12'">Others</ion-col>
+            <ion-col *ngIf="trpv.vtype=='0'">NA</ion-col>
+            <ion-col *ngIf="!trpv.vtype">NA</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.make' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.make }} </ion-col> -->
+            <ion-col *ngIf="trpv.make"> {{trpv.make }} </ion-col>
+            <ion-col *ngIf="!trpv.make"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.makeclass' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.makeclass }} </ion-col> -->
+            <ion-col *ngIf="trpv.makeclass"> {{trpv.makeclass }} </ion-col>
+            <ion-col *ngIf="!trpv.makeclass"> NA </ion-col> 
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.yearofmanfac' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.rc_manu_month_yr }} </ion-col> -->
+            <ion-col *ngIf="trpv.rc_manu_month_yr"> {{trpv.rc_manu_month_yr }} </ion-col>
+            <ion-col *ngIf="!trpv.rc_manu_month_yr"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vage' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vage }} </ion-col> -->
+            <ion-col *ngIf="trpv.vage"> {{trpv.vage }} </ion-col>
+            <ion-col *ngIf="!trpv.vage"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.engineno' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.engineno | uppercase }} </ion-col> -->
+            <ion-col *ngIf="trpv.engineno"> {{trpv.engineno }} </ion-col>
+            <ion-col *ngIf="!trpv.engineno"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.chassisno' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.chassisno }} </ion-col> -->
+            <ion-col *ngIf="trpv.chassisno"> {{trpv.chassisno }} </ion-col>
+            <ion-col *ngIf="!trpv.chassisno"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.color' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.color }} </ion-col> -->
+            <ion-col *ngIf="trpv.color"> {{trpv.color }} </ion-col>
+            <ion-col *ngIf="!trpv.color"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.seat_cap' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.seat_cap }} </ion-col> -->
+            <ion-col *ngIf="trpv.seat_cap"> {{trpv.seat_cap }} </ion-col>
+            <ion-col *ngIf="!trpv.seat_cap"> NA </ion-col> 
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.uloadenweight' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.uloadenweight }} </ion-col> -->
+            <ion-col *ngIf="trpv.uloadenweight"> {{trpv.uloadenweight}} </ion-col>
+              <ion-col *ngIf="!trpv.uloadenweight"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.max_speed' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.max_speed }} </ion-col> -->
+            <ion-col *ngIf="trpv.max_speed"> {{trpv.max_speed}} </ion-col>
+            <ion-col *ngIf="!trpv.max_speed"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.permitcat' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gpermitcategory}} </ion-col> -->
+            <ion-col *ngIf="trpv.gpermitcategory"> {{trpv.gpermitcategory}} </ion-col>
+            <ion-col *ngIf="!trpv.gpermitcategory"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.permitissuedby' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.permitissuedby }} </ion-col> -->
+            <ion-col *ngIf="trpv.permitissuedby"> {{trpv.permitissuedby}} </ion-col>
+            <ion-col *ngIf="!trpv.permitissuedby"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.permitno' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.permitno }} </ion-col> -->
+            <ion-col *ngIf="trpv.permitno"> {{trpv.permitno}} </ion-col>
+            <ion-col *ngIf="!trpv.permitno"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.permitvalidity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.permitvalidity}} </ion-col> -->
+            <ion-col *ngIf="trpv.permitvalidity"> {{trpv.permitvalidity}} </ion-col>
+            <ion-col *ngIf="!trpv.permitvalidity"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.ownername' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.ownername}} </ion-col> -->
+            <ion-col  *ngIf="trpv.ownername"> {{trpv.ownername}} </ion-col>
+              <ion-col *ngIf="!trpv.ownername"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vowneraddr' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vowneraddr}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vowneraddr"> {{trpv.vowneraddr}} </ion-col>
+              <ion-col *ngIf="!trpv.vowneraddr"> NA </ion-col>
+          </ion-row>
+          <!--{{trpv.vdescription}} -->
+          <ion-row>
+            <ion-col>{{'transport.vdescription' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.vdescription=='1'"> Transport</ion-col>
+            <ion-col *ngIf="trpv.vdescription=='2'"> Non Transport</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.regcrtval' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.regcrtval}} </ion-col> -->
+            <ion-col  *ngIf="trpv.regcrtval"> {{trpv.regcrtval}} </ion-col>
+              <ion-col *ngIf="!trpv.regcrtval"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.place_ins' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.place_ins}} </ion-col> -->
+            <ion-col  *ngIf="trpv.place_ins"> {{trpv.place_ins}} </ion-col>
+              <ion-col *ngIf="!trpv.place_ins"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.inscomname' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.inscomname}} </ion-col> -->
+            <ion-col *ngIf="trpv.inscomname"> {{trpv.inscomname}} </ion-col>
+              <ion-col *ngIf="!trpv.inscomname"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.inscrtpolicyno' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.inscrtpolicyno}} </ion-col> -->
+            <ion-col *ngIf="trpv.inscrtpolicyno"> {{trpv.inscrtpolicyno}} </ion-col>
+              <ion-col *ngIf="!trpv.inscrtpolicyno"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.inscrtvalidity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.inscrtvalidity}} </ion-col> -->
+            <ion-col *ngIf="trpv.inscrtvalidity"> {{trpv.inscrtvalidity}} </ion-col>
+              <ion-col *ngIf="!trpv.inscrtvalidity"> NA </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>Inspection Date</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vlength}} </ion-col> -->
+            <ion-col *ngIf="trpv.inspection_date"> {{trpv.inspection_date}} </ion-col>
+              <ion-col *ngIf="!trpv.inspection_date"> NA </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>Driving license Submited?</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vlength}} </ion-col> -->
+            <ion-col *ngIf="trpv.driving_license_submit_flag"> {{trpv.driving_license_submit_flag}} </ion-col>
+              <ion-col *ngIf="!trpv.driving_license_submit_flag"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vlength' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vlength}} </ion-col> -->
+            <ion-col *ngIf="trpv.vlength"> {{trpv.vlength}} </ion-col>
+              <ion-col *ngIf="!trpv.vlength"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vwidth' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vwidth}} </ion-col> -->
+            <ion-col *ngIf="trpv.vwidth"> {{trpv.vwidth}} </ion-col>
+              <ion-col *ngIf="!trpv.vwidth"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vheight' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vheight}} </ion-col> -->
+            <ion-col *ngIf="trpv.vheight"> {{trpv.vheight}} </ion-col>
+              <ion-col *ngIf="!trpv.vheight"> NA </ion-col>
+          </ion-row>
+
+          
+          <ion-row>
+            <ion-col>{{'transport.cfhandbreak' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gbraketypes}} </ion-col> -->
+            <ion-col *ngIf="trpv.gbraketypes"> {{trpv.gbraketypes}} </ion-col>
+              <ion-col *ngIf="!trpv.gbraketypes"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.conditionofbreak' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gcondtionofbrake}} </ion-col> -->
+            <ion-col *ngIf="trpv.gcondtionofbrake"> {{trpv.gcondtionofbrake}} </ion-col>
+              <ion-col *ngIf="!trpv.gcondtionofbrake"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.effoffoodbreak' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.effoffoodbreak}} </ion-col> -->
+            <ion-col *ngIf="trpv.effoffoodbreak"> {{trpv.effoffoodbreak}} </ion-col>
+              <ion-col *ngIf="!trpv.effoffoodbreak"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.effofhandbreak' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.effofhandbreak}} </ion-col> -->
+            <ion-col *ngIf="trpv.effofhandbreak"> {{trpv.effofhandbreak}} </ion-col>
+              <ion-col *ngIf="!trpv.effofhandbreak"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.breakseorn' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.breakseorn}} </ion-col> -->
+            <ion-col *ngIf="trpv.breakseorn"> {{trpv.breakseorn}} </ion-col>
+              <ion-col *ngIf="!trpv.breakseorn"> NA </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col>{{'transport.mech_fstat' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.mech_fstat|titlecase}} </ion-col> -->
+            <ion-col *ngIf="trpv.mech_fstat"> {{trpv.mech_fstat|titlecase}} </ion-col>
+              <ion-col *ngIf="!trpv.mech_fstat"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.cffb_mech' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col class='capt'> {{trpv.gfootbrake_mechanical_failure}} </ion-col> -->
+            <ion-col *ngIf="trpv.gfootbrake_mechanical_failure" class='capt'> {{trpv.gfootbrake_mechanical_failure}} </ion-col>
+              <ion-col *ngIf="!trpv.gfootbrake_mechanical_failure"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.tyrecond' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gtyrecondition}} </ion-col> -->
+            <ion-col *ngIf="trpv.gtyrecondition"> {{trpv.gtyrecondition}} </ion-col>
+              <ion-col *ngIf="!trpv.gtyrecondition"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.opif_vd_rd' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gaccidentdueto}} </ion-col> -->
+            <ion-col *ngIf="trpv.gaccidentdueto"> {{trpv.gaccidentdueto}} </ion-col>
+              <ion-col *ngIf="!trpv.gaccidentdueto"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.disposofv' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+
+            <ion-col *ngIf="trpv.disposofv=='1'">{{'commonlinks.needtobetowed' | translate:params}}</ion-col>
+            <ion-col *ngIf="trpv.disposofv=='2'">{{'commonlinks.canbedrivenaway' | translate:params}}</ion-col>
+            <ion-col *ngIf="trpv.disposofv=='3'">{{'commonlinks.cannotbetowed' | translate:params}}</ion-col>
+          </ion-row>
+      
+          <ion-row>
+            <ion-col>{{'transport.tax' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.tax"> {{trpv.tax}} </ion-col>
+            <ion-col *ngIf="!trpv.tax"> NA </ion-col>          
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.streeringtype' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gstreeringtype}} </ion-col> -->
+            <ion-col  *ngIf="trpv.gstreeringtype"> {{trpv.gstreeringtype}} </ion-col>
+            <ion-col *ngIf="!trpv.gstreeringtype"> NA </ion-col>  
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.streeingcond' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gcondtionofsteering}} </ion-col> -->
+            <ion-col  *ngIf="trpv.gcondtionofsteering"> {{trpv.gcondtionofsteering}} </ion-col>
+            <ion-col *ngIf="!trpv.gcondtionofsteering"> NA </ion-col>  
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vdamagestat' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gvehicledamagestatus}} </ion-col> -->
+            <ion-col  *ngIf="trpv.gvehicledamagestatus"> {{trpv.gvehicledamagestatus}} </ion-col>
+              <ion-col *ngIf="!trpv.gvehicledamagestatus"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.damge_sustained' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.damge_sustained}} </ion-col> -->
+            <ion-col  *ngIf="trpv.damge_sustained"> {{trpv.damge_sustained}} </ion-col>
+            <ion-col *ngIf="!trpv.damge_sustained"> NA </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.skidmark' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.skidmark}} </ion-col> -->
+            <ion-col  *ngIf="trpv.skidmark"> {{trpv.skidmark}} </ion-col>
+            <ion-col *ngIf="!trpv.skidmark"> NA </ion-col>
+          </ion-row>
+         
+          <ion-row>
+            <ion-col>{{'transport.whechkrepiss' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.whechkrepiss"> {{trpv.whechkrepiss}} </ion-col>
+            <ion-col *ngIf="!trpv.whechkrepiss"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.check_report_number' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.checkreportnr}} </ion-col> -->
+            <ion-col  *ngIf="trpv.checkreportnr"> {{trpv.checkreportnr}} </ion-col>
+            <ion-col *ngIf="!trpv.checkreportnr"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.report_issued_date' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.checkreportdate}} </ion-col> -->
+            <ion-col  *ngIf="trpv.checkreportdate"> {{trpv.checkreportdate}} </ion-col>
+            <ion-col *ngIf="!trpv.checkreportdate"> NA </ion-col>
+          </ion-row>
+
+         
+
+          <ion-row>
+            <ion-col>{{'transport.cfx_number' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.cfxno"> {{trpv.cfxno}} </ion-col>
+            <ion-col *ngIf="!trpv.cfxno"> NA </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>{{'transport.f19_mileage' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.f19_mileage"> {{trpv.f19_mileage}} </ion-col>
+            <ion-col *ngIf="!trpv.f19_mileage"> NA </ion-col>
+          </ion-row>
+
+        
+          <ion-row>
+            <ion-col>{{'transport.fitcertstatus' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.fitcertstatus"> {{trpv.fitcertstatus}} </ion-col>
+            <ion-col *ngIf="!trpv.fitcertstatus"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.fitcertval' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.fitcertval"> {{trpv.fitcertval}} </ion-col>
+            <ion-col *ngIf="!trpv.fitcertval"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.regloadenweg' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.fitcertval"> {{trpv.fitcertval}} </ion-col>
+            <ion-col *ngIf="!trpv.fitcertval"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.polctrlcertval' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col *ngIf="trpv.fitcertval"> {{trpv.fitcertval}} </ion-col>
+            <ion-col *ngIf="!trpv.fitcertval"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.vdefecttype' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.gvehicledefect}} </ion-col> -->
+            <ion-col  *ngIf="trpv.gvehicledefect"> {{trpv.gvehicledefect}} </ion-col>
+            <ion-col *ngIf="!trpv.gvehicledefect"> NA </ion-col>
+          </ion-row>
+
+          <!-- Raghul Change -->
+          <ion-row>
+            <ion-col>{{'transport.wheeltype' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.wheeltype|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.wheeltype"> {{trpv.wheeltype|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.wheeltype"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.wiperstype' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.wiperstype|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.wiperstype"> {{trpv.wiperstype|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.wiperstype"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.mirrorstype' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.mirrors|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.mirrors"> {{trpv.mirrors|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.mirrors"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.whethervmb' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.whethervmb|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.whethervmb"> {{trpv.whethervmb|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.whethervmb"> NA </ion-col>
+          </ion-row>
+          <ion-row *ngIf="trpv.whethervmb == 'Yes' ">
+            <ion-col>{{'transport.vehmodby' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vehmodby}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vehmodby"> {{trpv.vehmodby}} </ion-col>
+            <ion-col *ngIf="!trpv.vehmodby"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.wrpsi' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.wrpsi|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.wrpsi"> {{trpv.wrpsi|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.wrpsi"> NA </ion-col>
+          </ion-row>
+          <ion-row *ngIf="trpv.wfy == 'Yes' ">
+            <ion-col>{{'transport.wfy' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.wfy|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.wfy"> {{trpv.wfy|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.wfy"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col> {{'transport.tofs' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.tofs|titlecase}} </ion-col> -->
+            <ion-col  *ngIf="trpv.tofs"> {{trpv.tofs|titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.tofs"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col> {{'transport.dodamages' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.dodamages}} </ion-col> -->
+            <ion-col  *ngIf="trpv.dodamages"> {{trpv.dodamages}} </ion-col>
+            <ion-col *ngIf="!trpv.dodamages"> NA </ion-col>
+          </ion-row>
+          <!-- End -->
+
+          
+          <ion-row>
+            <ion-col>{{'transport.cause_of_accident' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.cause_of_acc}} </ion-col> -->
+            <ion-col  *ngIf="trpv.cause_of_acc"> {{trpv.cause_of_acc}} </ion-col>
+            <ion-col *ngIf="!trpv.cause_of_acc"> NA </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{'transport.national_permit_no' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.rc_np_no"> {{trpv.rc_np_no}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_np_no"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.national_permit_validity' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.rc_np_upto"> {{trpv.rc_np_upto}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_np_upto"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.national_permit_issued_by' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.rc_np_issued_by"> {{trpv.rc_np_issued_by}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_np_issued_by"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.finance_name' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.rc_financer"> {{trpv.rc_financer}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_financer"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.owner_permanent_address' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.rc_permanent_address}} </ion-col> -->
+            <ion-col  *ngIf="trpv.rc_permanent_address"> {{trpv.rc_permanent_address}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_permanent_address"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.owner_present_address' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.rc_present_address">{{trpv.rc_present_address}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_present_address"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.vehicle_body_type_description' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col  *ngIf="trpv.rc_body_type_desc"> {{trpv.rc_body_type_desc}} </ion-col>
+            <ion-col *ngIf="!trpv.rc_body_type_desc"> NA </ion-col>
+          </ion-row>
+          <!-- New field -->
+          <ion-row>
+            <ion-col>{{'transport.paint_transfer_found' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.painttransfer}} </ion-col> -->
+            <ion-col  *ngIf="trpv.painttransfer"> {{trpv.painttransfer}} </ion-col>
+            <ion-col *ngIf="!trpv.painttransfer"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.location_of_paint_transfer' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.locationoftransfer}} </ion-col> -->
+            <ion-col  *ngIf="trpv.locationoftransfer"> {{trpv.locationoftransfer}} </ion-col>
+            <ion-col *ngIf="!trpv.locationoftransfer"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.color_of_paint_transfer' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.coloroftransfer}} </ion-col> -->
+            <ion-col  *ngIf="trpv.coloroftransfer"> {{trpv.coloroftransfer}} </ion-col>
+            <ion-col *ngIf="!trpv.coloroftransfer"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.installed_cng_lpg_kit' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.dispinstallingcngosofv}} </ion-col> -->
+            <ion-col  *ngIf="trpv.dispinstallingcngosofv"> {{trpv.dispinstallingcngosofv}} </ion-col>
+            <ion-col *ngIf="!trpv.dispinstallingcngosofv"> NA </ion-col>
+          </ion-row>
+
+          <!--
+<ion-row>
+            <ion-col> Change of vehicle body</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{trpv.changeofvehiclebody}} </ion-col>
+          </ion-row>
+          
+          -->
+
+          <ion-row>
+            <ion-col>{{'transport.horn_installed_and_functional' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.hornfunctional}} </ion-col> -->
+            <ion-col  *ngIf="trpv.hornfunctional"> {{trpv.hornfunctional}} </ion-col>
+            <ion-col *ngIf="!trpv.hornfunctional"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.brake_lights_other_lights_functional' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.lightsfuntional}} </ion-col> -->
+            <ion-col  *ngIf="trpv.lightsfuntional"> {{trpv.lightsfuntional}} </ion-col>
+            <ion-col *ngIf="!trpv.lightsfuntional"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.vehicle_had_faulty_number_plate' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.faultynumberplate}} </ion-col> -->
+            <ion-col  *ngIf="trpv.faultynumberplate"> {{trpv.faultynumberplate}} </ion-col>
+            <ion-col *ngIf="!trpv.faultynumberplate"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.whether_the_vehicle_fitted_with_airbags' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.airbags}} </ion-col> -->
+            <ion-col  *ngIf="trpv.airbags"> {{trpv.airbags}} </ion-col>
+            <ion-col *ngIf="!trpv.airbags"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.airbags_deployed' | translate:params}} </ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.airbagsfunctional}} </ion-col> -->
+            <ion-col  *ngIf="trpv.airbagsfunctional"> {{trpv.airbagsfunctional}} </ion-col>
+            <ion-col *ngIf="!trpv.airbagsfunctional"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.if_not_deployed_state_reasons' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.airbagreasons}} </ion-col> -->
+            <ion-col  *ngIf="trpv.airbagreasons"> {{trpv.airbagreasons}} </ion-col>
+            <ion-col *ngIf="!trpv.airbagreasons"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.vehicle_had_tinted_glasses' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.tintedglass}} </ion-col> -->
+            <ion-col  *ngIf="trpv.tintedglass"> {{trpv.tintedglass}} </ion-col>
+            <ion-col *ngIf="!trpv.tintedglass"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.educational_institutions' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <ion-col> {{trpv.educationalvehicle}} </ion-col>
+            <!-- <ion-col  *ngIf="trpv.educationalvehicle"> {{trpv.educationalvehicle}} </ion-col> -->
+            <!-- <ion-col *ngIf="!trpv.educationalvehicle"> NA </ion-col> -->
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.speed_limiter' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.psvinstalled}} </ion-col> -->
+            <ion-col  *ngIf="trpv.psvinstalled"> {{trpv.psvinstalled}} </ion-col>
+            <ion-col *ngIf="!trpv.psvinstalled"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.whether_functional_or_not' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.psvfunctional}} </ion-col> -->
+            <ion-col  *ngIf="trpv.psvfunctional"> {{trpv.psvfunctional}} </ion-col>
+            <ion-col *ngIf="!trpv.psvfunctional"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.parking_sensors' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.parkingsensors}} </ion-col> -->
+            <ion-col  *ngIf="trpv.parkingsensors"> {{trpv.parkingsensors}} </ion-col>
+            <ion-col *ngIf="!trpv.parkingsensors"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.whether_functional_or_not' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.sensorfunctional}} </ion-col> -->
+            <ion-col  *ngIf="trpv.sensorfunctional"> {{trpv.sensorfunctional}} </ion-col>
+            <ion-col *ngIf="!trpv.sensorfunctional"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>{{'transport.vehicle_location_tracking' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vehicletracking}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vehicletracking"> {{trpv.vehicletracking}} </ion-col>
+            <ion-col *ngIf="!trpv.vehicletracking"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col> {{'transport.whether_functional_or_not' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vehicletrackingfunctional}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vehicletrackingfunctional"> {{trpv.vehicletrackingfunctional}} </ion-col>
+            <ion-col *ngIf="!trpv.vehicletrackingfunctional"> NA </ion-col>
+          </ion-row>
+     
+          <ion-row>
+            <ion-col> {{'transport.device_fit' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.device_fit}} </ion-col> -->
+            <ion-col  *ngIf="trpv.device_fit"> {{trpv.device_fit| titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.device_fit"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col> {{'transport.vehicle_bullbars' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vehicle_bullbars}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vehicle_bullbars"> {{trpv.vehicle_bullbars| titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.vehicle_bullbars"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col> {{'transport.vehicle_reflectivetapes' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vehicle_reflectivetapes}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vehicle_reflectivetapes"> {{trpv.vehicle_reflectivetapes| titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.vehicle_reflectivetapes"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col> {{'transport.vehicle_windscreen' | translate:params}}</ion-col>
+            <ion-col size="1"> : </ion-col>
+            <!-- <ion-col> {{trpv.vehicle_windscreen}} </ion-col> -->
+            <ion-col  *ngIf="trpv.vehicle_windscreen"> {{trpv.vehicle_windscreen| titlecase}} </ion-col>
+            <ion-col *ngIf="!trpv.vehicle_windscreen"> NA </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-item-divider> </ion-item-divider>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label style="color: rebeccapurple">
+        <strong>
+          {{'acctab1.pedestrian' | translate:params}} {{'app.details' |
+          translate:params}}
+        </strong>
+      </ion-label>
+      <ion-note slot="end" color="danger">{{data.pedestrian_entered}}/{{data.pedestrian_count}} </ion-note>
+    </ion-item>
+    <ion-card-content class="alignme-center pointer" *ngIf="!pedestrian" (click)="showDetails('pedestrian')">
+      Show Details
+    </ion-card-content>
+    <ion-card-content class="alignme-center pointer" *ngIf="pedestrian  && pedestrian.length==0">
+      Data Not Found !
+    </ion-card-content>
+    <ion-card-content *ngIf="pedestrian && pedestrian.length!=0">
+      <ion-grid style="color: darkslategray" *ngFor="let p of pedestrian; let i=index">
+        <ion-row class="alignme-center pointer">
+          <ion-col>
+            <h1>{{p.name | titlecase}}</h1>
+          </ion-col>
+          <ion-col size="2">
+            <ion-note class="pointer" color="primary" *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)"
+              (click)="pedestrianinfoEdit(i)">Edit</ion-note>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.vehicle' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.veh_no | uppercase}} </ion-col> -->
+          <ion-col *ngIf="p.veh_no"> {{p.veh_no | uppercase}} </ion-col>
+          <ion-col *ngIf="!p.veh_no"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.name' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.name | titlecase}} </ion-col> -->
+          <ion-col *ngIf="p.name"> {{p.name | titlecase}} </ion-col>
+          <ion-col *ngIf="!p.name"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.age' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.age}} </ion-col> -->
+          <ion-col *ngIf="p.age"> {{ p.age }} </ion-col>
+          <ion-col *ngIf="!p.age"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.gender_l' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+           <!-- <ion-col> {{p.gender}} </ion-col>  -->
+           <ion-col *ngIf="p.gender"> {{ p.gender }} </ion-col>
+           <ion-col *ngIf="!p.gender"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.severity' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.severity_desc}} </ion-col> -->
+          <ion-col *ngIf="p.severity_desc"> {{p.severity_desc}} </ion-col>
+              <ion-col *ngIf="!p.severity_desc"> NA </ion-col>
+        </ion-row>
+      
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.modeoftranport' |
+            translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_mod_tran_hosp}} </ion-col> -->
+          <ion-col *ngIf="p.get_mod_tran_hosp"> {{p.get_mod_tran_hosp}} </ion-col>
+              <ion-col *ngIf="!p.get_mod_tran_hosp"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.tranporttime' |
+            translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_hospitaltime}} </ion-col> -->
+          <ion-col *ngIf="p.get_hospitaltime"> {{p.get_hospitaltime}} </ion-col>
+              <ion-col *ngIf="!p.get_hospitaltime"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.injurytype' |
+            translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_injury_type}} </ion-col> -->
+          <ion-col *ngIf="p.get_injury_type"> {{p.get_injury_type}} </ion-col>
+              <ion-col *ngIf="!p.get_injury_type"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.education' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_education}} </ion-col> -->
+          <ion-col *ngIf="p.get_education"> {{p.get_education}} </ion-col>
+              <ion-col *ngIf="!p.get_education"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.pedpassengerpostion' |
+            translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_pedposition}} </ion-col> -->
+          <ion-col *ngIf="p.get_pedposition"> {{p.get_pedposition}} </ion-col>
+              <ion-col *ngIf="!p.get_pedposition"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.pedpassengeraction' |
+            translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_pedaction}} </ion-col> -->
+          <ion-col *ngIf="p.get_pedaction"> {{p.get_pedaction}} </ion-col>
+              <ion-col *ngIf="!p.get_pedaction"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.moblieno' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.mobile}} </ion-col> -->
+          <ion-col *ngIf="p.mobile"> {{p.mobile}} </ion-col>
+              <ion-col *ngIf="!p.mobile"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.address' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.residence}} </ion-col> -->
+          <ion-col *ngIf="p.residence"> {{p.residence}} </ion-col>
+              <ion-col *ngIf="!p.residence"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.pedestrians.occupation' |
+            translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="p.get_occupation"> {{p.get_occupation}} </ion-col>
+              <ion-col *ngIf="!p.get_occupation"> NA </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>{{'acctab1.acc.driver.nationality' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col *ngIf="p.nationality==0">
+            {{'commonlinks.indian' | translate:params}}
+          </ion-col>
+          <ion-col *ngIf="p.nationality==1">
+            {{'commonlinks.foreigner' | translate:params}}
+          </ion-col>
+        </ion-row>
+       
+        <ion-row>
+          <ion-col>{{'acctab1.acc.driver.passport_number' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col>{{p.passport_nr}}</ion-col> -->
+          <ion-col *ngIf="p.passport_nr"> {{p.passport_nr}} </ion-col>
+              <ion-col *ngIf="!p.passport_nr"> NA </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col style="color: rgb(241, 10, 172); font-weight: bold">{{'acctab1.acc.driver.treatment_information' | translate:params}}</ion-col>
+          <ion-col size="3"> : </ion-col>
+          <ion-col (click)="viewtreatmentpedestrian(i)" style="color: rgb(9, 103, 192)">
+            <ion-label>Click to view</ion-label>
+          </ion-col>
+        </ion-row>
+
+        
+
+        
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-item-divider> </ion-item-divider>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label style="color: rgb(142, 100, 170)">
+        <strong>Witness Details </strong>
+      </ion-label>
+      <ion-note slot="end" *ngIf="trans && trans != -1">
+        <a (click)="trans=null">{{'Hide'}}</a>
+      </ion-note>
+    </ion-item>
+    <ion-card-content class="alignme-center pointer" *ngIf="!witness" (click)="showDetails('witness')">
+      Show Details
+    </ion-card-content>
+
+
+    <ion-card-content *ngIf="witness  ">
+      <ion-grid style="color: darkslategray" *ngFor="let w of witness; let i=index">
+        <ion-row class="alignme-center pointer">
+          <ion-col>
+            <h1>{{w.name | titlecase}}</h1>
+          </ion-col>
+          <ion-col size="2">
+            <ion-note class="pointer" color="primary" *ngIf="user.dept=='1' && (user.role=='5' && data.status==1) || (user.role=='4' && data.status==2)"
+            (click)="witnessEdit(i)"  >Edit</ion-note>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col> Gender</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="w.gender">  {{w.gender | titlecase}} </ion-col>
+              <ion-col *ngIf="!w.gender"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Age</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="w.age">  {{w.age | titlecase}} </ion-col>
+              <ion-col *ngIf="!w.age"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Occupation</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="w.occupation">  {{w.occupation | titlecase}} </ion-col>
+              <ion-col *ngIf="!w.occupation"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Mobile Number</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="w.mobile">  {{w.mobile | titlecase}} </ion-col>
+              <ion-col *ngIf="!w.mobile"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Address</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="w.address">  {{w.address | titlecase}} </ion-col>
+              <ion-col *ngIf="!w.address"> NA </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Statement</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{p.get_occupation}} </ion-col> -->
+          <ion-col *ngIf="w.staement">  {{w.staement | titlecase}} </ion-col>
+              <ion-col *ngIf="!w.staement"> NA </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label style="color: rgb(3, 148, 148)">
+        <strong>{{'acctab1.roaddetails' | translate:params}} </strong>
+      </ion-label>
+      <!-- <ion-note slot="end" *ngIf="env && env != -1"> <a (click)="env=null">{{'Hide'}}</a></ion-note>  *ngIf="user.dept=='3' && (user.role=='80')" -->
+      <ion-note
+        class="pointer"
+        slot="end"
+        color="primary"
+        *ngIf="user.dept=='3' && (user.role=='75')"
+        (click)="roadinfoEdit()"
+        >Edit</ion-note
+      >
+    </ion-item>
+    <ion-card-content
+      class="alignme-center pointer"
+      *ngIf="!env"
+      (click)="showDetails('environment')"
+    >
+      Show Details
+    </ion-card-content>
+    <ion-card-content class="alignme-center pointer" *ngIf="env  && env==-1">
+      Data Not Found !
+    </ion-card-content>
+    <ion-card-content *ngIf="env && env != -1">
+      <ion-grid style="color: darkslategray">
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.area_type' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col style="color: brown; font-weight: bold">
+            {{env.area_type|uppercase}}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_classification' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_road_classification}} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.surface_type' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.surface_type}}</ion-col>
+        </ion-row>
+
+        
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_number' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col style="text-transform: capitalize">
+            {{env.road_number}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_name' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col style="text-transform: capitalize"
+            >{{env.road_name}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.type_structure' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_type_structure}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.type_road' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_type_road}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.surface_condition' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_surface_condition}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.type_carriageway' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <!-- <ion-col> {{env.type_carriageway}}</ion-col> -->
+          <ion-col *ngIf="env.type_carriageway=='1'"
+            >Single Lane (2 Way)</ion-col
+          >
+          <ion-col *ngIf="env.type_carriageway=='2'">2 Lane (1 Way)</ion-col>
+          <ion-col *ngIf="env.type_carriageway=='3'">2 Lane (2 Way)</ion-col>
+          <ion-col *ngIf="env.type_carriageway=='4'">3 Lane (1 Way)</ion-col>
+          <ion-col *ngIf="env.type_carriageway=='5'">3 Lane (2 Way)</ion-col>
+          <ion-col *ngIf="env.type_carriageway=='6'"
+            >4 Lane Undivided (2 Way)</ion-col
+          >
+          <ion-col *ngIf="env.type_carriageway=='7'"
+            >4 Lane Divided (2 way)</ion-col
+          >
+          <ion-col *ngIf="env.type_carriageway=='8'"
+            >6 Lane Undivided (2 way)</ion-col
+          >
+          <ion-col *ngIf="env.type_carriageway=='9'"
+            >6 Lane Divided (2 way)</ion-col
+          >
+          <ion-col *ngIf="env.type_carriageway=='10'"
+            >8 Lane Divided (2 way)</ion-col
+          >
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_width' | translate:params}} (in metre)
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.road_width}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.accident_locations' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_accident_locations}}</ion-col>
+        </ion-row>
+
+        
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_chainage' | translate:params}} (in
+            metre)</ion-col
+          >
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.road_chainage}}</ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="env.get_horizontal_curve">
+          <ion-col>
+            {{'acctab1.acc.Road.horizontal_curve' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_horizontal_curve}}</ion-col>
+        </ion-row>
+
+
+        <ion-row *ngIf="env.get_vertical_curve">
+          <ion-col>
+            {{'acctab1.acc.Road.vertical_curve' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_vertical_curve}}</ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="env.get_vertical_curve || env.get_horizontal_curve">
+          <ion-col>
+            {{'acctab1.acc.Road.road_width_curve' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.road_width_curve}}</ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="env.get_junction_type">
+          <ion-col>
+            {{'acctab1.acc.Road.junction_type' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_junction_type}}</ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="env.get_junction_control">
+          <ion-col>
+            {{'acctab1.acc.Road.junction_control' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_junction_control}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.sight_distance' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_sight_distance}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.speed_limit' | translate:params}} (in
+            kmph)</ion-col
+          >
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_speed_limit}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_margins' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_road_margins}}</ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="env.road_margins == 1">
+          <ion-col>
+            {{'acctab1.acc.Road.road_shoulder_type' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.road_shoulder_type}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>{{'commonlinks.type_terrain' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_type_terrain}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col
+            >{{'commonlinks.type_surface_gradient' | translate:params}}</ion-col
+          >
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_type_surface_gradient}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.physical_divider' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col style="text-transform: capitalize">
+            {{env.physical_divider}}</ion-col
+          >
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_median' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_road_median}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.pedestrian_infrastructure' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_pedestrian_infrastructure}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.onoing_road_work' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.onoing_road_work == true ? 'Yes' : 'No'}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_markings' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_road_markings}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.road_sign_board' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_road_sign_board}}</ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.geometric_factors' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_geometric_factors}}</ion-col>
+        </ion-row>
+
+        
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.remedial_measures' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_remedial_measures}}</ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.roadchange' | translate:params}}
+            <span class="redclr">(in metre)</span>
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col *ngIf="env.road_chainage">
+            {{env.road_chainage}}
+          
+            </ion-col> 
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.speedlmt' | translate:params}}
+            <span class="redclr">(in kmph)</span>
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col>
+            {{env.speedlimit}} </ion-col
+          >
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> {{'commonlinks.gradient' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col *ngIf="env.gradient=='1'">Ruling Gradient</ion-col>
+          <ion-col *ngIf="env.gradient=='2'">Limiting Gradient</ion-col>
+          <ion-col *ngIf="env.gradient=='4'">Minimum Gradient</ion-col>
+          <ion-col *ngIf="env.gradient=='6'">Floating Gradient</ion-col>
+          <ion-col *ngIf="env.gradient=='3'">Exceptional Gradient</ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> {{'acctab1.acc.Road.lanes' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.nooflanes}} </ion-col>
+          <ion-col *ngIf="env.nooflanes=='1'">Single Lane (2 Way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='2'">2 Lane (1 Way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='3'">2 Lane (2 Way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='4'">3 Lane (1 Way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='5'">3 Lane (2 Way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='6'">4 Lane Undivided (2 Way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='7'">4 Lane Divided (2 way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='8'">6 Lane Undivided (2 way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='9'">6 Lane Divided (2 way)</ion-col>
+          <ion-col *ngIf="env.nooflanes=='10'">8 Lane Divided (2 way)</ion-col>
+        </ion-row> -->
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.typeofroad' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col>{{env.typeofroad}} </ion-col>
+        </ion-row> -->
+        <!-- 
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.junctiontype' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_roadjunction}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.junctiocontrol' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_roadjunctionctrl}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> {{'acctab1.acc.Road.roadwrk' | translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col *ngIf="env.roadwork"> Yes </ion-col>
+          <ion-col *ngIf="!env.roadwork"> No </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.trafficmvm' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.trafficmovement}} WAY </ion-col>
+        </ion-row> -->
+
+        <!--
+       <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.weathercnt' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_roadweather}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.lightcondtion' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.get_roadlightcondition}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.visibility' | translate:params}}</ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.visibilty}} Metres </ion-col>
+        </ion-row>
+        -->
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.areatype' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.area_type|titlecase}} </ion-col>
+        </ion-row> -->
+        <!-- <ion-row>
+          <ion-col> {{'acctab1.acc.Road.propertydmg' | translate:params}} </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col> {{env.damges}} </ion-col>
+        </ion-row>
+         <ion-row>
+          <ion-col> {{'acctab1.acc.Road.physicaldvr' | translate:params}} </ion-col>
+          <ion-col size=1> : </ion-col>
+          <ion-col *ngIf="env.phy_driver"> Yes </ion-col>
+          <ion-col *ngIf="!env.phy_driver"> No </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.surfacetype' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.surfacetype}} </ion-col>
+        </ion-row> -->
+        <!-- 
+        <ion-row>
+          <ion-col>
+          {{'acctab1.acc.Road.topology' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col *ngIf="env.topology=='1'">Plain Terrain (0 to 10%)</ion-col>
+          <ion-col *ngIf="env.topology=='5'">Rolling Terrain (10% to 25%)</ion-col>
+          <ion-col *ngIf="env.topology=='3'">Mountainous Terrain (25% to 60%)</ion-col>
+          <ion-col *ngIf="env.topology=='4'">Steep Terrain (Above 65%)</ion-col>
+
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.vertical' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.vert}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.horizantl' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.hori}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.surfacecond' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.surfacecondtion}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.pedestrianinstru' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.pedestrian_infra}} </ion-col>
+        </ion-row> -->
+        <!-- New Field -->
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.roadmargin' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.roadmargin}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.roadwidth' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.roadwidth}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            {{'acctab1.acc.Road.roadconstruction' | translate:params}}
+          </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.roadconstruction}} </ion-col>
+          <ion-col *ngIf="env.roadconstruction=='1'">Normal Road</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='10'">Grade Separator / Flyover / Roundabout / Rotary</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='3'">Road Over Bridge</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='4'">Road Under Bridge</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='2'">River Bridge</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='9'">Vehicular under Pass</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='5'">Limited Use Subway</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='7'">Causeway</ion-col>
+          <ion-col *ngIf="env.roadconstruction=='6'">Culvert</ion-col>       
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> Sight Distance </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.getsightdistance}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> Road Markings </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.getroadmrkings}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> Road Sign Board </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.getroadsignboard}} </ion-col>
+        </ion-row> -->
+        <!-- 
+        <ion-row>
+          <ion-col> {{'acctab1.acc.Road.roadshouldertype' |
+            translate:params}} </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.rdshtype}} </ion-col>
+        </ion-row> -->
+
+        <!-- <ion-row>
+          <ion-col> Accident Location </ion-col>
+          <ion-col size="1"> : </ion-col>
+          <ion-col> {{env.getaccidentlocations}} </ion-col>
+        </ion-row> -->
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  
+
+  <ion-card *ngIf="data">
+    <ion-item>
+      <ion-label style="color: rgb(247, 183, 8)">
+        <strong>{{'acctab1.imgvideo' | translate:params}} </strong>
+      </ion-label>
+
+      <ion-note *ngIf="images" slot="end" color="danger">
+        <a (click)="images=null">{{'Hide'}}</a>
+      </ion-note>
+    </ion-item>
+    <ion-card-content class="alignme-center pointer" *ngIf="!images" (click)="showDetails('media')">
+      Show Details
+    </ion-card-content>
+
+    <ion-card-content class="alignme-center pointer" *ngIf=" images && mediacount==0">
+      Data Not Found !
+     
+      <ion-note *ngIf="mapscreenflag"  slot="end" color="danger">
+        <a (click)=" viewLocation(1)"> Capture location map</a>
+      </ion-note>
+     
+
+    </ion-card-content>
+
+    <ion-card-content *ngIf=" images!=null && mediacount!=0">
+
+      
+        <ion-note *ngIf="mapscreenflag" slot="end" color="danger">
+          <a (click)=" viewLocation(1)"> Capture location map</a>
+        </ion-note>
+       
+
+      <ion-grid style="color: steelblue">
+        <ion-row>
+         
+          <ion-col>
+            <ion-list *ngIf="images.length!=0">
+              <ion-list-header color="primary">
+                {{'acctab1.images' | translate:params}}
+              </ion-list-header>
+              <ion-item *ngFor="let img of images; index as pos" text-wrap (click)="mediaView()">
+                <ion-label text-wrap style="color: steelblue">
+                  <ion-icon name="images-outline"></ion-icon> {{ img.label }}
+                </ion-label>
+                <ion-note slot="end" color="primary">{{ img.count }}</ion-note>
+              </ion-item>
+            </ion-list>
+
+            <ion-list>
+              <ion-list-header *ngIf="audios.length>0" color="primary">
+                {{'acctab1.audio' | translate:params}}
+              </ion-list-header>
+              <ion-item *ngIf="audios.length>0" text-wrap (click)="mediaView()">
+                <ion-label text-wrap style="color: steelblue">
+                  <ion-icon name="mic-outline"></ion-icon> Audio
+                </ion-label>
+                <ion-note slot="end" color="primary">{{ audios.length }}</ion-note>
+              </ion-item>
+            </ion-list>
+
+            <ion-list *ngIf="videos.length!=0">
+              <ion-list-header color="primary">
+                {{'acctab1.video' | translate:params}}
+              </ion-list-header>
+              <ion-item *ngFor="let video of videos; index as pos" text-wrap (click)="mediaView()">
+                <ion-label text-wrap style="color: steelblue">
+                  <ion-icon name="videocam"></ion-icon> {{ video.label }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid *ngIf="data">
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="viewaccReportPDF(1)" expand="block">Accident Summary</ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="dev==true && user.dept=='1' && role==4 && data.status!=1 && data.fir_number!='' && data.dar_flag=='0'" >
+        <ion-button color='danger' (click)="procedToeDAR()" expand="block">Proced To e-DAR</ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="user.dept=='1'" >
+        <ion-button color='danger' *ngIf="data.status==1 && role==5" (click)="checkSubmotToSHO()" expand="block">Submit to SHO       </ion-button>
+        <ion-button color='danger' *ngIf="data.status!=1 && role==4 && data.dar_flag==0" (click)="reportAsPending()" expand="block">Move To Pending       </ion-button>
+      </ion-col>
+     
+      <ion-col *ngIf=" user.dept=='1' || user.dept=='3' ">
+        <ion-button (click)="viewaccReportPDF(31)" expand="block">Road Details</ion-button>
+      </ion-col>
+      
+    </ion-row>
+  
+   
+  </ion-grid>
+
+  <style>
+      .redclr {
+      color: red;
+      font-size: 9px;
+    }
+    ion-modal.fullscreen {
+      --width: 100%;
+      --height: 100%;
+      --border-radius: 0;
+    }
+  </style>
+</ion-content>

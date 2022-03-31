@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="alignme-center"> Link</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+      <ion-item> 
+        <ion-label style="color:rgb(136, 145, 9)"> <strong>{{'acctab1.transport' | translate:params}}
+          </strong> </ion-label>
+      </ion-item>
+      <ion-card-content *ngIf='transData==null'  (click)="addRTODetails()" class="alignme-center pointer"> ADD RTO Details
+        <ion-icon name="Add"></ion-icon>
+      </ion-card-content>
+
+      <ion-card  *ngIf='transData!=null'>
+        <ion-card-header>
+        <!--  <ion-card-subtitle> {{selrto.id  +','+ selrto.name}}</ion-card-subtitle>-->
+          <ion-card-title> {{transData.id  +','+ transData.name}} 
+             <ion-icon color="primary" size='medium'  (click)="addRTODetails()"  name="create-outline"></ion-icon> 
+            </ion-card-title> 
+          
+        </ion-card-header>
+      
+        <ion-card-content>
+          {{transData.address}}
+        </ion-card-content>
+      </ion-card>
+  
+
+    </ion-card>
+
+    
+
+    <ion-card> 
+      <ion-item>
+        <ion-label style="color:rgb(3, 148, 148)"> <strong>{{'acctab1.roaddetails' | translate:params}}
+          </strong> </ion-label>
+      </ion-item>
+      <ion-card-content (click)="addRoadDetails()" class="alignme-center pointer"> Add Road Details
+        <ion-icon name="Add" ></ion-icon>
+      </ion-card-content>
+    </ion-card> 
+</ion-content>

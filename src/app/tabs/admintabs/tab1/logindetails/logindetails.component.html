@@ -1,0 +1,46 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>
+			Login Details
+		</ion-title>
+		<ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content  >
+	<ngx-datatable *ngIf="companies!=null"
+		[rows]="companies " 
+		[ngClass]="tableStyle"
+		[rowHeight]="'auto'"
+		[headerHeight]="50"
+		[columnMode]="'force'"
+		[rowClass]="getRowClass.bind(this)"
+	>
+		<ngx-datatable-column name="Title"></ngx-datatable-column>
+		<ngx-datatable-column name="Login"></ngx-datatable-column>
+		<!-- <ngx-datatable-column name="Hits"></ngx-datatable-column> -->
+
+		<!-- <ngx-datatable-column name="Actions" [sortable]="false">
+			<ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+				<ion-button size="small" fill="outline" (click)="open(row)"
+					>Details</ion-button
+				>
+			</ng-template>
+		</ngx-datatable-column>-->
+	</ngx-datatable> 
+
+	<div *ngIf="companies==null">
+		<div class="ion-padding custom-skeleton">
+		  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+		  <ion-skeleton-text animated></ion-skeleton-text>
+		  <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+		  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+		  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+		</div>
+	  </div>
+
+</ion-content>

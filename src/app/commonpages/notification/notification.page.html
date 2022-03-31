@@ -1,0 +1,148 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="alignme-center"> FCM notification</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="dev" (click)="createNotification()">
+
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="clearNotification()">
+
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button *ngIf="dev" (click)="testNotification()">
+
+        <ion-icon  name="notifications-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title *ngIf="notification_count!=0">Total notifications - {{notification_count}} </ion-title>
+    <ion-title *ngIf="notification_count==0">No notification to display</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refNotification($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let f of reverse_notification; let i = index">
+
+    <ion-card-header>
+      <ion-card-subtitle>
+        <b><span>{{f.title}}</span></b>
+
+      </ion-card-subtitle>
+
+      <!-- <ion-card-title>Card Title</ion-card-title> -->
+    </ion-card-header>
+
+    <ion-card-content>
+      <p style="white-space:pre-wrap;">{{f.message}} </p>
+      <img *ngIf="f.image" [src]="f.image">
+    </ion-card-content>
+
+     <!-- <ion-row>
+      <ion-col>
+        <ion-text>&nbsp;</ion-text>
+      </ion-col>
+
+      <ion-col size="auto" ion-item no-lines no-padding text-center col-2>
+        <div class="ion-text-right" style="cursor: pointer;" >
+
+          <ion-text>{{f.google.sent_time}}</ion-text>
+        </div>
+      </ion-col>
+
+    </ion-row>  -->
+
+    <!-- <ion-card class="severity"  *ngFor="let fr of f?.reply">
+      <ion-card-subtitle>
+        <b> &nbsp; Reply: </b> 
+      </ion-card-subtitle>
+      <ion-card-content>
+        <p style="white-space:pre-wrap;">{{fr.description}} </p>
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-text>&nbsp;</ion-text>
+        </ion-col>
+
+        <ion-col size="auto" ion-item no-lines no-padding text-center col-2>
+          <div class="ion-text-right" style="cursor: pointer;" >
+  
+            <ion-text>{{fr.google.sent_time|date:'medium'}}</ion-text>
+          </div>
+        </ion-col>
+  
+      </ion-row>
+    </ion-card> -->
+
+    <!-- <ion-row>
+      <ion-col>
+        <ion-text>{{f.google.sent_time|date:'medium'}}</ion-text>
+      </ion-col>
+
+      <ion-col *ngIf='user.role=="1" ' size="auto" ion-item no-lines no-padding text-center col-2>
+        <div class="ion-text-right" style="cursor: pointer;" (click)="deletefeedback(i)">
+
+          <ion-text>Delete</ion-text>
+        </div>
+      </ion-col>
+      <ion-col *ngIf='user.role=="1"' size="auto" ion-item no-lines no-padding text-center col-2>
+        <div class="ion-text-right" style="cursor: pointer;" (click)="replyfeedback(i)">
+
+          <ion-text>Reply</ion-text>
+        </div>
+      </ion-col>
+
+    </ion-row> -->
+
+  </ion-card>
+
+
+  
+
+  <section class="full-width" *ngIf="dev">
+
+
+    <ion-button color="warning" expand="full" *ngIf="dev && +user.role<=2"
+      (click)="pslocationupdate()"> PS Location Update </ion-button>
+
+    <!-- <ion-button  color="warning" *ngIf="+user.role==1 && dev==true" expand="full" (click)="funService()"> Services </ion-button> -->
+    </section>
+
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollNotification($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+</ion-content>
+
+<!--
+
+   <span class="alignme-center" style="width: 100%;">
+      <! --<ion-button (click)="viewAccident(i)" fill="outline" slot="end">VIEW<ion-icon name="newspaper-outline" slot="end"></ion-icon></ion-button>
+      <ion-button (click)="viewAccidentPDF(i)" fill="outline" slot="end">PDF<ion-icon ios="ios-document" md="md-document"></ion-icon></ion-button> -->
+<!-- <ion-chip  outline (click)="replyfeedback(i)"  color="secondary">
+      <ion-label >Reply </ion-label> 
+      <ion-button (click)="replyfeedback(i)" fill="outline" slot="end">VIEW<ion-icon name="newspaper-outline" slot="end"></ion-icon></ion-button> 
+    </ion-chip> - ->
+    
+
+  </span>
+
+-->

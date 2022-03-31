@@ -1,0 +1,252 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>MACT Awards </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton()" 
+  #f="ngForm" >
+
+  
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date of Award</ion-label>
+          <ion-datetime  
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+          id="award_date" name="award_date"  
+          #awarddate="ngModel"
+          [(ngModel)]="award_date" 
+          required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && awarddate.invalid">
+        <p class='errormsg'*ngIf="awarddate.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Case number</ion-label>
+        <ion-input   id="case_no" name="case_no"  
+        #caseno="ngModel"
+          [(ngModel)]="case_no" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && caseno.invalid">
+        <p class='errormsg'*ngIf="caseno.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Title of the case</ion-label>
+        <ion-input   id="case_title" name="case_title" 
+        #casetitle="ngModel"
+          [(ngModel)]="case_title" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && casetitle.invalid">
+        <p class='errormsg'*ngIf="casetitle.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Award amount</ion-label>
+        <ion-input   id="award_amount" name="award_amount"  type="number"
+        #awardamount="ngModel"
+          [(ngModel)]="award_amount" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && awardamount.invalid">
+        <p class='errormsg'*ngIf="awardamount.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date of notice of deposit by the depositor to the Claimant(s)</ion-label>
+          <ion-datetime  
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+          id="date_notice_depositer" name="date_notice_depositer"  
+          #datenoticedepositer="ngModel"
+          [(ngModel)]="date_notice_depositer" 
+          required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && datenoticedepositer.invalid">
+        <p class='errormsg'*ngIf="datenoticedepositer.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date of notice of deposit by the Tribunal to the Claimant(s)</ion-label>
+          <ion-datetime  
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+          id="date_notice_tribunal" name="date_notice_tribunal"  
+          #datenoticetribunal="ngModel"
+          [(ngModel)]="date_notice_tribunal" 
+          required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && datenoticetribunal.invalid">
+        <p class='errormsg'*ngIf="datenoticetribunal.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Amount of interest upto date of notice of deposit</ion-label>
+        <ion-input   id="amount_interest" name="amount_interest" 
+        #amountinterest="ngModel"
+          [(ngModel)]="amount_interest" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && amountinterest.invalid">
+        <p class='errormsg'*ngIf="amountinterest.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Amount deposited along with date of deposit</ion-label>
+        <ion-input   id="amount_deposit_date" name="amount_deposit_date" 
+        #amountdepositdate="ngModel"
+          [(ngModel)]="amount_deposit_date" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && amountdepositdate.invalid">
+        <p class='errormsg'*ngIf="amountdepositdate.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Amount of interest upto date of notice of deposit</ion-label>
+        <ion-input   id="amount_interest_uptodate" name="amount_interest_uptodate" 
+        #amountinterestuptodate="ngModel"
+          [(ngModel)]="amount_interest_uptodate" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && amountinterestuptodate.invalid">
+        <p class='errormsg'*ngIf="amountinterestuptodate.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether entire award amount and interest deposited. If no, balance 
+          outstanding award amount/interest</ion-label>
+        <ion-input   id="amount_status" name="amount_status" 
+        #amountstatus="ngModel"
+          [(ngModel)]="amount_status" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && amountstatus.invalid">
+        <p class='errormsg'*ngIf="amountstatus.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Action  taken to recover the balance award interest</ion-label>
+        <ion-input   id="action_taken" name="action_taken" 
+        #actiontaken="ngModel"
+          [(ngModel)]="action_taken" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && actiontaken.invalid">
+        <p class='errormsg'*ngIf="actiontaken.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Date of release of the award amount to the Claimant(s)</ion-label>
+      
+        <ion-datetime  
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+        id="release_date" name="release_date"  
+        #releasedate="ngModel"
+        [(ngModel)]="release_date" 
+        required></ion-datetime> 
+      </ion-item>
+      <div *ngIf="f.submitted && releasedate.invalid">
+        <p class='errormsg'*ngIf="releasedate.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Mode of release of the award amount:
+          (Give the details of endorsement made on the cheques)</ion-label>
+        <ion-input   id="mode_release" name="mode_release" 
+        #moderelease="ngModel"
+          [(ngModel)]="mode_release" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && moderelease.invalid">
+        <p class='errormsg'*ngIf="moderelease.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Remarks</ion-label>
+        <ion-input   id="remarks" name="remarks" 
+        #remarksash="ngModel"
+          [(ngModel)]="remarks" required></ion-input>
+      </ion-item>
+      <div *ngIf="f.submitted && remarksash.invalid">
+        <p class='errormsg'*ngIf="remarksash.errors.required">
+         This field is Required
+        </p>     
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"  type="submit">Save</ion-button>
+     </ion-col>
+   </ion-row>
+  </form>
+</ion-content>

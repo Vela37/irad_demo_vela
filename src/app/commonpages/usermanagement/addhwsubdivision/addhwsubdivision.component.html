@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Create Highways Sub-Division 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">{{'usermanagement.stationuser_creation.name' | translate:params }}</ion-label>
+          <ion-input [(ngModel)]="hwsubdivisiondata.name" required="true" max="100"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row *ngIf="message!=null">
+      <ion-col>
+        <ion-text *ngFor="let msg of message; let i = index"> {{msg}}. <br></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-item>  
+      <ion-label>RTO Code</ion-label>  
+      <ion-textarea  placeholder="Enter some notes here..."></ion-textarea>  
+    </ion-item>   -->
+
+    <ion-card>
+      <ion-item>
+        <ion-card-subtitle color="primary" >{{'usermanagement.popup_common.note' | translate:params }} </ion-card-subtitle>
+      </ion-item>
+  
+      <ion-card-content>
+       <ion-grid>
+         <ion-row color="secondary" >
+           <ion-col style="color: 	#808080">{{'usermanagement.popup_common.rto_creation1' | translate:params }} </ion-col>         
+         </ion-row>
+         <ion-row >
+          <ion-col style="color: 	#808080">{{'usermanagement.popup_common.rto_creation2' | translate:params }}</ion-col>         
+        </ion-row>
+       </ion-grid>
+      </ion-card-content>
+      </ion-card>
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary"> 
+          <ion-label (click)="validationCheck()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

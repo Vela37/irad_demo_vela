@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+        {{titlevechile}}
+    </ion-title>
+   </ion-toolbar>
+</ion-header>
+  <ion-content class='ion-no-padding'>
+     
+
+    <ion-grid>
+<ion-row>
+<ion-col>
+  <ion-button *ngFor="let vehh of vehicelist" expand="full" (click)="editvehicle(vehh[2])"> {{vehh[1]}}</ion-button>
+</ion-col>
+<ion-col> 
+   <ion-button *ngFor="let dvr of driverlist" expand="full" color="danger"  (click)="editdriver(dvr[4])">{{dvr[1]}}<br>{{dvr[3]}}</ion-button>
+</ion-col>
+</ion-row>
+
+</ion-grid>
+    </ion-content>
+
+
+          <style>
+                    .mandatory
+                    {
+                        color:red;
+                        font-size:9px; 
+                    }
+         </style>

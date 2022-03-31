@@ -1,0 +1,245 @@
+<ion-header>
+  <ion-toolbar color="hospital">
+    <ion-title class='txtalign'>
+      Infrastructure 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+ <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Postmorterm Facility </ion-label>
+            
+            <ion-select class='uppercase' id="postmortem" name="postmortem"  
+            #postmortemInput="ngModel"
+            [(ngModel)]="infrastr.postmortem">
+
+            <ion-select-option value="YES">YES</ion-select-option>
+            <ion-select-option value="NO">NO</ion-select-option>
+            </ion-select>
+
+                    </ion-item>
+        </ion-col> 
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Drunk and Drive Test Facility</ion-label>
+
+            <ion-select class='uppercase' id="ddfacility" name="ddfacility"  
+            #ddfacilityInput="ngModel"
+            [(ngModel)]="infrastr.ddfacility">
+          
+              <ion-select-option value="YES">YES</ion-select-option>
+              <ion-select-option value="NO">NO</ion-select-option>
+         
+            </ion-select>
+
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Hospital Type
+            </ion-label>
+            <ion-select class='uppercase' id="hospital_type" name="hospital_type"  
+            #hospital_typeInput="ngModel"
+            [(ngModel)]="infrastr.hospital_type">
+          
+              <ion-select-option value="Government">Government</ion-select-option>
+              <ion-select-option value="Private">Private</ion-select-option>
+         
+            </ion-select>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Total Bed Strength
+            </ion-label>
+
+            <ion-input   class='uppercase'  id="totalbed" name="totalbed" type='number' (ionChange)="checkdigits($event,4)" 
+            #totalbedInput="ngModel"
+            [(ngModel)]="infrastr.totalbed" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Number of In Patients Beds
+            </ion-label>
+
+            <ion-input   class='uppercase' id="noinpatientsbed" name="noinpatientsbed"  type='number' (ionChange)="checkdigits($event,4)"
+            #noinpatientsbedeInput="ngModel"
+            [(ngModel)]="infrastr.noinpatientsbed" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+
+      
+    
+
+      
+    
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Number of ICU Beds
+            </ion-label>
+            <ion-input   class='uppercase' id="nooficubed" name="nooficubed" type='number' (ionChange)="checkdigits($event,2)" 
+            #nooficubedInput="ngModel"
+            [(ngModel)]="infrastr.nooficubed" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+       
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Fully Equiped Operation Theatre
+            </ion-label>
+
+            <ion-input   class='uppercase' id="fullyequipedtheatre" name="fullyequipedtheatre" type='number' (ionChange)="checkdigits($event,2)" 
+            #fullyequipedtheatreInput="ngModel"
+            [(ngModel)]="infrastr.fullyequipedtheatre" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Number of OT's
+            </ion-label>
+
+            <ion-input   class='uppercase' id="no_of_ot" name="no_of_ot" type='number' (ionChange)="checkdigits($event,2)" 
+            #no_of_otInput="ngModel"
+            [(ngModel)]="infrastr.no_of_ot" 
+            ></ion-input>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Blood Bank
+            </ion-label>
+           
+
+            <ion-select class='uppercase' id="bloodbank" name="bloodbank"  
+            #bloodbankInput="ngModel"
+            [(ngModel)]="infrastr.bloodbank">    
+              <ion-select-option value="Available">Available</ion-select-option>
+              <ion-select-option value="Unavailable">Unavailable</ion-select-option>  
+            </ion-select>
+
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Medical Records Department
+            </ion-label>
+           
+
+            <ion-select class='uppercase' id="medicalrecord" name="medicalrecord"  
+            #medicalrecordInput="ngModel"
+            [(ngModel)]="infrastr.medicalrecord">    
+              <ion-select-option value="Available">Available</ion-select-option>
+              <ion-select-option value="Unavailable">Unavailable</ion-select-option>  
+            </ion-select>
+            
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Ambulatory Service
+            </ion-label>
+            
+            <ion-select class='uppercase' id="ambulance" name="ambulance"  
+            #ambulanceInput="ngModel"
+            [(ngModel)]="infrastr.ambulance">    
+              <ion-select-option value="Available">Available</ion-select-option>
+              <ion-select-option value="Unavailable">Unavailable</ion-select-option>  
+            </ion-select>
+
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Diagnostic Centre Clinical Lab and Diagnostics(Basic)
+            </ion-label>
+            
+
+            <ion-select class='uppercase' id="lab" name="lab"  
+            #labInput="ngModel"
+            [(ngModel)]="infrastr.lab">    
+              <ion-select-option value="Available">Available</ion-select-option>
+              <ion-select-option value="Unavailable">Unavailable</ion-select-option>  
+            </ion-select>
+          </ion-item>
+        </ion-col> 
+      </ion-row>
+
+
+    </ion-grid>
+    <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+          <ion-col>
+            <ion-button expand="block" (click)="closemodal()" color='danger'>
+              <ion-icon name="arrow-back"></ion-icon>
+              &nbsp;&nbsp;&nbsp;CANCEL
+  
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color='success' type="submit">
+  
+  
+              <ion-icon name="git-pull-request"></ion-icon>&nbsp;&nbsp;&nbsp;SAVE
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+    </form>
+ 
+ 
+
+</ion-content>
+

@@ -1,0 +1,13 @@
+ion-content {
+    --background: radial-gradient(at 0 90%, rgb(244, 245, 178), #b4f3a4);
+  }
+ 
+.vcenter{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 100%;
+}
+ 
+  

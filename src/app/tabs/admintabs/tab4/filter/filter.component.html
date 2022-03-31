@@ -1,0 +1,227 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+     Maps
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+
+
+
+
+
+<ion-content padding>
+  
+  <ion-segment [(ngModel)]="segment">
+    
+    <ion-segment-button disabled  value="layers">
+      Layers
+    </ion-segment-button>
+    <ion-segment-button value="filter">
+     Filter
+    </ion-segment-button>
+    <ion-segment-button disabled value="style">
+     Style
+    </ion-segment-button>
+    <ion-segment-button value="legend">
+      Legend
+     </ion-segment-button>
+
+  </ion-segment>
+
+
+  <div [ngSwitch]="segment">
+    <ion-card *ngSwitchCase="'layers'">
+      <ion-card-header>
+        Layer
+      </ion-card-header>
+      <ion-card-content>
+       
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+
+       <ion-list>
+        <div  *ngFor="let group of layergroup; let i = index">
+          <ion-item class="item-stable"
+                    (click)="toggleGroup(group)"
+                    [ngClass]="{active: isGroupShown(group)}">
+              <i class="icon ion-plus" [ngClass]="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+              <i class="icon ion-minus" ></i>
+              <ion-icon name="caret-forward-circle-outline" color='primary' *ngIf="isGroupShown(group)" ></ion-icon>
+              <ion-icon name="caret-down-circle-outline" color='danger' *ngIf="!isGroupShown(group)" ></ion-icon>
+            &nbsp;
+             {{group.name}}
+          </ion-item>
+          <ng-container *ngFor="let layer of group.layers ; let j = index" >
+          <ion-item class="item-accordion"
+           [class.hide]="isGroupShown(group)">
+          &nbsp;  &nbsp;  &nbsp; <ion-checkbox (ionChange)="layerClick(i,j,$event)"></ion-checkbox>  &nbsp; {{layer.layerName}} 
+          </ion-item>
+        </ng-container>
+        </div>
+      </ion-list>
+
+
+
+
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card *ngSwitchCase="'filter'">
+      <ion-card-header>
+        Accident 
+      </ion-card-header>
+      <ion-card-content>
+      
+                <ion-label position="floating" class='fcolor' > Severity</ion-label>
+                <ion-select class="ion-text-wrap" multiple [(ngModel)]="selection.severity" interface="alert">
+                  <ion-select-option *ngFor="let val of severity; let i = index" value="{{val.id}}">
+                    {{val.title}}
+                  </ion-select-option>
+                </ion-select>
+            
+      </ion-card-content>
+
+
+      <span *ngIf='dev'>
+      <ion-card-header>
+        Administrative 
+      </ion-card-header>
+      <ion-card-content>
+      
+        <ion-grid>    
+       
+                <ion-label position="floating" class='fcolor'>State</ion-label>
+                <ion-select class="ion-text-wrap" [(ngModel)]="fld_state" interface="alert" (ionChange)="loaddistrict()">
+                  <ion-select-option *ngFor="let val of state; let i = index" value="{{val.code}}">
+                    {{val.value}}
+                  </ion-select-option>
+                </ion-select>
+              
+                  <ion-label position="floating" class='fcolor'>District</ion-label>
+                  <ion-select class="ion-text-wrap" [(ngModel)]="fld_district" interface="alert" (ionChange)="loadpolice()">
+                    <ion-select-option *ngFor="let val of district; let i = index" value="{{val.code}}">
+                      {{val.value}}
+                    </ion-select-option>
+                  </ion-select>
+               
+              
+                    <ion-label position="floating" class='fcolor'>Station</ion-label>
+                    <ion-select class="ion-text-wrap" [(ngModel)]="fld_station" interface="alert" (ionChange)="loadpolice()">
+                      <ion-select-option *ngFor="let val of station; let i = index" value="{{val.code}}">
+                        {{val.value}}
+                      </ion-select-option>
+                    </ion-select>
+                
+
+            </ion-grid>
+              
+                
+            
+
+      </ion-card-content>
+    </span>
+
+    </ion-card>
+
+   
+ 
+
+    <ion-card *ngSwitchCase="'style'">
+      <ion-card-header>
+       style
+      </ion-card-header>
+      <ion-card-content>
+        working on it
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngSwitchCase="'legend'">
+      <ion-card-header>
+       Accidents
+      </ion-card-header>
+      <ion-card-content>
+        <img [src]=acclegend />
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+
+
+<!--
+
+<ion-segment color="primary" scrollable (ionChange)="segmentChanged($event)" value="filter">
+  <ion-segment-button disabled value="layer" layout="icon-start">
+    <ion-label>Layers</ion-label>
+    <ion-icon name="layers-outline"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="filter" layout="icon-start">
+    <ion-label>Filter</ion-label>
+    <ion-icon name="filter-outline"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button disabled value="style" layout="icon-start">
+    <ion-label>Style</ion-label>
+    <ion-icon name="color-palette"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value="legend" layout="icon-start">
+    <ion-label>Legend</ion-label>
+    <ion-icon name="color-palette"></ion-icon>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-content *ngIf="selseg=='layer'">
+  Layer
+</ion-content>
+
+<ion-content *ngIf="selseg=='filter'">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor' > Severity</ion-label>
+          <ion-select class="ion-text-wrap" [(ngModel)]="selection.severity" interface="alert">
+            <ion-select-option *ngFor="let val of severity; let i = index" value="{{val.id}}">
+              {{val.title}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selseg=='style'">
+style
+</ion-content>
+<ion-content *ngIf="selseg=='legend'">
+  <img [src]=acclegend />
+  </ion-content>
+
+-->
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="clear()">Clear</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="save()"> &nbsp; Okay &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

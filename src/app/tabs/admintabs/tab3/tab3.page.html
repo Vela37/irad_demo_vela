@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Analysis
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class='ion-padding'>
+
+<!-- Skeleton screen -->
+<div *ngIf="!data">
+  <div class="ion-padding custom-skeleton">
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    <ion-skeleton-text animated></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  </div>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+
+
+
+<ion-card class="welcome-card">
+  <ion-card-header>
+    <ion-card-subtitle>Total Accident Based on severity </ion-card-subtitle>
+    <ion-card-title>Accidents Count</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <canvas #pieChart></canvas>
+  </ion-card-content>
+
+  
+
+  </ion-card>
+
+<ion-card>
+  <ion-grid *ngIf="data">
+
+    <ion-row >
+    
+      <ion-col class="ion-align-self-start">
+        <h6>FATAL</h6>
+      </ion-col>
+      <ion-col class="ion-align-self-start">
+        <h6>GRIEVOUS</h6>
+      </ion-col>
+      <ion-col class="ion-align-self-start">
+        <h6> INJURY (H)</h6>
+      </ion-col>
+      <ion-col class="ion-align-self-start">
+        <h6> INJURY (NH)</h6>
+      </ion-col>
+      <ion-col class="ion-align-self-start">
+        <h6> VEHICLE DAMAGE</h6>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let d of data.datasets ; let i = index" align-items-end>
+      
+      <ion-col class="ion-align-self-center">
+        <div>
+          {{data.datasets[i].data[0]}}
+        </div>
+      </ion-col>
+      <ion-col class="ion-align-self-end">
+        <div>
+          {{data.datasets[i].data[1]}}
+        </div>
+      </ion-col>
+      <ion-col class="ion-align-self-end">
+        <div>
+          {{data.datasets[i].data[2]}}
+        </div>
+      </ion-col>
+      <ion-col class="ion-align-self-end">
+        <div>
+          {{data.datasets[i].data[3]}}
+        </div>
+      </ion-col>
+      <ion-col class="ion-align-self-end">
+        <div>
+          {{data.datasets[i].data[4]}}
+        </div>
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>
+</ion-card>
+<ion-card *ngIf="false" class="welcome-card">
+  <ion-card-header>
+    <ion-card-subtitle>Sample chart based on Tamil Nadu Accident</ion-card-subtitle>
+    <ion-card-title>Last 5 Years</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <canvas #barChart></canvas>
+  </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

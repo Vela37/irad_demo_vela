@@ -1,0 +1,1137 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ "acctab1.roaddetails" | translate: params }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelmodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.area_type" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.area_type"
+            interface="alert"
+            (ionChange)="RoadClassification($event)"
+          >
+            <ion-select-option value="rural">{{
+              "commonlinks.rural" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="urban">{{
+              "commonlinks.urban" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="sub urban">{{
+              "commonlinks.surban" | translate: params
+            }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.road_classification" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.road_classification"
+            interface="alert"
+            *ngIf="roadinfo.area_type == 'rural'"
+          >
+            <ion-select-option
+              *ngFor="let d of options5r; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+          <ion-select
+            [(ngModel)]="roadinfo.road_classification"
+            interface="alert"
+            *ngIf="
+              roadinfo.area_type == 'urban' || roadinfo.area_type == 'sub urban'
+            "
+          >
+            <ion-select-option
+              *ngFor="let d of options5u; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.surface_type" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <!-- <ion-select [(ngModel)]="roadinfo.surface_type" interface="alert">
+            <ion-select-option value="Paved">{{
+              "commonlinks.paved" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="Unpaved">{{
+              "commonlinks.unpaved" | translate: params
+            }}</ion-select-option>
+          </ion-select> -->
+          <ion-select [(ngModel)]="roadinfo.surface_type" interface="alert">
+            <ion-select-option *ngFor="let d of options27; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option>
+          </ion-select>
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.road_number" | translate: params }}
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="roadinfo.road_number"
+            clearInput="true"
+            autocomplete="“true”"
+            spellcheck="“true”"
+          >
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.road_name" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="roadinfo.road_name"
+            maxlength="200"
+            autofocus="true"
+            clearInput="true"
+            autocomplete="“true”"
+            placeholder="from"
+            spellcheck="“true”"
+            style="text-transform: capitalize"
+          ></ion-input>
+          <ion-input
+            [(ngModel)]="road_name1"
+            maxlength="200"
+            autofocus="true"
+            clearInput="true"
+            autocomplete="“true”"
+            placeholder="to"
+            spellcheck="“true”"
+            style="text-transform: capitalize"
+          ></ion-input>
+          <ion-input [(ngModel)]="roadinfo.accid" type="hidden"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.type_structure" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select [(ngModel)]="roadinfo.type_structure" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options12; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.type_road" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+          <ion-select [(ngModel)]="roadinfo.type_road" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options15; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.surface_condition" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.surface_condition"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options11; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.type_carriageway" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select [(ngModel)]="roadinfo.type_carriageway" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options24; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.road_width" | translate: params }}
+            <span class="redclr">(in metre)</span>
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+          <ion-input
+            [(ngModel)]="roadinfo.road_width"
+            interface="alert"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.accident_locations" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+          <ion-select
+            multiple="false"
+            [(ngModel)]="roadinfo.accident_locations"
+            interface="alert"
+            (ionChange)="Location($event)"
+          >
+            <ion-select-option
+              *ngFor="let d of options18; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor"
+            >{{ "acctab1.acc.Road.road_chainage" | translate: params }}
+            <span class="redclr">(in metre)</span>
+          </ion-label>
+          <ion-input
+            [(ngModel)]="roadinfo.road_chainage"
+            interface="alert"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col [hidden]="topo">
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.horizontal_curve" | translate: params }}
+            <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.horizontal_curve"
+            interface="alert"
+            [disabled]="roadinfo.accident_locations != '2'"
+          >
+            <ion-select-option
+              *ngFor="let d of options9; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.vertical_curve" | translate: params }}
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.vertical_curve"
+            interface="alert"
+            [disabled]="roadinfo.accident_locations != '3'"
+          >
+            <ion-select-option
+              *ngFor="let d of options10; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor" position="floating"
+            >{{ "acctab1.acc.Road.road_width_curve" | translate: params }}
+            <span class="redclr">(in metre)</span>
+          </ion-label>
+          <ion-input
+            [(ngModel)]="roadinfo.road_width_curve"
+            [disabled]="
+              !(
+                roadinfo.accident_locations == '3' ||
+                roadinfo.accident_locations == '2'
+              )
+            "
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.junction_type" | translate: params }}
+            <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.junction_type"
+            interface="alert"
+            [disabled]="!(roadinfo.accident_locations == '1' || roadinfo.accident_locations == '5')"
+          >
+            <ion-select-option
+              *ngFor="let d of options1; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.junction_control" | translate: params }}
+            <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.junction_control"
+            interface="alert"
+            [disabled]="!(roadinfo.accident_locations == '1' || roadinfo.accident_locations == '5')"
+          >
+            <ion-select-option
+              *ngFor="let d of options2; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.sight_distance" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            multiple="false"
+            [(ngModel)]="roadinfo.sight_distance"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options17; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.speed_limit" | translate: params }}
+            <span class="redclr">(In KMPH)</span>
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select [(ngModel)]="roadinfo.speed_limit" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options20; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.road_margins" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.road_margins"
+            interface="alert"
+            (ionChange)="Shoulder($event)"
+          >
+            <ion-select-option
+              *ngFor="let d of options21; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="roadinfo.road_margins == '1'">
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked">{{
+            "acctab1.acc.Road.road_shoulder_type" | translate: params
+          }}</ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.road_shoulder_type"
+            interface="alert"
+          >
+            <ion-select-option value="Paved">{{
+              "commonlinks.paved" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="Unpaved">{{
+              "commonlinks.unpaved" | translate: params
+            }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "commonlinks.type_terrain" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select [(ngModel)]="roadinfo.type_terrain" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options22; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "commonlinks.type_surface_gradient" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.type_surface_gradient"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options13; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.physical_divider" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select [(ngModel)]="roadinfo.physical_divider" interface="alert">
+            <ion-select-option value="yes">{{
+              "commonlinks.yes" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="no">{{
+              "commonlinks.no" | translate: params
+            }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked">
+            {{ "acctab1.acc.Road.road_median" | translate: params }}
+            <!-- <ion-icon name="star" class="mandatory"></ion-icon> -->
+          </ion-label>
+
+          <ion-select [(ngModel)]="roadinfo.typeofmedian" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options26; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked">
+            {{
+              "acctab1.acc.Road.pedestrian_infrastructure" | translate: params
+            }}</ion-label
+          >
+          <ion-select
+            [(ngModel)]="roadinfo.pedestrian_infrastructure"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options6; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.onoing_road_work" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="ongoing"
+            interface="alert"
+            (ionChange)="onChangeOngoing($event)"
+          >
+            <ion-select-option value="yes">{{
+              "commonlinks.yes" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="no">{{
+              "commonlinks.no" | translate: params
+            }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item>
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.Road.road_markings" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            multiple="false"
+            [(ngModel)]="roadinfo.road_markings"
+            interface="alert"
+            required
+          >
+            <ion-select-option
+              *ngFor="let d of options16; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked">
+            {{ "acctab1.acc.Road.road_sign_board" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            multiple="false"
+            [(ngModel)]="roadinfo.road_sign_board"
+            interface="alert"
+            required
+          >
+            <ion-select-option
+              *ngFor="let d of options19; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked">
+            {{ "acctab1.acc.Road.geometric_factors" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-select
+            [(ngModel)]="roadinfo.geometric_factors"
+            interface="alert"
+            multiple="true"
+          >
+            <ion-select-option
+              *ngFor="let d of options25; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked">
+            {{ "acctab1.acc.Road.remedial_measures" | translate: params }}
+          </ion-label>
+          <ion-select
+            [(ngModel)]="roadinfo.remedial_measures"
+            interface="alert"
+            multiple="true"
+          >
+            <ion-select-option
+              *ngFor="let d of options14; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked">
+            {{ "acctab1.acc.Road.remedial_measures" | translate: params }}
+          </ion-label>
+          <ion-select
+            multiple="true"
+            [(ngModel)]="roadinfo.remedial_measures"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options14; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

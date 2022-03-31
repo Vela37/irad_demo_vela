@@ -1,0 +1,134 @@
+<ion-content class="ion-padding"> 
+
+  <ion-card >
+  <div class="list card">
+    <ion-item class="profile-item">
+      <div class="user-img ">
+        <img [src]="userp.profilepic"> 
+      </div>
+         <h2 class="ion-padding" style="color: #183e7a;">{{userp.name}} </h2>
+    </ion-item>
+    <div class=" ion-padding list card">
+    <ion-row>
+      <ion-col  >
+        <div>
+          {{ 'profile.department' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{userp.dept}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col  >
+        <div>
+          {{ 'profile.role' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{userp.role}} 
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="userp.ps!=null">
+      <ion-col>
+        <div>
+          {{ 'profile.policestation' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{userp.ps  |  titlecase}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="userp.district">
+      <ion-col>
+        <div>
+          {{ 'profile.district' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{userp.district |  titlecase}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="userp.state">
+      <ion-col>
+        <div>
+          {{ 'profile.state' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{userp.state  |  titlecase}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        <div>
+         e-Mail
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <a  class="pointer" href = "mailto: helpdesk.irad@supportgov.in"> <span style="color:#001C54"  >{{userp.email}} </span> </a>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        <div>
+         Mobile
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <a class="pointer"  href="tel:{{userp.mobile}}">  <span style="color:#001C54"  >{{userp.mobile}}</span></a>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="userp.status">
+      <ion-col>
+        <div>
+          {{ 'profile.status' | translate:params }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-icon *ngIf="userp.status" color="success" name="checkmark-circle-outline"></ion-icon>
+          <ion-icon *ngIf="!userp.status" color="danger" name="close-circle-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    
+    
+  </div>
+  </div>
+</ion-card>
+
+</ion-content>
+<ion-footer translucent="true" class="tab1-footer">
+  
+  <ion-grid>
+    <ion-row style="text-align: center;">
+            
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Close</ion-label>
+        </ion-chip>
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>
+</ion-footer>

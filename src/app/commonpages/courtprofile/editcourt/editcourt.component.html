@@ -1,0 +1,259 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="text-align: center ;" >
+      Court  
+    </ion-title>
+   
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-card>
+
+
+
+
+
+  <form name="form" 
+  (ngSubmit)="f.form.valid && onSubmit()" 
+  #f="ngForm" > 
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Court Name</ion-label>
+          <ion-input  id="courtname" name="courtname" 
+          #courtname="ngModel"
+          [(ngModel)]="courtdatafrompage.courtname"
+          minlength=2
+          maxlength=100
+          required></ion-input>
+        </ion-item>
+    
+        <div *ngIf="f.submitted && courtname.invalid">
+          <p class='errormsg'*ngIf="courtname.errors.required">
+            Court Name Required 
+          </p>
+          <p class='errormsg'*ngIf="courtname.errors.minlength">
+            Court Name Minimum 2 Letters
+          </p>
+          <p *ngIf="courtname.errors.maxlength">
+            Court Name Maximum 100 Letters
+          </p>
+        </div>
+    
+      </ion-col>
+    </ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="stacked" class='fcolor'> State</ion-label>
+      <ion-select interface="alert" 
+      id="ps_state"
+      name="ps_state"
+      #statereq="ngModel"
+       [(ngModel)]="courtdatafrompage.ps_state" required>      
+      <ion-select-option *ngFor="let d of data_state; let i = index" value="{{d.id}}">
+        {{d.name}}
+      </ion-select-option>
+  </ion-select>
+    </ion-item>
+    <div *ngIf="f.submitted && statereq.invalid">
+      <p class='errormsg'*ngIf="statereq.errors.required">
+        State Name Required 
+      </p>
+ 
+    </div>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="stacked" class='fcolor'> District</ion-label>
+      <ion-select interface="alert" 
+      id="ps_district"
+      name="ps_district"
+      #districtreq="ngModel"
+       [(ngModel)]="courtdatafrompage.rev_district" required>      
+      <ion-select-option *ngFor="let d of data_district; let i = index" value="{{d.id}}">
+        {{d.name}}
+      </ion-select-option>
+  </ion-select>
+    </ion-item>
+    <div *ngIf="f.submitted && districtreq.invalid">
+      <p class='errormsg'*ngIf="districtreq.errors.required">
+        District Name Required 
+      </p>
+ 
+    </div>
+
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> Address</ion-label>
+      <ion-input  id="address" name="address" 
+      #addressreq="ngModel"
+      [(ngModel)]="courtdatafrompage.address" 
+      minlength=2
+      maxlength=100 required></ion-input>
+    </ion-item>
+    
+    <div *ngIf="f.submitted && addressreq.invalid">
+      <p class='errormsg'*ngIf="addressreq.errors.required">
+        Address Required 
+      </p>
+      <p class='errormsg'*ngIf="addressreq.errors.minlength">
+        Address  Minimum 2 Letters
+      </p>
+      <p *ngIf="addressreq.errors.maxlength">
+        Court Name Maximum 100 Letters
+      </p>
+    </div>
+
+  </ion-col>
+</ion-row>
+
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="stacked" class='fcolor'>Court Type</ion-label>
+
+      <ion-select interface="alert" 
+      id="court_type"
+      name="court_type"
+      #courttypereq="ngModel"
+       [(ngModel)]="courtdatafrompage.court_type" required>      
+      <ion-select-option *ngFor="let d of data_court; let i = index" value="{{d.id}}">
+        {{d.name}}
+      </ion-select-option>
+  </ion-select>
+    </ion-item>
+    <div *ngIf="f.submitted && courttypereq.invalid">
+      <p class='errormsg'*ngIf="courttypereq.errors.required">
+        Court Type Required 
+      </p>
+  
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> Email Id</ion-label>
+      <ion-input id="emailid" name="emailid" 
+      #uspasswordInput="ngModel"
+      [(ngModel)]="courtdatafrompage.emailid"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required ></ion-input>
+    </ion-item>
+
+    <div *ngIf=" uspasswordInput.invalid">
+      <p class='errormsg'*ngIf="uspasswordInput.errors.pattern">
+        This is not a valid Email!!!
+      </p>
+     
+    </div>
+
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="fixed" class='fcolor'> Landline</ion-label>
+      <ion-input id="landline" name="landline" 
+      [(ngModel)]="courtdatafrompage.landline" ></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> PinCode</ion-label>
+      <ion-input id="pincode" name="pincode" 
+      #pincodereq="ngModel"
+       [(ngModel)]="courtdatafrompage.pincode"
+       pattern="^[+]*[(]{0,1}[6-9]{1,4}[)]{0,1}[-s./0-9]*$"
+       minlength=6
+       maxlength=6 required ></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && pincodereq.invalid ||  pincodereq.invalid">
+      <p class='errormsg'*ngIf="pincodereq.errors.required">
+        PinCode Required 
+      </p>
+      <p class='errormsg'*ngIf="pincodereq.errors.minlength">
+        PinCode  should be in  6 digith
+      </p>
+      <p class='errormsg'*ngIf="pincodereq.errors.pattern">
+        Please enter a valid PinCode code
+      </p>
+    </div>
+
+
+  </ion-col>
+</ion-row>
+
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+
+      <ion-label  position="stacked" class='fcolor'>Taluk</ion-label>
+      <ion-select interface="alert" 
+      id="rev_taluk"
+      name="rev_taluk"
+      #talukreq="ngModel"
+       [(ngModel)]="courtdatafrompage.rev_taluk" required>      
+      <ion-select-option *ngFor="let d of data_taluk; let i = index" value="{{d.id}}">
+        {{d.name}}
+      </ion-select-option>
+  </ion-select>
+    </ion-item>
+    <div *ngIf="f.submitted && talukreq.invalid">
+      <p class='errormsg'*ngIf="talukreq.errors.required">
+        Taluk Required 
+      </p>
+  
+    </div>
+  </ion-col>
+</ion-row>
+
+
+
+
+
+<!-- <ion-row > 
+  <ion-col >
+    <div >
+      <ion-button  type="submit" >
+       Register
+      </ion-button>
+    </div>  
+
+  </ion-col>
+</ion-row> -->
+
+
+<ion-row>
+      <ion-col width-50 style="text-align: right">
+         <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+      </ion-col>
+       <ion-col width-50 style="text-align: left">
+         <ion-button color="light" (click)="onSubmit()" type="submit">Update</ion-button>
+       </ion-col>
+     </ion-row>
+
+</ion-grid>
+  </form>
+
+</ion-card>
+</ion-content>

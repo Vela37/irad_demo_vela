@@ -1,0 +1,264 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>TREATMENT / DISCHARGE CERTIFICATE</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color='light'>
+  
+<div style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right: 30px;'> <span *ngIf="patientdata.treatment_saveflag=='1'" (click)="editflagchage()">Edit</span></div>
+
+  <ion-card>
+    <ion-card-content >
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+        
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>:&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Gender</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.gender}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Age</ion-col>
+        
+        <ion-col >:&nbsp;{{patientdata.patient_age}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="flag=='Yes'">
+        <ion-col>Accident Register</ion-col>
+        
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>MLC - {{patientdata.patient_type}}</ion-col>
+        
+        <ion-col>:&nbsp;{{patientdata.patient_id}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Patient Address</ion-col>
+        
+        <ion-col class='casesensitive'> :&nbsp;{{patientdata.gurdian_type}},{{patientdata.gurdian_name}},{{patientdata.patient_address}}</ion-col>      </ion-row>
+        <ion-row>
+          <ion-col>Time of Arrival</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.timeof_arrival}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Accident Register</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.ar_number}}</ion-col>
+        </ion-row>
+          
+        <ion-row *ngIf="patientdata.treatment_saveflag=='1'" style='display:none;'>
+          <ion-col></ion-col>
+          <ion-col (click)="downloadpmpdf(patientdata.id,3)"  style='color:#076ab6;font-weight: bold;'>Download PDF</ion-col>
+          <ion-col class='casesensitive'  style='color:#076ab6;font-weight: bold;'>&nbsp;</ion-col>
+        </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+
+  <div style='text-align:right;margin-top:10px;font-size:15px;color:brown;font-weight: bold;margin-right:10px;display:none;'> <span *ngIf="patientdata.discharge_showpolice=='No'" (click)="editflagchage()">Add More Details</span></div>
+  
+  <ion-card    *ngIf="flag=='no'" style='display:none;'>
+    <ion-card-content >
+      
+      <ion-row>
+        <ion-col>Name of the doctor</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_doctorname}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Doctor Regn. No.</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_doctor_regno}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Condition at admission</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_condtionofadmission}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Results of clinical investigations if any</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_clincalinvestgation}}</ion-col>
+      </ion-row>
+  
+     
+      
+  
+      <ion-row>
+        <ion-col>Injuries diagnosed other than those noted in the Wound Certificate, if any</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_woundcertificate}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Details of treatment given, including those of surgical and other procedures if any</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_treatement}}</ion-col>
+      </ion-row> 
+      <ion-row>
+        <ion-col>Condition at discharge</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_condtionofdischarge}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col> Advise given at the time of discharge regarding further treatment if necessary</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_advise}}</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Remarks if any </ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.discharge_remarks}}</ion-col>
+      </ion-row>
+      
+
+     
+
+          
+     
+
+    </ion-card-content>
+  </ion-card>
+  
+<span *ngIf="flag=='yes'">
+  
+  
+  <ion-grid>
+    
+    <ion-row style='display:none;'>
+      
+      <ion-col>
+      
+        <ion-item>
+          <ion-label class="fcolor" position="floating" style='color:red;font-weight:bold;'>Do you want to submit report  to police?</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="patientdata.discharge_showpolice" position="floating" (ionChange)="showmsg()">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+        </ion-item>
+        
+
+      
+                </ion-col> 
+        </ion-row>
+       
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Name of the doctor</ion-label>
+              <ion-input [(ngModel)]="patientdata.discharge_doctorname"></ion-input>
+            </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>Doctor Regn. No.</ion-label>
+                <ion-input [(ngModel)]="patientdata.discharge_doctor_regno"></ion-input>
+              </ion-item>
+              </ion-col>
+          </ion-row>
+         
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Condition at admission</ion-label>
+              <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_condtionofadmission"></ion-textarea>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Results of clinical investigations if any</ion-label>
+              <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_clincalinvestgation"></ion-textarea>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Injuries diagnosed other than those noted in the Wound Certificate, if any</ion-label>
+              <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_woundcertificate"></ion-textarea>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Details of treatment given, including those of surgical and other procedures if any</ion-label>
+          <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_treatement"></ion-textarea>
+        </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'>Condition at discharge</ion-label>
+            <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_condtionofdischarge"></ion-textarea>
+          </ion-item>
+          </ion-col>
+        </ion-row>
+       
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Advise given at the time of discharge regarding further treatment if necessary</ion-label>
+              <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_advise"></ion-textarea>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" class='fcolor'>Remarks if any</ion-label>
+                <ion-textarea rows="6" cols="20" [(ngModel)]="patientdata.discharge_remarks"></ion-textarea>
+              </ion-item>
+              </ion-col>
+            </ion-row>
+          
+    </ion-grid>
+    <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+          <ion-col>
+            <ion-button expand="block"   color='success' (click)='dischargetreatemt()'>
+  SAVE
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+    </span>
+  </ion-content>
+  
+     <!--
+
+                <span *ngIf="userdetails.dept=='1'">
+                                                        <div style='text-align:center;'>
+                                                                                          <ion-button (click)="downloadpmpdf(patientdata.id,3)">Download</ion-button>
+                                                        </div>
+                </span>
+         --> 
+
+  

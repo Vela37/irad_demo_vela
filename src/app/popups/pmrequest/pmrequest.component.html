@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>POST MORTEM REQUEST FORM</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Person Name</ion-card-subtitle>
+      <ion-card-title> <span style='color:#e30b89;font-weight:bold;text-transform: capitalize;'>{{pernoname}}</span></ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     <ion-grid>
+      <ion-row>
+        <ion-col>
+          <span style='color:#045eb3;font-weight:bold;'>Gender:&nbsp;&nbsp;&nbsp;</span>
+        </ion-col> {{gender}}
+        <ion-col>
+          <span style='color:#045eb3;font-weight:bold;'>Age:&nbsp;&nbsp;&nbsp;</span>{{age}}
+        </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+             <span style='color:#045eb3;font-weight:bold;'>Date & Time of Occurrence of Accident</span> 
+            </ion-col>
+            <ion-col>
+                          </ion-col>
+              </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <span style='color:#045eb3;font-weight:bold;'>  Address</span>
+            </ion-col>
+            <ion-col>{{residenecy}}
+            </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span style='color:#045eb3;font-weight:bold;'>Officer Name</span>
+                </ion-col>
+                <ion-col>{{officername}}
+                              </ion-col>
+                  </ion-row>
+                
+       </ion-grid>
+    </ion-card-content>
+  </ion-card>
+ 
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor'>Hospital Name
+        </ion-label>
+        <ion-select   [(ngModel)]="hospital" interface="alert">
+          <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+            {{d.name}}
+          </ion-select-option>
+        </ion-select>
+
+       
+      </ion-item>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row justify-content-around>
+    
+      <ion-col>
+        <ion-button expand="block"   (click)="closemodal()" color='danger'>
+          <ion-icon name="arrow-back"></ion-icon>
+          &nbsp;&nbsp;&nbsp;CANCEL
+
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block"   color='success' (click)="giverequest()">
+          <ion-icon name="git-pull-request"></ion-icon>&nbsp;&nbsp;&nbsp;REQUEST
+
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

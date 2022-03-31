@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cause of Death</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+     <ion-grid>
+         <ion-row>
+                   <ion-col>
+                              <ion-item>
+                                       <ion-label class='fcolor ion-text-wrap'  position="floating">Ward No</ion-label>
+                                       <ion-input [(ngModel)]="wardno"></ion-input>
+                              </ion-item>
+                   </ion-col>
+                   <ion-col>
+                    <ion-item>
+                             <ion-label class='fcolor ion-text-wrap'  position="floating">Died on</ion-label>
+                            
+                             <ion-datetime [(ngModel)]="diedon" MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+                    </ion-item>
+                    </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+                     <ion-item>
+                              <ion-label class='fcolor ion-text-wrap'  position="floating">Immediate Cause</ion-label>
+                              <ion-input [(ngModel)]="immediatecause"></ion-input>
+                     </ion-item>
+          </ion-col>
+          <ion-col>
+           <ion-item>
+                    <ion-label class='fcolor ion-text-wrap'  position="floating">Antecedent Cause</ion-label>
+                    <ion-input [(ngModel)]="antcause"></ion-input>
+           </ion-item>
+           </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+             <ion-item>
+                      <ion-label class='fcolor ion-text-wrap' position="floating">Other Significant</ion-label>
+                      <ion-input [(ngModel)]="othersignificant"></ion-input>
+             </ion-item>
+  </ion-col>
+  <ion-col>
+   <ion-item>
+            <ion-label  class='fcolor ion-text-wrap' position="floating">Manner of Death</ion-label>
+            <ion-select [(ngModel)]="mannerofdeath" interface="alert">
+              <ion-select-option value="2">Accident</ion-select-option>    
+              <ion-select-option value="3">Suicide</ion-select-option>    
+              <ion-select-option value="4">Homicide</ion-select-option>    
+              <ion-select-option value="5">Pending Investigation</ion-select-option>    
+            </ion-select>
+   </ion-item>
+   </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>    
+             <ion-item>     
+              <ion-label  class='fcolor ion-text-wrap' position="floating">If deceased was pregnant Women </ion-label>
+              <ion-select [(ngModel)]="ifwomen" interface="alert">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>    
+          
+              </ion-select>   
+      </ion-item>
+  </ion-col>
+  <ion-col>
+   <ion-item>     
+    <ion-label  class='fcolor ion-text-wrap' position="floating">was there Miscarriage / Delivery? </ion-label>
+    <ion-select  [(ngModel)]="wasdelivery" interface="alert">
+      <ion-select-option value="Yes">Yes</ion-select-option>
+      <ion-select-option value="No">No</ion-select-option> 
+
+    </ion-select>  
+</ion-item>
+   </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+             <ion-item>
+                      <ion-label class='fcolor ion-text-wrap'  position="floating">Date of Verification</ion-label>
+                    
+                      <ion-datetime [(ngModel)]="dateofverification" MAX=2050  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+
+             </ion-item>
+  </ion-col>
+ 
+</ion-row>
+<ion-row>
+  <ion-col>
+    
+    </ion-col>
+    <ion-col>
+      <ion-button color="success" shape="round" (click)="closemodal()">OK</ion-button>
+      </ion-col>
+  </ion-row>
+
+    </ion-grid>
+</ion-content>

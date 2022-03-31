@@ -1,0 +1,289 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'acctab1.media.title' | translate:params}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+  <ion-text style='text-align:center; ' color="primary"  [hidden]='!validaccid'>
+    <h4 style="color:#183e7a">{{'commonlinks.img' | translate:params}} </h4>
+
+  </ion-text>
+  <ion-card class='bgcolor1'  [hidden]='validaccid'>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img1' | translate:params}}</ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[1]" (click)="takePicture(1)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[1]" class="imgpreview" (click)="takePicture(1)" [src]="photos[1]">
+
+            <ion-icon *ngIf="photos_us[1]==1" (click)="uploadpicture(1)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[1]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img2' | translate:params}} </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[2]" (click)="takePicture(2)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[2]" class="imgpreview" (click)="takePicture(2)" [src]="photos[2]">
+
+            <ion-icon *ngIf="photos_us[2]==1" (click)="uploadpicture(2)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[2]==3" color="primary" name="done-all"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img3' | translate:params}} </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[3]" (click)="takePicture(3)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[3]" class="imgpreview" (click)="takePicture(3)" [src]="photos[3]">
+
+            <ion-icon *ngIf="photos_us[3]==1" (click)="uploadpicture(3)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[3]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[3]==3" color="primary" name="done-all"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'> {{'acctab1.media.img4' | translate:params}} </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[4]" (click)="takePicture(4)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[4]" class="imgpreview" (click)="takePicture(4)" [src]="photos[4]">
+            <ion-icon *ngIf="photos_us[4]==1" (click)="uploadpicture(4)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[4]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[4]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>{{'acctab1.media.img5' | translate:params}}</ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[5]" (click)="takePicture(5)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[5]" class="imgpreview" (click)="takePicture(5)" [src]="photos[5]">
+            <ion-icon *ngIf="photos_us[5]==1" (click)="uploadpicture(5)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[5]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[5]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img6' | translate:params}}
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!photos[6]" (click)="takePicture(6)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[6]" class="imgpreview" (click)="takePicture(6)" [src]="photos[6]">
+            <ion-icon *ngIf="photos_us[6]==1" (click)="uploadpicture(6)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[6]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[6]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img7' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+          <ion-item>
+            <ion-icon *ngIf="!photos[7]" (click)="takePicture(7)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[7]" class="imgpreview" (click)="takePicture(7)" [src]="photos[7]">
+            <ion-icon *ngIf="photos_us[7]==1" (click)="uploadpicture(7)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[7]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[7]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img8' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!photos[8]" (click)="takePicture(8)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[8]" class="imgpreview" (click)="takePicture(8)" [src]="photos[8]">
+            <ion-icon *ngIf="photos_us[8]==1" (click)="uploadpicture(8)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[8]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[8]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img9' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!photos[9]" (click)="takePicture(9)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[9]" class="imgpreview" (click)="takePicture(9)" [src]="photos[9]">
+            <ion-icon *ngIf="photos_us[9]==1" (click)="uploadpicture(9)" color="primary" name="arrow-round-up">
+            </ion-icon>
+            <ion-spinner *ngIf="photos_us[9]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[9]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.img10' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!photos[10]" (click)="takePicture(10)" name="camera" size='large' class='imgpreview'>
+              <ion-input size='large' type='file' class='fload'></ion-input>
+            </ion-icon>
+            <img *ngIf="photos[10]" class="imgpreview" (click)="takePicture(10)" [src]="photos[10]">
+            <ion-icon *ngIf="photos_us[10]==1" (click)="uploadpicture(10)" color="primary" name="arrow-round-up">   </ion-icon>
+            <ion-spinner *ngIf="photos_us[10]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="photos_us[10]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video1' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[1]" (click)="takeVideo(1)" name="videocam" size='large' color='danger'></ion-icon>
+
+            <ion-icon *ngIf="video_us[1]==1" (click)="uploadVideo(1)" color="primary" name="arrow-round-up">   </ion-icon>
+            <ion-spinner *ngIf="video_us[1]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[1]==3" color="primary" name="done-all"></ion-icon>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class='fcolor'>
+            {{'acctab1.media.video2' | translate:params}}
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="4">
+
+          <ion-item>
+            <ion-icon *ngIf="!video[2]" (click)="takeVideo(2)" name="videocam" size='large' color='danger'></ion-icon>
+            <ion-icon *ngIf="video_us[2]==1" (click)="uploadVideo(2)" color="primary" name="arrow-round-up">   </ion-icon>
+            <ion-spinner *ngIf="video_us[2]==2" color="secondary" name="circles"> </ion-spinner>
+            <ion-icon *ngIf="video_us[2]==3" color="primary" name="done-all"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col class='txtalign'>
+          <ion-button shape="round" *ngIf="isLoading" color='primary' expand="block">
+            <ion-spinner name="circles"> </ion-spinner>
+          </ion-button>
+          <ion-button shape="round" *ngIf="!isLoading" color='primary' expand="block" (click)="imgSave()">
+            {{ 'acctab1.media.save' | translate:params }} </ion-button>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
+  </ion-card>
+
+
+
+</ion-content>

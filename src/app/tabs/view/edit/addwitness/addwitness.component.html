@@ -1,0 +1,304 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign">Additional Witness</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content  color="light">
+  <ion-row>
+    <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating">
+        List of witness
+      </ion-label>
+      <ion-select [(ngModel)]="selectedwitness" cancelText="Cancel" interface="alert">
+        <ion-select-option *ngFor="let d of witness; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+  <form *ngIf="viewwitness==1"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class="fcolor"> Name </ion-label>
+            <ion-input
+              class="uppercase"
+              id="user_name"
+              name="user_name"
+              #user_nameInput="ngModel"
+              [(ngModel)]="user_name"
+              pattern="[a-zA-Z ]*"
+              minlength="2"
+              maxlength="10"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && user_nameInput.invalid">
+            <p class="errormsg" *ngIf="user_nameInput.errors.required">
+              Name Field Required
+            </p>
+            <p class="errormsg" *ngIf="user_nameInput.errors.minlength">
+              Minimum 2
+            </p>
+            <p class="errormsg" *ngIf="user_nameInput.errors.maxlength">
+              max 10
+            </p>
+            <p class="errormsg" *ngIf="user_nameInput.errors.pattern">
+              Enter Valid Name
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class="fcolor">Gender
+            </ion-label>
+            <ion-select
+              id="gender"
+              name="gender"
+              #genderInput="ngModel"
+              [(ngModel)]="gender"
+              interface="alert"
+              (ionChange)="fixprefix($event)"
+            >
+              <ion-select-option value="Male">Male</ion-select-option>
+              <ion-select-option value="Female">Female</ion-select-option>
+              <ion-select-option value="TG">Transgender</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="floating" class="fcolor">Prefix</ion-label>
+            <ion-select
+              (ionChange)="fixguradinalabel($event)"
+              interface="alert"
+              id="gurdian_type"
+              name="gurdian_type"
+              #gurdian_typeInput="ngModel"
+              [(ngModel)]="gurdian_type"
+              required
+            >
+              <ion-select-option
+                *ngFor="let d of prfixcont; let i = index"
+                value="{{ d.id }}"
+              >
+                {{ d.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && gurdian_typeInput.invalid">
+            <p class="errormsg" *ngIf="gurdian_typeInput.errors.required">
+              prefix Field Required
+            </p>
+          </div>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class="fcolor">{{
+              guardinaname
+            }}</ion-label>
+            <ion-input
+              class="uppercase"
+              id="gurdian_name"
+              name="gurdian_name"
+              #gurdian_nameInput="ngModel"
+              [(ngModel)]="gurdian_name"
+              pattern="[a-zA-Z ]*"
+              minlength="2"
+              maxlength="10"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && gurdian_nameInput.invalid">
+            <p class="errormsg" *ngIf="gurdian_nameInput.errors.required">
+              Name Field Required
+            </p>
+            <p class="errormsg" *ngIf="gurdian_nameInput.errors.minlength">
+              Minimum 2
+            </p>
+            <p class="errormsg" *ngIf="gurdian_nameInput.errors.maxlength">
+              max 10
+            </p>
+            <p class="errormsg" *ngIf="gurdian_nameInput.errors.pattern">
+              Enter Valid Name
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item [hidden]="datacombo">
+            <ion-label position="floating" class="fcolor">Occupation</ion-label>
+            <ion-select
+              id="occupation"
+              name="occupation"
+              #occupationInput="ngModel"
+              [(ngModel)]="occupation"
+              interface="alert"
+            >
+              <ion-select-option
+                *ngFor="let d of options6; let i = index"
+                value="{{ d.id }}"
+              >
+                {{ d.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class="fcolor"> Age </ion-label>
+            <ion-input
+              id="age"
+              (ionChange)="checkage($event)"
+              name="age"
+              #ageInput="ngModel"
+              [(ngModel)]="age"
+              type='number'          
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && ageInput.invalid">
+            <p class="errormsg" *ngIf="ageInput.errors.required">
+              Age Required
+            </p>
+            <!-- <p class="errormsg" *ngIf="ageInput.errors.pattern">
+              Enter Valid Age
+            </p> -->
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class="fcolor"> Address </ion-label>
+            <ion-input
+              class="capitalize"
+              id="contact_address"
+              name="contact_address"
+              #contact_addressInput="ngModel"
+              [(ngModel)]="contact_address"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && contact_addressInput.invalid">
+            <p class="errormsg" *ngIf="contact_addressInput.errors.required">
+              Contact Address Required
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class="fcolor"
+              >Contact Number
+            </ion-label>
+            <ion-input
+              id="contact_number"
+              name="contact_number"
+              #contact_numberInput="ngModel"
+              [(ngModel)]="contact_number"
+              type="tel"
+              maxlength="10"
+              class="textuppercarse"
+              pattern="[6789][0-9]{9}"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && contact_numberInput.invalid">
+            <p class="errormsg" *ngIf="contact_numberInput.errors.required">
+              Contact Number Required
+            </p>
+            <p class="errormsg" *ngIf="contact_numberInput.errors.pattern">
+              Enter Valid Mobile number
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-footer translucent="true" class="tab1-footer">
+      <ion-grid>
+        <ion-row justify-content-around>
+          <ion-col class='txtalign'>
+            <ion-icon (click)="takeAudio()"  name="mic-outline" size='large' color='danger'></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-chip color="danger">
+              <ion-label (click)="cancelWitness()">Cancel</ion-label>
+            </ion-chip>
+          </ion-col>  
+          <ion-col>
+            <ion-chip expand="block" color="primary" type="submit">
+              <ion-label>Save</ion-label>
+            </ion-chip>
+          </ion-col>
+          <!-- <ion-col>
+            <ion-button expand="block" color="primary" type="submit">
+              &nbsp;&nbsp;&nbsp;Save
+            </ion-button>
+          </ion-col> -->
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+  </form>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="addWitness()">Add Witness</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal(1)"> &nbsp; Submit &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+     
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+<!-- pattern="[0-1]{1}[0-9]{0,2}" -->
+<!-- (keyup)="checkmobile($event)" -->
+<!-- pattern="[0-9]*" -->

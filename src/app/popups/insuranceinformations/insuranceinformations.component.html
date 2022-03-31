@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Insurance Company
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle>Insurance Company</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate>
+      <ion-grid>
+
+       
+
+               
+
+
+                    
+                  <ion-row>      
+                    <ion-col>
+                      <ion-item>
+                      <ion-label>Insurance List </ion-label>
+                      <ion-select interface="alert"    id="insurance_id"
+                      name="insurance_id"
+                      #showhpInput="ngModel"
+                       [(ngModel)]="insurance_id" required>      
+                        <ion-select-option *ngFor="let d of data_court; let i = index" value="{{d.id}}">
+                          {{d.nameofinsurance}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <div *ngIf="f.submitted && showhpInput.invalid">
+                      <p class="errormsg" *ngIf="showhpInput.errors.required" >
+          
+                       Court required
+                      </p>
+                    </div>
+                    </ion-col>
+                    </ion-row>
+                 
+                    <ion-row>
+                  
+                      
+                      <ion-col>
+                      
+                        <ion-button expand="full" type="submit" >Submit</ion-button>
+
+                      </ion-col>
+                      </ion-row>
+                
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

@@ -1,0 +1,32 @@
+ion-content {
+    --background: radial-gradient(at 0 90%, rgb(244, 245, 178), #b4f3a4);
+  }
+ 
+.vcenter{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 100%;
+}
+
+.image {
+  height: 120px; 
+  width: 180px; 
+ border: 2px solid #fff;
+ border-radius: 50%;
+ box-shadow: 0 0 5px gray;
+ display: inline-block;
+ margin-left: auto;
+ margin-right: auto;
+} 
+
+.t1 {
+  font-weight: bold;  
+  font-size:60px; 
+  line-height:60px;
+  color: black;
+  text-align: center;
+}
+ 
+  

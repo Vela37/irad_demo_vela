@@ -1,0 +1,157 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Patient Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div><span>&nbsp;</span><span style='float: right;background-color: rgb(4, 71, 134);color: rgb(255, 223, 181);padding:2px;' (click)="showrefferhospital()">&nbsp;&nbsp;Transfer
+    &nbsp;&nbsp;</span></div>
+
+  <ion-grid color="medium">
+    <ion-card>
+      <ion-item>
+
+        <ion-label  class='gbox txtalign bgcolor2'> 
+            <div style='width:100%;color:#312999;'>
+              <div style='width:50%;float:right;text-align: right;font-weight:bold;' class='camelcase'>
+               MLC - {{patienttype}} ID&nbsp;-&nbsp; {{patient_id}}
+
+                
+              </div>
+              <div style='width:50%;text-align:left;font-weight:bold;font-size:18px;' class='camelcase'>
+              
+                {{patientname}}  
+              </div>
+            </div>
+        </ion-label>
+        
+
+
+      </ion-item>
+      <ion-card-content class='bgcolor txtalign' >
+        <span class='camelcase'> {{patientdetails}} </span>
+        <span>,&nbsp;Time of Arrival&nbsp;({{timeof_arrival}}),&nbsp;AR Number({{ar_number}})</span>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-row> 
+      <ion-col class="grid injbg" (click)="accidentregister()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes"  alt="circle-image"/> 
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Update Patient Register</p>    
+   <p *ngIf="lastupdate_personal_info" style='font-size:13px;text-align:center;padding:0px;margin:0px;color:#000;'>Last update:<span style='color:#fff;'>{{lastupdate_personal_info}}</span> By <span style='color:#fff;'>{{_personal_info_updateby}}</span></p>
+      </ion-col>  
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col class="grid grevbg " (click)="patientreatment()" *ngIf="injury_sevrity!='1'">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Treatment Details</p>
+      </ion-col>
+      <ion-col class="grid disabledcls"  *ngIf="injury_sevrity=='1'">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Treatment Details</p>
+      </ion-col>
+    
+  
+<ion-col class="grid grevbgadd " (click)="patiendocuments()" *ngIf="injury_sevrity!='1'">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+       
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Medical Reports</p>
+
+      </ion-col>
+
+      <ion-col class="grid disabledcls "  *ngIf="injury_sevrity=='1'">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+       
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Medical Reports</p>
+
+      </ion-col>
+
+
+   
+     
+         <!-- 
+  <ion-col class="grid simpnhbg " (click)="patienreports()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+       
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">Reports</p>
+
+      </ion-col>
+     
+            -->
+
+    </ion-row>
+
+<ion-row>
+     
+      
+      <ion-col class="grid simpnhbg " (click)="patienreports()">
+        <img src="assets/images/circle.svg" class="card-img-absolutes" alt="circle-image"/> 
+       
+        <p style="font-weight: bold; font-size: 25px;text-align: center;color:rgb(243, 241, 241);">
+          Intimation / Certificates 
+        </p>
+
+      </ion-col>
+    </ion-row>  
+</ion-grid>
+<!--
+<ion-card *ngIf="accinformation" color='light'>
+  <ion-card-content >
+    <ion-grid>
+   
+    <ion-row>
+      <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Place of accident</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>{{accinformation.landmarks}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Location Information</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{accinformation.road_details}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Accident date and time</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{accinformation.date_time}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Police station name</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{accinformation.psname}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style='font-weight:bold;'>Accident ID</ion-col>
+      <ion-col size=1> : </ion-col>
+      <ion-col >{{data.accident_id}}</ion-col>
+    </ion-row>
+         </ion-grid>
+
+       
+  </ion-card-content>
+ 
+</ion-card>
+-->
+<ion-card *ngIf="accinformation" class="severity{{accinformation.severity}}">
+  <ion-card-header>
+    <ion-card-subtitle style='text-align: center;color:rgb(19, 19, 19);font-weight: bold;'> Accident ID: <span style='color:red;'>{{accinformation.accident_id}} </span></ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content style='text-align: center;color:rgb(19, 19, 19);'>
+    {{accinformation.landmarks}}, On {{accinformation.date_time}},({{accinformation.severity_desc}}),{{accinformation.psname}}(PS Name)
+    <ion-label class="alignme-right"> </ion-label>
+  </ion-card-content>
+  <ion-item class="sev1">
+
+   
+    <!-- <ion-button (click)="viewAccidentPDF(i)" fill="outline" slot="end">PDF<ion-icon ios="ios-document" md="md-document"></ion-icon></ion-button> -->
+  </ion-item>
+</ion-card>
+</ion-content>

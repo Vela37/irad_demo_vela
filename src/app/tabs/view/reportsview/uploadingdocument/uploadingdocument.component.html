@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Document Uploads</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row *ngIf="flagId == '1'">
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Documents to Upload</ion-label>
+        <ion-select
+          [(ngModel)]="selectedDoc.docName"
+          interface="alert"
+          (ionChange)="getDocdetails($event)"
+        >
+          <ion-select-option
+            *ngFor="let item of generalDoc"
+            value="{{ item.title }}">
+            {{ item.title }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="flagId == '2'">
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Documents to Upload</ion-label>
+        <ion-select
+          [(ngModel)]="selectedDoc.docName"
+          interface="alert"
+          (ionChange)="getDocdetails($event)"
+        >
+          <ion-select-option *ngFor="let item of commonDoc" value="{{ item.title }}">
+            {{ item.title }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="flagId == '3'">
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Documents to Upload</ion-label>
+        <ion-select
+          [(ngModel)]="selectedDoc.docName"
+          interface="alert"
+          (ionChange)="getDocdetails($event)"
+        >
+          <ion-select-option *ngFor="let item of commonDoc" value="{{ item.title }}">
+            {{ item.title }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="flagId == '4'">
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Documents to Upload</ion-label>
+        <ion-select
+          [(ngModel)]="selectedDoc.docName"
+          interface="alert"
+          (ionChange)="getDocdetails($event)"
+        >
+          <ion-select-option *ngFor="let item of vehDoc" value="{{ item.title }}">
+            {{ item.title }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row *ngIf="selectedDoc.docName != ''">
+    <ion-col size=4>  
+      <ion-item class='fcolor'>{{docname}} </ion-item>
+      </ion-col>
+    <ion-col> 
+      <ion-item>
+        <!-- <ion-icon name="eye" (click)="viewPdf(9)" size="large"></ion-icon>
+        <ion-icon></ion-icon>
+        <ion-icon name="download" (click)="downloadPdf(9)" size="large"></ion-icon>
+        <ion-icon></ion-icon> -->
+        <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event)">
+        </ion-input>
+        <ion-icon></ion-icon>
+        <ion-icon *ngIf="docData!=''" name="cloud-upload" size="medium"></ion-icon>
+        <ion-icon></ion-icon>
+        <ion-icon *ngIf="uploadStatusflag==3" name="cloud-done" size="medium"></ion-icon>       
+      </ion-item>
+    </ion-col>
+  </ion-row>  
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="goToReport()"> &nbsp; Submit &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

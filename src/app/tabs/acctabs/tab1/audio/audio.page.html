@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary" class='txtalign'>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{'acctab1.audiopage.title' | translate:params}}</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content  [hidden]='validaccid'>
+  <ion-card>
+  
+    <ion-card-content>
+     <form [formGroup]="audioForm">
+      <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating" class='fcolor'>{{'acctab1.audiopage.name' | translate:params}}<ion-icon name="star" class='mandatory'></ion-icon></ion-label>
+                    <ion-input formControlName='name'></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                      <ion-label position="floating" class='fcolor'>{{'acctab1.audiopage.age' | translate:params}}<ion-icon name="star" class='mandatory'></ion-icon></ion-label>
+                      <ion-input formControlName='age'></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating" class='fcolor'>{{'acctab1.audiopage.address' | translate:params}}<ion-icon name="star" class='mandatory'></ion-icon></ion-label>
+                       
+                        
+                          <ion-textarea formControlName='address'></ion-textarea>
+                        </ion-item>
+           
+
+
+                  </ion-col>
+                </ion-row>
+               
+                <ion-row>
+                    <ion-col class='txtalign'>
+                        <ion-icon (click)="takeAudio()" ios="ios-mic" md="md-mic" size='large' color='danger'></ion-icon>                      </ion-col>    
+                        <ion-col class='txtalign'>
+                         
+
+                         
+
+                          <audio *ngIf="audio" type="audio/amr" autoplay controls src="{{audio}}">
+                            The audio tag is not supported by your browser. Click [here] to download the  audio file.
+                          </audio>
+
+
+                            <ion-button shape="round"  [disabled]='!audioForm.valid' fill="outline" color='success' (click)="submit()"><ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>
+                              {{'acctab1.audiopage.save' | translate:params}}</ion-button>
+                                            
+                        </ion-col>
+                      </ion-row>
+                    
+                     
+                  </ion-grid>
+                  
+                  
+    </form>
+                </ion-card-content>
+  </ion-card>
+</ion-content>
+<style>
+  .mandatory
+  {
+  color:red;
+  font-size:7px; 
+  }
+
+  ion-content {
+                --background: linear-gradient(#edd8af, #fff);
+}
+ion-card{
+  --background: linear-gradient(#fff, #fff);
+
+}
+  </style>

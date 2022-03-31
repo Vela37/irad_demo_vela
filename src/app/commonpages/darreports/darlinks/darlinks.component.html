@@ -1,0 +1,385 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      DAR
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+<ion-content>
+ 
+  <ion-card color='light'  *ngIf="mactdetails">
+   
+    <ion-card-header>
+      <ion-card-subtitle style='color: black;'>Motor Accident Claim Tribunal</ion-card-subtitle> 
+    </ion-card-header>
+  
+    <ion-card-content>
+      
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle style='color: rgb(236, 5, 186);font-weight: bolder;'>MACT</ion-card-subtitle>
+          <ion-card-title style='color: rgb(25, 25, 102);'>{{mactdetails.courtname}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content style='color: rgb(15, 61, 153);'>
+          {{mactdetails.address}},{{mactdetails.pincode}}
+        </ion-card-content>
+      </ion-card>
+     
+     
+      <div style='color: brown;text-align: right;padding:3px;' (click)="showchangemact()">
+        Change
+                    </div>
+   
+          </ion-card-content>
+         
+  </ion-card>
+
+  <ion-card  color='light' *ngIf="editmact=='1'">
+   
+    <ion-card-header>
+      <ion-card-subtitle style='color: black;'>MACT</ion-card-subtitle> 
+    </ion-card-header>
+      
+      <form name="form" (ngSubmit)="fmc.form.valid && onSubmitdar()" #fmc="ngForm" novalidate>
+  <ion-grid>
+
+    <ion-row>      
+      <ion-col>
+        <ion-item>
+        <ion-label>MACT Types </ion-label>
+          <ion-select interface="alert" 
+            (ionChange)=showlevel()
+            id="ctrl_typeofcourt"
+            name="ctrl_typeofcourt"
+            #showhpInputtype="ngModel"
+             [(ngModel)]="ctrl_typeofcourt" required>      
+            <ion-select-option *ngFor="let d of data_courttype; let i = index" value="{{d.id}}">
+              {{d.name}}
+            </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="fmc.submitted && showhpInputtype.invalid">
+        <p class="errormsg" *ngIf="showhpInputtype.errors.required">
+          Type of MACT required
+        </p>
+      </div>
+
+
+      </ion-col>
+    
+      </ion-row>
+
+            <ion-row *ngIf="courtflag">      
+              <ion-col>
+                <ion-item>
+                <ion-label>District</ion-label>
+                <ion-select interface="alert" (ionChange)=loadtaluk()   id="ctrl_district"
+                name="ctrl_district"
+                #showhpInput="ngModel"
+                 [(ngModel)]="ctrl_district">       
+                  <ion-select-option *ngFor="let d of district; let i = index" value="{{d.id}}">
+                    {{d.name}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="courtflagtwo">      
+                <ion-col>
+                  <ion-item>
+                  <ion-label>Taluk </ion-label>
+                  <ion-select interface="alert" (ionChange)=callcortlisttaluk() 
+                  id="ctrl_taluk"
+                name="ctrl_taluk"
+                #showhpInput="ngModel"
+                 [(ngModel)]="ctrl_taluk"
+                  >      
+                    <ion-select-option *ngFor="let d of data_taluk; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                </ion-col>
+                </ion-row>
+
+                
+              <ion-row *ngIf="courtlist">      
+                <ion-col>
+                  <ion-item>
+                  <ion-label>MACT List </ion-label>
+                  <ion-select interface="alert"    id="ctrl_courtlist"
+                  name="ctrl_courtlist"
+                  #showhpInputcrt="ngModel"
+                   [(ngModel)]="ctrl_courtlist" required>      
+                    <ion-select-option *ngFor="let d of data_court; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <div *ngIf="fmc.submitted && showhpInputcrt.invalid">
+                  <p class="errormsg" *ngIf="showhpInputcrt.errors.required" >
+      
+                    MACT required
+                  </p>
+                </div>
+                </ion-col>
+                </ion-row>
+             
+                <ion-row>
+              
+                  
+                  <ion-col>
+                  
+                    <ion-button expand="full" type="submit" >SAVE</ion-button>
+
+                  </ion-col>
+                  </ion-row>
+            
+    </ion-grid>
+  </form>
+
+    </ion-card>
+   
+    <ion-card color='light' *ngIf="legaldetails">
+   
+      <ion-card-header>
+        <ion-card-subtitle style='color: black;'>Legal Services Authority</ion-card-subtitle> 
+      </ion-card-header>
+    
+      <ion-card-content>
+        
+        <ion-card >
+          <ion-card-header>
+            <ion-card-subtitle style='color: rgb(236, 5, 186);font-weight: bolder;'>SLSA</ion-card-subtitle>
+            <ion-card-title style='color: rgb(25, 25, 102);'>{{legaldetails.nameoflegalservice}}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content style='color: rgb(15, 61, 153);'>
+            {{legaldetails.address}},{{legaldetails.pincode}}
+          </ion-card-content>
+        </ion-card>
+       
+       
+        <div style='color: brown;text-align: right;padding:3px;' (click)="showchangelegal()">
+          Change
+                      </div>
+     
+            </ion-card-content>
+          
+    </ion-card>
+
+  <ion-card color='light' *ngIf="editlegal=='1'">
+    <ion-card-header>
+      <ion-card-subtitle>Legal services</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form
+      name="form"
+      (ngSubmit)="flegal.form.valid && onSubmitlegal()"
+      #flegal="ngForm"
+      novalidate>
+      <ion-grid>
+
+        <ion-row>      
+          <ion-col>
+            <ion-item>
+
+
+            <ion-label>Types </ion-label>
+              <ion-select interface="alert" 
+                (ionChange)=legalshowlevel()
+                id="legalctrl_typeofcourt"
+                name="legalctrl_typeofcourt"
+                #showhpInputlg="ngModel"
+                 [(ngModel)]="legalctrl_typeofcourt" required>      
+                <ion-select-option *ngFor="let d of legaldata_courttype; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div *ngIf="flegal.submitted && showhpInputlg.invalid">
+            <p class="errormsg" *ngIf="showhpInputlg.errors.required" >
+              Type of Legal service required
+            </p>
+          </div>
+
+
+          </ion-col>
+        
+          </ion-row>
+
+                <ion-row *ngIf="legalcourtflag">      
+                  <ion-col>
+                    <ion-item>
+                    <ion-label>District</ion-label>
+                    <ion-select interface="alert" (ionChange)=legalloadtaluk()   id="legalctrl_district"
+                    name="legalctrl_district"
+                    #showhpInput="ngModel"
+                     [(ngModel)]="legalctrl_district">       
+                      <ion-select-option *ngFor="let d of legaldistrict; let i = index" value="{{d.id}}">
+                        {{d.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  </ion-col>
+                  </ion-row>
+
+                  <ion-row *ngIf="legalcourtflagtwo">      
+                    <ion-col>
+                      <ion-item>
+                      <ion-label>Taluk </ion-label>
+                      <ion-select interface="alert" (ionChange)=legalcallcortlisttaluk() 
+                      id="legalctrl_taluk"
+                    name="legalctrl_taluk"
+                    #showhpInput="ngModel"
+                     [(ngModel)]="legalctrl_taluk"
+                      >      
+                        <ion-select-option *ngFor="let d of legaldata_taluk; let i = index" value="{{d.id}}">
+                          {{d.name}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    </ion-col>
+                    </ion-row>
+
+                    
+                  <ion-row *ngIf="legalcourtlist">      
+                    <ion-col>
+                      <ion-item>
+                      <ion-label>Legal service authority </ion-label>
+                      <ion-select interface="alert"    id="legalctrl_courtlist"
+                      name="legalctrl_courtlist"
+                      #showhpInput="ngModel"
+                       [(ngModel)]="legalctrl_courtlist" required>      
+                        <ion-select-option *ngFor="let d of legaldata_court; let i = index" value="{{d.id}}">
+                          {{d.name}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <div *ngIf="flegal.submitted && showhpInput.invalid">
+                      <p class="errormsg" *ngIf="showhpInput.errors.required" >
+          
+                       Court required
+                      </p>
+                    </div>
+                    </ion-col>
+                    </ion-row>
+                 
+                    <ion-row>
+                  
+                      
+                      <ion-col>
+                      
+                        <ion-button expand="full" type="submit" >SAVE</ion-button>
+                        
+                      </ion-col>
+                      </ion-row>
+                
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle style='color: black;'>Insurance Company</ion-card-subtitle> 
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let d of alreadyconnected; let i = index">
+        <ion-label>{{d.get_veh_no}} 
+  </ion-label>
+  <ion-label><span (click)="changecompany(i)" style='color: darkblue;font-weight: bold;'> {{d.get_insurance.name}} </span>
+  </ion-label>
+  <!--
+  <ion-label><span (click)="changecompany(i)"><ion-icon name="create-outline"></ion-icon></span>
+  </ion-label>
+
+  -->
+
+
+
+     
+</ion-item>
+      </ion-list>
+
+
+
+    <ion-card-content>
+
+      <form name="form" (ngSubmit)="insadd.form.valid && onSubmitinsurance()" #insadd="ngForm" novalidate>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Vehicle</ion-label>
+              <ion-select
+               id="vehicle_id"
+               name="vehicle_id"
+              #showhpvehicle_idInput="ngModel"
+               [(ngModel)]="vehicle_id" required >
+                <ion-select-option *ngFor="let d of vehiclelist; let i = index" value="{{d.id}}"> {{d.vehicle}} - {{d.insuranceDetails}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div *ngIf="insadd.submitted && showhpvehicle_idInput.invalid">
+              <p class="errormsg" *ngIf="showhpvehicle_idInput.errors.required" >
+  
+               Vehicle Required
+              </p>
+            </div>
+          </ion-col>
+          </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Insurance</ion-label>
+            <ion-select
+            id="insur_id"
+            name="insur_id"
+           #showhpinsur_idInput="ngModel"
+            [(ngModel)]="insur_id" required >
+              <ion-select-option *ngFor="let d of inscompanylist; let i = index" value="{{d.code}}"> {{d.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div *ngIf="insadd.submitted && showhpinsur_idInput.invalid">
+            <p class="errormsg" *ngIf="showhpinsur_idInput.errors.required" >
+
+             Insurance Company Required
+            </p>
+          </div>
+        </ion-col>
+        </ion-row>
+
+        <ion-row>
+       
+          <ion-col>
+           
+                        <ion-button expand="full" type="submit" >Save</ion-button>
+            
+          </ion-col>
+    
+        </ion-row>
+       
+      </ion-grid>
+    </form>
+ 
+    </ion-card-content>
+    </ion-card>
+  
+</ion-content>

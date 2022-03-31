@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Change Password
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+    <ion-list>  
+      <ion-item>
+        <ion-label position="floating">Old password</ion-label>
+        <ion-input
+          formControlName="oldpassword"
+          required="true"
+          [type]="oldPassword? 'text' : 'password'" autocomplete="off" onpaste="return false;"
+        ></ion-input>
+        <ion-icon *ngIf="!oldPassword" (click)="SHpassword2()" name="eye-outline" slot="end" ></ion-icon>
+        <ion-icon *ngIf="oldPassword" (click)="SHpassword2()"  name="eye-off-outline" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">New password</ion-label>
+        <ion-input
+          formControlName="newpassword"
+          required="true"
+          [type]="showPassword? 'text' : 'password'" autocomplete="off" onpaste="return false;"
+        ></ion-input>
+        <ion-icon *ngIf="!showPassword" (click)="SHpassword()" name="eye-outline" slot="end" ></ion-icon>
+        <ion-icon *ngIf="showPassword" (click)="SHpassword()"  name="eye-off-outline" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Re-type new password</ion-label>
+        <ion-input
+          formControlName="Retypenewpassword" type="password"
+          required="true" autocomplete="off" onpaste="return false;"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row >
+          <ion-col style="color:#808080">All the fields are mandatory</ion-col>         
+        </ion-row>
+        <ion-row >
+          <ion-col style="color:#808080">Your new password must have one upper case, one lower case, one number and one special charecter without whitespaces !!! </ion-col>         
+        </ion-row>
+        <ion-row >
+         <ion-col style="color:#808080">Your new password length should be atleast 8</ion-col>         
+       </ion-row>
+       <ion-row >
+        <ion-col style="color:#3f3f4d">Last three passwords cannot be used for security reasons</ion-col>         
+      </ion-row>
+      </ion-grid>
+     </ion-card-content>
+  </ion-card>
+  <!-- <ion-row> 
+         
+    <ion-col>
+      <ion-item> 
+        <ion-label position="floating">Type old password</ion-label>
+        <ion-input [(ngModel)]='chpwd.oldpwd' [type]="oldPassword? 'text' : 'password'" required="true" ></ion-input>
+        <ion-icon *ngIf="!oldPassword" (click)="SHpassword2()" name="eye-outline" slot="end" ></ion-icon>
+        <ion-icon *ngIf="oldPassword" (click)="SHpassword2()"  name="eye-off-outline" slot="end"></ion-icon>
+      </ion-item>
+  </ion-col>
+  </ion-row>
+
+  <ion-row> 
+         
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Type new password</ion-label>
+        <ion-input [(ngModel)]='chpwd.newpwd' [type]="showPassword? 'text' : 'password'" required="true"  min="5" max="20"></ion-input>
+        <ion-icon *ngIf="!showPassword" (click)="SHpassword()" name="eye-outline" slot="end" ></ion-icon>
+        <ion-icon *ngIf="showPassword" (click)="SHpassword()"  name="eye-off-outline" slot="end"></ion-icon>
+      </ion-item>
+  </ion-col>
+  </ion-row>
+
+  <ion-row> 
+         
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Retype new password</ion-label>
+        <ion-input [(ngModel)]='chpwd.renewpwd' required="true"  min="5" max="20" ></ion-input>
+      </ion-item>
+  </ion-col>
+  </ion-row>
+
+  <ion-row>          
+    <ion-col>
+  <ion-note color="default" > &nbsp; Password minimum length is 5 and alphanumeric</ion-note><br />
+  </ion-col>
+  </ion-row> -->
+  
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-button  (click)="onClear()">Reset</ion-button>          
+      </ion-col>
+      <ion-col>
+          <ion-button [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)" type="submit"> Change Password </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

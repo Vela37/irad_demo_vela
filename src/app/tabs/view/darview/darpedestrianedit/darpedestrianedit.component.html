@@ -1,0 +1,367 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Dar Pedestrian Details  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+ <!-- <ion-row>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          FIR/CSR Number
+        </ion-label>
+        <ion-input [(ngModel)]=" geninfo.fir_number"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row> -->
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Vehicle Regn. Number      </ion-label>
+      <ion-input [(ngModel)]="pedestrianinfo.veh_no"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Father Name 
+      </ion-label>
+      <ion-input [(ngModel)]="pedestrianinfo.father_name"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Martial Status
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.marital_status"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Employed or not? 
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.employed_or_not"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Name and Address of the Emoloyer
+        </ion-label>
+      <!-- <ion-input [(ngModel)]="generaldata.whoreportAcc"></ion-input>-->
+      <ion-select  [(ngModel)]="pedestrianinfo.name_add_employer"
+      (ionChange)="checkforReportingPerson()" cancelText="Cancel" interface="alert">
+      <ion-select-option value="Driver">Driver</ion-select-option>
+      <ion-select-option value="Owner">Owner</ion-select-option>
+      <ion-select-option value="Victim">Victim</ion-select-option>
+      <ion-select-option value="Witness">Witness</ion-select-option>
+      <ion-select-option value="Health">Hospital/Emergency vehicle</ion-select-option>
+      <ion-select-option value="Police">Police</ion-select-option>
+      <ion-select-option value="Good Samaritan">Good Samaritan</ion-select-option>
+      <ion-select-option value="Unknown">Unknown</ion-select-option>
+    </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Income Details
+        </ion-label>
+        <ion-input [(ngModel)]=" pedestrianinfo.income "></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Whether the Deceased was assessed to Income Tax
+        </ion-label>
+        <ion-input [(ngModel)]=" pedestrianinfo.assessed_to_income_tax "></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Give details of medical expenses incurred
+        </ion-label>
+      <ion-input [(ngModel)]="pedestrianinfo.medical_expenses_incurred"></ion-input>
+
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Whether the victim got reimbursement of medical expenses from his employer or under a Mediclaim policy or under any government cashless treatment scheme or government insurance scheme
+        </ion-label>
+        <ion-input [(ngModel)]=" pedestrianinfo.cashless_treatment"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Form 6 Submitted or Not?
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.form6sub"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of  Death
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.date_of_death"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Whethere the deceased was the sole earning member of the family
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.sole_earning_member"></ion-input>
+
+
+
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Nature and description of Injury
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.natureofinjury_description"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Medical treatment taken by the injured
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.treatment_details_of_deceased"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Period of Hospitalization
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.hospital_treatment_period"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Doctor Name
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.doctor_name"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Name of Hospital
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.hospital_address"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          If Surgery undergone?
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.hospital_treatment_surgery_details"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Details of surgery(s)
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.hospital_treatment_details"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Permanent Disability?
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.permanent_disability"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Details of Permanent Disability
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.permanent_disability_details"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Expenditure on treatment 
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.expendiure_on_treatment"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          If treatment is still continuing,give the estimate of expenditure
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.estimate_expenditure"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Expenditure on conveyance,special diet,attendant charges etc.
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.expenditure_conveyance"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row><ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of income
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.lossincome"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row><ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of earning capacity<
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.lossearcapacity"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row><ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Any other pecunoary loss
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.pecunairy_loss"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Reimbursement of medical expenses
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.reimbursement_medical_expense"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Value of Loss
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.value_of_loss"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Compensation Claimed
+
+        </ion-label>
+        <ion-input [(ngModel)]="pedestrianinfo.compensation_claimed"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

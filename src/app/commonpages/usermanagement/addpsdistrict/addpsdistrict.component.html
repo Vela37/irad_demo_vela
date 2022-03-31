@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Create Police District
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">District Name</ion-label>
+          <ion-input [(ngModel)]="psdistrict.name" required="true" max="100"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">District code (as per NCRB)
+          </ion-label>
+          <ion-input [(ngModel)]="psdistrict.district_code" placeholder=" 3 Digit Police District code as per NCRB " required="true"
+            maxlength="3">{{RTO_Label}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  <!--  <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap' position="floating"> Address <ion-icon name="star" class='mandatory'>
+            </ion-icon>
+          </ion-label>
+          <ion-textarea [(ngModel)]="psdistrict.address" rows="6" cols="20" placeholder="Your Address"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row> -->
+
+
+    <ion-row *ngIf="message!=null">
+      <ion-col>
+        <ion-text *ngFor="let msg of message; let i = index"> {{msg}}. <br></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-item>  
+      <ion-label>RTO Code</ion-label>  
+      <ion-textarea  placeholder="Enter some notes here..."></ion-textarea>  
+    </ion-item>   -->
+
+    <ion-card>
+      <ion-item>
+        <ion-card-subtitle color="primary">{{'usermanagement.popup_common.note' | translate:params }}
+        </ion-card-subtitle>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row color="secondary">
+            <ion-col style="color: 	#808080">District code as per <b>NCRB</b>
+            </ion-col>
+          </ion-row>
+          <ion-row color="secondary">
+            <ion-col style="color: 	#808080">All the fields mandatory  
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="color: 	#808080">White spaces are not allowed in District code 
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="validationCheck()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

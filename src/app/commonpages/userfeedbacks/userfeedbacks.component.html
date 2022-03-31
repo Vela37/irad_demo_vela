@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Feedback</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid>
+
+  <ion-row>   
+<ion-col>
+  <ion-item>
+    <ion-label>Your Suggestion</ion-label>
+      <ion-input   [(ngModel)]="suggestions">
+      </ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>   
+  <ion-col>
+    <ion-item>
+    <ion-button (click)="closemodal()">OK</ion-button> 
+    </ion-item>
+    </ion-col>
+  </ion-row>
+
+  
+</ion-grid>
+</ion-content>

@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style='text-align:center;'>POLICE INTIMATION</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content color='light'>
+
+  <ion-card >
+    <ion-card-content >
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+        
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>:&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row>
+  
+
+      <ion-row>
+        <ion-col>Gender</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.gender}}</ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>Age</ion-col>
+        
+        <ion-col >:&nbsp;{{patientdata.patient_age}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="flag=='Yes'">
+        <ion-col    >Accident Register</ion-col>
+        
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>MLC - {{patientdata.patient_type}}</ion-col>
+        
+        <ion-col>:&nbsp;{{patientdata.patient_id}}</ion-col>
+      </ion-row>
+  
+
+      <ion-row>
+        <ion-col>Patient Address</ion-col>
+        
+        <ion-col class='casesensitive'> :{{patientdata.gurdian_type}},{{patientdata.gurdian_name}},{{patientdata.patient_address}}&nbsp;</ion-col>      </ion-row>
+
+     
+        <ion-row>
+          <ion-col>Time of Arrival</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.timeof_arrival_df}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Accident Register</ion-col>
+          
+          <ion-col class='casesensitive'>:&nbsp;{{patientdata.ar_number}}</ion-col>
+        </ion-row>
+     
+  
+     
+      
+  
+
+
+
+      
+      
+     
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content >
+
+     <!--
+ <ion-row>
+        <ion-col>Police Station name</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{police_stationid}}</ion-col>
+      </ion-row>
+
+     -->
+  
+      <ion-row>
+        <ion-col>Doctor Name</ion-col>
+        
+        <ion-col class='casesensitive'>:Dr.&nbsp;{{patientdata.doctor_name}}</ion-col>
+      </ion-row> 
+      <ion-row>
+        <ion-col>Doctor Regn. No.</ion-col>
+        
+        <ion-col class='casesensitive'>:&nbsp;{{patientdata.doctor_regno}}</ion-col>
+      </ion-row>
+      
+
+    
+
+      <ion-row *ngIf="patientdata.police_created_date">
+        <ion-col class='fcolor casesensitive' style='font-weight: bold;'>Police intimation done on</ion-col>
+        
+        <ion-col  class='fcolor casesensitive' style='font-weight: bold;'>:&nbsp;{{patientdata.police_created_date}}</ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="patientdata.police_created_date"  (click)="downloadpmpdf(patientdata.id,1)">
+        <ion-col style='color:#076ab6;font-weight: bold;'>PDF Link</ion-col>
+        
+        <ion-col class='casesensitive' style='color:#076ab6;font-weight: bold;'>:&nbsp;Download</ion-col>
+      </ion-row>
+
+      </ion-card-content>
+      </ion-card>
+<span *ngIf="userdetails.dept=='4'">
+<div style='text-align:center;' *ngIf="patientdata.police_created_date==''">
+  <ion-button (click)="showmsg()">Send Intimation to Police</ion-button>
+</div>
+  </span>
+<!--
+ <span *ngIf="userdetails.dept=='1'">
+    <div style='text-align:center;'>
+      <ion-button (click)="downloadpmpdf(patientdata.id,1)">Download</ion-button>
+    </div>
+      </span>
+
+-->
+ 
+    
+
+
+</ion-content>

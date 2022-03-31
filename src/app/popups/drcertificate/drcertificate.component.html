@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>Doctor Summary</ion-title>
+    <ion-buttons slot="end">
+      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>Description</ion-card-subtitle>
+    
+  </ion-card-header>
+
+  <ion-card-content >
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+        <ion-item>     
+      
+        <ion-textarea [(ngModel)]="histroy" rows="15" cols="20" placeholder="Enter any notes here..."></ion-textarea>   
+        </ion-item>   
+       
+        </ion-col>
+        </ion-row>
+    
+        <ion-row>
+        <ion-col class='txtalign'>
+          <ion-button color="success" shape="round" (click)="closemodal()">OK</ion-button>
+          </ion-col>  
+        </ion-row>
+    
+    
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
+</ion-content>

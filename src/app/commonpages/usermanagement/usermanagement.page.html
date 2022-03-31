@@ -1,0 +1,1692 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'usermanagement.title' | translate:params }}</ion-title>
+  </ion-toolbar>
+
+  <ion-title *ngIf="+user.dept==1 && +user.role==1">
+    <ion-segment scrollable>
+      <ion-segment-button (click)="showDept(1)" checked>
+        <ion-label>Police </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="showDept(2)">
+        <ion-label> Transport / PTW </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="showDept(3)">
+        <ion-label>Highways </ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button (click)="showDept(10)">
+        <ion-label>Project Management </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="showDept(5)">
+        <ion-label>MACT </ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="showDept(6)">
+        <ion-label>LSA </ion-label>
+      </ion-segment-button> 
+      <ion-segment-button (click)="showDept(7)">
+        <ion-label>Insurance </ion-label>
+      </ion-segment-button>
+
+      <!--<ion-segment-button (click)="showDept(4)" >
+          <ion-label>Health       </ion-label>
+        </ion-segment-button> 
+        <ion-segment-button (click)="showDept(99)" >
+          <ion-label>iRAD      </ion-label>
+        </ion-segment-button> -->
+    </ion-segment>
+  </ion-title>
+</ion-header>
+
+<ion-searchbar [(ngModel)]="psStateUsers_searchstr"></ion-searchbar>
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==1 && +user.dept==1 && +user.role==1"
+>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  <section *ngIf="+user.role==2" > <!- -*ngIf="+user.role==2"- ->
+    <header> {{'usermanagement.statetitle' | translate:params }}</header>
+    <ion-button color="success" expand="block" (click)="districtusercreation()">
+      <ion-icon name="person-add-outline"></ion-icon>  &nbsp;   Add District User 
+    </ion-button>
+  </section>
+
+   -->
+
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.statelist' | translate:params }} </ion-label
+    >
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ng-container *ngFor="let u of psStateUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-card>
+      <ion-item>
+        <ion-card-subtitle color="primary"
+          >{{u.name }} ({{u.code }})</ion-card-subtitle
+        >
+        <ion-note slot="end" color="primary" (click)="stateusercreation(u)">
+          <ion-icon size="medium" name="create-outline"></ion-icon
+        ></ion-note>
+      </ion-item>
+      <!-- <div class="caption">{{u.name }} ({{u.code }})</div>	 -->
+      <div id="table"  style="margin-top: 0px;">
+        <div class="header-row row" *ngIf="u?.users">
+          <span class="cell primary">Name</span>
+          <span class="cell">UserName</span>
+           <span class="cell">Password</span>
+          <span class="cell">Status</span>
+        </div>
+        <div class="row" *ngFor="let usr of u?.users">
+        <input type="radio" name="expand">
+          <span class="cell primary" data-label="Name">{{usr.name}}</span>
+          <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+           <span class="cell" data-label="Password"> <ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label> </span>
+           <span class="cell" data-label="Status">
+             <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+             <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <!-- <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let usr of u?.users">
+            <ion-col> {{usr.name}}</ion-col>
+            <ion-col (click)="viewProfile(usr.username)">
+              {{usr.username}}</ion-col
+            >
+            <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+            <ion-col size="1">
+              <ion-icon
+                *ngIf="usr.active"
+                color="success"
+                name="checkmark-circle-outline"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="!usr.active"
+                color="danger"
+                name="close-circle-outline"
+              ></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content> -->
+      
+    </ion-card>
+
+  </ng-container>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollStateUser($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="+user.dept==1 && +user.role==2">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  <section *ngIf="+user.role==2" > <!- -*ngIf="+user.role==2"- ->
+    <header> {{'usermanagement.statetitle' | translate:params }}</header>
+    <ion-button color="success" expand="block" (click)="districtusercreation()">
+      <ion-icon name="person-add-outline"></ion-icon>  &nbsp;   Add District User 
+    </ion-button>
+  </section>
+
+   -->
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.districtlist' | translate:params }}</ion-label
+    >
+    <ion-button (click)="psdistrictcreation()"> + Add District </ion-button>
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-card *ngFor="let u of psDistrictUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.name }} ({{u.code }})</ion-card-subtitle
+      >
+      <ion-note slot="end" color="primary" (click)="districtusercreation(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+       <ion-note slot="end" *ngIf="dev" color="danger" (click)="deletePSDistrict(i)" > <ion-icon size='medium' name="close-circle-outline"> </ion-icon></ion-note> 
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">Username</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollDistrictUser($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="+user.dept==1 && +user.role==3">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  <section *ngIf="+user.role==2" > <!- -*ngIf="+user.role==2"- ->
+    <header> {{'usermanagement.statetitle' | translate:params }}</header>
+    <ion-button color="success" expand="block" (click)="districtusercreation()">
+      <ion-icon name="person-add-outline"></ion-icon>  &nbsp;   Add District User 
+    </ion-button>
+  </section>
+
+   -->
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.stationlist' | translate:params }}</ion-label
+    >
+    <ion-button (click)="psstationcreation()"> + Add Station </ion-button>
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+ 
+  <ion-card *ngFor="let u of psStationUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.name }} ({{u.code }})</ion-card-subtitle
+      >
+      <ion-note slot="end" color="primary" (click)="stationusercreation(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+      <ion-note
+        *ngIf="dev"
+        slot="end"
+        color="danger"
+        (click)="deletePSStation(i)"
+      >
+        <ion-icon size="medium" name="close-circle-outline"> </ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollStationUser($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="+user.dept==1 && +user.role==4">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  <section *ngIf="+user.role==2" > <!- -*ngIf="+user.role==2"- ->
+    <header> {{'usermanagement.statetitle' | translate:params }}</header>
+    <ion-button color="success" expand="block" (click)="districtusercreation()">
+      <ion-icon name="person-add-outline"></ion-icon>  &nbsp;   Add District User 
+    </ion-button>
+  </section>
+
+   -->
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.fieldlist' | translate:params }}</ion-label
+    >
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-card *ngFor="let u of psFieldUsers; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.name }} ({{u.code }})</ion-card-subtitle
+      >
+      <ion-note slot="end" color="primary" (click)="fieldofficercreation(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+</ion-content>
+
+<!-- Transport -->
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==2 && +user.dept==1 && +user.role==1"
+>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.statelist' | translate:params }}</ion-label
+    >
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-card *ngFor="let u of transStateUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.name }} ({{u.code }})</ion-card-subtitle
+      >
+      <ion-note slot="end" color="primary" (click)="stateTransUserCreation(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollTransStateUser($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+</ion-content>
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==2 && user.dept=='2' && user.role=='31'"
+>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header *ngIf="user.office_id=='PTW'">
+    <ion-label color="tertiary"
+      >List of Existing DMTO  and Users
+      <span *ngIf="transStateUsers!=null"> ({{transStateUsers.length}})</span>
+    </ion-label>
+    <ion-button (click)="rtocreation()"> + Add  DMTO </ion-button>
+  </ion-list-header>
+
+  <ion-list-header *ngIf="user.office_id!='PTW'">
+    <ion-label color="tertiary"
+      >List of Existing RTO and Users
+      <span *ngIf="transStateUsers!=null"> ({{transStateUsers.length}})</span>
+    </ion-label>
+    <ion-button (click)="rtocreation()"> + Add RTO </ion-button>
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-card *ngFor="let u of transStateUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.code}} - {{u.name }}
+      </ion-card-subtitle>
+      <ion-note slot="end" color="primary" (click)="addrto(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+      <ion-note *ngIf="dev" slot="end" color="danger" (click)="deleteRTO(i)">
+        <ion-icon size="medium" name="close-circle-outline"> </ion-icon
+      ></ion-note>
+    </ion-item> 
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollTransRTOUser($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+</ion-content>
+
+<!-- Project Management Users -->
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==10 && user.dept=='1' && user.role=='1'"
+>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.statelist' | translate:params }}</ion-label
+    >
+    <ion-button *ngIf="dev" (click)="projUserCreation()">
+      + Add User
+    </ion-button>
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-container *ngFor="let u of projStateUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-card>
+      <!-- *ngIf='u.users' -->
+      <ion-item>
+        <ion-card-subtitle color="primary"
+          >{{u.name }} ({{u.code }})</ion-card-subtitle
+        >
+        <ion-note slot="end" color="primary" (click)="stateProjUserCreation(u)">
+          <ion-icon size="medium" name="create-outline"></ion-icon
+        ></ion-note>
+      </ion-item>
+
+      <div id="table" style="margin-top: 0px;">
+        <div class="header-row row" *ngIf="u?.users">
+          <span class="cell primary">Name</span>
+          <span class="cell">UserName</span>
+           <span class="cell">Password</span>
+          <span class="cell">Status</span>
+        </div>
+        <div class="row" *ngFor="let usr of u?.users">
+        <input type="radio" name="expand">
+          <span class="cell primary" data-label="Name">{{usr.name}}</span>
+          <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+           <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+           <span class="cell" data-label="Status">
+             <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+             <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <!-- <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let usr of u?.users">
+            <ion-col> {{usr.name}}</ion-col>
+            <ion-col (click)="viewProfile(usr.username)">
+              {{usr.username}}</ion-col
+            >
+            <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+            <ion-col size="1">
+              <ion-icon
+                *ngIf="usr.active"
+                color="success"
+                name="checkmark-circle-outline"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="!usr.active"
+                color="danger"
+                name="close-circle-outline"
+              ></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content> -->
+    </ion-card>
+  </ng-container>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollTransStateUser($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+</ion-content>
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==10 && user.dept=='10' && user.role=='10'"
+>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.statelist' | translate:params }}</ion-label
+    >
+    <!-- <ion-button *ngIf="dev"   (click)="projUserCreation()"> + Add User </ion-button> -->
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-container *ngFor="let u of projStateUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-card>
+      <!-- *ngIf='u.users' -->
+      <ion-item>
+        <ion-card-subtitle color="primary"
+          >{{u.name }} ({{u.code }})</ion-card-subtitle
+        >
+        <ion-note slot="end" color="primary" (click)="stateProjUserCreation(u)">
+          <ion-icon size="medium" name="create-outline"></ion-icon
+        ></ion-note>
+      </ion-item>
+
+      <div id="table"  style="margin-top: 0px;">
+        <div class="header-row row" *ngIf="u?.users">
+          <span class="cell primary">Name</span>
+          <span class="cell">UserName</span>
+           <span class="cell">Password</span>
+          <span class="cell">Status</span>
+        </div>
+        <div class="row" *ngFor="let usr of u?.users">
+        <input type="radio" name="expand">
+          <span class="cell primary" data-label="Name">{{usr.name}}</span>
+          <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+           <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+           <span class="cell" data-label="Status">
+             <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+             <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <!-- <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let usr of u?.users">
+            <ion-col> {{usr.name}}</ion-col>
+            <ion-col (click)="viewProfile(usr.username)">
+              {{usr.username}}</ion-col
+            >
+            <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+            <ion-col size="1">
+              <ion-icon
+                *ngIf="usr.active"
+                color="success"
+                name="checkmark-circle-outline"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="!usr.active"
+                color="danger"
+                name="close-circle-outline"
+              ></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content> -->
+    </ion-card>
+  </ng-container>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollTransStateUser($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+</ion-content>
+
+<!--Health -->
+
+<ion-content class="ion-padding" *ngIf="+user.dept==4 && +user.role==4">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >List of Hospital users &nbsp;&nbsp;({{hpname}})</ion-label
+    >
+  </ion-list-header>
+
+  <div *ngIf="false">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-card>
+    <ion-item>
+      <ion-card-subtitle color="primary">{{hpadmin}}</ion-card-subtitle>
+      <ion-note
+        slot="end"
+        color="primary"
+        (click)="hospitalentryusers(hospitalusers)"
+      >
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col color="primary">
+            <span
+              style="
+                color: rgb(6, 99, 175);
+                font-weight: bold;
+                text-align: left;
+              "
+              >Sno.</span
+            ></ion-col
+          >
+
+          <ion-col>
+            <span
+              style="
+                color: rgb(6, 99, 175);
+                font-weight: bold;
+                text-align: left;
+              "
+              >Login ID</span
+            ></ion-col
+          >
+          <ion-col>
+            <div style="color: rgb(6, 99, 175); font-weight: bold">
+              Password
+            </div></ion-col
+          >
+        </ion-row>
+
+        <ion-row *ngFor="let uxx of hospitalusers; let i = index">
+          <ion-col> {{i+1}}</ion-col>
+          <ion-col>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{uxx.username}}</ion-col
+          >
+          <ion-col>
+            &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{uxx.password}}</ion-col
+          >
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="uxx.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!uxx.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollTransMVIUser($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="user.dept=='2' && user.role=='35'">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary">List of Existing MVI /MTO Users </ion-label>
+    <ion-button (click)="unitofficecreation()"> + Add Unit Office / STN MTO </ion-button>
+  </ion-list-header>
+
+  <div *ngIf="false">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-card *ngFor="let u of transStateUsers; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.code}} - {{u.name }}
+      </ion-card-subtitle>
+      <ion-note slot="end" color="primary" (click)="addrto(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+      <ion-note *ngIf="dev" slot="end" color="danger" (click)="deleteRTOUO(u)">
+        <ion-icon size="medium" name="close-circle-outline"> </ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollTransMVIUser($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+      </ion-infinite-scroll>       -->
+</ion-content>
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==3 && +user.dept==1 && +user.role==1"
+>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary"
+      >{{'usermanagement.statelist' | translate:params }}</ion-label
+    >
+  </ion-list-header>
+
+  <div *ngIf="loading">
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-card *ngFor="let u of hwStateUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.name }} ({{u.code }})</ion-card-subtitle
+      >
+      <ion-note
+        slot="end"
+        color="primary"
+        (click)="stateHighwaysUserCreation(u)"
+      >
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollHwStateUser($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+        </ion-infinite-scroll> -->
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="cdview==3 && +user.dept==3 ">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label color="tertiary">List of Existing Highways Users</ion-label>
+    <ion-button *ngIf=" +user.role==70" (click)="addroadtypes()">
+      + Add Road Types
+    </ion-button>
+    <ion-button *ngIf=" +user.role==71" (click)="addhwcircle()">
+      + Add Circle
+    </ion-button>
+    <ion-button *ngIf=" +user.role==72" (click)="addhwdivision()">
+      + Add Division
+    </ion-button>
+    <ion-button *ngIf=" +user.role==73" (click)="addhwsubdivision()">
+      + Add Sub-Division
+    </ion-button>
+  </ion-list-header>
+
+  <!-- <div *ngIf="loading==true">
+  
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>
+             <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+            <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+          </ion-label>
+        </ion-item>
+         </ion-list>
+    </div> -->
+
+  <ion-card *ngFor="let u of highwaysUsers | userfilter:psStateUsers_searchstr; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        >{{u.name }} ({{u.code }})</ion-card-subtitle
+      >
+      <ion-note slot="end" color="primary" (click)="viewHighwaysuser(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollHighwaysUsers($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="cdview==5 && (+user.dept==1 || +user.dept==5)">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+ 
+  <ion-list-header>
+    <ion-label *ngIf="(+user.dept==1 && +user.role==1)" color="tertiary">List of Existing MACT State Nodal Officers </ion-label>
+
+    <ion-label *ngIf="(+user.dept==5 && +user.role==64)" color="tertiary">List of Existing MACT Officers </ion-label>
+
+     <ion-button *ngIf="(+user.dept==5 && +user.role==64)" (click)="addMACTOffice()">
+      + Add MACT Office
+    </ion-button> 
+    
+  </ion-list-header>
+
+  <!-- <div *ngIf="loading==true">
+  
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>
+             <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+            <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+          </ion-label>
+        </ion-item>
+         </ion-list>
+    </div> -->
+
+  <ion-card *ngFor="let u of MACTUsers | userfilter:psStateUsers_searchstr;  let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        > {{u.name }}  ({{u.code }})</ion-card-subtitle>
+      <ion-note slot="end" color="primary" (click)="viewMACTusers(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+   
+  </ion-card>
+
+  <!-- <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollINSUsers($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="cdview==6 && (+user.dept==1 || +user.dept==6)">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+ 
+  <ion-list-header>
+    <ion-label *ngIf="(+user.dept==1 && +user.role==1)" color="tertiary">List of Existing LSA State Nodal Officers </ion-label>
+    <ion-label *ngIf="(+user.dept==6 && +user.role==20)" color="tertiary">List of Existing LSA Users </ion-label>
+    <ion-button *ngIf=" +user.dept==6 || +user.role==20" (click)="addLSAOffice()">
+      + Add LSA Office
+    </ion-button> 
+    
+  </ion-list-header>
+
+  <!-- <div *ngIf="loading==true">
+  
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>
+             <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+            <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+          </ion-label>
+        </ion-item>
+         </ion-list>
+    </div> -->
+
+  <ion-card *ngFor="let u of LSAUsers | userfilter:psStateUsers_searchstr;  let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        > {{u.name }}  ({{u.code }})</ion-card-subtitle>
+      <ion-note slot="end" color="primary" (click)="viewLSAusers(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+   
+  </ion-card>
+
+  <!-- <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollINSUsers($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>
+
+
+<ion-content class="ion-padding" *ngIf="cdview==7 && (+user.dept==1 || +user.dept==7 )">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+ 
+  <ion-list-header>
+    <ion-label *ngIf="(+user.dept==7 && +user.role==1)" color="tertiary">List of Insurance Companies and Users</ion-label>
+    <ion-label *ngIf="(+user.dept==7 && +user.role==24)" color="tertiary">List of State Nodal Officers</ion-label>
+    <ion-label *ngIf="(+user.dept==7 && (+user.role==25 || +user.role==26))" color="tertiary">List of Offices and Users</ion-label>
+    <ion-button *ngIf="(+user.dept==7 && +user.role==1)"  (click)="addinscomapny()"> <!--*ngIf=" +user.role==70"-->
+      + Add Insurance Company
+    </ion-button>
+    <ion-button *ngIf=" +user.role==25 || +user.role==26" (click)="addinscomapny()">
+      + Add sub Office
+    </ion-button>
+    
+  </ion-list-header>
+
+  <!-- <div *ngIf="loading==true">
+  
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>
+             <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+            <p>          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>        </p>
+          </ion-label>
+        </ion-item>
+         </ion-list>
+    </div> -->
+
+  <ion-card *ngFor="let u of insuranceCompany | userfilter:psStateUsers_searchstr;  let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary"
+        > {{u.name }}  ({{u.code }})</ion-card-subtitle>
+      <ion-note slot="end" color="primary" (click)="viewINSusers(u)">
+        <ion-icon size="medium" name="create-outline"></ion-icon
+      ></ion-note>
+    </ion-item>
+
+    <div id="table"  style="margin-top: 0px;">
+      <div class="header-row row" *ngIf="u?.users">
+        <span class="cell primary">Name</span>
+        <span class="cell">UserName</span>
+         <span class="cell">Password</span>
+        <span class="cell">Status</span>
+      </div>
+      <div class="row" *ngFor="let usr of u?.users">
+      <input type="radio" name="expand">
+        <span class="cell primary" data-label="Name">{{usr.name}}</span>
+        <span class="cell" data-label="Username" (click)="viewProfile(usr.username)">{{usr.username}}</span>
+         <span class="cell" data-label="Password"><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></span>
+         <span class="cell" data-label="Status">
+           <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+           <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+        </span>
+      </div>
+    </div>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let usr of u?.users">
+          <ion-col> {{usr.name}}</ion-col>
+          <ion-col (click)="viewProfile(usr.username)">
+            {{usr.username}}</ion-col
+          >
+          <ion-col><ion-label color="dark" (click)="showPassword(usr.password,$event)"> click view</ion-label></ion-col>
+
+          <ion-col size="1">
+            <ion-icon
+              *ngIf="usr.active"
+              color="success"
+              name="checkmark-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="!usr.active"
+              color="danger"
+              name="close-circle-outline"
+            ></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content> -->
+  </ion-card>
+
+  <!-- <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="scrollINSUsers($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>
+
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==4 && +user.dept==1 && +user.role==1"
+>
+  Working on it Health
+</ion-content>
+
+<ion-content
+  class="ion-padding"
+  *ngIf="cdview==99 && +user.dept==1 && +user.role==1"
+>
+  Working on it iRAD
+</ion-content>

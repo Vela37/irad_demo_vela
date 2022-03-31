@@ -1,0 +1,200 @@
+<ion-header>
+  <ion-toolbar color="primary txtalign">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title> Witness</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <form name="form" 
+  (ngSubmit)="f.form.valid && savebutton()" 
+  #f="ngForm" > 
+  <ion-card style=" background:#faf2e6;">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Name</ion-label>
+          <ion-input    id="witnessname" name="witnessname"  
+          #witnessnamereq="ngModel"
+          [(ngModel)]="witnessname" 
+          required></ion-input>
+        </ion-item>
+        <div *ngIf="f.submitted && witnessnamereq.invalid">
+          <p class='errormsg'*ngIf="witnessnamereq.errors.required">
+            Name is Required      
+          </p>     
+        </div>
+      </ion-col>
+  </ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Gender</ion-label>
+ 
+
+      <ion-select  id="witnessgender" name="witnessgender"  
+      #witnessgenderreq="ngModel"
+      [(ngModel)]="witnessgender" required >
+        <ion-select-option value="Male">Male</ion-select-option>
+        <ion-select-option value="Female">Female</ion-select-option>
+        <ion-select-option value="TG">TG</ion-select-option>
+
+      </ion-select>
+
+
+    </ion-item>
+    <div *ngIf="f.submitted && witnessgenderreq.invalid">
+      <p class='errormsg'*ngIf="witnessgenderreq.errors.required">
+        Gender is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Age</ion-label>
+ 
+      <ion-input  type="number"   id="witnessage" name="witnessage"  
+      #witnessagereq="ngModel"
+      [(ngModel)]="witnessage" 
+      required></ion-input>
+
+    </ion-item>
+    <div *ngIf="f.submitted && witnessagereq.invalid">
+      <p class='errormsg'*ngIf="witnessagereq.errors.required">
+        Age is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Occupation</ion-label>
+      <ion-input    id="witnessoccupation" name="witnessoccupation"  
+      #witnessoccupationreq="ngModel"
+      [(ngModel)]="witnessoccupation" 
+      required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && witnessoccupationreq.invalid">
+      <p class='errormsg'*ngIf="witnessoccupationreq.errors.required">
+        Occupation is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Mobile Number</ion-label>
+      <ion-input    id="witnessno" name="witnessno"    type="tel"  maxlength="10"  
+      #witnessnoreq="ngModel"
+      [(ngModel)]="witnessno" 
+      required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && witnessnoreq.invalid">
+      <p class='errormsg'*ngIf="witnessnoreq.errors.required">
+        Mobile Number is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Address</ion-label>
+      <ion-input    id="witnessaddress" name="witnessaddress"  
+      #witnessaddressreq="ngModel"
+      [(ngModel)]="witnessaddress" 
+      required></ion-input>
+    </ion-item>
+    <div *ngIf="f.submitted && witnessaddressreq.invalid">
+      <p class='errormsg'*ngIf="witnessaddressreq.errors.required">
+        Address is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'> Statement</ion-label>
+      <ion-textarea  id="witnessinformation" name="witnessinformation"  
+      #witnessdetailsreq="ngModel"
+      [(ngModel)]="witnessinformation" 
+      requiredrows="5" cols="20"
+      placeholder="Enter any notes here..." required></ion-textarea>
+      <!--<ion-input    id="witnessinformation" name="witnessinformation"  
+      #witnessdetailsreq="ngModel"
+      [(ngModel)]="witnessinformation" 
+      required></ion-input>-->
+    </ion-item>
+    <div *ngIf="f.submitted && witnessdetailsreq.invalid">
+      <p class='errormsg'*ngIf="witnessdetailsreq.errors.required">
+        Statement is Required      
+      </p>     
+    </div>
+  </ion-col>
+</ion-row>
+  <!--<ion-row>
+    <ion-col width-50 style="text-align: right">
+       <ion-button color="light"   >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left">
+       <ion-button color="light"   type="submit" >Save</ion-button>
+     </ion-col>
+   </ion-row>-->
+
+
+   <ion-row >
+    <ion-col class='txtalign'>
+      &nbsp; &nbsp; 
+      <ion-icon *ngIf="photo==null" (click)="selectImage()" name="camera" size='large'
+      class='imgpreview'>
+      <ion-input size='large' type='file' size='large' class='fload'></ion-input>
+    </ion-icon>
+
+    <img *ngIf="photo!=null" class="imgpreview" (click)="previewimg()"
+      [src]="photo">
+   
+   &nbsp; &nbsp; 
+
+      <ion-icon (click)="takeAudio()" name="mic-outline" size='large' color='danger'></ion-icon> 
+
+      <audio *ngIf="audio" type="audio/mp3"  controls [src]="audio4play">
+        The audio tag is not supported by your browser. Click [here] to download the audio file.
+      </audio>
+
+    </ion-col>
+    <ion-col class='txtalign'>
+      
+      <ion-button (click)="CloseForm()"  shape="round" fill="outline" color='danger'   type="button">
+        <ion-icon name="close"></ion-icon>
+       Close
+      </ion-button>
+      &nbsp; 
+      <ion-button   shape="round" fill="outline" color='success'   type="submit">
+        <ion-icon name="cloud-upload"></ion-icon>
+        Save
+      </ion-button>
+    
+
+    </ion-col>
+  </ion-row>
+
+
+  </ion-card>
+</form>
+
+</ion-content>

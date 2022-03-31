@@ -1,0 +1,1234 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign">
+      {{ "acctab1.transport" | translate: params }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">
+          {{ "transport.regntype" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.regno_type" (ionChange)="regchange($event)" cancelText="Cancel"
+          interface="alert">
+          <ion-select-option *ngFor="let d of options15; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="
+      transportinfo.regno_type == '2' ||
+      transportinfo.regno_type == '3' ||
+      transportinfo.regno_type == '4'
+    ">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.temp_regno_validity" | translate: params }}
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.temp_regno_validity" MAX="2050" displayFormat="D MMM YYYY">
+        </ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="transportinfo.regno_type == '3'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.trade_plate_issuedby" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.trade_plate_issuedby" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <!-- <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.f19_sno" | translate: params }}
+        </ion-label>
+        <ion-input
+          [(ngModel)]="transportinfo.f19_sno"
+          type="number"
+          class="ion-text-uppercase"
+        ></ion-input>
+      </ion-item>
+    </ion-col> -->
+  </ion-row>
+
+  <ion-row *ngIf="transportinfo.regno_type == '3'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.f19_tp_purpose" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.f19_tp_purpose" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.f19_tp_dt" | translate: params }}
+        </ion-label>
+
+        <ion-datetime [(ngModel)]="transportinfo.f19_tp_dt" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="transportinfo.regno_type == '3'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.f19_mileage" | translate: params }}
+          <span class="redclr" style="color: red">In KM.</span>
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.f19_mileage" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.vclass" | translate: params }}
+        </ion-label>
+
+        <ion-input [(ngModel)]="transportinfo.vclass" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+    <!-- 
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.vtype" | translate: params }}
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="transportinfo.vtype"
+          class="ion-text-uppercase"
+        ></ion-input>
+      </ion-item>
+    </ion-col> -->
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">
+          {{ "transport.vtype" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.vtype" cancelText="Cancel" interface="alert">
+          <ion-select-option *ngFor="let d of options10; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.make" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.make" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.makeclass" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.makeclass" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "acctab1.acc.veh.owner_name" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.ownername" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "acctab1.acc.veh.owneraddr" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.vowneraddr" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.yearofmanfac" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.rc_manu_month_yr"  class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.vage" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.vage" type="number" class="ion-text-uppercase">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.engineno" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.engineno" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.chassisno" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.chassisno" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">
+          {{ "transport.vdescription" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.vdescription" (ionChange)="flagpermit($event)" cancelText="Cancel"
+          interface="alert">
+          <ion-select-option value="1">{{
+            "transport.tranvehicle" | translate: params
+            }}</ion-select-option>
+          <ion-select-option value="2">{{
+            "transport.nontranvehicle" | translate: params
+            }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.color" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.color" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.uloadenweight" | translate: params }}
+          <span class="redclr" style="color: red;">In KG.</span>
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.uloadenweight" type="number" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.max_speed" | translate: params }}
+          <span class="redclr" style="color: red;">In KM.</span>
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.max_speed" type="number" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row> </ion-row>
+  <ion-row [hidden]="permitflag">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">
+          {{ "transport.permitcat" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.permitcat" cancelText="Cancel" interface="alert">
+          <ion-select-option *ngFor="let d of options12; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.permitissuedby" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.permitissuedby" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row [hidden]="permitflag">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.permitno" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.permitno" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.permitvalidity" | translate: params }}
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.permitvalidity" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row [hidden]="permitflag">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.fitcertstatus" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.fitcertstatus" interface="alert">
+          <ion-select-option value="Valid">Valid</ion-select-option>
+          <ion-select-option value="Expired">Expired</ion-select-option>
+          <ion-select-option value="Not Obtained">Not Obtained</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.fitcertval" | translate: params }}
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.fitcertval" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col [hidden]="permitflag">
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.regloadenweg" | translate: params }}
+          <span class="redclr" style="color: red;">In KG.</span>
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.regloadenweg" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col [hidden]="!permitflag">
+      <!--  -->
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.regcrtval" | translate: params }}
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.regcrtval" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row [hidden]="permitflag">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.polctrlcertval" | translate: params }}
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.polctrlcertval" MAX="2100" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.place_ins" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.place_ins" class="ion-text-uppercase" interface="alert"
+          (ionChange)="getplacoflocation($event)">
+          <ion-select-option value="Accident Spot">Accident Spot</ion-select-option>
+          <ion-select-option value="RTO office">RTO office</ion-select-option>
+          <ion-select-option value="Police Station">Police Station</ion-select-option>
+          <ion-select-option value="others">Others</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.inscomname" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.inscomname" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.seat_cap" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.seat_cap" type="number" class="ion-text-uppercase">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.inscrtpolicyno" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.inscrtpolicyno" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.inscrtvalidity" | translate: params }}
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.inscrtvalidity" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.vlength" | translate: params
+          }}<span class="redclr" style="color: red;">In MM.</span>
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.vlength" type="number" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.vwidth" | translate: params
+          }}<span class="redclr" style="color: red;">In MM.</span></ion-label>
+        <ion-input [(ngModel)]="transportinfo.vwidth" type="number" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.vheight" | translate: params }}
+          <span class="redclr" color="danger" style="color: red;">In MM.</span>
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.vheight" type="number" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.cfhandbreak" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.cfhandbreak" interface="alert" (ionChange)="loadcondtionofbrake()">
+          <ion-select-option *ngFor="let d of options17; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.conditionofbreak" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.conditionofbreak" interface="alert">
+          <ion-select-option *ngFor="let d of options13; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">
+          {{ "transport.effoffoodbreak" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.effoffoodbreak" interface="alert" (ionChange)="flagmech($event)">
+          <ion-select-option value="Active">active</ion-select-option>
+          <ion-select-option value="In-active"> in-active</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">
+          {{ "transport.effofhandbreak" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.effofhandbreak" interface="alert" (ionChange)="flagmech($event)">
+          <ion-select-option value="Active">active</ion-select-option>
+          <ion-select-option value="In-active"> in-active</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class="fcolor2" position="stacked">
+        {{"transport.breakseorn" | translate: params }}
+      </ion-label>
+
+      <ion-select [(ngModel)]="transportinfo.breakseorn" interface="alert">
+        <ion-select-option value="Even">Even</ion-select-option>
+        <ion-select-option value="Not Even">Not Even</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.mech_fstat" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.mech_fstat" interface="alert" (ionChange)="flagmech($event)">
+          <ion-select-option value="yes">
+            {{ "commonlinks.yes" | translate: params }}</ion-select-option>
+          <ion-select-option value="no">
+            {{ "commonlinks.no" | translate: params }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.tyrecond" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.tyrecond" interface="alert">
+          <ion-select-option *ngFor="let d of options1; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.opif_vd_rd" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.opif_vd_rd" interface="alert">
+          <ion-select-option *ngFor="let d of options16; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.cffb_mech" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.cffb_mech" interface="alert" multiple="true">
+          <ion-select-option *ngFor="let d of options4; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col [hidden]="mechflag">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.vdefecttype" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.vdefecttype" interface="alert" multiple="true">
+          <ion-select-option *ngFor="let d of options11; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.disposofv" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.disposofv" interface="alert">
+          <ion-select-option value="1">
+            {{
+            "commonlinks.needtobetowed" | translate: params
+            }}</ion-select-option>
+          <ion-select-option value="2">
+            {{
+            "commonlinks.canbedrivenaway" | translate: params
+            }}</ion-select-option>
+          <ion-select-option value="3">
+            {{
+            "commonlinks.cannotbetowed" | translate: params
+            }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.tax" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.tax" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.streeringtype" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.streeringtype" interface="alert" (ionChange)="showsteeringcond()">
+          <ion-select-option *ngFor="let d of options6; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.streeingcond" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.streeingcond" interface="alert" multiple="true">
+          <ion-select-option *ngFor="let d of options14; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.vdamagestat" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.vdamagestat" interface="alert" multiple="true">
+          <ion-select-option *ngFor="let d of options2; let i = index" value="{{ d.id }}">
+            {{ d.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{
+          "transport.damge_sustained" | translate: params
+        }}</ion-label>
+        <ion-textarea
+          [(ngModel)]="transportinfo.damge_sustained"
+          class="ion-text-uppercase"
+          rows="5"
+          cols="5"
+          placeholder="Enter any notes here..."
+        ></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row> -->
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.damge_sustained" | translate: params }}
+        </ion-label>
+
+        <ion-textarea [(ngModel)]="transportinfo.damge_sustained" class="ion-text-uppercase" rows="5" cols="5"
+          placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">Cause of Accident</ion-label>
+        <ion-textarea [(ngModel)]="transportinfo.cause_of_acc" class="ion-text-uppercase" rows="5" cols="5"
+          placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.skidmark" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.skidmark" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <!-- <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating"
+          >{{ "transport.skidmark" | translate: params }} Breath</ion-label
+        >
+        <ion-input
+          [(ngModel)]="transportinfo.skidleng"
+          class="ion-text-uppercase"
+        ></ion-input>
+      </ion-item>
+    </ion-col> -->
+  </ion-row>
+  <!--
+<ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.trackmark" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.trackmark" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  
+  -->
+  <!-- Raghul Change -->
+  <ion-row>
+    <ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor2" position="floating">{{ "transport.wheeltype" | translate: params }}
+          </ion-label>
+          <ion-select [(ngModel)]="transportinfo.wheeltype" interface="alert" multiple="false">
+            <ion-select-option  value="Satisfactory">Satisfactory</ion-select-option>
+            <ion-select-option  value="Wheel Rim bent">Wheel Rim bent</ion-select-option>
+            <ion-select-option  value="Wheel Rim Damaged">Wheel Rim Damaged</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-col>
+    <ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor2" position="floating">{{ "transport.wiperstype" | translate: params }}
+          </ion-label>
+          <ion-input [(ngModel)]="transportinfo.wiperstype" class="ion-text-uppercase"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">{{ "transport.mirrorstype" | translate: params }}
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.mirrorstype" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{
+          "transport.whethervmb" | translate: params
+          }}</ion-label>
+        <ion-select [(ngModel)]="transportinfo.whethervmb">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="transportinfo.whethervmb == 'Yes'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{
+          "transport.vehmodby" | translate: params
+          }}</ion-label>
+        <ion-textarea [(ngModel)]="transportinfo.vehmodby" class="ion-text-uppercase" rows="5" cols="5"
+          placeholder="Enter Vehicle Modified By"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{
+          "transport.wrpsi" | translate: params
+          }}</ion-label>
+        <ion-select [(ngModel)]="transportinfo.wrpsi">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col *ngIf="transportinfo.wrpsi == 'Yes'">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{
+          "transport.wfy" | translate: params
+          }}</ion-label>
+        <ion-select [(ngModel)]="transportinfo.wfy">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{'transport.tofs' | translate:params}}</ion-label>
+      
+       
+          <ion-select [(ngModel)]="transportinfo.tofs" interface="alert" multiple="false">
+            <ion-select-option  value="No Scratch marks found">No Scratch marks found</ion-select-option>
+            <ion-select-option  value="Paint scratch marks found">Paint scratch marks found</ion-select-option>
+            <ion-select-option  value="Not found">Not found</ion-select-option>
+          </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <!-- 10,00,00,000 9 Digit Number -->
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">
+          {{ "transport.dodamages" | translate: params }}</ion-label>
+        <ion-input (ionChange)="checkdigitsdamage($event, 9)" [(ngModel)]="transportinfo.dodamages" type="number"
+          min="1" class="ion-text-uppercase"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <!-- End -->
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.whechkrepiss" | translate: params }}
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.whechkrepiss" interface="alert">
+          <ion-select-option value="yes">
+            {{ "commonlinks.yes" | translate: params }}</ion-select-option>
+          <ion-select-option value="no">
+            {{ "commonlinks.no" | translate: params }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="transportinfo.whechkrepiss == 'yes'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">Check Report Number
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.checkreportnr"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">Report issued Date
+        </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.checkreportdate" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <!-- test-->
+    <ion-col *ngIf="transportinfo.vdescription == 1">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">{{ "transport.whecfxiss" | translate: params }}
+        </ion-label>
+
+        <ion-select [(ngModel)]="transportinfo.whecfxiss" interface="alert">
+          <ion-select-option value="yes">
+            {{ "commonlinks.yes" | translate: params }}</ion-select-option>
+          <ion-select-option value="no">
+            {{ "commonlinks.no" | translate: params }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="transportinfo.whecfxiss == 'yes'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">CFX Date </ion-label>
+        <ion-datetime [(ngModel)]="transportinfo.cfxdate" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="floating">CFX Number </ion-label>
+        <ion-input [(ngModel)]="transportinfo.cfxno"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Paint transfer found
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.painttransfer">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="transportinfo.painttransfer == 'Yes'">
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Location of paint transfer
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.locationoftransfer"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Color of paint transfer
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.coloroftransfer"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Installed CNG / LPG kit
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.dispinstallingcngosofv">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Change of vehicle body
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.changeofvehiclebody">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Horn installed and functional?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.hornfunctional">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Brake lights & other lights functional?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.lightsfuntional">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Vehicle had faulty number plate?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.faultynumberplate">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Whether the vehicle fitted with airbags?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.airbags">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col *ngIf="transportinfo.airbags == 'Yes'">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Airbags Deployed?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.airbagsfunctional">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col *ngIf="transportinfo.airbagsfunctional == 'No'">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">If not deployed, state reasons
+        </ion-label>
+        <ion-input [(ngModel)]="transportinfo.airbagreasons"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Vehicle had tinted glasses?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.tintedglass">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">For educational institutions bus, whether the vehicle was fitted
+          with
+          the doors that can be shut & whether the vehicle had a suitable
+          inscription to indicate that they are in the duty of an educational
+          institute?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.educationalvehicle">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Speed Limiter devices in case of PSV (Commercial vehicle)
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.psvinstalled">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col *ngIf="transportinfo.psvinstalled == 'Yes'">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Whether functional or not?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.psvfunctional">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Parking Sensors
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.parkingsensors">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col *ngIf="transportinfo.parkingsensors == 'Yes'">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Whether functional or not?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.sensorfunctional">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Vehicle Location Tracking (VLT) Devices
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.vehicletracking">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+
+    <ion-col *ngIf="transportinfo.vehicletracking == 'Yes'">
+      <ion-item>
+        <ion-label class="fcolor2" position="stacked">Whether functional or not?
+        </ion-label>
+        <ion-select [(ngModel)]="transportinfo.vehicletrackingfunctional">
+          <ion-select-option value="Yes">Yes</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+     <!-- Ajay New Added -->
+     <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor2" position="stacked">{{'transport.device_fit' | translate:params}}
+          </ion-label>
+          <ion-select [(ngModel)]="transportinfo.device_fit">
+            <ion-select-option value="yes">
+              {{'commonlinks.yes' | translate:params}}</ion-select-option>
+            <ion-select-option value="no">
+              {{'commonlinks.no' | translate:params}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+  
+      <ion-col >
+        <ion-item>
+          <ion-label class="fcolor2" position="stacked">{{'transport.vehicle_bullbars' | translate:params}}
+          </ion-label>
+          <ion-select [(ngModel)]="transportinfo.vehicle_bullbars">
+            <ion-select-option value="yes">
+              {{'commonlinks.yes' | translate:params}}</ion-select-option>
+            <ion-select-option value="no">
+              {{'commonlinks.no' | translate:params}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor2" position="stacked">{{'transport.vehicle_reflectivetapes' | translate:params}}
+          </ion-label>
+          <ion-select [(ngModel)]="transportinfo.vehicle_reflectivetapes">
+            <ion-select-option value="yes">
+              {{'commonlinks.yes' | translate:params}}</ion-select-option>
+            <ion-select-option value="no">
+              {{'commonlinks.no' | translate:params}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+  
+      <ion-col >
+        <ion-item>
+          <ion-label class="fcolor2" position="stacked">{{'transport.vehicle_windscreen' | translate:params}}
+          </ion-label>
+          <ion-select [(ngModel)]="transportinfo.vehicle_windscreen">
+            <ion-select-option value="yes">
+              {{'commonlinks.yes' | translate:params}}</ion-select-option>
+            <ion-select-option value="no">
+              {{'commonlinks.no' | translate:params}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+   
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor2" position="floating">Inspection Date
+          </ion-label>
+          <ion-datetime   [(ngModel)]="transportinfo.inspection_date"
+          displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+         
+          required></ion-datetime> 
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label class="fcolor2" position="floating">DL Produced
+          </ion-label>
+          <ion-select   [(ngModel)]="transportinfo.driving_license_submit_flag"
+         required> 
+            <ion-select-option value="yes">Yes</ion-select-option>
+            <ion-select-option value="no">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

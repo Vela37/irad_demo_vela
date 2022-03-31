@@ -1,0 +1,135 @@
+
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Form {{formno}} - Request Extension </ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+ 
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating"> Reason</ion-label>
+          <ion-select  multiple [(ngModel)]="data.reason"   required          interface="alert"  >
+              <ion-select-option   *ngFor="let r of reasons; let i = index" value="{{r.id}}">
+                {{r.name}}
+              </ion-select-option> 
+              </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">No of Days
+          </ion-label>
+          <ion-select [(ngModel)]="data.days" >
+            <ion-select-option *ngFor="let i of numberInput" [value]="i+1">
+              {{i+1}}
+            </ion-select-option>
+
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row> -->
+
+    
+    <!-- <ion-row *ngIf="message!=null">
+      <ion-col>
+        <ion-text *ngFor="let msg of message; let i = index"> {{msg}}. <br></ion-text>
+      </ion-col>
+    </ion-row> -->
+
+ 
+
+  </ion-grid>
+    
+
+  <ion-card *ngIf="reqList && reqList.length">
+    <ion-item>
+      <ion-card-subtitle color="primary" >Form {{formno}}- Extension Request Details ({{reqList.length}})</ion-card-subtitle>
+      <ion-note  slot="end" color="primary" (click)="loadData()" >  <ion-icon name="refresh-outline"></ion-icon></ion-note>
+    </ion-item>
+  
+    <ion-card-content>
+     <ion-grid>
+      <ng-container *ngFor="let d of reqList; let i = index"> 
+      <ion-row  > 
+        <ion-col>Requesting Officer</ion-col> <ion-col size=1>:</ion-col> <ion-col style="color:#075e9f" (click)="viewProfile(d.req_officer)"  >{{d.name}} </ion-col> 
+      </ion-row>
+      <ion-row >  <ion-col>Requested on</ion-col> <ion-col size=1>:</ion-col> <ion-col>{{d.req_datetime | date:"dd-MMM-yyyy HH:MM" }} </ion-col> </ion-row>
+
+      
+      <ion-row > <ion-col>Reason </ion-col> <ion-col size=1>:</ion-col> <ion-col>{{d.reasons}}</ion-col> </ion-row>
+       <ion-row ><ion-col>   &nbsp; </ion-col> <ion-col>
+        &nbsp; &nbsp; 
+        <ion-chip color="danger">
+          <ion-label (click)="reqEXPDF(d.id)">PDF</ion-label>
+        </ion-chip> </ion-col>
+        </ion-row>
+        <ion-item-divider></ion-item-divider> 
+        </ng-container>
+     </ion-grid>
+    </ion-card-content>
+    </ion-card> 
+
+  
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="validationCheck()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+
+
+<!-- 
+<h1> FORM No	I.   	First Accident Report (FAR)
+</h1><h1> FORM No	II.  	Rights of Victim(s) of road accident and flow chart 
+</h1><h1> FORM No	III. 	Driver's form
+</h1><h1> FORM No	IV.  	Owner's form 
+</h1><h1> FORM No	V.   	Interim Accident Report
+</h1><h1> FORM No	VIA. 	Victim's form
+</h1><h1> FORM No	VIB. 	Victim's form relatingio minor children 
+</h1><h1> FORM No	VII. 	Detailed Accident Report
+</h1><h1> FORM No	VIII.	Site Plan i 
+</h1><h1> FORM No	IX.  	Mechanical Inspection Repdrt 
+</h1><h1> FORM No	X.	 	Verification Report
+</h1><h1> FORM No	XI.  	Insurance fbrm-A 
+</h1><h1> FORM No	XII. 	Victim Impact Report (VIR) 
+</h1><h1> FORM No	XIII.	Format of wrotten submition in death case
+</h1><h1> FORM No	XIV. 	Format of written submissions in injury cases 
+</h1><h1> FORM No	XV.  	Summary of computation of award amount in death cases to be incorporated in the award
+</h1><h1> FORM No	XVI. 	Summary of the computation of award amount in injury cases to be incorporated in the award 
+</h1><h1> FORM No	XVII.	Complianee of the provisions of the Scheme to be 
+</h1><h1> FORM No	XVIII.  Format of record of awards to be maintained by the Claims Tribunal 
+</h1><h1> FORM No	XIX. 	Motor Accident Claims Annuity Deposit(MACAD) scheme
+</h1> -->

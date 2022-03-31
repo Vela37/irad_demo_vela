@@ -1,0 +1,206 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title}} Accident Data</ion-title>
+   <!-- <ion-buttons slot="end">
+      <ion-button *ngIf="viewFlag=='district' || viewFlag=='state' || viewFlag=='station' && accidentview==false" (click)="back()">
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngIf="viewFlag=='country' && indacc!=null && accidentview==false">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-item>
+      <!-- <div >
+                <img class="image"  [src]="img">
+              </div> -->
+      <!-- <ion-note slot="end" color="primary">
+          <ion-icon size='large' name="open-outline"></ion-icon>
+        </ion-note> -->
+      <ion-grid>
+        <ion-row>
+          <ion-col class="alignme-center">
+            <h2>
+              <ng2-odometer [number]="indacc.count" [config]="config"></ng2-odometer>
+            </h2>
+          </ion-col>
+        </ion-row>
+        <ion-row class="t1">
+          <ion-col>
+            <h2 class="ion-padding" style="color: #183e7a;" class="alignme-center">{{indacc.title}}</h2>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div class=" ion-padding list card">
+
+      <ion-row>
+        <ion-col class="alignme-center">
+
+          <ion-button *ngIf="loading" expand="block" fill="clear" (click)="enableStates()">More<ion-icon
+              name="arrow-forward-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card>
+
+  <div *ngIf="viewFlag=='state' && accidentview==false">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let sc of stateacc; let i = index">
+          <ion-card>
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="alignme-center">
+                    <ng2-odometer [number]="sc.count" [config]="config"></ng2-odometer>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <h4 class="ion-padding" style="color: #183e7a;" class="alignme-center">{{sc.title}}</h4>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+            </ion-item>
+            <div class=" ion-padding list card">
+              <ion-row>
+                <ion-col class="alignme-center">
+                  <ion-button expand="block" fill="clear" (click)="enableDistricts(sc.code)">More<ion-icon
+                      name="arrow-forward-circle-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="viewFlag=='district' && accidentview==false">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let dt of districtacc; let i = index">
+          <ion-card>
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="alignme-center">
+                    <ng2-odometer [number]="dt.count" [config]="config"></ng2-odometer>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <h5 class="ion-padding" style="color: #183e7a;" class="alignme-center">{{dt.title}}</h5>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+            </ion-item>
+            <div class=" ion-padding list card">
+              <ion-row>
+                <ion-col class="alignme-center">
+                  <ion-button expand="block" fill="clear" (click)="enableStation(dt.state,dt.code)">More<ion-icon
+                      name="arrow-forward-circle-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="viewFlag=='station' && accidentview==false">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let station of stationacc; let i = index">
+          <ion-card>
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="alignme-center">
+                    <ng2-odometer [number]="station.count" [config]="config"></ng2-odometer>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <h6 class="ion-padding" style="color: #183e7a;" class="alignme-center">{{station.title}}</h6>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+            </ion-item>
+            <div class=" ion-padding list card">
+              <ion-row>
+                <ion-col class="alignme-center">
+                  <ion-button expand="block" fill="clear" (click)="viewAccidentData(station.state,station.district,station.code,0)">More<ion-icon
+                      name="arrow-forward-circle-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="accidentview==true">
+    
+
+    <ion-card *ngFor="let d of accident_data; let i = index" class="severity{{d.severity}} ion-text-center">
+      <ion-card-header>
+        <ion-card-subtitle>
+          AccId: <b>{{d.accid.slice(-4) }} </b>
+          <span *ngIf="d.fir"> - FIR/CSR : <b>{{d.fir }} </b> </span>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{d.landmark}}, On {{d.datetime}} ({{d.severity_desc}})
+        <ion-label class="alignme-right"> </ion-label>
+      </ion-card-content>
+      <ion-item class="sev1 ">
+        <span class="alignme-center" style="width: 100%;">
+          <ion-chip outline (click)="viewAccident(i)" color="secondary">
+            <ion-label>VIEW</ion-label>
+            <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+          </ion-chip>
+
+        </span>
+      </ion-item>
+    </ion-card>
+  </div>
+
+
+</ion-content>

@@ -1,0 +1,300 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      {{'acctab1.mvi' | translate:params}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <!--  <ion-row *ngIf="selacc">
+    <ion-col col-12 >
+      <ion-card >
+        <ion-item>
+          <ion-label class='gbox txtalign bgcolor2'> <span style="color:coral">
+              {{ 'app.accidentid' | translate:params }}: </span><br>{{selacc.accid}}</ion-label>
+        </ion-item>
+        <ion-card-content class='bgcolor txtalign'>
+          <span> {{selacc.landmark}} </span>
+          <span>On {{selacc.datetime|date:'medium'}}</span>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row> -->
+
+
+
+        <ion-card *ngIf="user.dept==1 &&rtoOptions!=null" >
+
+          <ion-row  *ngIf="ptwOptions.length>0">
+            <ion-col>
+            <ion-item>
+              <input [value]="1" [(ngModel)]="sh" name="sh" type="radio" [checked]="isChecked"/>&nbsp;&nbsp;&nbsp;
+              <ion-label><strong> RTO </strong></ion-label>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <input [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked"/>&nbsp;&nbsp;&nbsp;
+              <ion-label><strong> PTW </strong></ion-label>
+            </ion-item>
+          </ion-col>
+          </ion-row>
+
+        <ion-item *ngIf="sh == 1">
+          <ion-label class='fcolor2' position="floating">Select RTO</ion-label>
+            <ion-select interface="alert" (ionChange)=onRTOSelected() [(ngModel)]="rtosel.code">
+              <ion-select-option *ngFor="let d of rtoOptions; let i = index" value="{{d.code}}">
+                {{d.code}} - {{d.name}}
+              </ion-select-option>
+            </ion-select>
+           </ion-item> 
+
+           
+
+           <ion-item *ngIf="sh == 0">
+            <ion-label class='fcolor2' position="floating">Select PTW </ion-label>
+              <ion-select interface="alert" (ionChange)=onPTWSelected() [(ngModel)]="rtosel.code">
+                <ion-select-option *ngFor="let d of ptwOptions; let i = index" value="{{d.code}}">
+                  {{d.code}} - {{d.name}}
+                </ion-select-option>
+              </ion-select>
+             </ion-item> 
+        <!-- <ion-row> 
+        <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+
+            <ion-item [hidden]="datacombo">
+              <ion-label position="floating" class='fcolor'>{{'acctab1.acc.veh.vehiclecategory' | translate:params}}
+              </ion-label>
+              <ion-select formControlName='vacategory' interface="alert" (ionChange)="vehiclecategory($event)">
+                <ion-select-option value="1">{{'commonlinks.motorised' | translate:params}}</ion-select-option>
+                <ion-select-option value="0"> {{'commonlinks.nonmotorised' | translate:params}}</ion-select-option>
+
+              </ion-select>
+            </ion-item>
+          </ion-row> -->
+
+
+          
+
+        
+  
+           
+   
+   
+
+          <ion-item *ngIf="uoOptions!=null">
+            <ion-label class='fcolor2' position="floating">Select Unit Office / STN MTO </ion-label>
+
+            <ion-select interface="alert" (ionChange)=onUOSelected() [(ngModel)]="rtosel.uocode">
+
+              <ion-select-option *ngFor="let d of uoOptions; let i = index" value="{{d.code}}">
+                {{d.code}} - {{d.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item *ngIf="sel_rto_office!=''">
+            <ion-label style="color:rgb(236, 158, 12)"> <strong>
+                {{sel_rto_office}}
+              </strong> </ion-label>
+          </ion-item>
+
+        </ion-card>
+
+
+  
+
+  <ion-card *ngIf="data ">
+
+  
+
+<!--
+    <ion-card-header>
+      <ion-card-title style="color:coral">Vehicles </ion-card-title>
+    <ion-card-subtitle>for MVI's inspection</ion-card-subtitle> 
+    </ion-card-header>
+
+-->
+&nbsp;&nbsp;&nbsp;<ion-label style="color:#183e7a"><strong> Vehicle REGNO / Model</strong></ion-label>
+    <ion-item *ngFor="let veh of data; let i = index" style='display: none;'>
+      <ion-label style="color:#183e7a">{{veh.vehregno }} </ion-label>
+      <ion-label color="primary"> {{veh.model |titlecase}} </ion-label>
+
+
+      <ion-checkbox *ngIf="user.role==4 && (veh.mvistatus==null || veh.mvistatus==0)" (click)=enablereqbtn() [(ngModel)]="veh.request">
+      </ion-checkbox>
+
+
+      <ion-chip shape="round" fill="outline" *ngIf="(user.dept==1 || user.dept=='2' ) && veh.mvistatus==1"
+        color="danger" (click)="reqMVIPDF(veh.vehregno)">
+        <ion-label>PDF</ion-label>
+      </ion-chip>
+
+      <ion-chip shape="round" fill="outline" *ngIf="(user.dept==1 || user.dept=='2' ) && veh.mvistatus==2"
+        color="danger" (click)="resMVIPDF(veh.vehregno)">
+        <ion-label>PDF</ion-label>
+      </ion-chip>
+
+
+      <ion-label color="warning" *ngIf="veh.mvistatus==1">AIR Requested</ion-label>
+      <ion-label color="success" *ngIf="user.dept==1 && veh.mvistatus==2">AIR Received</ion-label>
+      <ion-label color="success" *ngIf="user.dept==2 && veh.mvistatus==2">AIR Completed</ion-label>
+
+    </ion-item>
+
+    <ion-card *ngFor="let veh of data; let i = index" color='light'>
+      <ion-card-header>
+        <ion-card-title>
+
+
+
+          <ion-label style="color:#183e7a">{{veh.vehregno }} </ion-label>
+          <ion-label color="primary"> {{veh.model |titlecase}} </ion-label>
+    
+    
+          <ion-checkbox *ngIf="user.role==4 && (veh.mvistatus==null || veh.mvistatus==0)" (click)=enablereqbtn() [(ngModel)]="veh.request">
+          </ion-checkbox>
+
+        </ion-card-title>
+
+
+      </ion-card-header>
+
+      <ion-card-content>
+
+
+
+        <ion-item *ngIf="(user.dept==1 || user.dept=='2' ) && (veh.mvistatus>0)">
+           <ion-label 
+          color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>AIR Request</ion-label>
+          <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success" (click)="reqMVIPDF(veh.vehregno)" style='cursor: pointer;font-weight: bold;color: rgb(1, 86, 165);'> Download</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="(user.dept=='2'  &&( veh.mvistatus>=2) )">
+          <ion-label
+         color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>AIR</ion-label>
+         <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success"  (click)="resMVIPDF(veh.vehregno)" style='cursor: pointer;font-weight: bold;color: rgb(1, 86, 165);'> Generate</ion-label>
+       </ion-item>
+
+       <ion-item *ngIf="(user.dept=='2'  &&  (veh.mvistatus==2 || veh.mvistatus==3 ))">
+        <ion-label 
+       color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>Upload Signed Document</ion-label>
+       <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success" (click)="uploadMVI(veh.vehregno)" style='cursor: pointer;font-weight: bold;color:  rgb(179, 133, 7);'> Upload</ion-label>
+     </ion-item>
+
+     <ion-item *ngIf="(user.dept=='2' && veh.mvistatus>=3)">
+      <ion-label 
+     color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>View Uploaded Document</ion-label>
+     <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success" (click)="viewsigneddocument(veh.vehregno)"  style='cursor: pointer;font-weight: bold;color: rgb(6, 114, 2);'> Download</ion-label>
+   </ion-item>
+
+   <ion-item *ngIf="(user.dept=='1' && veh.mvistatus==4)">
+    <ion-label 
+   color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>AIR</ion-label>
+   <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success" (click)="viewsigneddocument(veh.vehregno)"  style='cursor: pointer;font-weight: bold;color: rgb(6, 114, 2);'> Download</ion-label>
+ </ion-item>
+       
+       
+     
+          <ion-button color="tertiary" *ngIf="user.dept==2 && veh.mvistatus==3" (click)="sendmvitopolice(veh.vehregno)" expand="full" size='small'>Send To Police</ion-button>
+       
+      </ion-card-content>
+
+      <ion-card *ngIf="selacc.dar_flag=='1' && veh.mvistatus>=2 " >
+        <ion-card-header>
+          <ion-card-title>DAR Form IX - Mechanical Inspection Reports</ion-card-title>
+          </ion-card-header>
+        <ion-card-content> 
+
+          <ion-item *ngIf="(user.dept=='2' ) && (veh.mvistatus>=2)">
+            <ion-label 
+           color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>DAR Form IX - MIR</ion-label>
+           <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success"(click)="generateMIR(veh.vehregno)"  style='cursor: pointer;font-weight: bold;color: rgb(1, 86, 165);'> Generate</ion-label>
+         </ion-item>
+
+         <ion-item *ngIf="(user.dept=='2' ) && (veh.mvistatus>=2)">
+          <ion-label 
+         color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>Upload Signed Copy</ion-label>
+         <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success"(click)="uploadMIR(veh.vehregno)"  style='cursor: pointer;font-weight: bold;color:  rgb(179, 133, 7);'> Upload </ion-label>
+       </ion-item>
+
+       <ion-item *ngIf="(user.dept=='2' ) && (veh.mvistatus>=2)">
+        <ion-label 
+       color="danger"  color="danger" style='cursor: pointer;color: crimson;font-weight: bold;'>View Signed Copy</ion-label>
+       <ion-icon name="document-text-outline"></ion-icon> <ion-label color="success" (click)="viewMIR(veh.vehregno)"  style='cursor: pointer;font-weight: bold;color: rgb(6, 114, 2);'> Download</ion-label>
+     </ion-item>
+
+        
+        </ion-card-content>
+      </ion-card>
+
+
+      </ion-card>
+
+     
+
+    <ion-item>
+      <ion-label color="primary"> </ion-label>
+      <ion-chip outline *ngIf="user.role==4 && reqbtn==true" color="primary" (click)="requestMVI()">
+        <ion-label>Request AIR Inspection</ion-label>
+      </ion-chip>
+
+
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card *ngFor="let d of mvidetails; let i = index">
+    <ion-item>
+      <ion-card-subtitle color="primary" >{{d.veh_reg_no}} - Request Details</ion-card-subtitle>
+      <ion-note  slot="end" color="primary" (click)="loadMviDetails()" >  <ion-icon name="refresh-outline"></ion-icon></ion-note>
+    </ion-item>
+  
+    <ion-card-content>
+     <ion-grid>
+      <ion-row > <ion-col>Requesting Officer</ion-col> <ion-col size=1>:</ion-col> <ion-col style="color:#075e9f" (click)="viewProfile(d.req_officer)"  >{{d.req_officer}} </ion-col> </ion-row>
+      <ion-row >  <ion-col>Requested on</ion-col> <ion-col size=1>:</ion-col> <ion-col>{{d.req_datetime | date:"dd-MMM-yyyy HH:MM" }} </ion-col> </ion-row>
+
+      <ion-row > <ion-col>RTO / MTO </ion-col> <ion-col size=1>:</ion-col> <ion-col>{{d.rto_code}} </ion-col> </ion-row>
+      <ion-row *ngIf="d.status=='0'"> <ion-col>Status </ion-col> <ion-col size=1>:</ion-col> <ion-col>Cancelled</ion-col> </ion-row>
+      <ion-row *ngIf="d.status=='0'"> <ion-col>Reason </ion-col> <ion-col size=1>:</ion-col> <ion-col>{{d.remarks}}</ion-col> </ion-row>
+      <ion-row *ngIf="d.status=='1'"> <ion-col>Status </ion-col> <ion-col size=1>:</ion-col><ion-col> Requested <ion-chip (click)="deleteMvi(d.veh_reg_no)">
+        <ion-label *ngIf="user.dept==1" color="secondary">Cancel</ion-label>
+        <ion-label *ngIf="user.dept==2" color="secondary">Reject</ion-label>
+      </ion-chip></ion-col> </ion-row>
+      <ion-row *ngIf="d.status=='2'"> <ion-col>Status </ion-col> <ion-col size=1 >:</ion-col><ion-col> Completed</ion-col> </ion-row>
+
+      <ion-row *ngIf="d.res_officer!=null" ><ion-col>Responded By</ion-col> <ion-col size=1>:</ion-col> <ion-col style="color:#075e9f" (click)="viewProfile(d.res_officer)" >{{d.res_officer}} </ion-col> </ion-row>
+      <ion-row *ngIf="d.res_datetime!=null" ><ion-col>Responded On</ion-col> <ion-col size=1 >:</ion-col> <ion-col>{{d.res_datetime | date:"dd-MMM-yyyy HH:MM" }} </ion-col> </ion-row>
+
+     </ion-grid>
+    </ion-card-content>
+    </ion-card> 
+
+
+  <!-- Skeleton screen -->
+  <div *ngIf="!data">
+    <div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
+  </div>
+
+
+
+</ion-content>

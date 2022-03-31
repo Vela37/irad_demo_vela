@@ -1,0 +1,83 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+
+    <ion-title class="alignme-center">New Notification</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class='ion-no-padding'>
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input [(ngModel)]="notificationdata.name" required="true" max="100"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Title</ion-label>
+          <ion-input [(ngModel)]="notificationdata.title" required="true" max="100"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Body</ion-label>
+          <ion-input [(ngModel)]="notificationdata.body" required="true"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input type='file' accept="image/*" (ionChange)="changeListener($event)"></ion-input>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closemodal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="gettingFcmtoken()"> &nbsp; Push &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+<style>
+  .mandatory {
+    color: red;
+    font-size: 7px;
+  }
+
+  .redclr {
+    color: red;
+    font-size: 9px;
+  }
+</style>

@@ -1,0 +1,94 @@
+.gbox1{
+  background:#c8eda6;
+  color:#183e7a;
+  font-weight: bold;
+  height:150px;
+  font-size: 22px;
+}
+.grid{
+margin:8px;
+border-radius: 2px;
+}
+.bgcolor{
+background:#183e7a; 
+color:#fcee81;
+font-size:15px; 
+}
+.txtalign
+{
+  text-align: center !important;
+}
+.camelcase
+{
+  text-transform: capitalize;
+}
+.gbox2{
+  background:#f5f0f0;
+  color:#183e7a;
+  font-weight: bold;
+  height:150px;
+}
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.card-img-absolutes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+.injbg {
+  background: linear-gradient(to right, #0d98ba, #FBAF63 99%) !important;
+}
+
+.fatalbg {
+  background: linear-gradient(to right, #ff718e, #fe7096) !important;
+}
+
+
+
+.grevbg {
+  background: linear-gradient(to right, #0d98ba, #fe7096) !important;
+}
+
+.disabledcls {
+  background: linear-gradient(to right, #d3d6d6, #ccc9ca) !important;
+}
+
+.grevbgadd {
+  background: linear-gradient(to right, #0d98ba, #e7cc33) !important;
+}
+
+.simphbg {
+  background: linear-gradient(to right, #0d98ba, #ffd265 99%) !important;
+}
+
+.simpnhbg {
+  background: linear-gradient(to right, #6495ED, #6495ED 99%) !important;
+}
+
+.vehbg {
+  background: linear-gradient(to right, #0d98ba, #7da0ec 99%) !important;
+}
+
+.deadbg[_ngcontent-hil-c4] {
+                              background: linear-gradient(to right, #ff718e, #fe7096) !important;
+}
+.injbg {
+  background: linear-gradient(to right, #0d98ba, #1ac5ef 99%) !important;
+}
+
+
+
+/* Custom Skeleton Line Height and Margin */
+.custom-skeleton ion-skeleton-text {
+line-height: 13px;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+margin-bottom: 5px;
+}
+
+

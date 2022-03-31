@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Reports1
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card class="welcome-card">
+  <!-- Skeleton screen -->
+<div *ngIf="data">
+  <div class="ion-padding custom-skeleton">
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    <ion-skeleton-text animated></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  </div>
+
+  <div class="ion-padding custom-skeleton">
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    <ion-skeleton-text animated></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+  </div>
+
+<ion-list>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+
+</ion-card>
+
+
+<ion-card *ngFor="let title of reportList; let i = index" (click)="showReport(i+1)" [disabled]="!reporturl[i+1]">
+  <ion-card-header>
+ <!--   <ion-card-subtitle>Report 1</ion-card-subtitle> -->
+ 
+    <ion-card-title style="color:#082244"> 
+      <ion-text  slot="start" color="danger">{{i+1}}</ion-text>  
+      {{i+1}}. {{ title}}
+    </ion-card-title>
+  </ion-card-header>
+
+  <!-- <ion-card-content>
+    General Information
+  </ion-card-content> -->
+</ion-card>
+
+<!-- <ion-card *ngFor="let title of reportList2; let i = index" (click)="showReport2(i+1)" [hidden]="!reporturl2[i+1]">
+  <ion-card-header>
+  <!- -  <ion-card-subtitle>Report 1</ion-card-subtitle> -- >
+ 
+    <ion-card-title style="color:#082244"> 
+      <ion-text  slot="start" color="danger">{{i+1}}</ion-text>  
+       {{ title}}
+    </ion-card-title>
+  </ion-card-header>
+
+  <!- - <ion-card-content>
+    General Information
+  </ion-card-content> - ->
+</ion-card> -->
+
+<ion-item-divider color="secondary">
+  <ion-label>
+   Other Reports
+  </ion-label>
+</ion-item-divider>
+
+<ion-card *ngFor="let report of otherreportList; let i = index" (click)="showReports(report.URL)" >
+  <ion-card-header>
+  <!--  <ion-card-subtitle>Report 1</ion-card-subtitle> -->
+ 
+    <ion-card-title style="color:#082244"> 
+      <ion-text  slot="start" color="danger">{{i+1}}</ion-text>  
+      {{i+1}}. {{ report.title}}
+    </ion-card-title>
+  </ion-card-header>
+
+  <!-- <ion-card-content>
+    General Information
+  </ion-card-content> -->
+</ion-card>
+
+
+
+
+<!--
+  1. General Information
+  2. Total number of Accidents Classified According to Area and Time of the Day
+  3. Accidents Classified According to Weather Conditions
+  4. Accidents According to the Classification of Road
+  5. Accidents Classified According to Road Environmen
+  6.Accidents Classified According to Road Features
+  7.Accidents Classified According to Junction Type
+  8.Accidents Classified According to Traffic Control at Junction
+  9.Accidents Classified According to Pedestrian Infrastructure
+  10.Accidents Classified According to Type of Impacting Vehicle/Objects
+  11.Accidents Classified According to Age of Impacting Vehicles
+  12.Accidents Classified According to Load Condition of Involved Vehicle
+  13.Accidents Classified According to Type of Collision
+  14.Accidents Classified According to Type of Traffic Violations
+  15.Accidents Classified According to Use/Non-use of Safety Device by Victim
+  16.Accidents Classified According to License of Drivers
+  17.Accidents Classified Accordingto Type of Road Users
+  18.Accidents Classified According to Type of Victims, Age and Sex
+
+-->
+
+
+
+
+
+</ion-content>

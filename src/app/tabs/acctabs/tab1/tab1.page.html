@@ -1,0 +1,294 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'acctab1.title' | translate:params }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <!-- <ion-text style='text-align:center; ' color="primary"  [hidden]='complete'>
+    <h4 style="color:#44ab00">Basic Data Collected </h4>
+
+  </ion-text> -->
+
+
+  <ion-grid>
+
+
+    <ion-row *ngIf="!selacc && loginuser.dept!='4'">
+      <ion-col col-12 class=''>
+
+
+        <ion-card class="ion-padding ion-text-center " routerLink="/acctabs/tab3">
+          <ion-label></ion-label>
+          <ion-button fill="outline">Select an Accident to Update<ion-icon name="list" slot="end"></ion-icon>
+          </ion-button>
+
+
+        </ion-card>
+
+        <!--<ion-card  class="ion-padding ion-text-center mandgbox" routerLink="/acctabs/tab3">
+          <ion-icon name="md-locate" size='large'></ion-icon>
+        <h6>Select Accident to Update</h6>
+        </ion-card>
+      -->
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="loginuser.dept=='4'">
+      <ion-col col-12 class=''>
+
+
+        <ion-card class="ion-padding ion-text-center " routerLink="/acctabs/tab1/hospital">
+          <ion-label></ion-label>
+          <ion-button fill="outline">Add Patient<ion-icon name="list" slot="end"></ion-icon>
+          </ion-button>
+        </ion-card>
+
+        <ion-card class="ion-padding ion-text-center " routerLink="/acctabs/listrequest">
+          <ion-label></ion-label>
+          <ion-button fill="outline">Request List<ion-icon name="list" slot="end"></ion-icon>
+          </ion-button>
+        </ion-card>
+
+        <!--<ion-card  class="ion-padding ion-text-center mandgbox" routerLink="/acctabs/tab3">
+          <ion-icon name="md-locate" size='large'></ion-icon>
+        <h6>Select Accident to Update</h6>
+        </ion-card>
+      -->
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row *ngIf="selacc">
+      <ion-col col-12 class=''>
+        <!-- <ion-card  class="ion-padding ion-text-center mandgbox" routerLink="./location">
+          <ion-icon name="md-locate" size='large'></ion-icon>
+        <h6>Accident ID - {{accid }}</h6>
+          
+        </ion-card> -->
+
+
+        <ion-card>
+          <ion-item>
+
+            <ion-label *ngIf="selacc.accid.length<10" class='gbox txtalign bgcolor2'> <span style="color:coral">
+                {{ 'app.accidentid' | translate:params }}: </span>{{selacc.accid}}
+            </ion-label>
+            <ion-label *ngIf="selacc.accid.length>10" class='gbox txtalign bgcolor2'> <span style="color:coral">
+                {{ 'app.accidentid' | translate:params }}: </span>{{selacc.accid.slice(-4) }}
+            </ion-label>
+
+
+          </ion-item>
+          <ion-card-content class='bgcolor txtalign' routerLink="/accview">
+            <span> {{selacc.landmark}} </span>
+            <span> On {{selacc.datetime|date:'medium'}}</span>
+
+            <h6 class='clr' style="color: white;">Click to view </h6>
+
+          </ion-card-content>
+
+        </ion-card>
+
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="role==5 && selacc">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gbox1" [disabled]="genral" routerLink="./accident">
+          <ion-icon name="terminal-outline" size='large' class='icongbox1'></ion-icon>
+          <h6>{{ 'acctab1.generalinfo' | translate:params }} </h6>
+          <h6 class='clr' style="color: green;" *ngIf="genral">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="!genral">Pending</h6>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row *ngIf="selacc">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gbox7" routerLink="/accview">
+          <ion-icon name="reader-outline" size='large' class='icongbox7'></ion-icon>
+          <h6>{{ 'acctab1.accdetails' | translate:params }} </h6>
+          <h6 class='clr' style="color: green;">Click to view </h6>
+          <!- - <h6 class='clr'  style="color: green;" *ngIf="genral">Completed</h6>
+            <h6 class='clr' style="color: brown;" *ngIf="!genral">Pending</h6> (role==80 || role==50 ) && selacc - ->
+
+        </ion-card>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row *ngIf="role==5 && selacc">
+
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gbox7" [disabled]="role!=5 || !(v_total - v_pending) "
+          routerLink="./vehicle">
+          <ion-icon name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+
+          <h6>{{ 'acctab1.vehicle' | translate:params }}</h6>
+          <!-- <h6 class='clr'>{{v_pending}}/{{v_total}} {{v_total - v_pending }}</h6> -->
+
+          <h6 class='clr' style="color: green;" *ngIf="!(v_total - v_pending)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(v_total - v_pending)"> Pending - {{v_total - v_pending }} of
+            {{v_total}}</h6>
+
+
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gbox1" [disabled]="role!=5 || !(p_total - p_pending)"
+          routerLink="./passenger">
+
+
+          <ion-icon name="people" size='large' class='icongbox1'></ion-icon>
+
+          <h6>{{ 'acctab1.passenger' | translate:params }}</h6>
+          <!-- <h6 class='clr'>{{p_pending}}/{{p_total}}</h6> -->
+          <h6 class='clr' style="color: orangered;" *ngIf="(p_total==0)">No Passenger</h6>
+          <h6 class='clr' style="color: green;" *ngIf="!(p_total - p_pending) && (p_total!=0)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(p_total - p_pending)"> Pending - {{p_total - p_pending }} of
+            {{p_total}}</h6>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="selacc">
+      <ion-col col-6 *ngIf="role==5 ">
+        <ion-card class="ion-padding ion-text-center gbox2" [disabled]="role!=5 || !(ped_total - ped_pending)"
+          routerLink="./pedestrian">
+          <ion-icon name="walk" size='large' class='icongbox2'></ion-icon>
+
+          <h6>{{ 'acctab1.pedestrian' | translate:params }}</h6>
+          <!-- <h6 class='clr'>{{ped_pending}}/{{ped_total}}</h6> -->
+          <h6 class='clr' style="color: orangered;" *ngIf="(ped_total==0)">No Pedestrian</h6>
+          <h6 class='clr' style="color: green;" *ngIf="!(ped_total - ped_pending) && (ped_total!=0)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(ped_total - ped_pending)"> Pending -
+            {{ped_total - ped_pending }} of {{ped_total}}</h6>
+
+
+        </ion-card>
+      </ion-col>
+
+  <ion-col col-6 *ngIf="role==5 ">
+    <ion-card class="ion-padding ion-text-center witnessbox" [disabled]="role!=5 " routerLink="./witness">
+
+
+      <ion-icon name="person-outline" size='large' class='icongboxwitness'></ion-icon>
+
+      <h6>Witness</h6>
+
+      <!-- <h6 class='clr'>{{p_pending}}/{{p_total}}</h6> -->
+      <!-- <h6 class='clr' style="color: orangered;" *ngIf="(p_total==0)">No Witness</h6>-->
+      <!-- <h6 class='clr' style="color: green;" *ngIf="!(p_total - p_pending) && (p_total!=0)">Completed</h6>-->
+
+
+    </ion-card>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+      <ion-col col-6 *ngIf="role==80 || role==75">
+        <ion-card class="ion-padding ion-text-center gbox3" [disabled]="role!=75 || ped_road" routerLink="./envroad">
+          <ion-icon name="rainy" size='large' class='icongbox3'></ion-icon>
+          <h6> {{ 'acctab1.roaddetails' | translate:params }}</h6>
+          <h6 class='clr' style="color: green;" *ngIf="ped_road">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="!ped_road">Pending</h6>
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col col-6 *ngIf="role==50 || role==37">
+        <ion-card class="ion-padding ion-text-center gbox8" [disabled]="role!=37  || !(trans_total - trans)"
+          routerLink="./transport">
+          <ion-icon name="trail-sign-outline" size='large' class='icongbox8'></ion-icon>
+          <h6> {{ 'acctab1.transport' | translate:params }}</h6>
+          <h6 class='clr' style="color: green;" *ngIf="!(trans_total - trans)">Completed</h6>
+          <h6 class='clr' style="color: brown;" *ngIf="(trans_total - trans)"> Pending - {{trans_total - trans }} of
+            {{trans_total}}</h6>
+        </ion-card>
+      </ion-col>
+      
+
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gbox6" routerLink="./media">
+          <!--  routerLink="./media" -->
+          <ion-icon name="videocam" size='large' class='icongbox6'></ion-icon>
+          <h6>{{ 'acctab1.imgvideo' | translate:params }}</h6>
+          <h6 class='clr'>Upload</h6>
+          <h6></h6>
+          <!-- <ion-grid>
+            <ion-row>
+              <ion-col >
+                <ion-chip (click)="gotoGallery(0)">
+                  Capture       
+                </ion-chip>                          
+              </ion-col>             
+              <ion-col >
+                <ion-chip (click)="gotoGallery(1)">
+                  Gallery       
+                </ion-chip>       
+              </ion-col>
+            </ion-row>
+          </ion-grid> -->
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 *ngIf="loginuser.dept=='4'">
+        <ion-card class="ion-padding ion-text-center gbox3" routerLink="./hospital">
+          <ion-icon name="medkit-outline" size='large' class='icongbox3'></ion-icon>
+          <h6>{{ 'acctab1.health' | translate:params }}</h6>
+          <h6 class='clr'>Upload</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!--    <ion-row *ngIf="dev">
+      <ion-col>
+        <ion-card class="ion-padding ion-text-center gbox3" routerLink="/investigation">
+          <ion-icon name="clipboard" size='large' class='icongbox3'></ion-icon>
+          <h6>Investigation Details</h6>
+          <h6 class='clr'>Upload</h6>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+   <ion-row *ngIf="role==5 && selacc">
+      <ion-col col-6>
+        <ion-card class="ion-padding ion-text-center gbox1"  >
+          <ion-icon routerLink="./ingeneral" name="terminal-outline" size='large' class='icongbox1'></ion-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <ion-icon routerLink="./invehicle" name="car-sport-outline" size='large' class='icongbox7'></ion-icon>
+          <h6>INVESTIGATION</h6>
+          <ion-icon routerLink="./inpassenger" name="people" size='large' class='icongbox1'></ion-icon>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <ion-icon routerLink="./inpedestrian" name="walk" size='large' class='icongbox2'></ion-icon>
+        </ion-card>
+      </ion-col>
+    </ion-row> -->
+
+
+
+    <ion-row>
+      <ion-col *ngIf="selacc && role==5">
+        <ion-button routerLink="/accview" color="warning" expand="block">View Entered Details</ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="selacc && role==5">
+        <ion-button color="danger" expand="block" (click)="accsubmit()">SUBMIT TO SHO</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+</ion-content>

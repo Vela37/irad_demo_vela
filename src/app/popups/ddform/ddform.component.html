@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>{{'health.patient_type' | translate:params}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+         
+            <ion-col>
+                      <ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+                        Doctor
+                      </ion-label>
+                    <ion-input [(ngModel)]="dr"></ion-input>
+                      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+         
+    <ion-col>
+              <ion-item><ion-label class='fcolor ion-text-wrap' position="floating">
+                Doctor Reg. No.
+              </ion-label>
+            <ion-input [(ngModel)]="drreg"></ion-input>
+              </ion-item>
+</ion-col>
+</ion-row>
+
+  <ion-row>
+ 
+    <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="floating">
+        DD opinion
+      </ion-label>
+                <ion-select interface="alert" [(ngModel)]="dropnion"  (ionChange)="opinionchange($event)">
+                    <ion-select-option value="1">Consumed liquor under its influence</ion-select-option>
+                    <ion-select-option value="2">Consumed liquor but not under its influence</ion-select-option>    
+                    <ion-select-option value="3">Has not consumed liquor</ion-select-option>    
+                  </ion-select>
+    </ion-item>
+</ion-col>
+</ion-row>
+
+<ion-row [hidden]="opiononflag">
+  <ion-col>
+  <ion-item>
+    <ion-label class='fcolor ion-text-wrap' position="floating">
+      Consumed liquor under its influence
+    </ion-label>
+              <ion-select  interface="alert" multiple='true'  [(ngModel)]="influence">
+                  <ion-select-option value="1">Talk incoherently</ion-select-option>
+                  <ion-select-option value="2">Unable to appreciate the objects</ion-select-option>    
+                  <ion-select-option value="3">Unable to stand or walk steadily</ion-select-option>    
+                  <ion-select-option value="4">Unable to recollect the past events</ion-select-option>    
+                </ion-select>
+  </ion-item>
+</ion-col>
+</ion-row>
+<ion-row>
+ 
+  <ion-col>
+  <ion-item>
+    <ion-label class='fcolor ion-text-wrap' position="floating">
+      Symptoms at the time of examination
+    </ion-label>
+             
+    <ion-textarea rows="15" cols="20" [(ngModel)]="symtomps" placeholder="Enter any notes here..."></ion-textarea>
+  </ion-item>
+</ion-col>
+</ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      
+      </ion-col>
+      <ion-col>
+        <ion-button color="success" shape="round" (click)="closemodal()">OK</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>

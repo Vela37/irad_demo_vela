@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>Reports to Submit</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="background-color: bisque;margin-bottom:25px;font-size: 16px;">
+      <ion-col>
+        Report Name
+     </ion-col> 
+          <ion-col>
+            
+  Submitted on
+            </ion-col>   
+      </ion-row>
+   
+
+    <ion-row style="border-bottom: 1px solid rgba(0, 60, 255, 0.692);margin-bottom:10px;font-size:14px;">
+      <ion-col >
+        ACCIDENT REGISTER – CUM – WOUND CERTIFICATE
+        </ion-col> 
+     
+          <ion-col>
+             &nbsp;<span *ngIf="reportstatus_flag2=='1'">{{reportstatus2}}</span> &nbsp;<span><ion-button  *ngIf="reportstatus_flag2=='0'"  (click)="showmsg('wound')" size='small'>Submit</ion-button></span> 
+            </ion-col>   
+      </ion-row>
+
+      <ion-row style="border-bottom: 1px solid rgba(0, 60, 255, 0.692);margin-bottom:10px;font-size:14px;">
+        <ion-col>
+          TREATMENT / DISCHARGE CERTIFICATE
+    
+          </ion-col> 
+        
+            <ion-col>
+               &nbsp;<span *ngIf="reportstatus_flag3=='1'">{{reportstatus3}}</span> &nbsp;<span><ion-button *ngIf="reportstatus_flag3=='0'"  (click)="showmsg('discharge')" size='small'>Submit</ion-button></span> 
+
+              </ion-col>   
+        </ion-row>
+
+
+        <ion-row style="border-bottom: 1px solid rgba(0, 60, 255, 0.692);margin-bottom:10px;font-size:14px;">
+          <ion-col>
+            CERTIFICATE OF DRUNKENNESS
+      
+            </ion-col> 
+            
+              <ion-col>
+
+                 &nbsp;<span *ngIf="reportstatus_flag4=='1'">{{reportstatus4}}</span> &nbsp;<span><ion-button  *ngIf="reportstatus_flag4=='0'" (click)="showmsg('drunken')" size='small'>Submit</ion-button></span> 
+          
+                </ion-col>   
+          </ion-row>
+
+          <ion-row style="border-bottom: 1px solid rgba(0, 60, 255, 0.692);margin-bottom:10px;font-size:14px;">
+            <ion-col>
+              POST-MORTEM
+        
+              </ion-col> 
+              
+                <ion-col>
+
+                   &nbsp;<span *ngIf="reportstatus_flag5=='1'">{{reportstatus5}}</span> &nbsp;<span><ion-button   *ngIf="reportstatus_flag5=='0'" (click)="showmsg('postmorterm')" size='small'>Submit</ion-button></span> 
+            
+                  </ion-col>   
+            </ion-row>
+    </ion-grid>
+
+  </ion-content>
+
+  

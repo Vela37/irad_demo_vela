@@ -1,0 +1,191 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Insurance Injured  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Expenditure on treatment
+        </ion-label>
+        <ion-input  type="number"  
+        [(ngModel)]="insuranceinjured.inj_treatment" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Expenditure on conveyance
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_convenance" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Expenditure on Special Diet 
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_special_diet" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Cost of artificial  limb
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_cost_artificial_limp" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of earning capacity 
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_loss_erning_capacity" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of income
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_loss_income" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Any other loss which may required any special treatment or aid to the injured for the rest of his life
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_any_other_loss" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Compensation for mental and physical shock
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_com_mental_phy_shock" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Pain and suffering
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_pain_suffering" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of amenities of life
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_loss_amenities" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Disfiguration
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_disfiguration" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of marriage prospects
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_loss_of_marriage" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Loss of earning,inconvenience,hardships,disappointment,frustration, mental stress,dejectment and unhappiness in future life etc.
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_loss_ear_inc_har_dis" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Total  Compensation
+        </ion-label>
+        <ion-input  type="number"
+        [(ngModel)]="insuranceinjured.inj_total_copensation" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"(click)="saveModal()">Save</ion-button>
+     </ion-col>
+   </ion-row>
+
+
+</ion-content>

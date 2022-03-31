@@ -1,0 +1,565 @@
+<ion-header translucent>
+  <ion-toolbar color="primary" >
+   
+   <ion-title class="alignme-center">Child Details</ion-title>
+   <ion-buttons slot="end">
+    <ion-button  (click)="closeModal()">
+      <ion-icon name="close" slot="end"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form name="form" 
+  (ngSubmit)="f.form.valid  && savebutton() " 
+  #f="ngForm" > 
+
+  <ion-grid>
+  
+    <ion-card>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Name of Child</ion-label>
+            <ion-input    id="childname" name="childname"  
+            #childnamereq="ngModel"
+            [(ngModel)]="childname" 
+            required></ion-input>
+          </ion-item>
+          <div *ngIf="f.submitted && childnamereq.invalid">
+            <p class='errormsg'*ngIf="childnamereq.errors.required">
+              Marital Status Required      
+            </p>     
+          </div>
+        </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Age</ion-label>
+          <ion-input    id="childage" name="childage"  
+          type="number"
+          #childschoolreq="ngModel"
+          [(ngModel)]="childage" 
+          type="number"
+          required></ion-input>
+        </ion-item>
+    
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Gender</ion-label>
+          <!-- <ion-input    id="childgen" name="childgen"  
+          #annualfeereq="ngModel"
+          [(ngModel)]="childgen" 
+          required></ion-input>   -->
+
+          <ion-select  okText="Okay" cancelText="Dismiss" 
+          id="childgen" name="childgen"  
+          #annualfeereq="ngModel"
+          [(ngModel)]="childgen"  
+          required
+          >
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="tg">TG</ion-select-option>
+
+       
+          </ion-select>
+
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Caste</ion-label>
+          <!-- <ion-input    id="childgen" name="childgen"  
+          #annualfeereq="ngModel"
+          [(ngModel)]="childgen" 
+          required></ion-input>   -->
+
+          <ion-select  okText="Okay" cancelText="Dismiss" 
+          id="childcaste" name="childcaste"  
+          #childrencaste="ngModel"
+          [(ngModel)]="childcaste"  
+          required
+          >
+            <ion-select-option value="SC">SC</ion-select-option>
+            <ion-select-option value="ST">ST</ion-select-option>
+            <ion-select-option value="OBC">OBC</ion-select-option>
+            <ion-select-option value="General">General</ion-select-option>
+
+            
+       
+          </ion-select>
+
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Father's Name</ion-label>
+          <ion-input    id="childfather" name="childfather"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="childfather" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Mothers's Name</ion-label>
+          <ion-input    id="childmother" name="childmother"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="childmother" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Guardian's Name</ion-label>
+          <ion-input    id="childguardian" name="childguardian"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="childguardian" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Family Income</ion-label>
+          <ion-input    id="familyincome" name="familyincome"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="familyincome" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Permanent Address</ion-label>
+          <ion-input    id="childperadd" name="childperadd"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="childperadd" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Present Address</ion-label>
+          <ion-input    id="childpresadd" name="childpresadd"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="childpresadd" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Contact No. of Father/Mother/family member</ion-label>
+          <ion-input type="text"  pattern="\d*" maxlength="10"   id="childfamilyno" name="childfamilyno"   
+          #Maritalreq="ngModel"
+          [(ngModel)]="childfamilyno" 
+          required></ion-input>  
+        </ion-item>
+        <div *ngIf="f.submitted && relationtodisability.invalid">
+          <p class='errormsg'*ngIf="relationtodisability.errors.required">
+            Percentage of loss of earning 
+  capacity in relation to disability is Required
+          </p>    
+          <p class='errormsg'*ngIf="relationtodisability.errors.pattern('[5-9]\\d{9}')">
+           mobile no
+          </p>  
+        </div>
+        
+      </ion-col>
+    </ion-row>
+
+ 
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Whether the child differently abled:</ion-label>
+
+          <ion-select  okText="Okay" cancelText="Dismiss" 
+          id="childable" name="childable"
+          #Able="ngModel"
+          [(ngModel)]="childable" 
+          required
+          >
+            <ion-select-option value="yes">Yes</ion-select-option>
+            <ion-select-option value="no">No</ion-select-option>
+
+
+       
+          </ion-select>
+
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Present living condition/ economic condition(after the accident) </ion-label>
+          <ion-input    id="preslivcon" name="preslivcon"  
+          #Maritalreq="ngModel"
+          [(ngModel)]="preslivcon" 
+          required></ion-input>  
+        </ion-item>
+     
+      </ion-col>
+    </ion-row>
+    
+</ion-card>
+
+
+
+<br>
+
+<ion-card>
+  
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Current status of education</ion-label>
+      <ion-input    id="ceducatiobstatus" name="ceducatiobstatus"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="ceducatiobstatus" 
+      required></ion-input>  
+    </ion-item>
+ 
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Whether the child is enrolled under EWS quota</ion-label>
+      <ion-select  okText="Okay" cancelText="Dismiss" 
+      id="ewsquota" name="ewsquota"  
+      #Ews="ngModel"
+      [(ngModel)]="ewsquota" 
+      required
+      >
+        <ion-select-option value="yes">Yes</ion-select-option>
+        <ion-select-option value="no">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>If not attending school, reasons to be provided </ion-label>
+      <ion-input    id="notattendsch" name="notattendsch"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="notattendsch" 
+      required></ion-input>  
+    </ion-item>
+ 
+  </ion-col>
+</ion-row>
+
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>School Information</ion-label>
+      <ion-select  okText="Okay" cancelText="Dismiss" 
+      id="corpan" name="corpan"  
+      #CMP="ngModel"
+      [(ngModel)]="corpan" 
+      required
+      >
+      <ion-select-option value="corporation">Corporation</ion-select-option>
+      <ion-select-option value="municipal">Municipal</ion-select-option>
+      <ion-select-option value="panchayat">Panchayat</ion-select-option>
+      <ion-select-option value="giv">Govt.</ion-select-option>
+      <ion-select-option value="otherboard">Other Boards</ion-select-option>
+      <ion-select-option value="privatemanagement">Private Management</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<!-- <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Gov./Other Boards </ion-label>
+      <ion-input    id="govother" name="govother"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="govother" 
+      required></ion-input>  
+      <ion-select  okText="Okay" cancelText="Dismiss" 
+      id="govother" name="govother" 
+      #GovOther="ngModel"
+      [(ngModel)]="govother" 
+      required
+      >
+      <ion-select-option value="corporation">Govt.</ion-select-option>
+      <ion-select-option value="municipal">Other Boards</ion-select-option>
+      </ion-select>
+    </ion-item>
+ 
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Private Management</ion-label>
+      <ion-input    id="privman" name="privman"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="privman" 
+      required></ion-input>  
+    </ion-item>
+ 
+  </ion-col>
+</ion-row> -->
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Monthly School tuition fee</ion-label>
+      <ion-input    id="montfee" name="montfee"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="montfee" 
+      type="number"
+      required></ion-input>  
+    </ion-item>
+ 
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Annual school fee</ion-label>
+      <ion-input    id="annualfee" name="annualfee"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="annualfee" 
+      type="number"
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Private tuition / coaching fee</ion-label>
+      <ion-input    id="privatefee" name="privatefee"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="privatefee" 
+      type="number"
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Any other expenditure / logistics fee</ion-label>
+      <ion-input   id="logisticfee" name="logisticfee"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="logisticfee" 
+      type="number"
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Type of skill development</ion-label>
+      <ion-input   id="skilldev" name="skilldev"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="skilldev" 
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Cost involved</ion-label>
+      <ion-input   id="costinvolved" name="costinvolved"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="costinvolved" 
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+</ion-card>
+<br>
+<ion-card>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Any injured to child</ion-label> 
+      <ion-select  okText="Okay" cancelText="Dismiss" 
+      id="childanyinju" name="childanyinju" 
+      #Anyinjured="ngModel"
+      [(ngModel)]="childanyinju" 
+      required
+      >
+        <ion-select-option value="yes">Yes</ion-select-option>
+        <ion-select-option value="no">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Loss of any body part due to accident</ion-label>
+      <ion-input   id="bodypartloss" name="bodypartloss"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="bodypartloss" 
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Whether immediate psychological counseling / treatment / </ion-label> 
+      <ion-select  okText="Okay" cancelText="Dismiss" 
+      id="councilingtreat" name="councilingtreat" 
+      #Counseling="ngModel"
+      [(ngModel)]="councilingtreat" 
+      required
+      >
+        <ion-select-option value="yes">Yes</ion-select-option>
+        <ion-select-option value="no">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Whether long term support required</ion-label>
+      <ion-select  okText="Okay" cancelText="Dismiss" 
+      id="longtermsupport" name="longtermsupport" 
+      #Longtermsupport="ngModel"
+      [(ngModel)]="longtermsupport" 
+      required
+      >
+        <ion-select-option value="yes">Yes</ion-select-option>
+        <ion-select-option value="no">No</ion-select-option>
+      </ion-select> 
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Cost involved in immediate medical treatment</ion-label>
+      <ion-input   id="costimmediate" name="costimmediate" 
+      type="number"
+      #Maritalreq="ngModel"
+      [(ngModel)]="costimmediate" 
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Cost involved in long term medical treatment</ion-label>
+      <ion-input   id="costlong" name="costlong"  
+      type="number"
+      #Maritalreq="ngModel"
+      [(ngModel)]="costlong" 
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Diet and nutrition expenses</ion-label>
+      <ion-input   id="dietnut" name="dietnut"
+      type="number"  
+      #Maritalreq="ngModel"
+      [(ngModel)]="dietnut" 
+      required></ion-input>  
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+
+
+
+
+
+</ion-card>
+
+
+    <ion-row>
+      <ion-col width-50 style="text-align: right">
+         <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+      </ion-col>
+       <ion-col width-50 style="text-align: left">
+         <ion-button color="light" type="submit" >Save</ion-button>
+       </ion-col>
+     </ion-row>
+  </ion-grid>
+</form>
+
+</ion-content>

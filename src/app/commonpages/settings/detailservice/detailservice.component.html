@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title class="txtalign">Services </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-segment  [(ngModel)]="segment">
+    <ion-segment-button value="vahan"> Vahan </ion-segment-button>
+    <ion-segment-button value="sarathi"> Sarathi </ion-segment-button>
+    <ion-segment-button value="user"> User </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+
+    <div *ngSwitchCase="'vahan'">
+      <ion-searchbar type="text" placeholder="Vehicle Reg.No" debounce="500" class="ion-text-uppercase" [(ngModel)]="veh_regno"
+        (keyup.enter)="getVahanDetails()"></ion-searchbar>
+
+
+      <ion-card *ngIf="vahan">
+        <!-- <ion-card-header> Layer </ion-card-header> -->
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <div class="box box-default">
+                <code>
+                    <pre>{{vahan |json}}</pre>
+                </code>
+            </div>
+        
+            </ion-col>
+
+          </ion-row>
+        </ion-card-content>
+
+
+      </ion-card>
+    </div>
+
+
+
+    <div *ngSwitchCase="'sarathi'"> 
+      <ion-searchbar type="text" placeholder="Licence Number" debounce="500" class="ion-text-uppercase" [(ngModel)]="licence_number"
+        (keyup.enter)="getSarathiDetails()"></ion-searchbar>
+
+
+      <ion-card *ngIf="sarathi">
+        <!-- <ion-card-header> Layer </ion-card-header> -->
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <div class="box box-default">
+                <code>
+                    <pre>{{sarathi |json}}</pre>
+                </code>
+            </div>
+        
+            </ion-col>
+
+          </ion-row>
+        </ion-card-content>
+
+
+      </ion-card>
+    </div>
+
+
+    <div *ngSwitchCase="'user'"> 
+      <ion-searchbar type="text" placeholder="Search User" debounce="500" class="ion-text-uppercase" [(ngModel)]="userinput"
+        (keyup.enter)="getuserDetails()"></ion-searchbar>
+
+
+      <ion-card *ngIf="userdetails">
+        <!-- <ion-card-header> Layer </ion-card-header> -->
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <div class="box box-default">
+                <code>
+                    <pre>{{userdetails |json}}</pre>
+                </code>
+            </div>
+        
+            </ion-col>
+
+          </ion-row>
+        </ion-card-content>
+
+
+      </ion-card>
+    </div>
+
+
+  </div>
+</ion-content>
+
+<!-- <ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col> </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="clear()"> </ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="save()"> &nbsp; &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->

@@ -1,0 +1,218 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admintabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Station Information </ion-title>
+
+    <!-- <ion-buttons   slot="end">
+      <ion-button  (click)="goonline()"[hidden]='offlineflag' fill='outline'>Offline</ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="editflag==false" class="ion-no-padding">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullMin="100"
+    pullMax="200"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-note slot="end" color="primary" (click)="stationEdit()">
+          <ion-icon size="large" name="create-outline"></ion-icon>
+        </ion-note>
+        <h2
+          class="ion-padding"
+          style="
+            color: #183e7a;
+            font-size: 22px;
+            line-break: anywhere;
+            font-weight: 600;
+          "
+        >
+          {{stationinfo.name + ' - ' + stationinfo.ps_code}}
+        </h2>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="shadow"><img class="logo"  *ngIf="user.dept=='1'" src="assets/logos/{{user.state_code}}_police.jpg"
+        alt="" /></div>
+      <div class="hero-text">
+        <ion-row >
+          <ion-col>
+            <div>Address</div>
+          </ion-col>
+          <ion-col>
+            <div>{{stationinfo.address}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row >
+          <ion-col>
+            <div>NCRB CODE</div>
+          </ion-col>
+          <ion-col>
+            <div>{{stationinfo.ncrp_code}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row >
+          <ion-col>
+            <div>District</div>
+          </ion-col>
+          <ion-col>
+            <div>{{stationinfo.district}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col>
+            <div>State</div>
+          </ion-col>
+          <ion-col>
+            <div>{{stationinfo.state}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row >
+          <ion-col>
+            <div>Email</div>
+          </ion-col>
+          <ion-col>
+            <div>{{stationinfo.email}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col>
+            <div>Landline</div>
+          </ion-col>
+          <ion-col>
+            <div>{{stationinfo.landline}}</div>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row >
+          <ion-col>
+            <div>Geolocation</div>
+          </ion-col>
+          <ion-col  *ngIf="stationinfo.latitude!=null" >
+            <ion-label style="display: block">
+              Lat : {{ stationinfo.latitude | slice:0:9}} Lng: {{ stationinfo.longitude |
+              slice:0:9 }}
+              
+            </ion-label>
+          </ion-col>
+        </ion-row>
+       
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="editflag==true" class="ion-no-padding">
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class="fcolor"> Name</ion-label>
+        <ion-input
+          type="text"
+          id="username"
+          name="username"
+          required
+          minlength="3"
+          maxlength="100"
+          [(ngModel)]="stationinfo.name"
+          (ionChange)="checkname($event)"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class="fcolor">NCRB Code</ion-label>
+        <ion-input [(ngModel)]="stationinfo.ncrp_code"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class="fcolor">Address</ion-label>
+        <ion-input [(ngModel)]="stationinfo.address"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class="fcolor"> Landline</ion-label>
+        <ion-input
+          [(ngModel)]="stationinfo.landline"
+          required="true"
+          type="tel "
+          maxlength="15"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class="fcolor"> Email address</ion-label>
+        <ion-input [(ngModel)]="stationinfo.email"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class="fcolor">Geolocation</ion-label>
+        <ion-input
+          maxlength="100"
+          (ionFocus)="pickLoc()"
+          [disabled]="locdisable"
+          [value]="accloc"
+          readonly
+        ></ion-input>
+        <ion-icon name="location-outline" slot="end" ></ion-icon>
+      </ion-item>
+    </ion-col>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-chip color="danger" (click)="closeModal()">
+          <ion-label>Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="secondary">
+          <ion-label (click)="formSubmit()">Save</ion-label>
+        </ion-chip>
+        <!-- <ion-button expand="block"   color='secondary' type="submit">
+          
+  
+          <ion-icon name="git-pull-request" ></ion-icon>Save
+
+        </ion-button> -->
+      </ion-col>
+    </ion-row>
+</ion-content>
+
+<!-- <ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="secondary">
+          <ion-label (click)="saveInfo()">Save</ion-label>
+        </ion-chip>
+      </ion-col>     
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->

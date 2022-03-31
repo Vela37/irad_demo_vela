@@ -1,0 +1,23 @@
+<ion-content>   
+  <ion-fab vertical="top" horizontal="end" slot="fixed" (click)=closeModal() color="dark">
+    <ion-fab-button size='small'>
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-slides [options]="sliderOpts" zoom >
+    <ion-slide>
+      <div class="swiper-zoom-container">
+        <img [src]="mediainfo" >                  
+      </div>
+    </ion-slide>
+  </ion-slides>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+  
+</ion-content>
+
+ 

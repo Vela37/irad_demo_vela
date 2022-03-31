@@ -1,0 +1,566 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DAR Pedestrian Details </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" class='fcolor'>Vehicle No
+            <ion-icon name="star" class='mandatory'></ion-icon>
+          </ion-label>
+          <ion-select [(ngModel)]='vehno.vehlist' interface="alert" (ionChange)="getPedestrianslist($event)">
+            <ion-select-option *ngFor="let item of accidentData" value={{item}}> {{item[1]}}
+            </ion-select-option>
+
+          </ion-select>
+
+        </ion-item>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+      
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>Name
+              </ion-label>
+    
+              <ion-select interface="alert" (ionChange)="onPedestrianselect($event)">
+                <ion-select-option *ngFor="let p of pedestriandata; let j = index" [value]=p> {{p.name}}
+                </ion-select-option>
+    
+              </ion-select>
+    
+            </ion-item>
+    
+          </ion-col>
+    
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="common=='0'">   
+      
+      <form name="form" 
+      (ngSubmit)="f.form.valid && savebutton()" 
+      #f="ngForm" >  
+      <ion-grid>
+        
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Email ID</ion-label>
+              <ion-input    id="emailid" name="emailid"  
+              #emailidreq="ngModel"
+              [(ngModel)]="emailid"     pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
+              required></ion-input>
+            </ion-item>
+            <div *ngIf="f.submitted && emailidreq.invalid">
+              <p class='errormsg'*ngIf="emailidreq.errors.required">
+                This field is Required      
+              </p>     
+            </div>
+          </ion-col>
+      </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolor ion-text-wrap' position="floating" class='fcolor'>Father's Name</ion-label>
+              <ion-input    id="father_name" name="father_name"  
+              #fathernamereq="ngModel"
+              [(ngModel)]="father_name" 
+              required></ion-input>
+            </ion-item>
+            <div *ngIf="f.submitted && fathernamereq.invalid">
+              <p class='errormsg'*ngIf="fathernamereq.errors.required">
+                Father's Name Required      
+              </p>     
+            </div>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Marital Status</ion-label>
+ 
+
+            <ion-select  okText="Okay" cancelText="Dismiss" 
+            id="marital_status" name="marital_status"  
+            #dsadsa="ngModel"
+            [(ngModel)]="marital_status" 
+            required
+            >
+              <ion-select-option value="married">Married</ion-select-option>
+              <ion-select-option value="unmarried">Unmarried</ion-select-option>
+         
+            </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && dsadsa.invalid">
+            <p class='errormsg'*ngIf="dsadsa.errors.required">
+              Marital Status Required      
+            </p>     
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Employed or not?</ion-label>
+            <ion-select  okText="Okay" cancelText="Dismiss" 
+            id="employed_or_not" name="employed_or_not"  
+            #employedreq="ngModel"
+            [(ngModel)]="employed_or_not" 
+            
+            >
+              <ion-select-option value="yes">YES</ion-select-option>
+              <ion-select-option value="no">NO</ion-select-option>
+         
+            </ion-select>
+          </ion-item>
+      
+        </ion-col>
+      </ion-row> 
+      <ion-row *ngIf="employed_or_not=='yes'">
+        <ion-col>
+          <ion-item>
+            <ion-label  class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Name  and Address of the Employer</ion-label>
+            <ion-input id="name_add_employer" name="name_add_employer"
+            [(ngModel)]="name_add_employer" 
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row  *ngIf="employedOrnot=='yes'">
+        <ion-col>
+          <ion-item>
+            <ion-label   class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Address of the Emoloyer</ion-label>
+            <ion-input id="Addressemployer" name="Addressemployer"
+            [(ngModel)]="Addressemployer" 
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Income Details</ion-label>
+            <ion-input  id="income" name="income"
+            [(ngModel)]="income" 
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>    
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Whether the Deceased was assessed to Income Tax</ion-label>
+            <ion-select   id="assessed_to_income_tax" name="assessed_to_income_tax" 
+                 [(ngModel)]="assessed_to_income_tax" 
+              okText="Okay" cancelText="Dismiss"  >
+              <ion-select-option value="yes">Yes</ion-select-option>
+              <ion-select-option value="no">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label   class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Details of medical treatment</ion-label>
+            <ion-input  id="treatment_details_of_deceased" name="treatment_details_of_deceased"
+            [(ngModel)]="treatment_details_of_deceased" 
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Give details of medical expenses incurred
+            </ion-label>
+             <ion-select id="medical_expenses_incurred" name="medical_expenses_incurred" 
+             [(ngModel)]="medical_expenses_incurred"
+             okText="Okay" cancelText="Dismiss"  >
+          <ion-select-option value="yes">YES</ion-select-option>
+          <ion-select-option value="no">No</ion-select-option>
+        </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class='fcolor ion-text-wrap'  position="stacked" class='fcolor'> Whether the victim got reimbursement of medical expenses from his employer or under a Mediclaim policy or under any government cashless treatment scheme or government insurance scheme</ion-label>
+           <ion-select    id="cashless_treatment" name="cashless_treatment"
+           [(ngModel)]="cashless_treatment"
+        okText="Okay" cancelText="Dismiss"  >
+        <ion-select-option value="yes">YES</ion-select-option>
+        <ion-select-option value="no">No</ion-select-option>
+      </ion-select>
+        </ion-item>
+      </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label   class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Nature and description of Injury</ion-label>
+            <ion-input id="natureofinjury_description" name="natureofinjury_description"
+            [(ngModel)]="natureofinjury_description"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> 
+      
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' >Injury Type</ion-label>
+            <ion-input 
+            id="injury_type" name="injury_type"  
+            #injury_typereq="ngModel"
+            [(ngModel)]="injury_type" 
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Doctor Name</ion-label>
+            <ion-input id="doctor_name" name="doctor_name"
+            [(ngModel)]="doctor_name"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label  class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Name of Hospital</ion-label>
+            <ion-input id="hospital_address" name="hospital_address"
+            [(ngModel)]="hospital_address"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+         
+              <ion-label  class='fcolor ion-text-wrap'  position="floating" class='fcolor'>Form 6 Submitted or Not?</ion-label>
+              <ion-select  okText="Okay" cancelText="Dismiss" 
+              id="form6sub" name="form6sub"  
+              #employedreq="ngModel"
+              [(ngModel)]="form6sub" 
+              
+              >
+                <ion-select-option value="yes">YES</ion-select-option>
+                <ion-select-option value="no">NO</ion-select-option>
+           
+              </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row> 
+      <br>
+      <div *ngIf="severity =='1'"> 
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label  class='fcolorred ion-text-wrap'  position="floating" class='fcolor'>Date of the Death</ion-label>
+              <ion-input id="date_of_death" name="date_of_death"
+              [(ngModel)]="date_of_death"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>  
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label  class='fcolorred ion-text-wrap'  position="floating" class='fcolor'>Whether  the deceased was the sole earning member of the family</ion-label>
+              <ion-input id="sole_earning_member" name="sole_earning_member"
+              [(ngModel)]="sole_earning_member"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>    
+      <br>
+      <span *ngIf="severity=='2' || severity=='3' || severity=='4'" style='background-color: blue;'>
+      
+        
+         <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label  class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Medical treatment taken by the injured</ion-label>
+              <ion-input id="expense_details_of_deceased" name="expense_details_of_deceased"
+              [(ngModel)]="expense_details_of_deceased"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Period of Hospitalization</ion-label>
+              <ion-input id="hospital_treatment_period" name="hospital_treatment_period"
+              [(ngModel)]="hospital_treatment_period"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+       
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>If Surgery undergone?</ion-label>
+              <ion-select  id="hospital_treatment_surgery_details" name="hospital_treatment_surgery_details"
+              [(ngModel)]="hospital_treatment_surgery_details"
+              okText="Okay" cancelText="Dismiss"  >
+                <ion-select-option value="yes">Yes</ion-select-option>
+                <ion-select-option value="no">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sugundergone=='yes'">
+          <ion-col>
+            <ion-item>
+              <ion-label   class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Details of surgery(s)</ion-label>
+              <ion-input  id="hospital_treatment_details" name="hospital_treatment_details"
+              [(ngModel)]="hospital_treatment_details"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Permanent Disability?</ion-label>
+              <ion-select id="permanent_disability" name="permanent_disability"
+               [(ngModel)]="permanent_disability"
+              okText="Okay" cancelText="Dismiss"  >
+                <ion-select-option value="yes">YES</ion-select-option>
+                <ion-select-option value="no">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Details of Permanent Disability</ion-label>
+              <ion-input id="permanent_disability_details" name="permanent_disability_details"
+               [(ngModel)]="permanent_disability_details"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Expenditure on treatment</ion-label>
+              <ion-input id="expendiure_on_treatment" name="expendiure_on_treatment"
+               [(ngModel)]="expendiure_on_treatment"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>     
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>If treatment is still continuing,give the estimate of expenditure</ion-label>
+              <ion-input id="estimate_expenditure" name="estimate_expenditure"
+               [(ngModel)]="estimate_expenditure"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Expenditure on conveyance,special diet,attendant charges etc.</ion-label>
+              <ion-input id="expenditure_conveyance" name="expenditure_conveyance"
+               [(ngModel)]="expenditure_conveyance"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+
+
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Loss of income</ion-label>
+              <ion-input id="lossincome" name="lossincome"
+               [(ngModel)]="lossincome"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Loss of earning capacity</ion-label>
+              <ion-input id="lossearcapacity" name="lossearcapacity"
+               [(ngModel)]="lossearcapacity"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Any other pecuniary  loss</ion-label>
+              <ion-input id="pecunairy_loss" name="pecunairy_loss"
+               [(ngModel)]="pecunairy_loss"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Reimbursement of medical expenses</ion-label>
+              <ion-select   id="reimbursement_medical_expense" name="reimbursement_medical_expense"
+              [(ngModel)]="reimbursement_medical_expense"
+              okText="Okay" cancelText="Dismiss"  >
+           <ion-select-option value="yes">YES</ion-select-option>
+           <ion-select-option value="no">No</ion-select-option>
+         </ion-select>
+          </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row  *ngIf="reimbursement_medical_expense=='yes'">
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Detail of Reimbursement of medical expenses</ion-label>
+              <ion-select   id="reimpursement_addional_details" name="reimpursement_addional_details"
+              [(ngModel)]="reimpursement_addional_details"
+              okText="Okay" cancelText="Dismiss"  >
+           <ion-select-option value="Employer">Employer</ion-select-option>
+           <ion-select-option value="Mediclaim policy">Mediclaim policy</ion-select-option>
+           <ion-select-option value="Government cashless treatment scheme">Government cashless treatment scheme</ion-select-option>
+           <ion-select-option value="Government insurance scheme">Government insurance scheme</ion-select-option>
+         </ion-select>
+          </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="reimbursement_medical_expense=='yes'">
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Amount of Reimbursement of medical expenses </ion-label>
+              <ion-input id="relief_amount" name="relief_amount"
+               [(ngModel)]="relief_amount"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Value of Loss</ion-label>
+              <ion-input id="value_of_loss" name="value_of_loss"
+               [(ngModel)]="value_of_loss"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class='fcolorblue ion-text-wrap'  position="floating" class='fcolorblue'>Compensation Claimed</ion-label>
+              <ion-input id="compensation_claimed" name="compensation_claimed"
+               [(ngModel)]="compensation_claimed"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </span>
+      <ion-row>
+          <ion-col width-50 style="text-align: right">
+             <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+          </ion-col>
+           <ion-col width-50 style="text-align: left">
+             <ion-button color="light"  type="submit">Save</ion-button>
+           </ion-col>
+         </ion-row>
+      </ion-grid>
+      </form>
+</div>
+    <ion-row *ngIf="statusofpedstrian">
+      <ion-col>
+        <ion-chip color="secondary">
+          <ion-label (click)="addfamilymembers()">Add family members</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="secondary" (click)="addchild()">
+          <ion-label>Add children details</ion-label>
+        </ion-chip>
+      </ion-col>
+
+     <!-- <ion-col>
+        <ion-chip color="secondary" (click)="form13()">
+          <ion-label>Add Form 13</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="secondary" (click)="form14()">
+          <ion-label>Add Form 14</ion-label>
+        </ion-chip>
+      </ion-col>-->
+      <!--
+  <ion-col>
+        <ion-chip color="secondary">
+          <ion-label (click)="goToReport(3)">Generate Reports</ion-label>
+        </ion-chip>
+      </ion-col>  
+      <ion-col>
+        <ion-chip color="secondary">
+          <ion-label class="text" (click)="goToUploadDoc(3)">Upload Documents</ion-label>
+        </ion-chip>
+      </ion-col>
+      -->
+    
+    </ion-row>
+     <!-------------------------------------------------------------------------------------->
+</ion-content>
+  <!--
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      
+      </ion-col>
+      <ion-col *ngIf="savebtn">
+        <ion-chip color="danger">
+          <ion-label (click)="saveModal(0)">Save</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal(1)"> &nbsp; Submit &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>-->

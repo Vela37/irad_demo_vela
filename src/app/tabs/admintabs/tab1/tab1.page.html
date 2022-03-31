@@ -1,0 +1,1108 @@
+<ng-container *ngIf="dashboardview=='PD'">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Dashboard - {{dashboard.title }} - {{dashboard.subtitle }}
+      </ion-title>
+
+      <ion-icon
+        slot="end"
+        *ngIf="dev"
+        name="filter-outline"
+        size="large"
+        (click)="openFilter()"
+      ></ion-icon>
+      <!-- <ion-buttons slot="secondary">
+        <ion-button  (click)="dashboardview='TD'">
+          TD
+        </ion-button>
+      
+      </ion-buttons> -->
+
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-header class="ion-no-border">
+   
+    <ion-segment [(ngModel)]="tl_flag" >
+      <ion-segment-button (click)="dashboardview='PD'" value="police">
+        <ion-label color="primary">Police</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button (click)="dashboardview='TD'" value="transport">
+        <ion-label color="primary">Transport</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="dashboardview='HD'" value="highways">
+        <ion-label color="primary">Highways</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="dashboardview='HealthD'" value="health">
+        <ion-label color="primary">Health</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  
+  </ion-header>
+
+  <!-- Header without a border -->
+  <ion-header class="ion-no-border">
+ 
+    <ion-segment [(ngModel)]="tl_flag" scrollable>
+
+
+      <ion-segment-button (click)="timeLine('1D')" value="1D">
+        <ion-label color="primary">1D</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button (click)="timeLine('1W')" value="1W">
+        <ion-label color="primary">1W</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="timeLine('1M')" value="1M">
+        <ion-label color="primary">1M</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="timeLine('3M')" value="3M">
+        <ion-label color="primary">3M</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="timeLine('6M')" value="6M">
+        <ion-label color="primary">6M</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="timeLine('1Y')" value="1Y">
+        <ion-label color="primary">1Y</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="timeLine('ALL')" value="ALL">
+        <ion-label color="primary">ALL</ion-label>
+      </ion-segment-button>
+      <ion-segment-button  value="CUSTOM">
+        <ion-label color="primary">CUSTOM</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  <ion-segment *ngIf="tl_flag=='CUSTOM'" >
+   
+      <ion-item>
+        <ion-label>From </ion-label>
+        <ion-datetime min="2021-01-01" [(ngModel)]='fromdate' placeholder="From Date"  displayFormat="D MMM YYYY" ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>To </ion-label>
+        <ion-datetime [disabled]="fromdate==null" [min]="fromdate" [max]='today'  [(ngModel)]='todate' placeholder="To Date"  displayFormat="D MMM YYYY"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-button (click)="timeLine('CUSTOM')" > OK </ion-button>
+      </ion-item>
+   
+   
+  </ion-segment>
+  </ion-header>
+
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-card>
+      <ion-item>
+        <ion-segment *ngIf="true" style="width: 120px" [(value)]="cf_flag">
+          <ion-segment-button (click)="chartChange('C1')" value="C1">
+            <ion-icon name="pulse-outline"></ion-icon>
+          </ion-segment-button>
+
+           <ion-segment-button (click)="chartChange('C2')" value="C2">
+            <ion-icon name="options-outline"></ion-icon>
+          </ion-segment-button> 
+
+          <!-- <ion-segment-button (click)="chartChange('C3')" value="C3">
+            <ion-icon name="bar-chart"></ion-icon>
+          </ion-segment-button> -->
+
+        </ion-segment>
+        <div class="alignme-center" style="width: 100%">
+          {{dashboard.title}} - {{dashboard.subtitle}}
+        </div>
+      </ion-item>
+     
+
+      <ion-card-content *ngIf="cf_flag=='C1'" style="background-color: #e9e6c2">
+        <canvas style="max-height: 70vh" #lineCanvas></canvas>
+      </ion-card-content>
+
+      <ion-card-content *ngIf="cf_flag=='C2'" style="background-color: #e9e6c2">
+        <canvas style="max-height: 70vh" #lineCanvas2></canvas>
+      </ion-card-content>
+
+      <ion-card-content *ngIf="cf_flag=='C3'" style="background-color: #e9e6c2">
+        <canvas style="max-height: 70vh" #barChart></canvas>
+      </ion-card-content>
+
+      <!-- <div class="col col-50">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="font-size: 4em;">
+              Total : <ng2-odometer [number]="total" [config]="config"></ng2-odometer>
+              
+            </ion-col>
+
+            <ion-col>
+              Fatal:<ng2-odometer [number]="fatal" [config]="config"></ng2-odometer>
+              
+            </ion-col>
+
+            <ion-col>
+               Grevious:<ng2-odometer [number]="grevious" [config]="config"></ng2-odometer>
+              
+
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col> Injury (Hospitalized):<ng2-odometer [number]="simple_injury_hosp" [config]="config">
+              </ng2-odometer>
+            </ion-col>
+            <ion-col> Injury (Non-Hospitalized):<ng2-odometer [number]="simple_injury_nonhosp" [config]="config">
+              </ng2-odometer>
+            </ion-col>
+            <ion-col> No Injury:<ng2-odometer [number]="no_injury" [config]="config"></ng2-odometer>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </div> -->
+    </ion-card>
+    <!-- [config]="config" -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="grid" style="color: #666666">
+          <ion-grid color="medium">
+            <ion-row>
+              <ion-col>
+                Total No. of Accidents -
+                <ng2-odometer
+                  [number]="dashboard.totaccident"
+                  
+                >
+                </ng2-odometer>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="" class="grid fatalbg" (click)="linechartaddDataset('fatal')">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes" 
+                  alt=""
+                />
+                Fatal
+                <p style="font-weight: 500; font-size: 14px">
+                  &nbsp; ({{(dashboard.fatal/dashboard.totaccident)*100 | number
+                  : '1.1-1' }}%)
+                </p>
+                <ng2-odometer
+                  [number]="dashboard.fatal"
+            
+                ></ng2-odometer>
+              </ion-col>
+              <ion-col class="grid grevbg" (click)="linechartaddDataset('grev')" >
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Grievous
+                <p style="font-weight: 500; font-size: 14px">
+                  &nbsp; ({{(dashboard.grevious/dashboard.totaccident)*100 |
+                  number : '1.1-1' }}%)
+                </p>
+                <ng2-odometer
+                  [number]="dashboard.grevious"
+                 
+                ></ng2-odometer>
+              </ion-col>
+              <ion-col class="grid simphbg" (click)="linechartaddDataset('sih')">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Simple Injury
+                <p style="font-weight: 500; font-size: 14px">
+                  ({{(dashboard.simple_injury_h/dashboard.totaccident)*100 |
+                  number : '1.1-1' }}%) (Hospitalized)
+                </p>
+                <ng2-odometer
+                  [number]="dashboard.simple_injury_h"
+                  
+                ></ng2-odometer>
+              </ion-col>
+              <ion-col class="grid simpnhbg" (click)="linechartaddDataset('sinh')">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Simple Injury
+                <p style="font-weight: 500; font-size: 14px">
+                  ({{(dashboard.simple_injury_nh/dashboard.totaccident)*100 |
+                  number : '1.1-1' }}%) (Non Hospitalized)
+                </p>
+                <ng2-odometer
+                  [number]="dashboard.simple_injury_nh"
+                  
+                ></ng2-odometer>
+              </ion-col>
+              <ion-col class="grid vehbg" (click)="linechartaddDataset('ni')">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                No Injury
+                <p style="font-weight: 500; font-size: 14px">
+                  &nbsp; ({{(dashboard.no_injury/dashboard.totaccident)*100 |
+                  number : '1.1-1' }}%)
+                </p>
+                <ng2-odometer
+                  [number]="dashboard.no_injury"
+                  
+                ></ng2-odometer>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="grid" style="color: #666666">
+          <ion-grid color="medium">
+            <ion-row>
+              <ion-col>
+                Total No. of Persons Involved -
+                <ng2-odometer
+                  [number]="dashboard.totalperson"
+                 
+                >
+                </ng2-odometer>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="grid deadbg">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Dead
+                <p style="font-weight: bold; font-size: 34px">
+                  <ng2-odometer
+                    [number]="dashboard.dead"
+                   
+                  ></ng2-odometer>
+                </p>
+              </ion-col>
+              <ion-col class="grid injbg">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Injured
+                <p style="font-weight: bold; font-size: 34px">
+                  <ng2-odometer
+                    [number]="dashboard.injured"
+                   
+                  ></ng2-odometer>
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-card *ngIf='this.totaccident!=0' class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle *ngIf="data">Accident</ion-card-subtitle>
+      <ion-card-title *ngIf="data">Total Accidents</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChart></canvas>
+    </ion-card-content>
+
+    <ion-grid *ngIf="data"> -->
+
+    <!--  <ion-row >
+          <ion-col class="ion-align-self-end">
+            <h6>Accidents</h6>
+          </ion-col>
+          <ion-col class="ion-align-self-start">
+            <h6>S1</h6>
+          </ion-col>
+          <ion-col class="ion-align-self-start">
+            <h6>S2</h6>
+          </ion-col>
+          <ion-col class="ion-align-self-start">
+            <h6>S3</h6>
+          </ion-col>
+          <ion-col class="ion-align-self-start">
+            <h6>S4</h6>
+          </ion-col>
+          <ion-col class="ion-align-self-start">
+            <h6>S5</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let d of data.datasets ; let i = index" align-items-end>
+          <ion-col class="ion-align-self-start">
+            <div>
+             count
+            </div>
+          </ion-col>
+          <ion-col class="ion-align-self-center">
+            <div>
+              {{data.datasets[i].data[0]}}
+            </div>
+          </ion-col>
+          <ion-col class="ion-align-self-end">
+            <div>
+              {{data.datasets[i].data[1]}}
+            </div>
+          </ion-col>
+          <ion-col class="ion-align-self-end">
+            <div>
+              {{data.datasets[i].data[2]}}
+            </div>
+          </ion-col>
+          <ion-col class="ion-align-self-end">
+            <div>
+              {{data.datasets[i].data[3]}}
+            </div>
+          </ion-col>
+          <ion-col class="ion-align-self-end">
+            <div>
+              {{data.datasets[i].data[4]}}
+            </div>
+          </ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><hr>  <h6>
+            <table width=100%>
+              <tr><td><h6>Fatal</h6> </td><td>  {{data.datasets[0].data[0]}}</td></tr>
+              <tr><td><h6>Grievous</h6></td><td> {{data.datasets[0].data[1]}}</td></tr>
+              <tr><td><h6>Simple (Injury Hospitalized)</h6></td><td> {{data.datasets[0].data[2]}}</td></tr>
+              <tr><td><h6>Simple (Injury Hospitalized)</h6></td><td> {{data.datasets[0].data[3]}}</td></tr>
+              <tr><td><h6>Vehicle Damage Onely</h6></td><td> {{data.datasets[0].data[4]}}</td></tr>
+            </table> </h6>
+          </ion-col>
+        </ion-row>-->
+
+    <!-- </ion-grid>
+
+  </ion-card> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngIf="dev">
+          <ion-button expand="block" color="danger" (click)="funCounts()"
+            >Counts</ion-button
+          >
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="danger" (click)="drilDown()"
+            >Summary</ion-button
+          >
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="warning" (click)="loginDetails()"
+            >Login Count</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="dashboardview=='TD'">
+  <ion-content>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="dashboardview='PD'">
+            <ion-icon name="close" slot="end"></ion-icon>
+          </ion-button>
+        
+      
+        </ion-buttons>
+        <ion-title>Transport</ion-title>
+
+      
+     
+      </ion-toolbar>
+    </ion-header>
+
+    <!-- <ion-card>
+      <ion-grid *ngIf="role">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Filter</ion-label>
+              <ion-toggle
+                slot="end"
+                name="apple"
+                color="secondary"
+                [(ngModel)]="toggle1"
+              ></ion-toggle>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="toggle1">
+          <ion-col size="12" class="grid" style="color: #666666">
+            <ion-grid color="medium">
+              <ion-row>
+                <ion-col *ngIf="role=='1'">
+                  <ion-item>
+                    <ion-label position="floating"> State Name </ion-label>
+                    <ion-select
+                      (ionChange)="loadrto('0')"
+                      id="statename"
+                      name="statename"
+                      #stateInput="ngModel"
+                      [(ngModel)]="statename"
+                      required
+                    >
+                      <ion-select-option
+                        *ngFor="let d of statelist; let i = index"
+                        value="{{d.id}}"
+                      >
+                        {{d.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col *ngIf="role=='1' || role=='31'">
+                  <ion-item>
+                    <ion-label position="floating"> RTO / DMTO </ion-label>
+                    <ion-select
+                      (ionChange)="loadmvi('0')"
+                      id="rtoname"
+                      name="rtoname"
+                      #stateInput="ngModel"
+                      [(ngModel)]="rtoname"
+                      required
+                    >
+                      <ion-select-option
+                        *ngFor="let d of rtolist; let i = index"
+                        value="{{d.id}}"
+                      >
+                        {{d.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col *ngIf="role=='1' || role=='35' || role=='31'">
+                  <ion-item>
+                    <ion-label position="floating"> MVI / MTO </ion-label>
+                    <ion-select
+                      (ionChange)="changedata()"
+                      id="mviname"
+                      name="mviname"
+                      #stateInput="ngModel"
+                      [(ngModel)]="mviname"
+                      required
+                    >
+                      <ion-select-option
+                        *ngFor="let d of mvilist; let i = index"
+                        value="{{d.id}}"
+                      >
+                        {{d.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card> -->
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="grid" style="color: #666666">
+          <ion-grid color="medium">
+            <ion-row>
+              <!-- <ion-col>
+                Total No. of Accidents -
+                <ng2-odometer
+                  [number]="dashboard.totaccident"
+                  [config]="config"
+                >
+                </ng2-odometer>
+              </ion-col> -->
+              <ion-col> Dashboard </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="grid simphbg2">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Received
+                <p style="font-weight: bold; font-size: 22px; text-align: center;">
+                  <ng2-odometer [number]="transdata.received"></ng2-odometer>
+                </p>
+              </ion-col>
+              <ion-col class="grid grevbg">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Pending
+                <p style="font-weight: bold; font-size: 22px; text-align: center;">
+                  <ng2-odometer [number]="transdata.pending"></ng2-odometer>
+                </p>
+              </ion-col>
+              <ion-col class="grid simphbg1">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Inspected
+                <p style="font-weight: bold; font-size: 22px; text-align: center;">
+                  <ng2-odometer [number]="transdata.inspected"></ng2-odometer>
+                </p>
+              </ion-col>
+              <ion-col size="" class="grid fatalbg1">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Completed
+                <p style="font-weight: bold; font-size: 22px; text-align: center;">
+                  <ng2-odometer [number]="transdata.completed"></ng2-odometer>
+                </p>
+              </ion-col>
+              <!-- <ion-col class="grid simphbg3">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                {{label}}
+                <p style="font-weight: 500; font-size: 14px">
+                  <ng2-odometer [number]="fullvalue.total_rto"></ng2-odometer>
+                </p>
+              </ion-col> -->
+
+              <!-- <ion-col class="grid simpnhbg">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                submitted to Police
+                <p style="font-weight: 500; font-size: 14px">
+                  <ng2-odometer
+                    [number]="fullvalue.mvi_completed"
+                  ></ng2-odometer>
+                </p>
+              </ion-col> -->
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-card style="background-color: transparent">
+      <div class="center">
+        <table style="border-collapse: collapse; text-align: center; width: 100%;" border="1.5" >
+
+          <tr>
+            <td style="width: 20%; font-weight: bold; color: black;  font-size: 16; height: 60px; background-color:#728ca3">RTO Code</td>
+            <td style="width: 20%; font-weight: bold; color: black;  font-size: 16; height: 60px; background-color:#bf9d7a">Received</td>
+            <td style="width: 20%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Pending</td>
+            <td style="width: 20%;font-weight: bold;color: black; font-size: 16; background-color:#bf9d7a">Inspected</td>
+            <td style="width: 20%;font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">Completed</td>
+            </tr>
+          <tbody *ngFor="let wing of transportdatatable;">
+         
+            <tr>
+          <td *ngIf="wing.code" style="width: 20%; color: black; height: 50px; background-color:#adbfce;">{{wing.code | uppercase}}</td>
+          <td *ngIf="!wing.code" style="width: 20%; color: black; height: 50px; background-color:#adbfce;">NA</td>
+          <td *ngIf="wing.received" style="width: 20%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wing.received}}</td>
+          <td *ngIf="!wing.received" style="width: 20%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+          <td *ngIf="wing.pending" style="width: 20%; color: black; height: 50px; background-color:#9ff1e1;">{{wing.pending}}</td>
+          <td *ngIf="!wing.pending" style="width: 20%; color: black; height: 50px; background-color:#9ff1e1;">0</td>
+          <td *ngIf="wing.inspected" style="width: 20%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wing.inspected}}</td>
+          <td *ngIf="!wing.inspected" style="width: 20%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+          <td *ngIf="wing.completed" style="width: 20%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wing.completed}}</td>
+          <td *ngIf="!wing.completed" style="width: 20%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+          </tr>
+           
+          </tbody>
+          </table>
+        
+      </div>
+    </ion-card>
+
+    <!-- <ion-card color='light'>
+      <ion-grid *ngIf="fullvalue">
+        <ion-row>
+          <ion-col size="12" class="grid" style="color: #666666">
+            <ion-grid color="medium">
+              <ion-row>
+                <ion-col> Dashboard </ion-col>
+              </ion-row>
+
+
+              <ion-row>
+                <ion-col size="" class="grid fatalbg" >
+                  Total
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.total"></ng2-odometer>
+                  </h4>
+                  <p>Total RTO {{fullvalue.total_rto}}</p>
+                </ion-col>
+                <ion-col class="grid grevbg" >
+                  <img src="assets/images/time.png" class="card-img-absolutes" alt=''/>
+                  Pending
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.mvi_pending"></ng2-odometer>
+                  </h4>
+                  <p>Inspection yet to start</p>
+                </ion-col>
+                <ion-col class="grid simphbg" (click)="showfulltotal('inprocess')">
+                  In Process
+                  <h4>
+                    <ng2-odometer
+                      [number]="fullvalue.mvi_inprocess"
+                      [config]="config"
+                    ></ng2-odometer>
+                  </h4>
+                   <p>Inspection details saved / uploaded in iRAD</p> 
+                </ion-col>
+                  
+                <ion-col class="grid simpnhbg" (click)="showfulltotal('done')">
+
+                 
+                  <ion-col class="grid simpnhbg" >
+                  submitted to Police
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.mvi_completed"></ng2-odometer>
+                  </h4>
+                  <p>Inspection Report submitted to Police</p>
+                </ion-col>
+              </ion-row>
+
+
+              <ion-row>
+                <ion-col size="" class="grid fatalbg" (click)="showfulltotal('total')">
+                  Total Inspection
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.total" [config]="config"></ng2-odometer>
+                  </h4>
+
+                   <p>Total {{fullvalue.total_rto}}</p>
+                </ion-col>
+                <ion-col class="grid grevbg" (click)="showfulltotal('pending')">
+                  Inspection Pending
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.mvi_pending" [config]="config"></ng2-odometer>
+                  </h4>
+                  
+                <p>Inspection yet to start</p>
+
+                
+                </ion-col>
+                <ion-col class="grid simphbg" (click)="showfulltotal('inprocess')">
+                  In Process
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.mvi_inprocess" [config]="config"></ng2-odometer>
+                  </h4>
+                  
+                <p>Inspection details saved / uploaded in iRAD</p>
+
+                
+                </ion-col>
+                <ion-col class="grid simpnhbg" (click)="showfulltotal('done')">
+                  Reports submitted to Police
+                  <h4>
+                    <ng2-odometer [number]="fullvalue.mvi_completed" [config]="config"></ng2-odometer>
+                  </h4>
+                  
+                <p>Inspection Report submitted to Police</p>
+
+                
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card> -->
+
+    <!-- <ion-card>
+      <div class="fixTableHead">
+        <table *ngIf="result">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th *ngIf="pendingflag">Pending</th>
+              <th *ngIf="inprocessflag">In Process</th>
+              <th *ngIf="submittedflag">Submitted</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let d of result;">
+              <td>{{d.rto_code}}</td>
+              <td *ngIf="pendingflag">{{d.mvi_pending}}</td>
+              <td *ngIf="inprocessflag">{{d.mvi_done + d.mvi_signged}}</td>
+              <td *ngIf="submittedflag">{{d.mvi_completed}}</td>
+              <td>{{d.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card> -->
+
+    <!-- <ion-card style="background-color: transparent">
+      <div class="table-wrapper">
+        <table *ngIf="result">
+          <thead>
+            <tr>
+              <th> {{label}}  <br />(<ng2-odometer [number]="fullvalue.total_rto"></ng2-odometer>)</th>
+              <th *ngFor="let d of result;">{{d.rto_code == null ? 'Not Taken' : d.rto_code}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pending</td>
+              <td *ngFor="let d of result;">{{d.pending}}</td>
+            </tr>
+            <tr>
+              <td>Inspected</td>
+              <td *ngFor="let d of result;">{{d.inspected}}</td>
+            </tr>
+            <tr>
+              <td>Completed</td>
+              <td *ngFor="let d of result;">{{d.docuploaded}}</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td *ngFor="let d of result;">{{d.total}}</td>
+            </tr>
+          </tbody>
+
+          <tbody></tbody>
+        </table>
+      </div>
+    </ion-card> -->
+
+    <!-- <ion-card *ngIf="policedata">
+      <div class="fixTableHead">
+        <table>
+          <tr>
+            <th>Police Station Name</th>
+            <th>Pending</th>
+            <th>In Process</th>
+            <th>Submitted</th>
+            <th>Total</th>
+          </tr>
+          <tr *ngFor="let d of policeresult;">
+            <td>{{d.name}}</td>
+            <td>{{d.mvi_pending}}</td>
+            <td>{{d.mvi_done + d.mvi_signged}}</td>
+            <td>{{d.mvi_completed}}</td>
+            <td>{{d.total}}</td>
+
+          </tr>
+
+        </table>
+      </div>
+    </ion-card> -->
+    <!-- table-wrapper1 -->
+    <ion-card *ngIf="policedata" style="background-color: transparent">
+      <div class="table-wrapper">
+        <table *ngIf="result">
+          <thead>
+            <tr>
+              <th>Police Station Name<br /></th>
+              <th *ngFor="let d of policeresult;">{{d.name}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pending</td>
+              <td *ngFor="let d of policeresult;">{{d.pending}}</td>
+            </tr>
+            <tr>
+              <td>Inspected</td>
+              <td *ngFor="let d of policeresult;">{{d.inspected}}</td>
+            </tr>
+            <tr>
+              <td> Completed</td>
+              <td *ngFor="let d of policeresult;">{{d.docuploaded}}</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td *ngFor="let d of policeresult;">{{d.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card>
+
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+    
+  </ion-content>
+</ng-container>
+
+
+<ng-container *ngIf="dashboardview=='HD'">
+  <ion-content>
+    <ion-header>
+      <ion-toolbar color="primary">
+        
+        <ion-buttons slot="end">
+          <ion-button (click)="dashboardview='PD'">
+            <ion-icon name="close" slot="end"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Highways</ion-title>
+
+     
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-card style="background-color: transparent; " class="gridcol"> 
+
+     
+        <ion-col class="gridcol">
+          <ion-grid color="medium">
+            <ion-row>
+              <ion-col class="grid deadbg" size="" color="medium">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                
+                  Total No. of Request
+               
+                
+                <ion-label style="font-weight: bold; font-size: 22px; text-align: center;"><strong><br >
+                  <ng2-odometer
+                  [number]="hwdata.total"
+                 
+                ></ng2-odometer>     
+                   </strong></ion-label>
+              </ion-col>
+              
+              <ion-col class="grid injbg" size="">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                
+                  Total No. of Pending
+                
+                
+                <ion-label style="font-weight: bold; font-size: 22px; text-align: center;"><strong><br >
+                  <ng2-odometer
+                  [number]="pending"
+                 
+                ></ng2-odometer>
+                   </strong></ion-label>
+              </ion-col>
+      </ion-row>
+       <ion-row>
+        <ion-col size="" class="grid fatalbg1">
+          <img
+            src="assets/images/circle.svg"
+            class="card-img-absolutes"
+            alt=""
+          />
+          Total No. of Completed
+          
+          <ion-label style="font-weight: bold; font-size: 22px; text-align: center;"><strong><br >
+            <ng2-odometer
+            [number]="hwdata.completed"
+           
+          ></ng2-odometer>
+             </strong></ion-label>
+        </ion-col>
+       </ion-row>
+       <ion-icon name="caret-down-sharp" color="danger" (click)="accclick()" style="margin-right: 30px;font-size: 35px; text-align: center; float: center;"></ion-icon>
+
+            </ion-grid>
+          </ion-col>
+       
+     
+    </ion-card>
+
+    <ion-card style="background-color: transparent; " class="gridcol" [hidden]="greeed"> 
+      
+     
+      <table style="border-collapse: collapse; width: 100%;" border="1.5">
+
+        <tr>
+          <td style="width: 25%; font-weight: bold;  color: black;  font-size: 16; height: 60px; background-color:#728ca3">Road Agency / Type</td>
+          <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Total No. of Request&nbsp;</td>
+          <td style="width: 25%;font-weight: bold;color: black; font-size: 16; background-color:#bf9d7a">No of Request Completed</td>
+          <td style="width: 25%;font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">No of Request Pending</td>
+          </tr>
+        <tbody *ngFor="let wing of highwaystable;">
+       
+        <tr>
+        <td *ngIf="wing.name" style="width: 25%; text-align: left; padding-left: 10px;  color: black; height: 50px; background-color:#adbfce" (click)="drilDownHighways(wing)">{{wing.name | uppercase}}<div class="flex-right"><ion-icon name="caret-down-sharp" color="danger"  style="margin-right: 15px; font-size: 25px;  float: right;" ></ion-icon></div></td>
+        <td *ngIf="!wing.name" style="width: 25%; color: black; height: 50px; background-color:#adbfce;">NA</td>
+        <td *ngIf="wing.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">{{wing.received}}</td>
+        <td *ngIf="!wing.received" style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;">0</td>
+        <td *ngIf="wing.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">{{wing.completed}}</td>
+        <td *ngIf="!wing.completed" style="width: 25%; color: black; height: 50px; background-color:#dac0a5;">0</td>
+        <td *ngIf="wing.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">{{wing.pending}}</td>
+        <td *ngIf="!wing.pending" style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);">0</td>
+        </tr>
+         
+        </tbody>
+      </table>
+    </ion-card>
+
+    
+  
+  
+    
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="dashboardview=='HealthD'">
+  
+    <ion-header>
+      <ion-toolbar color="primary">
+        
+        <ion-buttons slot="end">
+          <ion-button (click)="dashboardview='PD'">
+            <ion-icon name="close" slot="end"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Health Dashboard</ion-title>
+
+      </ion-toolbar>
+    </ion-header>
+    <!-- deadbg  injbg  fatalbg1 -->
+    <ion-content>
+
+      <ion-card style="background-color: transparent; text-align: center;" > <br>
+        <ion-row>  
+          <ion-col size="" class="grid deadbg" style="font-size: 18px;">
+            <img
+              src="assets/images/circle.svg"
+              class="card-img-absolutes"
+              alt=""
+            />
+           Total No. of Hospital Registered 
+            <ion-label style="font-weight: 500; font-size: 22px; text-align: center;"><strong><br >
+              <ng2-odometer
+              [number]="hwdata.completed"
+            ></ng2-odometer>
+               </strong></ion-label>
+          </ion-col>
+         </ion-row>
+         
+          <ion-icon name="caret-down-sharp" color="danger" (click)="hosclickState()" style="margin-right: 30px;font-size: 35px;"></ion-icon>
+         
+          </ion-card>
+
+
+
+          <ion-card style="background-color: transparent; text-align: center;" > <br>
+            <ion-row>  
+              <ion-col size="" class="grid injbg" style="font-size: 18px;">
+                <img
+                  src="assets/images/circle.svg"
+                  class="card-img-absolutes"
+                  alt=""
+                />
+                Total No. of Accident Recorded
+                <ion-label style="font-weight: 500; font-size: 22px; text-align: center;"><strong><br >
+                  <ng2-odometer
+                  [number]="hwdata.completed"
+                ></ng2-odometer>
+                   </strong></ion-label>  
+              </ion-col>
+             </ion-row>
+             <ion-icon name="caret-down-sharp" color="danger" (click)="accclickState()" style="margin-right: 30px;font-size: 35px;"></ion-icon> 
+              </ion-card>
+
+     
+      
+      <ion-card style="background-color: transparent; " class="gridcol" [hidden]="greedhosstate"> 
+  
+        <table style="border-collapse: collapse; width: 100%;" border="1.5">
+  
+          <tr>
+            <td style="width: 25%; font-weight: bold; color: black;  font-size: 16; height: 60px; background-color:#728ca3">State Wise</td>
+            <!-- <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Total No. of Request&nbsp;</td>
+            <td style="width: 25%;font-weight: bold;color: black; font-size: 16; background-color:#bf9d7a">No of Request Completed</td>
+            <td style="width: 25%;font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">No of Request Pending</td> -->
+            </tr>
+          <tbody *ngFor="let wing of highwaystable;">
+         
+            <tr>
+          <td  style="width: 25%; color: black; height: 50px; background-color:#adbfce" ></td>
+          <!-- <td  style="width: 25%; color: black; height: 50px; background-color:#adbfce;"></td>
+          <td  style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;"></td>
+          <td  style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;"></td>
+          <td  style="width: 25%; color: black; height: 50px; background-color:#dac0a5;"></td>
+          <td  style="width: 25%; color: black; height: 50px; background-color:#dac0a5;"></td>
+          <td  style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);"></td>
+          <td  style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);"></td> -->
+          </tr>
+           
+          </tbody>
+          </table>
+      </ion-card>
+
+
+      <ion-card style="background-color: transparent; " class="gridcol" [hidden]="greedaccstate">
+        <table style="border-collapse: collapse; width: 100%;" border="1.5">
+    
+            <tr>
+              <td style="width: 25%; font-weight: bold; color: black;  font-size: 16; height: 60px; background-color:#6abbab">Accident State Wise</td>
+              <!-- <td style="width: 25%; font-weight: bold; color: black; font-size: 16; background-color:#6abbab">Total No. of Request&nbsp;</td>
+              <td style="width: 25%;font-weight: bold;color: black; font-size: 16; background-color:#bf9d7a">No of Request Completed</td>
+              <td style="width: 25%;font-weight: bold; color: black; font-size: 16; background-color:#cbce91ff">No of Request Pending</td> -->
+              </tr>
+            <tbody *ngFor="let wing of highwaystable;">
+           
+              <tr>
+                <td  style="width: 25%; color: black; height: 50px; background-color:#9ff1e1" ></td>
+                <!-- <td  style="width: 25%; color: black; height: 50px; background-color:#adbfce;"></td>
+                <td  style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;"></td>
+                <td  style="width: 25%; color: black; height: 50px; background-color:#9ff1e1;"></td>
+                <td  style="width: 25%; color: black; height: 50px; background-color:#dac0a5;"></td>
+                <td  style="width: 25%; color: black; height: 50px; background-color:#dac0a5;"></td>
+                <td  style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);"></td>
+                <td  style="width: 25%; color: black; height: 50px; background-color:rgb(218, 220, 185);"></td> -->
+                </tr>
+             
+            </tbody>
+            </table>
+      </ion-card>  
+  </ion-content>
+</ng-container>

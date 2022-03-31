@@ -1,0 +1,133 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Documents</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!--
+
+      <ion-row>
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;'>Patient Name</ion-col>
+        
+        <ion-col style='color:#0685e6;font-weight:bold;font-size: 18px;text-transform: capitalize;'>:&nbsp;{{patientdata.patient_name}}</ion-col>
+      </ion-row>
+  
+  -->
+
+  <ion-card class='bgcolor1'>
+
+    <ion-card-content >
+    
+
+ 
+      <ion-row>
+        <ion-col>
+          <div style='text-align: center;background-color: aliceblue;font-size: 20px;'>
+           X Ray
+          </div>
+
+          <div style='text-align: center;background-color:#fff;margin-bottom:5px;padding: 3px;font-size: 18px;'>
+            <div style='float:left;width: 50%;' (click)="documentupload('xray')">
+             
+              <ion-icon name="document-attach">
+              </ion-icon>Upload
+              </div>
+
+              <div  (click)="viewdocument('xray')">
+                <ion-icon name="document-outline"></ion-icon> View
+                </div>
+          </div>
+        
+        </ion-col> 
+      </ion-row>
+     
+
+       
+      <ion-row>
+        <ion-col>
+          <div style='text-align: center;background-color: aliceblue;font-size: 20px;'>
+            CT scan
+          </div>
+
+          <div style='text-align: center;background-color:#fff;margin-bottom:5px;padding: 3px;font-size: 18px;'>
+            <div style='float:left;width: 50%;' (click)="documentupload('ctscan')">
+              <ion-icon name="document-attach">
+              </ion-icon>Upload
+              </div>
+              <div (click)="viewdocument('ctscan')">
+                <ion-icon name="document-outline"></ion-icon> View
+                </div>
+          </div>
+
+        
+        </ion-col> 
+      </ion-row>
+
+      
+      <ion-row>
+        <ion-col>
+          <div style='text-align: center;background-color: aliceblue;font-size: 20px;'>
+            ECG
+          </div>
+
+         
+          <div style='text-align: center;background-color:#fff;margin-bottom:5px;padding: 3px;font-size: 18px;'>
+            <div style='float:left;width: 50%;' (click)="documentupload('ecg')">
+              <ion-icon name="document-attach">
+              </ion-icon>Upload
+              </div>
+              <div (click)="viewdocument('ecg')">
+                <ion-icon name="document-outline"></ion-icon> View
+                </div>
+          </div>
+        
+        </ion-col> 
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div style='text-align: center;background-color: aliceblue;font-size: 20px;'>
+            Others 1
+          </div>
+
+        
+          <div style='text-align: center;background-color:#fff;margin-bottom:5px;padding: 3px;font-size: 18px;'>
+            <div style='float:left;width: 50%;' (click)="documentupload('ot1')">
+              <ion-icon name="document-attach">
+              </ion-icon>Upload
+              </div>
+              <div (click)="viewdocument('ot1')">
+                <ion-icon name="document-outline"></ion-icon> View
+                </div>
+          </div>
+        
+        </ion-col> 
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div style='text-align: center;background-color: aliceblue;font-size: 20px;'>
+            Others 2
+          </div>
+
+          <div style='text-align: center;background-color:#fff;margin-bottom:5px;padding: 3px;font-size: 18px;'>
+            <div style='float:left;width: 50%;' (click)="documentupload('ot2')">
+              <ion-icon name="document-attach" >
+              </ion-icon>Upload
+              </div>
+              <div (click)="viewdocument('ot2')">
+                <ion-icon name="document-outline"></ion-icon> View
+                </div>
+          </div>
+        
+        </ion-col> 
+      </ion-row>
+     
+    </ion-card-content>
+  </ion-card>
+ 
+  </ion-content>

@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Highways Request
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card  *ngIf="selacc" class="severity{{selacc.severity}} ion-text-center" >
+    <ion-card-header>
+      <ion-card-subtitle >  
+        {{ 'app.accidentid' | translate:params }}: <b>{{selacc.accid.slice(-4) }} </b> 
+       <span *ngIf="selacc.fir">  - FIR/CSR  :  <b>{{selacc.fir }} </b> </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+      <ion-card-content >
+        {{selacc.landmark}}, On {{selacc.datetime}} ({{selacc.severity_desc}}) 
+         <ion-label class="alignme-right">  </ion-label> 
+       </ion-card-content>
+       </ion-card>
+
+
+       <ion-grid *ngIf="selacc.get_hwstatus==null || selacc.get_hwstatus==0 ">
+        <ion-col>
+          <ion-item>
+            <ion-label class='ion-text-wrap fcolor' position="floating"> Road Types
+            </ion-label>
+            <ion-select (ionChange)="getCircle($event)" [(ngModel)]="hwdata.roadtype">
+              <ion-select-option *ngFor="let val of roadtype; let i = index" value="{{val.id}}">
+                {{val.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor' > Circle</ion-label>
+            <ion-select class="ion-text-wrap" (ionChange)="getDivision($event)" [(ngModel)]="hwdata.circle" interface="alert">
+              <ion-select-option *ngFor="let val of circle; let i = index" value="{{val.id}}">
+                {{val.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'> Division</ion-label>
+            <ion-select class="ion-text-wrap" (ionChange)="getSubDivision($event)" [(ngModel)]="hwdata.division" interface="alert">
+              <ion-select-option *ngFor="let val of division; let i = index" value="{{val.id}}">
+                {{val.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" class='fcolor'> Sub Division</ion-label>
+            <ion-select class="ion-text-wrap" [(ngModel)]="hwdata.sub_division" interface="alert">
+              <ion-select-option *ngFor="let val of sub_division; let i = index" value="{{val.id}}">
+                {{val.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-grid>
+
+
+       <ion-card *ngFor="let d of reqdetails; " >
+        <ion-item>
+          <ion-card-subtitle color="primary" >Request Details</ion-card-subtitle>
+          <ion-note  slot="end" color="primary" (click)="loadHWReqDetails()" >  <ion-icon name="refresh-outline"></ion-icon></ion-note>
+        </ion-item>
+      
+        <ion-card-content>
+         <ion-grid>
+          <ion-row > <ion-col>Requested By</ion-col> <ion-col>:</ion-col> <ion-col style="color:#075e9f" (click)="viewProfile(d.req_officer)"  >{{d.req_officer}} </ion-col> </ion-row>
+          <ion-row >  <ion-col>Requested On</ion-col> <ion-col>:</ion-col> <ion-col>{{d.req_datetime | date:"dd-MMM-yyyy HH:MM" }} </ion-col> </ion-row>
+
+          <ion-row > <ion-col>Road Department </ion-col> <ion-col>:</ion-col> <ion-col>{{d.road_dept_name}} </ion-col> </ion-row>
+          <ion-row > <ion-col>Circle </ion-col> <ion-col>:</ion-col> <ion-col>{{d.circle_name}} </ion-col> </ion-row>
+          <ion-row ><ion-col>Division </ion-col> <ion-col>:</ion-col> <ion-col>{{d.division_name}} </ion-col> </ion-row>
+          <ion-row > <ion-col>Sub Division </ion-col> <ion-col>:</ion-col> <ion-col>{{d.subdivision_name}} </ion-col> </ion-row>
+
+          <ion-row ><ion-col>Responded By</ion-col> <ion-col>:</ion-col> <ion-col style="color:#075e9f" (click)="viewProfile(d.res_officer)" >{{d.res_officer}} </ion-col> </ion-row>
+          <ion-row ><ion-col>Responded On</ion-col> <ion-col>:</ion-col> <ion-col>{{d.res_datetime | date:"dd-MMM-yyyy HH:MM" }} </ion-col> </ion-row>
+
+
+          <ion-row *ngIf="d.status=='0'"> <ion-col>Status </ion-col> <ion-col>:</ion-col> <ion-col>Cancelled</ion-col> </ion-row>
+          <ion-row *ngIf="d.status=='0'"> <ion-col>Reason </ion-col> <ion-col >:</ion-col> <ion-col>{{d.remarks}}</ion-col> </ion-row>
+          <ion-row *ngIf="d.status=='1'"> <ion-col>Status </ion-col> <ion-col >:</ion-col><ion-col> Requested <ion-chip (click)="deleteHWRequest(selacc.accid)">
+            <ion-label *ngIf="user.dept==1" color="secondary">Cancel</ion-label>
+            <ion-label *ngIf="user.dept==3" color="secondary">Reject</ion-label>
+          </ion-chip></ion-col> </ion-row>
+
+
+
+         </ion-grid>
+        </ion-card-content>
+        </ion-card>       
+
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label *ngIf="selacc.get_hwstatus==null || selacc.get_hwstatus==0" (click)="saveModal()"> &nbsp; Request &nbsp; </ion-label>
+          <ion-label *ngIf="selacc.get_hwstatus==1 || selacc.get_hwstatus==2" (click)="closeModal()"> &nbsp; Okay &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> 

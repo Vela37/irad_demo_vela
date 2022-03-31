@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Dashboard Selection
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-col>
+    <ion-item>
+      <ion-label class='ion-text-wrap fcolor' position="floating"> Year
+      </ion-label>
+      <ion-select [(ngModel)]="selection.year">
+        <ion-select-option *ngFor="let val of yearInput; let i = index" [value]="val">
+          {{val}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor' > State</ion-label>
+      <ion-select class="ion-text-wrap" (ionChange)="stateChange($event)" [(ngModel)]="selection.state" interface="alert">
+        <ion-select-option *ngFor="let val of selStates; let i = index" value="{{val.id}}">
+          {{val.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> District</ion-label>
+      <ion-select class="ion-text-wrap"  (ionChange)="districtChange($event)" [(ngModel)]="selection.district" interface="alert">
+        <ion-select-option *ngFor="let val of selDistricts; let i = index" value="{{val.id}}">
+          {{val.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'> Police Station</ion-label>
+      <ion-select class="ion-text-wrap"  (ionChange)="districtChange($event)" [(ngModel)]="selection.station" interface="alert">
+        <ion-select-option *ngFor="let val of selStations; let i = index" value="{{val.id}}">
+          {{val.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="clearFilter()">Clear</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="filterModal()"> &nbsp; Apply &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

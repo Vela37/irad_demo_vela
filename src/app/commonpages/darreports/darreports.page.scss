@@ -1,0 +1,46 @@
+ion-content {
+  --background:rgb(255,255,229);
+}
+
+.icon {
+  display: inline-block;
+  font-size: 35px;
+  color: #ffC977;
+  vertical-align: middle;
+ }
+ 
+ .text{
+   display: inline-block;
+   vertical-align: middle;
+ }
+ .submited{
+   background-color: rgb(230,241,234);
+ }
+
+ .pending{
+  background-color: rgb(253, 234, 224);
+}
+
+ .shadow {
+  position:absolute;
+  max-width:45%;
+  max-height:45%;
+  top:50%;
+  left:50%;
+  overflow:visible;
+}
+.logo {
+  position:relative;
+  max-width:70%;
+  max-height:550px;
+  margin-top:-30%;
+  margin-left:-100%;
+  opacity: 0.1;
+}
+.card-img-absolutes {
+  position: absolute;
+  top: 0;
+  opacity: 0.6;
+  right: 0;
+  height: 100%;
+ }

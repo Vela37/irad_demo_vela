@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>File Upload</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color='light'>
+  <ion-input type='file' accept="application/pdf, image/*" (ionChange)="changeListener($event)"></ion-input>
+
+  </ion-content>
+
+

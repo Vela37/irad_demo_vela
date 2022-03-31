@@ -1,0 +1,237 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+ 
+//@import "~leaflet/dist/leaflet.css";
+
+.split-pane-md {
+
+  --side-max-width: 15%;
+}
+
+.leaflet-control-attribution{
+    display :none;
+}
+.alignme-right{
+    text-align: right;
+}
+.alignme-left{
+    text-align: left;
+}
+.alignme-center{
+    text-align: center;
+}
+
+.severity {
+    background: #f1efef !important;
+    } 
+.severity1 {
+background: #ffadad !important;
+} 
+.severity2 {
+background:  #fba57d ;
+} 
+.severity3 {
+background: #fbc77d ;
+} 
+.severity4 {
+background: #fbe87d ;
+} 
+.severity5 {
+background:  #dbfb7d ;
+   } 
+.pointer{
+    cursor: pointer;
+    text-decoration: none;
+
+   }
+
+   .card-disabled.sc-ion-card-md-h{
+    opacity: 0.8;
+   }   
+   
+
+   /*--------------------------Text wrap custom-------------------------*/
+   .alert-tappable.alert-radio {
+    height: auto;
+    contain: content;
+}
+
+.alert-radio-label.sc-ion-alert-md,
+.alert-radio-label.sc-ion-alert-ios {
+    white-space: normal;
+}
+
+/*---------------------------------------------------*/
+
+
+/*--------------------------Scroll bar for ion select(multiple and single)------------------------*/
+.alert-checkbox-group::-webkit-scrollbar {
+    width: 1em;
+    display: block !important;
+}
+
+
+
+.alert-checkbox-group::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+
+
+.alert-radio-group::-webkit-scrollbar {
+    width: 1em;
+    display: block !important;
+}
+
+
+
+.alert-radio-group::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+/*--------------------------------------------------*/
+//-------- Multiple Check BOx
+.alert-tappable.alert-checkbox {
+    height: auto;
+    contain: content;
+}
+
+.alert-checkbox-label.sc-ion-alert-md,
+.alert-checkbox-label.sc-ion-alert-ios {
+    white-space: normal;
+}
+
+
+.ion-color-animal {
+
+    --ion-color-base: var(--ion-color-animal) !important;
+    --ion-color-base-rgb: var(--ion-color-animal-rgb) !important;
+    --ion-color-contrast: var(--ion-color-animal-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-animal-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-animal-shade) !important;
+    --ion-color-tint: var(--ion-color-animal-tint) !important;
+  }
+
+  .ion-color-hospital {
+
+    --ion-color-base: var(--ion-color-hospital) !important;
+    --ion-color-base-rgb: var(--ion-color-hospital-rgb) !important;
+    --ion-color-contrast: var(--ion-color-hospital-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-hospital-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-hospital-shade) !important;
+    --ion-color-tint: var(--ion-color-hospital-tint) !important;
+  }
+  ion-modal.fullscreen {
+    --width: 100%;
+    --height: 100%;
+    --border-radius: 0;
+  }
+  ion-modal.halfscreen {
+    --width:300px;
+    --height: 200px;
+    --border-radius: 0;
+  }
+  ion-modal.mediascreen {
+    --width: 85%;
+    --height: 85%;
+    --border-radius: 0;
+  }
+  /*----------------------------------Ion Chip css------------------------------------------------*/
+  .btn {
+    flex: 1 1 auto;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+   /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+
+   }
+  
+  /* Demo Stuff End -> */
+  
+  /* <- Magic Stuff Start */
+  
+  .btn:hover {
+    background-position: right center; /* change the direction of the change here */
+  }
+  
+  .btn-1 {
+    background-image: linear-gradient(to right, #0353a4 50%, #fdc500 50%, #fdc500 100%);
+    color:#fff;
+  }
+
+  .btn-2 {
+    background-image: linear-gradient(to right, #8b00cc 0%, #008fd1 51%, #008fd1 100%);
+    color:#fff;
+  }
+  .btn-3 {
+    background-image: linear-gradient(to right, #35bd80 0%, #ffd166 51%, #ffd166 100%);
+    color:#fff;
+  }
+  /*--------------------------------------------------------------------------------------------*/
+
+  /*---------------------Header Designs-----------------------------------*/
+  .header1{
+      background-color: #00509d;
+  }
+  
+  /*---------------------Header Designs-----------------------------------*/
+
+  ion-modal.fullscreen {
+    --width: 100%;
+    --height: 100%;
+    --border-radius: 0;
+  }
+
+ .uppercase{
+   text-transform: uppercase;
+ }
+ .capitalize{
+  text-transform:capitalize;
+}
+.fcolor{
+  color:#26618c;
+
+} 
+.errormsg
+{
+    color:#ff6969;
+   font-size:12px; 
+}

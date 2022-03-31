@@ -1,0 +1,339 @@
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <div class="back-circle"></div>
+		<ion-title class="ion-text-center custom-font">Login</ion-title>
+	</ion-toolbar>
+</ion-header>
+<!-- <ion-header class="ion-no-border">
+  <ion-toolbar style="color: hsl(207, 75%, 39%)">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <div class="back-circle"></div>
+    <ion-title
+      class="ion-text-center custom-font"
+      style="margin-left: 38px; color: hsl(0, 0%, 100%);"
+      >Login
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-select
+        style="color: #3067bf"
+        [(ngModel)]="selectedLanguage"
+        (ionChange)="languageChanged($event)"
+      >
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ta">தமிழ்</ion-select-option>
+        <ion-select-option value="hi">हिंदी</ion-select-option>
+        <ion-select-option value="be">বাংলা</ion-select-option>
+        <ion-select-option value="kn">ಕನ್ನಡ</ion-select-option>
+        <ion-select-option value="mr">मराठी</ion-select-option>
+      </ion-select>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content fullscreen="true">
+  <svg
+    class="back-blob"
+    viewBox="0 0 200 200"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill="#4287f5"
+      d="M68.6,-33.5C81.6,-17.2,79.6,13.8,65.7,37.6C51.8,61.3,25.9,77.8,2.1,76.6C-21.7,75.4,-43.5,56.5,-54.2,34.6C-65,12.7,-64.8,-12.3,-53.9,-27.4C-43,-42.4,-21.5,-47.6,3.2,-49.4C27.9,-51.2,55.7,-49.7,68.6,-33.5Z"
+      transform="translate(100 100)"
+    />
+  </svg>
+
+  <!-- <ion-card> -->
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-grid>
+      <!-- <ion-row color="primary" class="ion-justify-content-center">
+          <div class="ion-text-center">
+            <ion-text>
+              <h1 style="font-size: 40px; font-weight: bold;">
+                <span style="color:rgb(14, 13, 13)">iR</span>
+                <span style="color:#fddf00">A</span>
+                <span style="color:rgb(14, 13, 13)">D</span>
+                <span style="color:rgb(255, 79, 79); font-size: 20px;"> Demo </span>
+              </h1>
+            </ion-text>
+          </div>
+
+        </ion-row> -->
+
+      <!-- 
+      <ion-row>
+        <ion-col>
+          <ion-text style='text-align:center' color="primary"> &nbsp;
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      
+
+  <ion-row>
+        <ion-col>
+          <ion-text style='text-align:center' color="primary">
+            <h2>iRAD</h2>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+-->
+      <!-- <ion-row>
+        <ion-col>
+          <ion-text style='text-align:center' color="primary">
+           
+            <ion-chip *ngIf="netstat.connected" shape="round"  fill="outline" color='success'>          
+              <ion-label> INTERNET </ion-label>
+              <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+           </ion-chip>
+
+           <ion-chip *ngIf="!netstat.connected" shape="round"  fill="outline" color='danger'>          
+            <ion-label> INTERNET </ion-label>
+            <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon>
+         </ion-chip>
+
+          </ion-text>
+        </ion-col>
+      </ion-row>
+-->
+
+      <ion-row *ngIf="offlineflag">
+        <ion-col>
+          <ion-text style="text-align: center" color="danger">
+            <h2>NO INTERNET !</h2>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="offlineflag">
+        <ion-col>
+          <ion-text style="text-align: center" color="danger">
+            <h2>
+              <ion-icon name="thumbs-down-outline"></ion-icon>
+            </h2>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row
+        *ngIf="!offlineflag"
+        color="primary"
+        class="ion-justify-content-center"
+      >
+        <ion-col
+          class="ion-align-self-center"
+          size-md="8"
+          size-lg="6"
+          size-xs="12"
+          style="border-radius: 10px; background: white; border: 1px solid #bbb;margin-top: 8px;"
+        >
+          <ion-row color="primary" class="ion-justify-content-center">
+            <div class="ion-text-center">
+              <ion-text>
+                <h1 style="font-size: 40px; font-weight: bold">
+                  <span style="color: rgb(14, 13, 13)">iR</span>
+                  <span style="color: #fddf00">A</span>
+                  <span style="color: rgb(14, 13, 13)">D</span>
+                  <span style="color: rgb(255, 79, 79); font-size: 20px">
+                    Demo
+                  </span>
+                </h1>
+              </ion-text>
+            </div>
+          </ion-row>
+          <div class="ion-padding">
+            <ion-item style="border: 1px solid gray; border-radius: 4px">
+              <ion-icon
+                name="shuffle-outline"
+                color="primary"
+                slot="start"
+              ></ion-icon>
+              <ion-label position="floating" color="primary"
+                >{{ 'login.department' | translate:params }}</ion-label
+              >
+              <ion-select
+                value="1"
+                name="dept"
+                ngModel
+                required
+                interface="alert"
+              >
+              <ion-select-option value="1">Police</ion-select-option>
+              <ion-select-option value="2">Transport / PTW</ion-select-option>
+              <ion-select-option value="3">Highways</ion-select-option>
+              <ion-select-option value="4">Health</ion-select-option>
+               <ion-select-option *ngIf="dev" value="5">MACT</ion-select-option> 
+               <ion-select-option *ngIf="dev" value="6">Legal services authority</ion-select-option> 
+               <ion-select-option *ngIf="dev" value="7">Insurance</ion-select-option> 
+              <ion-select-option value="10">Project Management</ion-select-option
+                >
+              </ion-select> </ion-item
+            ><br />
+
+            <ion-item style="border: 1px solid gray; border-radius: 4px">
+              <ion-icon
+                name="person-outline"
+                color="primary"
+                slot="start"
+              ></ion-icon>
+              <ion-input
+                name="userid"
+                type="text"
+                placeholder="User Name"
+                ngModel
+                required
+              ></ion-input> </ion-item
+            ><br />
+            <ion-item style="border: 1px solid gray; border-radius: 4px">
+              <ion-icon
+                name="key-outline"
+                color="primary"
+                slot="start"
+              ></ion-icon>
+              <ion-input
+                name="password"
+                [type]="showPassword? 'text' : 'password'"
+                placeholder="Password"
+                autocomplete="off"
+                onpaste="return false;"
+                ngModel
+                required
+              ></ion-input>
+              <!--onpaste="return false;" -->
+              <ion-icon
+                *ngIf="!showPassword"
+                (click)="SHpassword()"
+                name="eye-outline"
+                slot="end"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="showPassword"
+                (click)="SHpassword()"
+                name="eye-off-outline"
+                slot="end"
+              ></ion-icon>
+            </ion-item>
+
+            <br />
+            <ion-item style="border: 1px solid gray; border-radius: 4px">
+              <img
+                [src]="captchasrc"
+                alt="captcha"
+                style=" height: 40px"
+              />
+              <ion-icon
+                (click)="reload_Captcha()"
+                name="reload-circle-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
+            </ion-item>
+            <ion-item
+              style="
+                border: 1px solid gray;
+                border-radius: 4px;
+                margin-top: -1px;
+                border-top: unset;
+              "
+            >
+              <ion-icon
+                name="man-outline"
+                color="primary"
+                slot="start"
+              ></ion-icon>
+              <ion-input
+                name="captcha"
+                type="text"
+                (keyup.enter)="onSubmit(form)"
+                placeholder="Captcha"
+                [(ngModel)]="captcha"
+                ngModel
+                required
+              ></ion-input>
+            </ion-item>
+
+            <!-- <ion-item>
+              <ion-label position="floating">Floating Label</ion-label>
+              <ion-input></ion-input>
+              <ion-icon name="eye" slot="end"></ion-icon>
+            </ion-item> -->
+          </div>
+          <div class="ion-padding">
+            <ion-button
+              shape="round"
+              *ngIf="isLoading"
+              color="primary"
+              expand="block"
+            >
+              <ion-spinner name="circles"> </ion-spinner>
+            </ion-button>
+            <ion-button
+              shape="round"
+              *ngIf="!isLoading"
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid"
+              expand="block"
+              >{{ 'login.login' | translate:params }}
+            </ion-button>
+          </div>
+          <div class="ion-padding" *ngIf="form.value.dept==4">
+            <ion-button
+              *ngIf="!form.value.userid"
+              shape="round"
+              color="hospital"
+              expand="block"
+              (click)="hspRegister()"
+            >
+              Register Your Hospital</ion-button
+            >
+          </div>
+          <!-- <div class="ion-padding" *ngIf="form.value.dept==5">
+
+              <ion-button *ngIf="!form.value.userid" shape="round" color='hospital' expand="block"
+                (click)="insRegister()"> Register Your Insurance</ion-button>
+            </div> -->
+          <ion-text color="danger" *ngIf="error">
+            <h4>{{error}}</h4>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <!--
+  <ion-item-divider *ngIf="form.value.dept==4" >
+  
+    <a  style="color:#183e7a; cursor: pointer;" (click)="hspRegister()">Register Hospital ? </a>
+ 
+</ion-item-divider>
+
+-->
+  <!-- </ion-card> -->
+</ion-content>
+
+<ion-footer *ngIf="false">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="5" style="text-align: center">
+        <ion-label class="dd" ionic cordova plugin add cordova-plugin-device>
+          Conceptualized by
+        </ion-label>
+        <ion-img
+          style="text-align: center; height: 60px"
+          alt="NIC Logo"
+          src="assets/logos/iit.png"
+        ></ion-img>
+      </ion-col>
+
+      <ion-col size="7" style="text-align: center">
+        <ion-label class="dd"> Designed & Developed By </ion-label>
+        <ion-img
+          style="text-align: center; height: 60px"
+          alt="NIC Logo"
+          src="assets/logos/nic_logo.png"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

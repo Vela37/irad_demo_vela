@@ -1,0 +1,894 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title}} Accidents</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        *ngIf="viewFlag=='district' || viewFlag=='state' || viewFlag=='station' || viewFlag=='list'"
+        (click)="back()"
+      >
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="viewFlag=='country' && indacc!=null ">
+  <app-flash-card>
+    <div class="flash-card-front">
+      <ion-card-subtitle
+        color="primary"
+        style="font-weight: bold; color: #183e7a; text-align: center;line-height: normal;"
+        class="t1"
+        >{{indacc.title}}</ion-card-subtitle>
+        <ion-card-subtitle
+        color="primary"
+        style="font-weight: bold; color: #183e7a; text-align: center"
+        class="t1"
+        >
+        (<ng2-odometer
+          [number]="indacc.count"
+          [config]="config"
+        ></ng2-odometer
+        >) 
+        
+        <ion-icon name="caret-forward" color="danger"  style="vertical-align: super;float: right;margin-right: -32px;"></ion-icon>
+      </ion-card-subtitle>
+      <ion-card-subtitle
+        color="primary"
+        style="font-weight: bold; color: #183e7a; text-align: center"
+        class="t1"
+        >
+        <ion-icon name="caret-down-sharp" color="danger" (click)="enableStates()" style="margin-right: 5px;"></ion-icon>
+      </ion-card-subtitle>
+      <!-- <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col> </ion-col>
+          <ion-col></ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <ion-chip color="danger" (click)="enableStates()">
+              <ion-label *ngIf="loading" expand="block" fill="clear"
+                >More</ion-label
+              >
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
+    </div>
+
+    <div
+      class="flash-card-back"
+      style="width: 95%; height: 95%; text-align: center"
+    >
+      <table *ngIf="indacc1!=null" width="100%" style="height: 100%" border="1">
+        <tr>
+          <td class="grid fatalbg" width="20%">
+            Fatal
+            <p style="font-weight: 500; font-size: 14px">
+              &nbsp; ({{(indacc1[0]['count']/indacc.count)*100 | number :
+              '1.1-1' }}%)
+            </p>
+            <br />
+            &nbsp;
+            <ng2-odometer
+              [number]="indacc1[0]['count']"
+              [config]="config"
+            ></ng2-odometer>
+          </td>
+          <td class="grid grevbg" width="20%">
+            Grievous
+            <p style="font-weight: 500; font-size: 14px">
+              &nbsp; ({{(indacc1[1]['count']/indacc.count)*100 | number :
+              '1.1-1' }}%)
+            </p>
+            <br />
+            &nbsp;
+            <ng2-odometer
+              [number]="indacc1[1]['count']"
+              [config]="config"
+            ></ng2-odometer>
+          </td>
+
+          <td class="grid simphbg" width="20%">
+            Simple Injury
+            <p style="font-weight: 500; font-size: 14px">
+              &nbsp; (Hospitalized) <br />
+              ({{(indacc1[2]['count']/indacc.count)*100 | number : '1.1-1' }}%)
+            </p>
+            <ng2-odometer
+              [number]="indacc1[2]['count']"
+              [config]="config"
+            ></ng2-odometer>
+          </td>
+          <td class="grid simpnhbg" width="20%">
+            Simple Injury
+            <p style="font-weight: 500; font-size: 14px">
+              &nbsp; (Non Hospitalized) <br />
+              ({{(indacc1[3]['count']/indacc.count)*100 | number : '1.1-1' }}%)
+            </p>
+            <ng2-odometer
+              [number]="indacc1[3]['count']"
+              [config]="config"
+            ></ng2-odometer>
+          </td>
+          <td class="grid vehbg" width="20%">
+            No Injury <br />
+            &nbsp;
+            <p style="font-weight: 500; font-size: 14px">
+              &nbsp; ({{(indacc1[4]['count']/indacc.count)*100 | number :
+              '1.1-1' }}%)
+            </p>
+            <ng2-odometer
+              [number]="indacc1[4]['count']"
+              [config]="config"
+            ></ng2-odometer>
+          </td>
+        </tr>
+        <!-- <tr>
+          <td colp="5" >
+            <table width='100%' style="height: 100%; " >
+              <tr>
+
+                <td colp="2" class="grid deadbg ">
+                  <!- - <img src="assets/images/circle.svg" style="max-height: 100px;" alt=''/> - ->
+                  600
+                </td>
+                <td width="1hw"></td>
+                <td colp="2"  class="grid injbg ">
+                  <!- - <img src="assets/images/circle.svg" style="max-height: 100px;" alt=''/> - ->
+                  700</td>
+
+              </tr>
+            </table>
+           </td>
+        </tr> -->
+      </table>
+    </div>
+  </app-flash-card>
+
+  <!-- <ion-card >
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-item >
+      <ion-card-subtitle color="primary" style="font-weight: bold; color: #183e7a; text-align: center;" class="t1" >{{indacc.title}} (<ng2-odometer [number]="indacc.count" [config]="config"></ng2-odometer>)</ion-card-subtitle>
+    </ion-item>
+  
+    <!- - <ion-card-content>
+     <ion-grid>
+       <ion-row >
+         <ion-col> Severity1 </ion-col>
+         <ion-col> 7656</ion-col>      
+         </ion-row>
+     </ion-grid>
+    </ion-card-content> -- >
+    
+  
+  <ion-grid class='ion-no-padding'>
+    <ion-row>
+      <ion-col>        </ion-col>
+      <ion-col></ion-col>
+     <ion-col ></ion-col>
+    <ion-col>
+      <ion-chip color="primary">        
+        <ion-label  *ngIf="loading" expand="block" fill="clear" (click)="enableStates()">More</ion-label>
+        <ion-avatar>
+          <img src="assets/images/more.png">
+        </ion-avatar>
+      </ion-chip>
+    </ion-col>
+   </ion-row>
+
+    </ion-grid>
+  </ion-card> -->
+  <!-- <ion-grid class='ion-no-padding'>
+    <ion-row>
+      <ion-col>        </ion-col>
+      <ion-col></ion-col>
+     <ion-col ></ion-col>
+    <ion-col>
+      <ion-chip color="primary">        
+        <ion-label  *ngIf="loading" expand="block" fill="clear" (click)="enableStates()">More</ion-label>
+        <ion-avatar>
+          <img src="assets/images/more.png">
+        </ion-avatar>
+      </ion-chip>
+    </ion-col>
+   </ion-row>
+
+    </ion-grid> -->
+
+  <!-- <ion-card >
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-item>
+      <!-- <div >
+                <img class="image"  [src]="img">
+              </div> -->
+  <!-- <ion-note slot="end" color="primary">
+          <ion-icon size='large' name="open-outline"></ion-icon>
+        </ion-note> -->
+  <!--<ion-grid>
+        <ion-row class="t1">
+          <ion-col>
+            <h2 class="ion-padding" style="color: #183e7a;" class="alignme-center">{{indacc.title}}</h2>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="alignme-center">
+            <h2>
+              <ng2-odometer [number]="indacc.count" [config]="config"></ng2-odometer>
+            </h2>
+          </ion-col>
+        </ion-row>
+        
+      </ion-grid>
+    </ion-item>
+    <div class=" ion-padding list card">
+
+      <ion-row>
+        <ion-col class="alignme-center">
+
+          <ion-button *ngIf="loading" expand="block" fill="clear" (click)="enableStates()">More<ion-icon
+              name="arrow-forward-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card> -->
+</ion-content>
+
+<ion-content *ngIf="viewFlag=='state'">
+  <div>
+    <ion-refresher
+      slot="fixed"
+      (ionRefresh)="doRefresh($event)"
+      pullMin="100"
+      pullMax="200"
+    >
+      <ion-refresher-content
+        pullingIcon="arrow-down-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing..."
+      >
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-col size="12" *ngFor="let d of stateacc; let i = index">
+        <app-flash-card>
+          <div class="flash-card-front" (click)="loadstatewise(d.code)">
+            <!-- <ion-card-subtitle
+              color="primary"
+              style="font-weight: bold; color: #183e7a; text-align: center"
+              class="t1"
+              >{{d.title}} (<ng2-odometer
+                [number]="d.count"
+                [config]="config"
+              ></ng2-odometer
+              >)</ion-card-subtitle
+            > -->
+
+            <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center;line-height: normal;"
+            class="t1"
+            >{{d.title}}</ion-card-subtitle>
+            <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center"
+            class="t1"
+            >
+            (<ng2-odometer
+              [number]="d.count"
+              [config]="config"
+            ></ng2-odometer
+            >) 
+            
+            <ion-icon name="caret-forward" color="danger"  style="vertical-align: super;float: right;margin-right: -32px;"></ion-icon>
+          </ion-card-subtitle>
+          <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center"
+            class="t1"
+            >
+            <ion-icon name="caret-down-sharp" color="danger" (click)="enableDistricts(d.code)" style="margin-right: 5px;"></ion-icon>
+          </ion-card-subtitle>
+
+            <!-- <ion-grid class="ion-no-padding">
+              <ion-row>
+                <ion-col> </ion-col>
+                <ion-col></ion-col>
+                <ion-col></ion-col>
+                <ion-col>
+                  <ion-chip color="danger" (click)="enableDistricts(d.code)">
+                    <ion-label *ngIf="loading" expand="block" fill="clear"
+                      >More</ion-label
+                    >
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </ion-chip>
+                </ion-col>
+              </ion-row>
+            </ion-grid> -->
+          </div>
+
+          <div
+            class="flash-card-back"
+            style="width: 95%; height: 95%; text-align: center"
+          >
+            <table
+              *ngIf="statesevwise[d.code]!=undefined"
+              width="100%"
+              style="height: 100%"
+              border="1"
+            >
+              <tr>
+                <td class="grid fatalbg" width="20%">
+                  Fatal
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; ({{(statesevwise[d.code][0]['count']/d.count)*100 |
+                    number : '1.1-1' }}%)
+                  </p>
+                  <br />
+                  &nbsp;
+                  <ng2-odometer
+                    [number]="statesevwise[d.code][0]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td class="grid grevbg" width="20%">
+                  Grievous
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; ({{(statesevwise[d.code][1]['count']/d.count)*100 |
+                    number : '1.1-1' }}%)
+                  </p>
+                  <br />
+                  &nbsp;
+                  <ng2-odometer
+                    [number]="statesevwise[d.code][1]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+
+                <td class="grid simphbg" width="20%">
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; (Hospitalized) <br />
+                    ({{(statesevwise[d.code][2]['count']/d.count)*100 | number :
+                    '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="statesevwise[d.code][2]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td class="grid simpnhbg" width="20%">
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; (Non Hospitalized) <br />
+                    ({{(statesevwise[d.code][3]['count']/d.count)*100 | number :
+                    '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="statesevwise[d.code][3]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td class="grid vehbg" width="20%">
+                  No Injury <br />
+                  &nbsp;
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; ({{(statesevwise[d.code][4]['count']/d.count)*100 |
+                    number : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="statesevwise[d.code][4]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </app-flash-card>
+      </ion-col>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="viewFlag=='district' ">
+  <div>
+    <ion-refresher
+      slot="fixed"
+      (ionRefresh)="doRefresh($event)"
+      pullMin="100"
+      pullMax="200"
+    >
+      <ion-refresher-content
+        pullingIcon="arrow-down-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing..."
+      >
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-col size="12" *ngFor="let dt of districtacc; let i = index">
+        <app-flash-card>
+          <div
+            class="flash-card-front"
+            (click)="enabledistrictflash(dt.state,dt.code)"
+          >
+            <!-- <ion-card-subtitle
+              color="primary"
+              style="font-weight: bold; color: #183e7a; text-align: center"
+              class="t1"
+              >{{dt.title}} (
+              <ng2-odometer [number]="dt.count" [config]="config"></ng2-odometer
+              >)</ion-card-subtitle
+            > -->
+
+            <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center;line-height: normal;"
+            class="t1"
+            >{{dt.title}}</ion-card-subtitle>
+            <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center"
+            class="t1"
+            >
+            (<ng2-odometer
+              [number]="dt.count"
+              [config]="config"
+            ></ng2-odometer
+            >) 
+            
+            <ion-icon name="caret-forward" color="danger"  style="vertical-align: super;float: right;margin-right: -32px;"></ion-icon>
+          </ion-card-subtitle>
+          <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center"
+            class="t1"
+            >
+            <ion-icon name="caret-down-sharp" color="danger" (click)="enableStation(dt.state,dt.code)" style="margin-right: 5px;"></ion-icon>
+          </ion-card-subtitle>
+
+            <!-- <ion-grid class="ion-no-padding">
+              <ion-row>
+                <ion-col> </ion-col>
+                <ion-col></ion-col>
+                <ion-col></ion-col>
+                <ion-col>
+                  <ion-chip
+                    color="danger"
+                    (click)="enableStation(dt.state,dt.code)"
+                  >
+                    <ion-label *ngIf="loading" expand="block" fill="clear"
+                      >More</ion-label
+                    >
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </ion-chip>
+                </ion-col>
+              </ion-row>
+            </ion-grid> -->
+          </div>
+
+          <div
+            class="flash-card-back"
+            style="width: 95%; height: 95%; text-align: center"
+          >
+            <table
+              *ngIf="districtwise[dt.code]!=undefined"
+              width="100%"
+              style="height: 100%"
+              border="1"
+            >
+              <tr *ngIf="districtwise[dt.code]!=undefined">
+                <td
+                  class="grid fatalbg"
+                  width="20%"
+                  *ngIf="districtwise[dt.code][0] !=undefined"
+                >
+                  Fatal
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; ({{(districtwise[dt.code][0]['count']/dt.count)*100 |
+                    number : '1.1-1' }}%)
+                  </p>
+                  <br />
+                  &nbsp;
+                  <ng2-odometer
+                    [number]="districtwise[dt.code][0]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td
+                  class="grid grevbg"
+                  width="20%"
+                  *ngIf="districtwise[dt.code][1]!=undefined"
+                >
+                  Grievous
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; ({{(districtwise[dt.code][1]['count']/dt.count)*100 |
+                    number : '1.1-1' }}%)
+                  </p>
+                  <br />
+                  &nbsp;
+                  <ng2-odometer
+                    [number]="districtwise[dt.code][1]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+
+                <td
+                  class="grid simphbg"
+                  width="20%"
+                  *ngIf="districtwise[dt.code][2]!=undefined"
+                >
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; (Hospitalized) <br />
+                    ({{(districtwise[dt.code][2]['count']/dt.count)*100 | number
+                    : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="districtwise[dt.code][2]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td
+                  class="grid simpnhbg"
+                  width="20%"
+                  *ngIf="districtwise[dt.code][3]!=undefined"
+                >
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; (Non Hospitalized) <br />
+                    ({{(districtwise[dt.code][3]['count']/dt.count)*100 | number
+                    : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="districtwise[dt.code][3]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td
+                  class="grid vehbg"
+                  width="20%"
+                  *ngIf="districtwise[dt.code][4]!=undefined"
+                >
+                  No Injury <br />
+                  &nbsp;
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; ({{(districtwise[dt.code][4]['count']/dt.count)*100 |
+                    number : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="districtwise[dt.code][4]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </app-flash-card>
+      </ion-col>
+    </ion-grid>
+  </div>
+
+  <!--
+  <div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row>
+        <ion-col size='12' *ngFor="let dt of districtacc; let i = index">
+          <ion-card >        
+            <ion-item >
+           
+              <ion-grid (click)="enableStation(dt.state,dt.code)">
+                <ion-row>
+                  <ion-col>
+                    <ion-card-subtitle color="primary" 
+                    style="font-weight: bold; color: #183e7a; text-align: left;"
+                    class="t1" >{{dt.title}}  
+                  </ion-card-subtitle>
+                  </ion-col>
+                  
+                  <ion-col> 
+                    <ion-card-subtitle color="primary" 
+                    style="font-weight: bold; color: #183e7a; text-align: right;"
+                    class="t1" > : &nbsp; <ng2-odometer [number]="dt.count" [config]="config"></ng2-odometer>
+                  </ion-card-subtitle>
+                  </ion-col>
+
+              
+                </ion-row>
+              </ion-grid>
+
+            </ion-item>
+         
+          </ion-card>
+
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+-->
+</ion-content>
+<ion-content *ngIf="viewFlag=='station'">
+  <div>
+    <ion-refresher
+      slot="fixed"
+      (ionRefresh)="doRefresh($event)"
+      pullMin="100"
+      pullMax="200"
+    >
+      <ion-refresher-content
+        pullingIcon="arrow-down-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing..."
+      >
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-col size="12" *ngFor="let station of stationacc; let i = index">
+        <app-flash-card>
+          <div
+            class="flash-card-front"
+            (click)="enablestationflash(station.state,station.district,station.code,0)"
+          >
+            <!-- <ion-card-subtitle
+              color="primary"
+              style="font-weight: bold; color: #183e7a; text-align: center"
+              class="t1"
+              >{{station.title}} (
+              <ng2-odometer
+                [number]="station.count"
+                [config]="config"
+              ></ng2-odometer
+              >)</ion-card-subtitle
+            > -->
+
+            <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center;line-height: normal;"
+            class="t1"
+            >{{station.title}}</ion-card-subtitle>
+            <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center"
+            class="t1"
+            >
+            (<ng2-odometer
+              [number]="station.count"
+              [config]="config"
+            ></ng2-odometer
+            >) 
+            
+            <ion-icon name="caret-forward" color="danger"  style="vertical-align: super;float: right;margin-right: -32px;"></ion-icon>
+          </ion-card-subtitle>
+          <ion-card-subtitle
+            color="primary"
+            style="font-weight: bold; color: #183e7a; text-align: center"
+            class="t1"
+            >
+            <ion-icon name="caret-down-sharp" color="danger" (click)="viewAccidentData(station.state,station.district,station.code,0)" style="margin-right: 5px;"></ion-icon>
+          </ion-card-subtitle>
+
+            <!-- <ion-grid class="ion-no-padding">
+              <ion-row>
+                <ion-col> </ion-col>
+                <ion-col></ion-col>
+                <ion-col></ion-col>
+                <ion-col>
+                  <ion-chip
+                    color="danger"
+                    (click)="viewAccidentData(station.state,station.district,station.code,0)"
+                  >
+                    <ion-label *ngIf="loading" expand="block" fill="clear"
+                      >More</ion-label
+                    >
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </ion-chip>
+                </ion-col>
+              </ion-row>
+            </ion-grid> -->
+          </div>
+
+          <div
+            class="flash-card-back"
+            style="width: 95%; height: 95%; text-align: center"
+          >
+            <table
+              *ngIf="stationtwise[station.code]!=undefined"
+              width="100%"
+              style="height: 100%"
+              border="1"
+            >
+              <tr *ngIf="stationtwise[station.code]!=undefined">
+                <td
+                  class="grid fatalbg"
+                  width="20%"
+                  *ngIf="stationtwise[station.code][0] !=undefined"
+                >
+                  Fatal
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp;
+                    ({{(stationtwise[station.code][0]['count']/station.count)*100
+                    | number : '1.1-1' }}%)
+                  </p>
+                  <br />
+                  &nbsp;
+                  <ng2-odometer
+                    [number]="stationtwise[station.code][0]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td
+                  class="grid grevbg"
+                  width="20%"
+                  *ngIf="stationtwise[station.code][1]!=undefined"
+                >
+                  Grievous
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp;
+                    ({{(stationtwise[station.code][1]['count']/station.count)*100
+                    | number : '1.1-1' }}%)
+                  </p>
+                  <br />
+                  &nbsp;
+                  <ng2-odometer
+                    [number]="stationtwise[station.code][1]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+
+                <td
+                  class="grid simphbg"
+                  width="20%"
+                  *ngIf="stationtwise[station.code][2]!=undefined"
+                >
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; (Hospitalized) <br />
+                    ({{(stationtwise[station.code][2]['count']/station.count)*100
+                    | number : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="stationtwise[station.code][2]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td
+                  class="grid simpnhbg"
+                  width="20%"
+                  *ngIf="stationtwise[station.code][3]!=undefined"
+                >
+                  Simple Injury
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp; (Non Hospitalized) <br />
+                    ({{(stationtwise[station.code][3]['count']/station.count)*100
+                    | number : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="stationtwise[station.code][3]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+                <td
+                  class="grid vehbg"
+                  width="20%"
+                  *ngIf="stationtwise[station.code][4]!=undefined"
+                >
+                  No Injury <br />
+                  &nbsp;
+                  <p style="font-weight: 500; font-size: 14px">
+                    &nbsp;
+                    ({{(stationtwise[station.code][4]['count']/station.count)*100
+                    | number : '1.1-1' }}%)
+                  </p>
+                  <ng2-odometer
+                    [number]="stationtwise[station.code][4]['count']"
+                    [config]="config"
+                  ></ng2-odometer>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </app-flash-card>
+      </ion-col>
+    </ion-grid>
+  </div>
+</ion-content>
+<!--
+<ion-content *ngIf="viewFlag=='station'">
+  <div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+      <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row>
+        <ion-col size='12' *ngFor="let station of stationacc; let i = index">
+          <ion-card >        
+            <ion-item >
+              <ion-grid (click)="viewAccidentData(station.state,station.district,station.code,0)">
+                <ion-row>
+                  <ion-col>
+                    <ion-card-subtitle color="primary" 
+                    style="font-weight: bold; color: #183e7a; text-align: left;"
+                    class="t1" >{{station.title}}  
+                  </ion-card-subtitle>
+                  </ion-col>
+                  <ion-col> 
+                    <ion-card-subtitle color="primary" 
+                    style="font-weight: bold; color: #183e7a; text-align: right;"
+                    class="t1" > : &nbsp; <ng2-odometer [number]="station.count" [config]="config"></ng2-odometer>
+                  </ion-card-subtitle>
+                  </ion-col>              
+                </ion-row>
+              </ion-grid>
+            </ion-item>       
+          </ion-card>       
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+-->
+
+<ion-content *ngIf="viewFlag=='list'">
+  <ion-refresher slot="fixed" (ionRefresh)="refPending($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card
+    *ngFor="let d of accident_data; let i = index"
+    class="severity{{d.severity}} ion-text-center"
+  >
+    <ion-card-header>
+      <ion-card-subtitle>
+        AccId: <b>{{d.accid.slice(-4) }} </b>
+        <span *ngIf="d.fir"> - FIR/CSR : <b>{{d.fir }} </b> </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{d.landmark}}, On {{d.datetime}} ({{d.severity_desc}})
+      <ion-label class="alignme-right"> </ion-label>
+    </ion-card-content>
+    <ion-item class="sev1">
+      <span class="alignme-center" style="width: 100%">
+        <ion-chip outline (click)="viewAccident(i)" color="secondary">
+          <ion-label>VIEW</ion-label>
+          <ion-icon name="newspaper-outline" slot="end"></ion-icon>
+        </ion-chip>
+      </span>
+    </ion-item>
+  </ion-card>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollPending($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,1273 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign">
+      {{'acctab1.transport' | translate:params}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <form [formGroup]="transport" (ngSubmit)="savedetails()" novalidate>
+    <span id="one" [hidden]="transport1">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolorred">Select Vehicle
+              </ion-label>
+              <ion-select formControlName="vehicle_reg_no" (ionChange)="editvehicle($event)">
+                <ion-select-option *ngFor="let vehh of vehicle" value="{{vehh[2]}}">
+                  {{vehh[1]}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <p class="errormsg" *ngIf="isSubmitted && errorControl.vehicle_reg_no.errors?.required">
+              {{'errmsg.vvehicleRegNo' | translate:params}}
+            </p>
+          </ion-col>
+          <ion-col *ngIf="errorControl.vehicle_reg_no.valid" class="txtalign">
+            <ion-button shape="round" (click)="getvahandata()" color="warning" style="font-weight: bold">
+              &nbsp;&nbsp;&nbsp;&nbsp;GET
+              VAHAN&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.regntype' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="regno_type" (ionChange)="regchange($event)" cancelText="Cancel"
+                interface="alert">
+                <ion-select-option *ngFor="let d of options15; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col [hidden]="validityflag">
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.temp_regno_validity' | translate:params}}
+              </ion-label>
+              <ion-datetime formControlName="temp_regno_validity" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row [hidden]="tradeflag">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.trade_plate_issuedby' | translate:params}}
+              </ion-label>
+              <ion-input formControlName="trade_plate_issuedby" maxlength="90"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.f19_mileage' | translate:params}}
+                <span class="redclr">In KM.</span>
+              </ion-label>
+              <ion-input type='number' (ionChange)="checkdigits($event,5)" formControlName="f19_mileage"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!--
+<ion-col>
+            <ion-item>
+              <ion-label class='fcolor2' position="floating"> {{'transport.f19_sno' | translate:params}} </ion-label>
+              <ion-input formControlName='f19_sno' type='number' class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+-->
+        </ion-row>
+
+        <ion-row [hidden]="tradeflag">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.f19_tp_purpose' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="90" formControlName="f19_tp_purpose" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.f19_tp_dt' | translate:params}}
+              </ion-label>
+
+              <ion-datetime formControlName="f19_tp_dt" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.place_ins' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="place_ins" interface="alert" (ionChange)="getplacoflocation($event)">
+                <ion-select-option value="Accident Spot">Accident Spot</ion-select-option>
+                <ion-select-option value="RTO office">RTO office</ion-select-option>
+                <ion-select-option value="Police Station">Police Station</ion-select-option>
+                <ion-select-option value="others">Others</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.yearofmanfac' | translate:params}}
+              </ion-label>
+              
+              <ion-input formControlName="yearofmanfac" 
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+            <ion-input type='hidden' formControlName="registration_date"></ion-input>
+            <!--
+ <p [hidden]="yearflag" class="errormsg">
+              The year should be 1900 to current year
+            </p>
+           -->
+           
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.vage' | translate:params}}
+              </ion-label>
+              <ion-input formControlName="vage" type="number" (ionChange)="checkage($event)" class="ion-text-uppercase">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.vclass' | translate:params}}
+              </ion-label>
+
+              <ion-input formControlName="vclass" class="ion-text-uppercase" maxlength="95"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.vtype' | translate:params}}
+              </ion-label>
+
+              <ion-input
+                formControlName="vtype"
+                class="ion-text-uppercase"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.vtype' | translate:params}}
+              </ion-label>
+              <ion-select
+                formControlName="vtype"
+                cancelText="Cancel"
+                interface="alert"
+              >
+                <ion-select-option
+                  *ngFor="let d of options10; let i = index"
+                  value="{{d.id}}"
+                >
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col> -->
+        </ion-row>
+        <ion-input type="hidden" formControlName="vtype"></ion-input>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.make' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="95" formControlName="make" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.makeclass' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="95" formControlName="makeclass" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'acctab1.acc.veh.owner_name' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="95" formControlName="ownername" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'acctab1.acc.veh.owneraddr' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="300" formControlName="vowneraddr" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.engineno' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="95" formControlName="engineno" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.chassisno' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="95" formControlName="chassisno" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.vdescription' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="vdescription" (ionChange)="flagpermit($event)" cancelText="Cancel"
+                interface="alert">
+                <ion-select-option value="1">{{'transport.tranvehicle' |
+                  translate:params}}</ion-select-option>
+                <ion-select-option value="2">{{'transport.nontranvehicle' |
+                  translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.color' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="40" formControlName="color" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.uloadenweight' | translate:params}}
+                <span class="redclr">In KG.</span>
+              </ion-label>
+              <ion-input (ionChange)="checkdigits($event,5)" type="number" formControlName="uloadenweight" type="number"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row> </ion-row>
+        <ion-row [hidden]="permitflag">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.permitcat' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="permitcat" cancelText="Cancel" interface="alert">
+                <ion-select-option *ngFor="let d of options12; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.permitissuedby' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="90" formControlName="permitissuedby" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row [hidden]="permitflag">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.permitno' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="90" formControlName="permitno" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.permitvalidity' | translate:params}}
+              </ion-label>
+              <ion-datetime formControlName="permitvalidity" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row [hidden]="permitflag">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.fitcertstatus' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="fitcertstatus" interface="alert">
+                <ion-select-option value="Valid">Valid</ion-select-option>
+                <ion-select-option value="Expired">Expired</ion-select-option>
+                <ion-select-option value="Not Obtained">Not Obtained</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.fitcertval' | translate:params}}
+              </ion-label>
+              <ion-datetime formControlName="fitcertval" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col [hidden]="permitflag">
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.regloadenweg' | translate:params}}
+                <span class="redclr">In KG.</span>
+              </ion-label>
+              <ion-input maxlength="90" formControlName="regloadenweg" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col [hidden]="!permitflag">
+            <!--  -->
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.regcrtval' | translate:params}}
+              </ion-label>
+              <ion-datetime formControlName="regcrtval" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.polctrlcertval' | translate:params}}
+              </ion-label>
+              <ion-datetime formControlName="polctrlcertval" MAX="2100" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.tax' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="80" formControlName="tax" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.inscomname' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="80" formControlName="inscomname" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.seat_cap' | translate:params}}
+              </ion-label>
+              <ion-input formControlName="seat_cap" type="number" (ionChange)="checseat($event)"
+                class="ion-text-uppercase">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.inscrtpolicyno' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="80" formControlName="inscrtpolicyno" class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.inscrtvalidity' | translate:params}}
+              </ion-label>
+              <ion-datetime formControlName="inscrtvalidity" MAX="2050" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="txtalign">
+            <ion-button (click)="showmiddle()" shape="round" color="tertiary">
+              &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.next' |
+              translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </span>
+
+    <span id="two" [hidden]="transport2">
+      <ion-grid class="ion-no-padding bgcolor1">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.vlength' | translate:params}}<span class="redclr">In MM.</span>
+              </ion-label>
+              <ion-input (ionChange)="checkdigits($event,5)" formControlName="vlength" type="number"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.vwidth' | translate:params}}<span class="redclr">In MM.</span></ion-label>
+              <ion-input (ionChange)="checkdigits($event,5)" formControlName="vwidth" type="number"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.vheight' | translate:params}}
+                <span class="redclr">In MM.</span>
+              </ion-label>
+              <ion-input (ionChange)="checkdigits($event,5)" formControlName="vheight" type="number"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.max_speed' | translate:params}}
+                <span class="redclr">In KMPH.</span>
+              </ion-label>
+              <ion-input (ionChange)="checkmaxspeed($event)" formControlName="max_speed" type="number"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row> </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.cfhandbreak' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="cfhandbreak" (ionChange)="loadcondtionofbrake($event)" interface="alert">
+                <ion-select-option *ngFor="let d of options17; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+<!--
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Brake Status
+              </ion-label>
+              <ion-select formControlName="brakestatus" interface="alert">
+
+
+                <ion-select-option value="Working"> Working</ion-select-option>
+                <ion-select-option value="Not Working"> Not working</ion-select-option>
+
+
+
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+-->
+<ion-col>
+  <ion-item>
+    <ion-label class="fcolor2" position="floating">{{'transport.conditionofbreak' | translate:params}}
+    </ion-label>
+
+    <ion-select formControlName="conditionofbreak" interface="alert">
+      <ion-select-option *ngFor="let d of options13; let i = index" value="{{d.id}}">
+        {{d.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-col>
+
+
+        </ion-row>
+         <!--
+<ion-row *ngIf="this.transport.controls['brakestatus'].value =='Not Working'">
+         
+          -->
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.effoffoodbreak' | translate:params}}
+              </ion-label>
+              <!-- <ion-input formControlName='effoffoodbreak' type='number' (keyup)="checkpercentage($event)" class="ion-text-uppercase"></ion-input> -->
+              <ion-select formControlName="effoffoodbreak" interface="alert" (ionChange)="flagmech($event)">
+                <ion-select-option value="Active">Active</ion-select-option>
+                <ion-select-option value="In-active">In-active</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.effofhandbreak' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="effofhandbreak" interface="alert" (ionChange)="flagmech($event)">
+                <ion-select-option value="Active">Active</ion-select-option>
+                <ion-select-option value="In-active">In-active</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.breakseorn' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="breakseorn" interface="alert">
+                <ion-select-option value="Even">Even</ion-select-option>
+                <ion-select-option value="Not Even">Not Even</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.mech_fstat' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="mech_fstat" interface="alert" (ionChange)="flagmech($event)">
+                <ion-select-option value="yes">
+                  {{'commonlinks.yes' | translate:params}}</ion-select-option>
+                <ion-select-option value="no">
+                  {{'commonlinks.no' | translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.tyrecond' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="tyrecond" interface="alert">
+                <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row [hidden]="mechflag">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.cffb_mech' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="cffb_mech" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.vdefecttype' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="vdefecttype" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options11; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.opif_vd_rd' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="opif_vd_rd" interface="alert">
+                <ion-select-option *ngFor="let d of options16; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.disposofv' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="disposofv" interface="alert">
+                <ion-select-option value="1">
+                  {{'commonlinks.needtobetowed' |
+                  translate:params}}</ion-select-option>
+                <ion-select-option value="2">
+                  {{'commonlinks.canbedrivenaway' |
+                  translate:params}}</ion-select-option>
+                <ion-select-option value="3">
+                  {{'commonlinks.cannotbetowed' |
+                  translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.streeringtype' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="streeringtype" interface="alert" (ionChange)="showsteeringcond($event)">
+                <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.streeingcond' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="streeingcond" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options14; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <!-- Raghul Change Start-->
+        <ion-row>
+          <ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label class="fcolor2" position="floating">{{'transport.wheeltype' | translate:params}}
+                </ion-label>
+                <ion-select formControlName="wheeltype" interface="alert" multiple="false">
+                  <ion-select-option  value="Satisfactory">Satisfactory</ion-select-option>
+                  <ion-select-option  value="Wheel Rim bent">Wheel Rim bent</ion-select-option>
+                  <ion-select-option  value="Wheel Rim Damaged">Wheel Rim Damaged</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-col>
+          <ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label class="fcolor2" position="floating">{{'transport.wiperstype' | translate:params}}
+                </ion-label>
+                <ion-select formControlName="wiperstype" class="ion-text-uppercase">
+                  <ion-select-option value="Working">Working</ion-select-option>
+                  <ion-select-option value="Jam">Jam </ion-select-option>
+                  <ion-select-option value="Free">Free</ion-select-option>
+                  <ion-select-option value="In order">In order</ion-select-option>
+                  <ion-select-option value="Not Working">Not Working</ion-select-option>
+                  
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.mirrorstype' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="mirrorstype" class="ion-text-uppercase">
+                <ion-select-option value="Not Fixed">Not Fixed</ion-select-option>
+                <ion-select-option value="Not Reflective ">Not Reflective </ion-select-option>
+                <ion-select-option value="In order">In order</ion-select-option>
+              
+
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.whethervmb' | translate:params}}</ion-label>
+              <ion-select formControlName="whethervmb">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="this.transport.controls['whethervmb'].value =='Yes'">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.vehmodby' | translate:params}}</ion-label>
+              <ion-textarea formControlName="vehmodby" class="ion-text-uppercase" rows="5" cols="5"
+                placeholder="Enter Vehicle Modified By"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.wrpsi' | translate:params}}</ion-label>
+              <ion-select formControlName="wrpsi">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col *ngIf="this.transport.controls['wrpsi'].value =='Yes'">
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.wfy' | translate:params}}</ion-label>
+              <ion-select formControlName="wfy">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating"
+                >{{'transport.tofs' | translate:params}}</ion-label>
+              <ion-select formControlName="tofs" interface="alert" multiple="false">
+                <ion-select-option  value="No Scratch marks found">No Scratch marks found</ion-select-option>
+                <ion-select-option  value="Paint scratch marks found">Paint scratch marks found</ion-select-option>
+                <ion-select-option  value="Not found">Not found</ion-select-option>
+              </ion-select>
+
+           
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- 10,00,00,000 9 Digit Number -->
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">
+                {{'transport.dodamages' | translate:params}}</ion-label>
+              <ion-input (ionChange)="checkdigitsdamage($event,9)" formControlName="dodamages" type="number" min="1"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <!-- Raghul Change End -->
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.vdamagestat' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="vdamagestat" interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col>
+            <ion-item>
+              <ion-label class='fcolor2' position="floating">{{'transport.damge_sustained' | translate:params}}
+              </ion-label>
+
+
+              <ion-input formControlName='damge_sustained' class="ion-text-uppercase"></ion-input>
+
+            </ion-item>
+          </ion-col> -->
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.damge_sustained' | translate:params}}
+              </ion-label>
+              <ion-textarea maxlength="1000" formControlName="damge_sustained" class="ion-text-uppercase" rows="5"
+                cols="5" placeholder="Enter any notes here..."></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Cause of Accident</ion-label>
+              <ion-textarea maxlength="4900" formControlName="cause_of_acc" class="ion-text-uppercase" rows="5" cols="5"
+                placeholder="Enter any notes here..."></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.skidmark' | translate:params}} Length <span class='redclr'>(in Metres)</span>
+              </ion-label>
+              <ion-input type='number' (ionChange)="checkdigits($event,3)" formControlName="skidmark"
+                class="ion-text-uppercase"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating"
+                >{{'transport.skidmark' | translate:params}} Breath</ion-label
+              >
+              <ion-input
+                formControlName="skidleng"
+                class="ion-text-uppercase"
+              ></ion-input>
+            </ion-item>
+          </ion-col> -->
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Paint transfer found</ion-label>
+              <ion-select formControlName="painttransfer">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+
+        </ion-row>
+
+        <ion-row *ngIf="this.transport.controls['painttransfer'].value =='Yes'">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Location of paint transfer</ion-label>
+
+              <ion-input formControlName="locationoftransfer" maxlength="40"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Color of paint transfer</ion-label>
+
+              <ion-input formControlName="coloroftransfer" maxlength="40"></ion-input>
+
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Installed CNG / LPG kit</ion-label>
+              <ion-select formControlName="installingcng">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          
+          <!--
+<ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Change of vehicle body</ion-label>
+              <ion-select formControlName="changeofvehiclebody">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          -->
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Horn installed and functional?</ion-label>
+              <ion-select formControlName="hornfunctional">
+
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Brake lights & other lights functional?</ion-label>
+              <ion-select formControlName="lightsfuntional">
+
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Vehicle had faulty number plate?</ion-label>
+              <ion-select formControlName="faultynumberplate">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Whether the vehicle fitted with airbags?</ion-label>
+              <ion-select formControlName="airbags">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col *ngIf="this.transport.controls['airbags'].value == 'Yes'">
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Airbags deployed?</ion-label>
+              <ion-select formControlName="airbagsfunctional">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col *ngIf="this.transport.controls['airbagsfunctional'].value == 'No'">
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">If not deployed, state reasons</ion-label>
+              <ion-input formControlName="airbagreasons" maxlength="45"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Vehicle had tinted glasses?</ion-label>
+              <ion-select formControlName="tintedglass">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">For educational institutions bus, whether the vehicle was
+                fitted with the doors that can be shut & whether the vehicle had
+                a suitable inscription to indicate that they are in the duty of
+                an educational institute?</ion-label>
+              <ion-select formControlName="educationalvehicle">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Speed Limiter devices in case of PSV (Commercial
+                vehicle)</ion-label>
+              <ion-select formControlName="psvinstalled">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col *ngIf="this.transport.controls['psvinstalled'].value == 'Yes'">
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Whether functional or not?</ion-label>
+              <ion-select formControlName="psvfunctional">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Parking Sensors</ion-label>
+              <ion-select formControlName="parkingsensors">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col *ngIf="this.transport.controls['parkingsensors'].value == 'Yes'">
+            <ion-item>
+              <ion-label position="floating" class="fcolor2">Whether functional or not?</ion-label>
+              <ion-select formControlName="sensorfunctional">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2">Vehicle Location Tracking (VLT) Devices</ion-label>
+              <ion-select formControlName="vehicletracking">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col *ngIf="this.transport.controls['vehicletracking'].value == 'Yes'">
+            <ion-item>
+              <ion-label class="fcolor2">Whether functional or not?</ion-label>
+              <ion-select formControlName="vehicletrackingfunctional">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+<!--
+        <ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.trackmark' | translate:params}}
+              </ion-label>
+              <ion-input maxlength="70" formControlName="trackmark"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-col>
+--> <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class="fcolor2" position="floating">{{'transport.device_fit' | translate:params}}
+      </ion-label>
+      <ion-select formControlName="device_fit" interface="alert" (ionChange)="flagmech($event)">
+        <ion-select-option value="yes">
+          {{'commonlinks.yes' | translate:params}}</ion-select-option>
+        <ion-select-option value="no">
+          {{'commonlinks.no' | translate:params}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label class="fcolor2" position="floating">{{'transport.vehicle_bullbars' | translate:params}}
+      </ion-label>
+      <ion-select formControlName="vehicle_bullbars" interface="alert" (ionChange)="flagmech($event)">
+        <ion-select-option value="yes">
+          {{'commonlinks.yes' | translate:params}}</ion-select-option>
+        <ion-select-option value="no">
+          {{'commonlinks.no' | translate:params}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class="fcolor2" position="floating">{{'transport.vehicle_reflectivetapes' | translate:params}}
+      </ion-label>
+      <ion-select formControlName="vehicle_reflectivetapes" interface="alert" (ionChange)="flagmech($event)">
+        <ion-select-option value="yes">
+          {{'commonlinks.yes' | translate:params}}</ion-select-option>
+        <ion-select-option value="no">
+          {{'commonlinks.no' | translate:params}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+
+  <ion-col>
+    <ion-item>
+      <ion-label class="fcolor2" position="floating">{{'transport.vehicle_windscreen' | translate:params}}
+      </ion-label>
+      <ion-select formControlName="vehicle_windscreen" interface="alert" (ionChange)="flagmech($event)">
+        <ion-select-option value="yes">
+          {{'commonlinks.yes' | translate:params}}</ion-select-option>
+        <ion-select-option value="no">
+          {{'commonlinks.no' | translate:params}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.whechkrepiss' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="whechkrepiss" interface="alert">
+                <ion-select-option value="yes">
+                  {{'commonlinks.yes' | translate:params}}</ion-select-option>
+                <ion-select-option value="no">
+                  {{'commonlinks.no' | translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col *ngIf="this.transport.controls['vdescription'].value == 1">
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">{{'transport.whecfxiss' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="whecfxiss" interface="alert">
+                <ion-select-option value="yes">
+                  {{'commonlinks.yes' | translate:params}}</ion-select-option>
+                <ion-select-option value="no">
+                  {{'commonlinks.no' | translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="this.transport.controls['whechkrepiss'].value == 'yes'">
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Check Report Number </ion-label>
+              <ion-input formControlName="checkreportnr" maxlength="30"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Report issued Date
+              </ion-label>
+              <ion-datetime formControlName="checkreportdate" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row *ngIf="this.transport.controls['whecfxiss'].value == 'yes'">
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">CFX Date
+              </ion-label>
+              <ion-datetime formControlName="cfxdate" displayFormat="D MMM YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">CFX Number
+              </ion-label>
+              <ion-input formControlName="cfxno" maxlength="30"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">Inspection Date
+              </ion-label>
+              <ion-datetime  
+              displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc" 
+              formControlName="inspection_date"
+              required></ion-datetime> 
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label class="fcolor2" position="floating">DL Produced
+              </ion-label>
+              <ion-select  
+              formControlName="driving_license_submit_flag"required> 
+                <ion-select-option value="yes">Yes</ion-select-option>
+                <ion-select-option value="no">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="txtalign">
+            <ion-button (click)="showbasic()" shape="round" color="tertiary">
+              &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.prev' |
+              translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+          </ion-col>
+
+          <ion-col class="txtalign">
+            <ion-button *ngIf="!isLoading" type="submit" shape="round" fill="outline" color="success">
+              <ion-icon name="cloud-upload"></ion-icon>
+              &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.save' |
+              translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;
+            </ion-button>
+            <ion-button *ngIf="isLoading" shape="round" color="tertiary">
+              <ion-spinner name="circles"> </ion-spinner>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </span>
+  </form>
+</ion-content>

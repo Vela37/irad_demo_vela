@@ -1,0 +1,97 @@
+<ion-header translucent>
+  <ion-toolbar color="primary" >
+   
+   <ion-title class="alignme-center">New Feedback</ion-title>
+   <ion-buttons slot="end">
+    <ion-button  (click)="closemodal()">
+      <ion-icon name="close" slot="end"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="feedbackform"  (ngSubmit)="addfeedback()" novalidate> 
+
+  <ion-grid> 
+
+    <ion-row>
+      <ion-col>
+      <ion-item>     
+      <ion-label class='fcolor ion-text-wrap' position="floating">Form Name</ion-label>
+     
+      <ion-select  formControlName="formname">    
+        <ion-select-option value="Location">Location</ion-select-option>
+        <ion-select-option value="General">General</ion-select-option>
+        <ion-select-option value="Media">Media</ion-select-option>
+        <ion-select-option value="Vehicle and Driver">Vehicle and Driver</ion-select-option>
+        <ion-select-option value="Passenger">Passenger</ion-select-option>
+        <ion-select-option value="Pedestrian">Pedestrian</ion-select-option>
+        <ion-select-option value="Transport">Transport</ion-select-option>
+        <ion-select-option value="Highway">Highways</ion-select-option>
+        <ion-select-option value="Health">Health</ion-select-option>
+       
+     
+      </ion-select>
+      </ion-item>    
+      </ion-col>
+  </ion-row> 
+
+
+          <ion-row>
+            <ion-col>
+            <ion-item>     
+            <ion-label class='fcolor ion-text-wrap' position="floating">Type</ion-label>
+           
+            <ion-select  formControlName="feedbacktype">    
+              <ion-select-option value="Clarification">Clarification</ion-select-option>
+              <ion-select-option value="Suggestion">Suggestion</ion-select-option>
+              <ion-select-option value="Error">Error</ion-select-option>
+             
+           
+            </ion-select>
+            </ion-item>    
+            </ion-col>
+        </ion-row> 
+
+        <ion-row>
+          <ion-col>
+          <ion-item>     
+          <ion-label class='fcolor ion-text-wrap' position="floating" >Remarks  <ion-icon name="star" class='mandatory'></ion-icon></ion-label>
+          <ion-textarea formControlName="description" rows="6" cols="20" placeholder="Your Remarks"></ion-textarea>   
+          </ion-item>   
+          <p class='errormsg' *ngIf="isSubmitted && errorControl.description.errors?.required">
+            Remarks required
+      </p> 
+          </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class='txtalign'>
+            </ion-col> 
+    
+            <ion-col class='txtalign'>
+            
+              <ion-button *ngIf="loading!=true"  type="submit" shape="round" fill="outline" color='success'>
+                <ion-icon name="cloud-upload"></ion-icon>
+                &nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;&nbsp;
+              </ion-button>
+    
+            </ion-col>
+          </ion-row>
+</ion-grid>
+</form>
+
+
+</ion-content>
+
+<style>
+  .mandatory {
+    color: red;
+    font-size: 7px;
+  }
+  .redclr {
+    color: red;
+    font-size: 9px;
+  }
+</style> 

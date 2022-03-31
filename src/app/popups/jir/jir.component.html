@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+     JIR 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user">
+  <ion-card  ion-text-center class="severity{{selacc.severity}} ion-text-center">
+    <ion-card-header>
+      <ion-card-subtitle>
+       Accident Id:  <b>{{selacc.accid.slice(-4) }} </b>
+        <span *ngIf="selacc.fir"> - FIR/CSR : <b>{{selacc.fir }} </b> </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{selacc.landmark}}, On {{selacc.datetime}} ({{selacc.severity_desc}})
+      <ion-label class="alignme-right"> </ion-label>
+    </ion-card-content>
+    <ion-item class="sev1" *ngIf="user.dept=='1' || user.dept=='2' || user.dept=='3'">
+      <span class="alignme-center" style="width: 100%;">
+        <ion-chip outline    (click)="viewsigneddocument()">
+          <ion-label>JIR</ion-label>
+        </ion-chip>  
+      </span>
+    </ion-item>
+<!-- *ngIf="user.dept=='1' && jirflag.jir_transport=='1' && jirflag.jir_highway=='1'" -->
+    <ion-item class="sev1" *ngIf="user.dept=='1' && jirflag.jir_transport=='1' && jirflag.jir_highway=='1' && jirflag.jir_police=='0'">
+      <span class="alignme-center" style="width: 100%;">
+        <ion-chip outline    (click)="uploadsignedjir()">
+          <ion-label>JIR Upload</ion-label>
+        </ion-chip>  
+      </span>
+    </ion-item>
+
+    <ion-item class="sev1" *ngIf="jirflag.jir_transport=='1' && jirflag.jir_highway=='1' && jirflag.jir_police=='1'">
+      <span class="alignme-center" style="width: 100%;">
+        <ion-chip outline    (click)="viewsignedjir()">
+          <ion-label>JIR Signed </ion-label>
+        </ion-chip>  
+      </span>
+    </ion-item>
+  </ion-card>
+  
+<!--
+
+    <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>Joint Inspection Report</ion-card-title>
+    </ion-card-header>
+  
+ 
+    
+   <ion-card-content *ngIf="selacc">
+      <ion-grid >
+        <ion-row>
+        <ion-col>
+        Accident Id
+        </ion-col>
+        <ion-col>
+        {{selacc.accid}}
+        </ion-col>    
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Date time
+          </ion-col>
+          <ion-col>
+            {{selacc.datetime}}
+          </ion-col>      
+          </ion-row>    
+          <ion-row>
+            <ion-col>
+              landmark
+            </ion-col>
+            <ion-col>
+              {{selacc.landmark}}
+            </ion-col>         
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                view 
+              </ion-col>
+              <ion-col *ngIf="user.dept=='2' || user.dept=='3'">
+              <span (click)="viewsigneddocument()" style='color: blue;font-weight: bold;'>PDF</span>
+              </ion-col> 
+                       
+              </ion-row>  
+        </ion-grid>
+    </ion-card-content>
+    
+  </ion-card>
+-->
+<!--
+ <ion-card  *ngIf="user.dept=='1' && jirflag.jir_transport=='1' && jirflag.jir_highway=='1'">
+  
+    <ion-grid>
+    <ion-row>
+      <ion-col>
+      Police 
+      </ion-col>
+      <ion-col *ngIf="user.dept=='1' && jirflag.jir_transport=='1' && jirflag.jir_highway=='1'">
+        <span (click)="uploadsignedjir()" style='color: blue;font-weight: bold;'>PDF</span>
+        </ion-col> 
+      </ion-row>
+    </ion-grid>
+    </ion-card>
+-->
+ 
+  
+  <ion-card *ngIf="user.dept=='2'">
+
+  <ion-grid>
+  <ion-row>
+    <ion-col>
+    Transport 
+    </ion-col>
+    <ion-col *ngIf="jirflag.jir_transport=='0'">
+      <ion-button size="small" (click)="updatejir(1)">Submit</ion-button>
+      </ion-col>
+      <ion-col *ngIf="jirflag.jir_transport=='1'">
+       <span> JIR submitted</span>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+  </ion-card>
+  <ion-card *ngIf="user.dept=='3'">
+
+    <ion-grid>
+    <ion-row>
+      <ion-col>
+      Highway 
+      </ion-col>
+      <ion-col *ngIf="jirflag.jir_highway=='0'">
+        <ion-button size="small" (click)="updatejir(2)">Submit</ion-button>
+        </ion-col>
+        <ion-col *ngIf="jirflag.jir_highway=='1'">
+         <span> JIR submitted</span>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+    </ion-card>
+
+
+  </ion-content>

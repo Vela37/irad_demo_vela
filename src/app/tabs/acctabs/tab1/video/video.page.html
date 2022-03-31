@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'acctab1.videopage.title' | translate:params}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [hidden]='validaccid'>
+  <ion-card *ngIf="selacc">
+    <ion-item>
+      <ion-label class='gbox'>Accident ID : {{selacc.accid}}</ion-label>
+    </ion-item>
+    <ion-card-content>
+     <span> Near {{selacc.landmark}} </span>
+     <span> At  {{selacc.datetime}}</span>
+    </ion-card-content>
+  
+    
+    <ion-grid>
+      <ion-row>
+         
+              </ion-row>
+             
+              <ion-row>
+                <ion-col class='txtalign'>
+                  &nbsp; &nbsp; &nbsp; Video 1 <br> 
+                  &nbsp; &nbsp; &nbsp; <ion-icon (click)="takeVideo(1)" ios="ios-videocam" md="md-videocam" size='large' color='danger'></ion-icon>    
+                 
+                  <video *ngIf="video[1]==1" type="video/mp4" autoplay controls [src]="video[1]">
+                    The “video” tag is not supported by your browser. Click [here] to download the video file.
+                  </video>
+
+
+                </ion-col>
+                  <ion-col class='txtalign'>
+                      Video 2 <br><ion-icon (click)="takeVideo(2)" ios="ios-videocam" md="md-videocam" size='large' color='danger'></ion-icon>    
+                     
+
+                      <video *ngIf="video[2]==1" type="video/mp4" autoplay controls [src]="video[2]">
+                        The “video” tag is not supported by your browser. Click [here] to download the video file.
+                      </video>
+
+                    </ion-col>    
+                      <ion-col class='txtalign'>
+                        <ion-chip (click)="save()" shape="round"  fill="outline" color='success' >
+                          <ion-label>{{'acctab1.videopage.save' | translate:params}}</ion-label>
+                          <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>
+                         </ion-chip>
+
+                      </ion-col>
+
+                      <ion-col class='txtalign'>
+                        
+                         <ion-chip (click)="skip()" shape="round"  fill="outline" color='danger' >
+                          <ion-label>{{'acctab1.videopage.skip' | translate:params}}</ion-label>
+                         </ion-chip>
+
+                      </ion-col>
+                    </ion-row>
+                  
+                   
+                </ion-grid>
+
+
+  </ion-card>
+  <style>
+    .mandatory
+    {
+    color:red;
+    font-size:7px; 
+    }
+  
+    ion-content {
+                  --background: linear-gradient(#8ad1cc, #fff);
+  }
+  ion-card{
+    --background: linear-gradient(#fff, #fff);
+  
+  }
+    </style>
+
+</ion-content>

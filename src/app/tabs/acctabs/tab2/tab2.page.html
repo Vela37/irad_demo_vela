@@ -1,0 +1,302 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{ 'acctab2.title' | translate:params }}
+    </ion-title>
+
+  <!--  <ion-buttons slot="end">
+      <ion-select placeholder="English" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ta">தமிழ்</ion-select-option>
+        <ion-select-option value="hi">हिंदी</ion-select-option> 
+        <ion-select-option value="be">বাংলা</ion-select-option> 
+      </ion-select>
+    </ion-buttons> -->
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class=" background">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+    <ion-refresher-content 
+      pullingIcon="arrow-down-outline" 
+      pullingText="Pull to refresh" 
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+    
+      <!--  <ion-card-subtitle>
+        <ion-text  style='text-align:center; ' >
+          <h4 style="color:#183e7a">{{ 'home.irad' | translate:params }} </h4>
+        </ion-text >
+      </ion-card-subtitle> -->
+     
+      <ion-grid>
+       <ion-row>
+         <ion-col style='text-align:center; '>
+            <img   width="200" height="160" src="assets/logos/irad_logo1.png" />
+            <ion-text style='text-align:center; '>
+              <h2 style="color:#183e7a">{{ 'home.irad' | translate:params }} </h2>
+            </ion-text>
+           </ion-col>
+       </ion-row>
+        <ion-row>
+          <ion-col  *ngIf='flag!=0' style='text-align:center'>
+      <ion-text style='text-align:center; '>
+      <ion-chip *ngIf="!offlineflag" shape="round" fill="outline" color='success'>
+        <ion-label> INTERNET </ion-label>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </ion-chip>
+      <ion-chip *ngIf="offlineflag" shape="round" fill="outline" color='danger'>
+        <ion-label> INTERNET </ion-label>
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-chip>
+
+
+      <ion-chip shape="round" fill="outline" color='success'>
+        <ion-label> &nbsp;&nbsp;&nbsp;CCTNS&nbsp;&nbsp;&nbsp; </ion-label>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </ion-chip>
+
+
+
+      <ion-chip shape="round" fill="outline" color='success'>
+        <ion-label> &nbsp;&nbsp;&nbsp;VAHAN&nbsp;&nbsp;&nbsp; </ion-label>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </ion-chip>
+
+
+
+      <ion-chip shape="round" fill="outline" color='success'>
+
+        <ion-label> &nbsp;SARATHI&nbsp; </ion-label>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+
+      </ion-chip>
+      </ion-text>
+</ion-col></ion-row>
+ <ion-row *ngIf="false">
+  <ion-col  style='text-align:center'>
+    
+
+    
+
+      <ion-label> &nbsp;  &nbsp; &nbsp;
+      <h1>  <ion-icon name="call" color='primary'></ion-icon>
+
+        <a class="pointer"  href="tel:108">  <span style="color:red" >108</span></a>
+        &nbsp;
+        <ion-icon name="call" color='primary'></ion-icon>
+        <a class="pointer"  href="tel:100">  <span style="color:red" >100</span></a>
+        </h1>
+        <br>
+       </ion-label>
+
+    
+
+  </ion-col>
+</ion-row> 
+<ion-row >
+
+  <ion-col  *ngIf='role==40 || role==37 || role==50 || role==80 || role==75 || role==90' style='text-align:center'>
+  <ion-button  color="primary"  *ngIf='flag!=0' [routerLink]="link" > 
+    {{ 'home.button' | translate:params }} 
+    </ion-button> 
+  </ion-col>
+  <ion-col  *ngIf='role==5' style='text-align:center'>
+    
+    <ion-button  color="primary"  *ngIf='flag!=0' [routerLink]="link" > 
+       {{ 'acctab2.newacc' | translate:params }} 
+      </ion-button> 
+      <br>
+      <br>
+      <ion-button  color="primary"  *ngIf='flag!=0' [routerLink]="review" > 
+        {{ 'home.review' | translate:params }} 
+       </ion-button> 
+      
+ 
+</ion-col>
+<ion-col  *ngIf='flag!=0 &&role<5' style='text-align:center'>
+            
+  <ion-button  color="primary"  *ngIf='flag!=0' [routerLink]="link" > 
+    {{ 'home.button' | translate:params }} 
+    </ion-button> 
+ <!-- <ion-chip shape="round"  fill="outline" color="primary"  *ngIf='flag!=0' [routerLink]="link">
+      
+    <ion-label> <h2>  {{ 'home.button' | translate:params }}  </h2> </ion-label>
+    <ion-icon name="ios-arrow-dropright"></ion-icon>
+  </ion-chip> -->
+</ion-col>
+
+</ion-row>
+<!--
+<ion-row *ngIf="!netstat.connected">
+  <ion-col  *ngIf='flag!=0' style='text-align:center'>
+    
+    <ion-button  color="danger"  *ngIf='flag!=0' [routerLink]="offline" > 
+      {{ 'home.button' | translate:params }}      </ion-button> 
+      
+
+</ion-col>
+</ion-row>
+-->
+
+
+
+       <!--
+        <ion-row *ngIf="role!=5">
+          <ion-col></ion-col>
+          <ion-col class=" alignme-center">
+         
+          </ion-col>
+         <ion-col class=" alignme-right">
+            <h1>  <a class="pointer"  href="tel:100"> <ion-icon ios="ios-call" md="md-call"></ion-icon> <span style="color:red">100</span></a></h1>
+          </ion-col> 
+          <ion-col></ion-col>
+        </ion-row> -->
+      </ion-grid>
+
+  
+
+  <!--
+  <ion-card  class="ion-padding ion-text-center" routerLink="/acctabs/tab1/location">
+   <ion-icon ios="ios-add-circle" md="md-add-circle" size='large'></ion-icon>
+  <h6 >   {{ 'acctab2.newacc' | translate:params }}</h6>
+    
+
+
+   <ion-chip class="ion-text-center " shape="round"  fill="outline" color='success' routerLink="/acctabs/tab1/location">
+    <ion-icon ios="ios-add-circle" md="md-add-circle" size='large'></ion-icon>
+    <ion-label>  {{ 'acctab2.newacc' | translate:params }} </ion-label>
+
+  </ion-chip>
+
+  </ion-card>
+-->
+  <!-- <ion-grid class="Absolute-Center">
+
+    
+    
+    
+  <ion-row>
+      <ion-col>
+
+        
+
+            <ion-card class="ion-padding ion-text-center " routerLink="/acctabs/tab1/location">
+              <ion-label></ion-label>
+              <ion-button fill="outline" >{{ 'acctab2.newacc' | translate:params }}<ion-icon name="list" slot="end"></ion-icon></ion-button>
+          </ion-card>
+          </ion-col>
+        </ion-row>
+          <ion-row>
+          <ion-col class="ion-padding ion-text-center " >
+          <ion-chip *ngIf="netstat.connected" shape="round"  fill="outline" color='success'>          
+            <ion-label> INTERNET </ion-label>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+         </ion-chip>
+         <ion-chip *ngIf="!netstat.connected" shape="round"  fill="outline" color='danger'>          
+          <ion-label> INTERNET </ion-label>
+          <ion-icon name="close-circle-outline"></ion-icon>
+       </ion-chip>
+
+  
+        <ion-chip shape="round"  fill="outline" color='success'>          
+            <ion-label> &nbsp;&nbsp;&nbsp;CIPRUS&nbsp;&nbsp;&nbsp; </ion-label>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-chip>
+   
+
+   
+            <ion-chip shape="round"  fill="outline" color='success'>          
+                <ion-label> &nbsp;&nbsp;&nbsp;VAHAN&nbsp;&nbsp;&nbsp; </ion-label>
+                <ion-icon name="checkmark-circle-outline"></ion-icon>
+              </ion-chip>
+    
+       
+       
+                <ion-chip shape="round"  fill="outline" color='success'>          
+                    
+                  <ion-label> &nbsp;SARATHI&nbsp; </ion-label>
+                    <ion-icon ios="ios-close-circle" md="md-checkmark-circle"></ion-icon>
+
+                  </ion-chip>
+         
+       
+       
+      </ion-col>
+      </ion-row> 
+      
+
+     
+    </ion-grid>  -->
+
+
+   <!-- <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+      <ion-fab-button color="primary"> 
+        <ion-icon ios="ios-call" md="md-call"></ion-icon> 
+        <a class="pointer"  href="tel:108">  <span style="color:white; font-size: 18px;" >108</span></a>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button color="light">  108
+          <ion-icon name="logo-facebook"></ion-icon> 
+        </ion-fab-button>-->
+       <!-- <ion-fab-button color="light">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button color="light">
+          <ion-icon name="logo-vimeo"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button color="light">
+          <ion-icon name="logo-google"></ion-icon>
+        </ion-fab-button> 
+      </ion-fab-list>
+    </ion-fab>-->
+
+
+</ion-content>
+<ion-footer >
+  <ion-grid>
+    <ion-row>
+      <ion-col> 
+        <ion-img style='text-align:center ; height:60px'alt="NIC Logo" src="assets/images/morth_logo.jpg"></ion-img>
+      </ion-col>
+      <ion-col  *ngIf='flag!=0&&role>=5'>
+        <h1 style="text-align: center;"> 
+          <a class="pointer"  href="tel:">  <span style="color:cornflowerblue" >
+            <ion-icon name="keypad-outline"></ion-icon></span> </a> 
+          </h1>
+      </ion-col>
+      <ion-col *ngIf="state_code"  >
+        <ion-img style='height:60px;'  alt="{{state_code}} Police" src="assets/logos/{{state_code}}_police.jpg"></ion-img>
+      </ion-col>
+    </ion-row>
+  
+  </ion-grid>
+  </ion-footer>
+
+<style>
+  ion-content.background {
+    --background: url(assets/icon/bg.jpg) 0 0/100% 100% no-repeat;
+  }
+
+  .mandatory {
+    color: red; 
+    font-size: 7px;
+  }
+
+  ion-content {
+    --background: linear-gradient(#fff, #f2faff);
+  }
+
+  ion-card {
+    --background: linear-gradient(#fff, #fff);
+
+  }
+</style>

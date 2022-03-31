@@ -1,0 +1,208 @@
+
+.cordova-camera-select{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.imginalert{
+  width: 100%;
+height: 100%;
+border: 2px solid #848383;
+border-radius: 5px;
+}
+
+.my-buffer-progress{
+  --background:#82F038;
+  --buffer-background:#F0A821;
+  --progress-background:#82F038;
+}
+
+.fload
+{
+    width:20px;
+
+}
+.imgpreview{
+
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    padding: 3px;
+    border-radius: 100%;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin: 0 auto;
+    width: 25px;
+    height:25px;
+    overflow: hidden;
+  
+  }
+
+  .bgcolor1
+  {
+    background: linear-gradient(#bcc1f5, #f4f5f8);
+  }
+
+  .fcolor
+{
+  color:#284c85;
+  font-size:15px; 
+}
+.iconclr{
+    color:#05417d;
+}
+
+
+page-home {
+  ion-icon {
+      font-size: 5em;
+      font-weight: bold;
+  }
+}
+.headdsn{
+  background-color:#056399;
+  height:45px;
+  color:yellow;
+
+ 
+}
+.txtalign
+ {
+    text-align: center !important;
+ }
+.gbox{
+  background:#fff;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox{
+  background:#fff;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+
+.gbox1{
+  background:#c8eda6;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox1{
+  background:#c8eda6;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+
+.gbox2{
+  background:#befafa;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox2{
+  background:#befafa;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+
+.gbox3{
+  background:#d0b5eb;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox3{
+  background:#d0b5eb;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+.gbox4{
+  background:#b0b6f5;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox4{
+  background:#b0b6f5;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+.gbox5{
+  background:#edd8af;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox5{
+  background:#edd8af;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+.gbox6{
+  background:#8ad1cc;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox6{
+  background:#8ad1cc;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+.gbox7{
+  background:#f2e8ae;
+  color:#183e7a;
+  font-weight: bold;
+  
+}
+.icongbox7{
+  background:#f2e8ae;
+  color:#dd0d75;
+  font-weight: bold;
+  
+}
+
+.mandgbox{
+  background:#f38cac;
+  color:#FFF;
+  font-weight: bold;
+  
+}
+.ctn
+{
+  background-color: red;
+}
+.clr{
+  color:#fa6e6e;
+  font-size:11px; 
+}
+.bgcolor{
+background:#55b562; 
+color:#fcee81;
+font-size:15px; 
+}
+.bgcolor1{
+  color:#fff;
+  }
+
+  .bgcolor2{
+    color:#dd0d75;
+    font-size:21px; 
+    }

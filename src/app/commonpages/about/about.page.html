@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="true"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>About iRAD</ion-title>
+      <ion-buttons slot="end">
+        <ion-button  routerLink="/home">
+          <ion-icon name="home" slot="end"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content >
+  
+  
+    <ion-grid>
+      <ion-row color="primary"  class="ion-justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="8" size-lg="6" size-xs="10">
+          <div class="ion-text-center">
+            <ion-img style='text-align:center ;'  class="ion-margin-top" alt="iRAD " src="assets/logos/irad_about.jpg"></ion-img>
+          </div>
+          </ion-col>
+      </ion-row>
+      </ion-grid>
+    <!-- <ion-text style='text-align:center; ' >
+      <ion-img style='text-align:center ; 'alt="About iRAD" src="assets/logos/irad_about.jpg"></ion-img>
+    </ion-text> -->
+  
+    
+  
+  
+     
+     <!-- <ion-card-header>
+        <ion-card-subtitle>Destination</ion-card-subtitle>
+        <ion-card-title>Madison, WI</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+      </ion-card-content> -->
+
+
+  </ion-content>
+  <ion-item-divider *ngIf="mobiledevice==true" >
+ 
+  </ion-item-divider>
+  <ion-item-divider *ngIf="mobiledevice==true" >
+    <ion-label  color='medium'>
+      minimum android version 8/8+
+  
+    </ion-label>
+   
+  </ion-item-divider>

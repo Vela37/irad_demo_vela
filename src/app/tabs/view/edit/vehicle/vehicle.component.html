@@ -1,0 +1,1445 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="txtalign">
+      Vehicle - {{ vehicleinfo.vehicle_reg_no | uppercase }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.vehiclecategory" | translate: params }}
+          </ion-label>
+          <ion-select
+            [(ngModel)]="vehicleinfo.vehiclecategory"
+            interface="alert"
+          >
+
+
+            <ion-select-option value="1">{{'commonlinks.motorisedfuel' | translate:params}}</ion-select-option>
+            <ion-select-option value="2"> {{'commonlinks.motorisedelectric' | translate:params}}</ion-select-option>
+            <ion-select-option value="0"> {{'commonlinks.nonmotorised' | translate:params}}</ion-select-option>
+
+
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="stacked"
+            >{{ "acctab1.acc.veh.regnstatus" | translate: params }}
+          </ion-label>
+          <ion-select [(ngModel)]="vehicleinfo.regnstatus" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options13; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor">{{
+            "acctab1.acc.veh.hitandrun" | translate: params
+          }}</ion-label>
+          <ion-toggle
+            color="danger"
+            [(ngModel)]="vehicleinfo.hitandrun"
+          ></ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolorred" position="floating"
+            >{{ "acctab1.acc.veh.vehicle_rgn" | translate: params }}
+            <ion-icon name="star" class="mandatory"></ion-icon>
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="vehicleinfo.vehicle_reg_no"
+            (keyup)="onVehRegnoKeyUp($event)"
+            class="ion-text-uppercase"
+          >
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-item [hidden]="datacombo">
+          <ion-label class="fcolor" position="floating"></ion-label>
+          <ion-button
+            [disabled]="chkedit"
+            [hidden]="vahanflag"
+            shape="round"
+            (click)="getvahan()"
+            color="tertiary"
+          >
+            <ion-icon name="cloud-download"></ion-icon>&nbsp;&nbsp;&nbsp;VAHAN
+          </ion-button>
+          <ion-button [hidden]="!vahanflag" shape="round" color="tertiary">
+            <ion-spinner name="circles"> </ion-spinner>&nbsp; Loading
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="stacked" class="fcolor"
+            >{{ "acctab1.acc.veh.disposition" | translate: params }}
+          </ion-label>
+          <ion-select [(ngModel)]="vehicleinfo.disposition" interface="alert">
+            <ion-select-option value="Can be Driven away">
+              {{ "commonlinks.canbedrivenaway" | translate: params }}
+            </ion-select-option>
+            <ion-select-option value="Need to be towed">
+              {{ "commonlinks.needtobetowed" | translate: params }}
+            </ion-select-option>
+            <ion-select-option value="Can not be towed">
+              {{ "commonlinks.cannotbetowed" | translate: params }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="stacked" class="fcolor"
+            >{{ "acctab1.acc.veh.manouvere" | translate: params }}
+          </ion-label>
+          <ion-select
+            [(ngModel)]="vehicleinfo.manoeuvre"
+            multiple="true"
+            interface="alert"
+          >
+            <!-- (ionChange)="get value($event)"-->
+            <ion-select-option
+              *ngFor="let d of options6; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="stacked" class="fcolor"
+            >{{ "acctab1.acc.veh.vdamages" | translate: params }}
+          </ion-label>
+          <ion-select
+            multiple="true"
+            [(ngModel)]="vehicleinfo.vdamage"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options7; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.accusedvictim" | translate: params }}
+          </ion-label>
+          <ion-select
+            [(ngModel)]="vehicleinfo.accused_victim"
+            interface="alert"
+          >
+            <ion-select-option value="Accused">{{
+              "commonlinks.accused" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="Victim">{{
+              "commonlinks.victim" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="Not Known">{{
+              "commonlinks.notknown" | translate: params
+            }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+    
+              <ion-col>
+    
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+    
+                <ion-item *ngIf="false" [hidden]="datacombo">
+                  <ion-label position="floating" class='fcolor'>{{'acctab1.acc.veh.vehilcedefect' | translate:params}}
+                  </ion-label>
+                  <ion-select multiple="true" [(ngModel)]="vehicleinfo.vehicledefect" interface="alert">
+                    <ion-select-option *ngFor="let d of options5; let i = index" value="{{d.id}}">
+                      {{d.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item> 
+    
+              </ion-col>
+    
+            </ion-row>-->
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.loadcategory" | translate: params }}
+          </ion-label>
+          <ion-select
+            [(ngModel)]="vehicleinfo.loadcategory"
+            interface="alert"
+            (ionChange)="loadcondtions()"
+          >
+            <ion-select-option value="Passenger">{{
+              "commonlinks.passengers" | translate: params
+            }}</ion-select-option>
+            <ion-select-option value="Goods">
+              {{ "commonlinks.goods" | translate: params }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="stacked" class="fcolor"
+            >{{ "acctab1.acc.veh.loadcondtion" | translate: params }}
+          </ion-label>
+          <ion-select
+            [(ngModel)]="vehicleinfo.load_condtions"
+            interface="alert"
+          >
+            <ion-select-option
+              *ngFor="let d of options14; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!--  <ion-row [hidden]="vahandata">
+              <ion-col>
+    
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+    
+                <ion-item [hidden]="datacombo">
+                  <ion-label class='fcolorred' position="floating">{{'acctab1.acc.veh.vehicletype' | translate:params}}
+                  </ion-label>
+    
+                  <ion-input [(ngModel)]="vehicleinfo.vehicle_type" class="ion-text-uppercase" >
+                  </ion-input>
+                </ion-item>
+                 
+    
+              </ion-col>             
+    
+            </ion-row> -->
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.owner_name" | translate: params }}
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.service_ownername"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">{{
+            "acctab1.acc.veh.vcolor" | translate: params
+          }}</ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.color"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.owneraddr" | translate: params }}
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.owneraddr"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!--  <ion-row [hidden]="!vahandata">
+              <ion-col>
+    
+                <ion-skeleton-text animated style="width: 100%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%" [hidden]="!datacombo"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%" [hidden]="!datacombo"></ion-skeleton-text>
+    
+                <ion-item [hidden]="datacombo">
+                  <ion-label position="floating" class='fcolor'>{{'acctab1.acc.veh.vehicletype' | translate:params}}
+                  </ion-label>
+                  <ion-input [(ngModel)]="vehicleinfo.vehicle_type"></ion-input>
+                </ion-item>
+    
+                
+              </ion-col>
+            </ion-row> -->
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">{{
+            "acctab1.acc.veh.make" | translate: params
+          }}</ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.vehicle_make"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">{{
+            "acctab1.acc.veh.model" | translate: params
+          }}</ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.vehicle_model"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.insurance" | translate: params }}
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.insurance_details"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.insurancepolicy" | translate: params }}
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.insurance_policyno"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >{{ "acctab1.acc.veh.insurancepolicyon" | translate: params }}
+          </ion-label>
+
+          <ion-datetime
+            [(ngModel)]="vehicleinfo.insurance_validity"
+            MAX="2050"
+            displayFormat="D MMM YYYY"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item>
+          <ion-label position="floating" class="fcolor">Engine No </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.engine_nr"> </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item>
+          <ion-label position="floating" class="fcolor">Chasis No </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.chasis_number"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Registration Date
+          </ion-label>
+
+          <ion-datetime
+            [(ngModel)]="vehicleinfo.registration_date"
+            MAX="2050"
+            displayFormat="D MMM YYYY"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">Fuel Type {{vehicleinfo.fuel_type}}</ion-label>
+          <ion-select [(ngModel)]="vehicleinfo.fuel_type" interface="alert">
+            <ion-select-option value="DIESEL">Diesel</ion-select-option>
+            <ion-select-option value="PETROL">Petrol</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Vehicle Body Type Description
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_body_type_desc"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Vahan Vehicle category
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_vch_catg"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Norms Description
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_norms_desc"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            PUC Certificate Upto
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_pucc_upto"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            PUC Certificate Number
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_pucc_no"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Vehicle Laden Weight(GVW)
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_gvw"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Vehicle Un-Laden Weight
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_unld_wt"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            No of Cylinder
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_no_cyl"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Vehicle Cubic Capacity
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_cubic_cap"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Seating Capacity
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_seat_cap"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Standing Capacity
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_stand_cap"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">Wheelbase </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_wheelbase"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Fitness Validity
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_fit_upto"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Tax Validity
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_tax_upto"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            National Permit No
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_np_no"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >National Permit Issued By
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_np_issued_by"> </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Finance Name
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_financer"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Owner Permanent Address
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_permanent_address">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor">
+            Owner Present Address
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_present_address"> </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item>
+          <ion-label position="floating" class="fcolor">Owner Sr No </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_owner_sr"> </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Owner Father Name
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_f_name"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Vehicle Class
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.vehicle_class"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="stacked" class="fcolor"
+            >Vehicle Type
+          </ion-label>
+          <!-- <ion-input [(ngModel)]="vehicleinfo.vehicle_type"></ion-input> -->
+          <ion-select [(ngModel)]="vehicleinfo.vehicle_type" interface="alert">
+            <ion-select-option
+              *ngFor="let d of options8; let i = index"
+              value="{{ d.id }}"
+            >
+              {{ d.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+      
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >Year of Manufacture
+          </ion-label>
+          <ion-input [(ngModel)]="vehicleinfo.rc_manu_month_yr"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text
+          animated
+          style="width: 100%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40%"
+          [hidden]="!datacombo"
+        ></ion-skeleton-text>
+
+        <ion-item [hidden]="datacombo">
+          <ion-label position="floating" class="fcolor"
+            >National Permit Validity
+          </ion-label>
+
+          <ion-datetime
+            [(ngModel)]="vehicleinfo.rc_np_upto"
+            MAX="2050"
+            displayFormat="D MMM YYYY"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+              <ion-icon slot="icon-only" name="wifi"></ion-icon>
+            </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

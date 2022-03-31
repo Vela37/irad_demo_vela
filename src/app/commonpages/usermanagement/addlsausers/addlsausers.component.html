@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      {{lsausersdata.name }} ({{lsausersdata.code }}) LSA Users
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card >
+  <ion-item>
+    <ion-card-subtitle color="primary" >{{lsausersdata.name }} ({{lsausersdata.code }})</ion-card-subtitle>
+    <ion-note slot="end" color="primary" (click)="loadLSAUsers(0)" >  <ion-icon name="refresh-outline"></ion-icon></ion-note>
+  </ion-item>
+
+  <ion-card-content>
+   <ion-grid>
+     <ion-row *ngFor="let usr of lsausersdata?.users">
+       <ion-col> {{usr.name}}</ion-col>
+       <ion-col> {{usr.username}}</ion-col>
+       <ion-col> {{usr.password}} </ion-col>
+       
+       <ion-col size="1"> 
+        <ion-icon *ngIf="usr.active" color="success" name="checkmark-circle-outline"></ion-icon>
+        <ion-icon *ngIf="!usr.active" color="danger" name="close-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="1">
+        <ion-icon  *ngIf="usr.active"  (click)="disableUser(usr)" color="danger"  name="close-circle-outline"></ion-icon>
+        <ion-icon  *ngIf="!usr.active"  (click)="disableUser(usr)" color="warning"  name="arrow-undo-circle-outline"></ion-icon>
+      </ion-col>
+
+     </ion-row>
+   </ion-grid>
+  </ion-card-content>
+  <ion-grid>
+  <ion-row>
+    <ion-col>        </ion-col>
+   <ion-col >
+    <ion-chip color="primary">
+      <ion-label (click)="addINSUser()"> &nbsp; <ion-icon name="person-add-outline"></ion-icon>  &nbsp;   Add New User  &nbsp; </ion-label>
+    </ion-chip>
+  </ion-col>
+ </ion-row>
+</ion-grid>
+  </ion-card>
+
+
+
+</ion-content>
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <!-- <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()"> &nbsp; Close &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> 

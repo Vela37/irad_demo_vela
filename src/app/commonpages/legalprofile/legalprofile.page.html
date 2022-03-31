@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="text-align: center ;" >
+      Legal Service Authority  
+    </ion-title>
+   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div *ngIf="courtdet">
+  
+  <ion-card  color="light" >
+    <ion-card-header color="primary">
+      <ion-card-subtitle>
+        <div  style="
+            color: rgb(255, 253, 253);
+            width: 10%;
+            float: right;
+            text-align: rigt;
+          ">
+          EDIT
+        </div>
+        <div style="text-align: left; color: rgb(255, 253, 253) ">
+          Court
+        </div>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-row>
+      <ion-col>
+        <div >Court Name</div>
+      </ion-col>
+      <ion-col>
+         <div >{{courtdet.courtname}}
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >State</div>
+      </ion-col>
+      <ion-col>
+        <div > {{courtdet.stname}}
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >District</div>
+      </ion-col>
+      <ion-col>
+         <div >{{courtdet.dtname}}
+
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >Address</div>
+      </ion-col>
+      <ion-col>
+        <div > {{courtdet.address}}
+
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >Court type</div>
+      </ion-col>
+      <ion-col>
+        <div >{{courtdet.get_courttype }}
+
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >EMAIL Id</div>
+      </ion-col>
+      <ion-col>
+         <div >{{courtdet.emailid }}
+
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >LandLine</div>
+      </ion-col>
+      <ion-col>
+         <div > {{courtdet.landline }}
+
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >Pincode</div>
+      </ion-col>
+      <ion-col>
+       <div > {{courtdet.pincode }}
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div >Taluk</div>
+      </ion-col>
+      <ion-col>
+        <div > {{courtdet.rev_taluk }}
+
+        </div> 
+      </ion-col>
+    </ion-row>
+
+    </ion-card>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,307 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Dar Child  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+
+<ion-content>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+      Name of Child
+      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.name"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+       Age
+      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.age"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>  
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Gender      </ion-label>
+<ion-select [(ngModel)]="passengerinfo.sex" interface="alert">
+  <ion-select-option value="Male"></ion-select-option>
+  <ion-select-option value="Female"></ion-select-option>
+  <ion-select-option value="tg"></ion-select-option>
+
+</ion-select>     </ion-item>
+  </ion-col>
+</ion-row> 
+ <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Caste     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.caste"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>  
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Father Name     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.father_name"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Mother Name     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.mother_name"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Guardian's Name     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.guardian_name"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Family Income     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.family_income"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Permanent Address     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.permanent_address"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Present Address     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.present_address"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Present living condition/ economic condition(after the accident)    </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.economic_condition"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Current status of education    </ion-label>
+<ion-select [(ngModel)]="passengerinfo.level_of_education" interface="alert">
+  <ion-select-option value="Yes"></ion-select-option>
+  <ion-select-option value="No"></ion-select-option>
+
+</ion-select>     </ion-item>
+  </ion-col>
+</ion-row>  <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Whether the child is enrolled under EWS quota      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.ews_quota"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        If not attending school, reasons to be provided      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.going_to_school_or_not"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        School Information     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.corpanc"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Monthly School tuition fee      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.monthly_school_fee"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Annual school fee      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.annual_school_fee"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Private tuition / coaching fee     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.pvt_tution_fee"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Any other expenditure / logistics fee      </ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Type of skill development     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.lossOfproperty"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Any injured to child    </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.any_injury"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Loss of any body part due to accident     </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.loss_of_body_part"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Whether immediate psychological counseling / treatment /    </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.childlongtermsupport"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Whether long term support required   </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.long_term_support_required"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Cost involved in immediate medical treatment    </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.cost_immediate_treatment"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Cost involved in long term medical treatment   </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.cost_longterm_treatment"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+        Diet and nutrition expenses   </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.diet_nutrition_expenses"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+</ion-content>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

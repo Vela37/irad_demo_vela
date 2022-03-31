@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Legal services 
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+
+  <ion-card color='light'>
+    <ion-card-header>
+      <ion-card-subtitle>Legal services</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate>
+      <ion-grid>
+
+        <ion-row>      
+          <ion-col>
+            <ion-item>
+
+
+            <ion-label>Types </ion-label>
+              <ion-select interface="alert" 
+                (ionChange)=showlevel()
+                id="ctrl_typeofcourt"
+                name="ctrl_typeofcourt"
+                #showhpInput="ngModel"
+                 [(ngModel)]="ctrl_typeofcourt" required>      
+                <ion-select-option *ngFor="let d of data_courttype; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div *ngIf="f.submitted && showhpInput.invalid">
+            <p class="errormsg" *ngIf="showhpInput.errors.required" >
+              Type of court required
+            </p>
+          </div>
+
+
+          </ion-col>
+        
+          </ion-row>
+
+                <ion-row *ngIf="courtflag">      
+                  <ion-col>
+                    <ion-item>
+                    <ion-label>District</ion-label>
+                    <ion-select interface="alert" (ionChange)=loadtaluk()   id="ctrl_district"
+                    name="ctrl_district"
+                    #showhpInput="ngModel"
+                     [(ngModel)]="ctrl_district">       
+                      <ion-select-option *ngFor="let d of district; let i = index" value="{{d.id}}">
+                        {{d.name}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  </ion-col>
+                  </ion-row>
+
+                  <ion-row *ngIf="courtflagtwo">      
+                    <ion-col>
+                      <ion-item>
+                      <ion-label>Taluk </ion-label>
+                      <ion-select interface="alert" (ionChange)=callcortlisttaluk() 
+                      id="ctrl_taluk"
+                    name="ctrl_taluk"
+                    #showhpInput="ngModel"
+                     [(ngModel)]="ctrl_taluk"
+                      >      
+                        <ion-select-option *ngFor="let d of data_taluk; let i = index" value="{{d.id}}">
+                          {{d.name}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    </ion-col>
+                    </ion-row>
+
+                    
+                  <ion-row *ngIf="courtlist">      
+                    <ion-col>
+                      <ion-item>
+                      <ion-label>Legal service authority </ion-label>
+                      <ion-select interface="alert"    id="ctrl_courtlist"
+                      name="ctrl_courtlist"
+                      #showhpInput="ngModel"
+                       [(ngModel)]="ctrl_courtlist" required>      
+                        <ion-select-option *ngFor="let d of data_court; let i = index" value="{{d.id}}">
+                          {{d.name}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <div *ngIf="f.submitted && showhpInput.invalid">
+                      <p class="errormsg" *ngIf="showhpInput.errors.required" >
+          
+                       Court required
+                      </p>
+                    </div>
+                    </ion-col>
+                    </ion-row>
+                 
+                    <ion-row>
+                  
+                      
+                      <ion-col>
+                      
+                        <ion-button expand="full" type="submit" >Submit</ion-button>
+
+                      </ion-col>
+                      </ion-row>
+                
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

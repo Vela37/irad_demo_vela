@@ -1,0 +1,849 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'app.profile' | translate:params }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-select placeholder="English" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="ta">தமிழ்</ion-select-option>
+        <ion-select-option value="hi">हिंदी</ion-select-option>
+        <ion-select-option value="be">বাংলা</ion-select-option>
+        <ion-select-option value="kn">ಕನ್ನಡ</ion-select-option>
+        <ion-select-option value="mr">मराठी</ion-select-option>
+
+        <ion-select-option value="asm">অসমীয়া</ion-select-option>
+        <ion-select-option value="od">ଓଡ଼ିଆ</ion-select-option>
+        <ion-select-option value="pa">ਪੰਜਾਬੀ پنجابی‎</ion-select-option>
+        <ion-select-option value="ml">മലയാളം</ion-select-option> 
+        <ion-select-option value="gu">ગુજરાતી</ion-select-option> 
+
+      </ion-select>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngIf="user.dept<='3'" style="margin: -8px">
+    <div class="list card">
+      <ion-item> 
+        <div>
+           <img class="image"  [src]="img" /><!-- (click)="selectImage()" -->
+        </div>
+        <ion-note slot="end" color="primary" (click)="profileEdit()">
+          <ion-icon size="medium" name="create-outline"></ion-icon>
+        </ion-note>
+        <h2 class="ion-padding" style="
+            color: #183e7a;
+            font-size: 18px;
+            font-size: 15px;
+            line-break: anywhere;
+            font-weight: 600;
+          ">
+          {{userp.name}}
+        </h2>
+      </ion-item>
+      <div class="ion-padding list card">
+        <div class="">
+          <!-- <img *ngIf="user.dept=='1'" src="assets/logos/{{user.state_code}}_police.jpg" class="card-img-absolutes"
+            alt="" /> -->
+            <div class="shadow"><img class="logo"  *ngIf="user.dept=='1'" src="assets/logos/{{user.state_code}}_police.jpg"
+              alt="" /></div>
+          <div class="hero-text">
+            <ion-row>
+              <ion-col>
+                <div>{{ 'profile.department' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.dept}}</div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>{{ 'profile.role' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.role}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.ps!=null">
+              <ion-col>
+                <div>{{ 'profile.policestation' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.ps | titlecase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="user.dept=='2' && userp.office!=null">
+              <ion-col>
+                <div>RTO / PTW  </div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.office | uppercase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.district">
+              <ion-col>
+                <div>{{ 'profile.district' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.district | titlecase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.state">
+              <ion-col>
+                <div>{{ 'profile.state' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.state | titlecase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.email">
+              <ion-col>
+                <div>{{ 'profile.email' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.email }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.mobile">
+              <ion-col>
+                <div>{{ 'profile.mobile' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.mobile }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.designation">
+              <ion-col>
+                <div>{{ 'profile.designation' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.designation }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.regno">
+              <ion-col>
+                <div>{{ 'profile.regno' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.regno }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.status">
+              <ion-col>
+                <div>{{ 'profile.status' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>
+                  <ion-icon *ngIf="userp.status" color="success" name="checkmark-circle-outline"></ion-icon>
+                  <ion-icon *ngIf="!userp.status" color="danger" name="close-circle-outline"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" fill="clear" (click)="userinfoEdit()">Change Password</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="user.dept=='4'">
+              <ion-col>
+                <ion-button expand="block" fill="clear" (click)="reDirect()">Profile
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="user.dept=='5' || user.dept=='6' || user.dept=='7'" style="margin: -8px">
+    <div class="list card">
+      <ion-item> 
+        <div>
+          <img class="image" (click)="selectImage()" [src]="img" />
+        </div>
+        <ion-note slot="end" color="primary" (click)="profileEdit()">
+          <ion-icon size="medium" name="create-outline"></ion-icon>
+        </ion-note>
+        <h2 class="ion-padding" style="
+            color: #183e7a;
+            font-size: 18px;
+            font-size: 15px;
+            line-break: anywhere;
+            font-weight: 600;
+          ">
+          {{userp.name}}
+        </h2>
+      </ion-item>
+      <div class="ion-padding list card">
+        <div class="">
+          <!-- <img *ngIf="user.dept=='1'" src="assets/logos/{{user.state_code}}_police.jpg" class="card-img-absolutes"
+            alt="" /> -->
+            <div class="shadow"><img class="logo"  *ngIf="user.dept=='1'" src="assets/logos/{{user.state_code}}_police.jpg"
+              alt="" /></div>
+          <div class="hero-text">
+            <ion-row>
+              <ion-col>
+                <div>{{ 'profile.department' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.dept}}</div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>{{ 'profile.role' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.role}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.ps!=null">
+              <ion-col>
+                <div>{{ 'profile.policestation' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.ps | titlecase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="user.dept=='2' && userp.office!=null">
+              <ion-col>
+                <div>RTO / PTW  </div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.office | uppercase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.district">
+              <ion-col>
+                <div>{{ 'profile.district' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.district | titlecase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.state">
+              <ion-col>
+                <div>{{ 'profile.state' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.state | titlecase}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.email">
+              <ion-col>
+                <div>{{ 'profile.email' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.email }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.mobile">
+              <ion-col>
+                <div>{{ 'profile.mobile' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.mobile }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="user.dept=='7' && userp.designation">
+              <ion-col>
+                <div>Insurance Company</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.designation }}</div>
+              </ion-col>
+            </ion-row>
+            
+
+
+            <ion-row *ngIf="userp.regno">
+              <ion-col>
+                <div>{{ 'profile.regno' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>{{userp.regno }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="userp.status">
+              <ion-col>
+                <div>{{ 'profile.status' | translate:params }}</div>
+              </ion-col>
+              <ion-col>
+                <div>
+                  <ion-icon *ngIf="userp.status" color="success" name="checkmark-circle-outline"></ion-icon>
+                  <ion-icon *ngIf="!userp.status" color="danger" name="close-circle-outline"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" fill="clear" (click)="userinfoEdit()">Change Password</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="user.dept=='4'">
+              <ion-col>
+                <ion-button expand="block" fill="clear" (click)="reDirect()">Profile
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+
+<br>
+<br>
+  <ion-card *ngIf="user.dept=='1'&& user.role=='4'" style="margin: -8px">
+   
+  <ion-item>
+    <ion-label color="danger">
+      <strong>Field Officers wise Accident Count </strong>
+    </ion-label>
+    <ion-note slot="end" *ngIf="focount"> <ion-icon size="small" name="reload-outline" (click)="showFOCountDetails()"></ion-icon> </ion-note>
+    <ion-note slot="end" *ngIf="focount && focount != -1">    <a (click)="focount=null">Hide</a></ion-note>
+
+  </ion-item>
+  <ion-card-content
+    class="alignme-center pointer"
+    *ngIf="!focount"
+    (click)="showFOCountDetails()"
+  >
+    Show Details
+  </ion-card-content>
+  <ion-card-content
+    class="alignme-center pointer"
+    *ngIf="focount  && focount.length==0"
+  >
+    Data Not Found !
+  </ion-card-content>
+
+  <ion-card-content *ngIf="focount && focount.length!=0">
+   <!-- <ion-grid>
+     <ion-row >
+       <ion-col>Field Officer</ion-col>
+       <ion-col>Pending</ion-col>
+       <ion-col>Completed</ion-col>
+       <ion-col>Total</ion-col>
+     </ion-row>
+    <ion-row *ngFor="let usr of focount">
+     <ion-col (click)="viewProfile(usr.fouser)" > {{usr.fouser}}</ion-col>
+      <ion-col >{{usr.pending}}</ion-col>
+      <ion-col  >{{usr.completed}}</ion-col>
+      <ion-col  >{{usr.pending+usr.completed}}</ion-col>
+
+      
+    </ion-row>
+   </ion-grid> -->
+   <!-- <table>
+
+    <thead>
+      <tr>
+        <th scope="col">Field Officer</th>
+        <th scope="col">Pending</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let usr of focount">
+      <tr>
+        <td data-label="Field Officer" (click)="viewProfile(usr.fouser)">{{usr.fouser}}</td>
+        <td data-label="Pending">{{usr.pending}}</td>
+        <td data-label="Completed">{{usr.completed}}</td>
+        <td data-label="Total">{{usr.pending+usr.completed}}</td>
+      </tr>
+    </tbody>
+  </table> -->
+  <table cellspacing="0">
+    <tr>
+       <th>Picture</th>
+       <th>Field Officer</th>
+       <th>Pending</th>
+       <th>Completed</th>
+       <th>Total</th>
+       
+    </tr>
+   
+    <tr *ngFor="let usr of focount">
+       <td><img class="images" src="{{profilepicbase+usr.fouser}}" alt="" /></td>
+       <td (click)="viewProfile(usr.fouser)">{{usr.fouser}}</td>
+       <td>{{usr.pending}}</td>
+       <td>{{usr.completed}}</td>
+       <td style="text-align: center;">{{usr.pending+usr.completed}}</td>
+    </tr>
+ 
+ </table>
+  </ion-card-content>
+
+      
+  </ion-card>
+<br>
+<br>
+  <ion-card *ngIf="user.role=='4'" style="margin: -8px">
+    <ion-item>
+      <ion-label style="color: tomato">
+        <strong> Hospitals </strong>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content class="alignme-center pointer" *ngIf="!options1" (click)="loadselection()">
+      Show Details
+    </ion-card-content>
+    <ion-card-content class="alignme-center pointer" *ngIf="options1 && options1.length==0">
+      Data Not Found !
+    </ion-card-content>
+
+    <ion-card-content>
+      <span *ngFor="let d of options1; let i = index ">
+        <ion-item>
+          {{i+1}} . &nbsp; <ion-label color="danger"> {{d.hpname}}</ion-label>
+          <ion-label> {{d.hpaddr}}</ion-label>
+        </ion-item>
+      </span>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card *ngIf="user.dept=='4' && healthuser!=null">
+    <div class="list card">
+      <ion-item class="hpheader" color="hospital">
+        <div class="user-img">
+          <img src="assets/logos/doctor.png" />
+        </div>
+        <h2 class="ion-padding" style="color: #fff">
+          &nbsp;&nbsp;&nbsp;{{healthuser.hpname}}
+        </h2>
+      </ion-item>
+
+      <ion-card color="light">
+        <ion-card-header color="hospital">
+          <ion-card-subtitle>
+            <div (click)="reDirect()" style="
+                color: rgb(255, 253, 253);
+                width: 10%;
+                float: right;
+                text-align: rigt;
+              ">
+              EDIT
+            </div>
+            <div style="text-align: left; color: rgb(255, 253, 253)">
+              Basic Information
+            </div>
+          </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-row>
+          <ion-col>
+            <div style="color: red">User Id</div>
+          </ion-col>
+          <ion-col>
+            <div style="color: red">{{user.userid}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Hospital Name</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.hpname}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row color="danger">
+          <ion-col>
+            <div class="labelclr">Hospital Address</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.address}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Pin Code</div>
+          </ion-col>
+          <ion-col>
+            <div>{{healthuser.pincode}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Email</div>
+          </ion-col>
+          <ion-col>
+            <div>{{healthuser.emailid}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="healthuser.police_state=='29'">
+          <ion-col>
+            <div class="labelclr">Joint Director</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.joint_directorsname}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">State</div>
+          </ion-col>
+          <ion-col>
+            <div>{{healthuser.statename}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">District</div>
+          </ion-col>
+          <ion-col>
+            <div>{{healthuser.distname}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Landline</div>
+          </ion-col>
+          <ion-col>
+            <div>{{healthuser.landline}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="healthuser.hospital_type=='Government'">
+          <ion-col>
+            <div class="labelclr">Classification</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.claasification}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="healthuser.hospital_type=='Private'">
+          <ion-col>
+            <div class="labelclr">Speciality</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.speciality}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="labelclr" style="color: red">Poilce Station</div>
+          </ion-col>
+          <ion-col>
+            <div style="color: red" class="txtcap">{{healthuser.psname}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card color="light">
+        <ion-card-header color="hospital">
+          <ion-card-subtitle>
+            <div (click)="editinfrasruture()" style="
+                color: rgb(255, 253, 253);
+                width: 10%;
+                float: right;
+                text-align: rigt;
+              ">
+              EDIT
+            </div>
+            <div style="text-align: left; color: rgb(255, 253, 253)">
+              Infrastructure
+            </div>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Postmorterm Facility</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.postmortem}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Drunk and Drive Test Facility</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.ddfacility}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Hospital Type</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.hospital_type}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Total Bed Strength</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.totalbed}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Number of In Patients Beds</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.noinpatientsbed}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Number of ICU Beds</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.nooficubed}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Fully Equiped Operation Theatre</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.fullyequipedtheatre}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Number of OT's</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.no_of_ot}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Blood Bank</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.bloodbank}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Medical Records Department</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.medicalrecord}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Ambulatory Service</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.ambulance}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">
+              Diagnostic Centre Clinical Lab and Diagnostics(Basic)
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.lab}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card color="light">
+        <ion-card-header color="hospital">
+          <ion-card-subtitle>
+            <div (click)="pmjayedit()" style="
+                color: rgb(255, 253, 253);
+                width: 10%;
+                float: right;
+                text-align: rigt;
+              ">
+              EDIT
+            </div>
+            <div style="text-align: left; color: rgb(255, 253, 253)">PMJAY</div>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">PAN card Holder Name</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.pan_card_holder_name}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">PAN Card Number</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.pan_card_nuber}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Account Holder Name</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.account_holder_name}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Account Number</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.account_number}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Name of the Bank Account of Hospital</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.branch_name}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">IFSC Code</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.ifsc_code}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">Bank Name</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.postmortem}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">NHA Officer Name</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.nha_officername}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">NHA Officer Number</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.nha_officernumber}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">NHA Officer Email Id</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.nha_officerlandline}}</div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="labelclr">NHA Officer Landline</div>
+          </ion-col>
+          <ion-col>
+            <div class="txtcap">{{healthuser.nha_officerlandline}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <div class="ion-padding list card">
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" fill="clear" (click)="userinfoEdit()">Change Password</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </ion-card>
+
+
+  <!-- <ion-list>
+ 
+  <ion-item *ngFor="let d of options1; let i = index">
+    
+    {{i+1}} . &nbsp; <ion-label color='danger'> {{d.hpname}}</ion-label>
+    <ion-label> {{d.hpaddr}}</ion-label>
+   
+  </ion-item>
+ 
+</ion-list> -->
+
+  <!--
+<ion-card *ngIf="user.dept=='2' && user.office_id!=null">
+  <ion-item>
+    <ion-label style="color:rgb(3, 148, 148)"> <strong> Police Stations      </strong> </ion-label>
+   
+  </ion-item>
+  <ion-card-content class="alignme-center pointer" *ngIf="!psdata" (click)="loadPoliceStations()"> Show Details
+  </ion-card-content>
+  <ion-card-content class="alignme-center pointer" *ngIf="psdata  && psdata==-1"> Data Not Found ! </ion-card-content>
+  <ion-card-content *ngIf="psdata && psdata != -1">
+
+    <ion-grid style="color:darkslategray">
+
+      <ion-row *ngFor="let ps of psdata; index as i">
+        <ion-col> {{ps.code}}</ion-col>
+        <ion-col size=1> : </ion-col>
+        <ion-col>{{ps.name}} </ion-col>
+      </ion-row>
+      </ion-grid>
+      </ion-card-content>
+      </ion-card> -->
+</ion-content>

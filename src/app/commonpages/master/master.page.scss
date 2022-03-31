@@ -1,0 +1,153 @@
+ion-content {
+    --background: radial-gradient(at 0 90%, rgb(243, 225, 146), #def3a4);
+  }
+
+  .table-wrapper{
+    margin: 10px 10px 10px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    /*white-space: nowrap;*/
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #ECECEC;;
+}
+
+.thead1{
+color:#ffffff;
+background:#324960;
+/*border: 1px solid #ffffff; */
+font-weight:bold;
+}
+.thead2{
+color:#ffffff;
+background:#4FC3A1;
+border: 1px solid #f8f8f8;
+font-weight: bold;
+}
+.thead3{
+color:#324960;
+background: #d5f5e3 ;
+border: 1px solid #f8f8f8;
+font-weight: bold;
+text-align: left !important;
+
+}
+
+.tdcount1{
+color:#324960;
+background: #aed6f1  ;
+border: 1px solid #f8f8f8;
+font-weight: bold;
+text-align: right !important;
+}
+.tdcount2{
+color:#324960;
+text-align: right !important;
+}
+
+.alignleft{
+text-align: left;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba( 71, 147, 227, 1);
+  color: white;
+  text-align: center;
+}
+.flink{
+	background: rgba( 71, 147, 227, 1);
+	color:  #2330a2;
+	text-align: center;
+	cursor:pointer;
+	font-size: 14px;
+	font-weight:bold;
+	text-decoration:none;
+}
+.astyle{
+	text-decoration:none;
+	border: none !important;
+	color:#324960;
+background: #d5f5e3 ;
+font-weight: bold;
+text-align: left !important;
+}
+
+.alignleft{
+  text-align: left !important;
+  }
+.alignright{
+  text-align: right !important;;
+}
+// .scroller {
+//   overflow: scroll;
+//   height: 100%;
+//   width: 200%;
+// }
+.common {
+  overflow: auto;
+  max-height: 50vh;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border: 1px solid yellowgreen;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: yellowgreen;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #88ba1c;
+}
+thead.fixedHeader tr {
+  position: relative;
+}
+// .common {
+//   overflow-y: auto;
+// }
+// .common thead th {
+//   position: sticky;
+//   top: 0;
+//   box-shadow: 2p 2px 2px -1px rgb(248, 7, 7);
+// }

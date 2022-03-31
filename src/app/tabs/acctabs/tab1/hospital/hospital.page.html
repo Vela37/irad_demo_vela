@@ -1,0 +1,606 @@
+<ion-header>
+  <ion-toolbar color="hospital txtalign">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{titlevechile}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="healthform" (ngSubmit)="addhealth()" novalidate>
+    <span id='one' [hidden]="health1">
+
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.patient_type' | translate:params}}</ion-label>
+              <ion-select formControlName="patient_type" interface="alert">
+                <ion-select-option value="OP">MLC - OP</ion-select-option>
+                <ion-select-option value="IP">MLC - IP</ion-select-option>
+              </ion-select>
+
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.patient_type.errors?.required">
+              Patient Type Required
+            </p>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.patient_id' | translate:params}} </ion-label>
+              <ion-input formControlName='patient_id' class='textuppercarse'></ion-input>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+           
+                    <ion-col><ion-item><ion-label position="floating" class='fcolor'>{{'health.timeof_arrival' | translate:params}} </ion-label>
+                          
+                      <ion-datetime  formControlName='timeof_arrival' min="2020" MAX=2025  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+                    </ion-item>
+                    <p class='errormsg' *ngIf="isSubmitted && errorControl.timeof_arrival.errors?.required">
+                      Time of Arrival Required
+                    </p>
+                  </ion-col>
+
+                  <ion-col><ion-item><ion-label position="floating" class='fcolor'>Ward No</ion-label>
+                          
+                    <ion-input formControlName='wardno'class='textuppercarse'></ion-input>
+                  </ion-item>
+                
+                </ion-col>
+                  </ion-row> 
+        <ion-row>
+         
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.hospitalization_mode' | translate:params}}
+              </ion-label>
+              <ion-select formControlName='hospitalization_mode' interface="alert">
+                <ion-select-option *ngFor="let d of options5; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.pre_arrivalintimation' | translate:params}}
+              </ion-label>
+              
+              <ion-select formControlName="pre_arrivalintimation" interface="alert">
+                <ion-select-option value="YES">YES</ion-select-option>
+                <ion-select-option value="NO">NO</ion-select-option>
+              </ion-select>
+
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.informant_name' | translate:params}} </ion-label>
+              <ion-input formControlName='informant_name'class='textuppercarse'></ion-input>
+
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.informant_name.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.informant_name.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.informant_name.errors?.pattern">
+              {{'errmsg.nameformat' | translate:params}}
+            </p>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.relationship_patient_type' | translate:params}}
+              </ion-label>
+              <ion-select formControlName="relationship_patient_type" interface="alert">
+                <ion-select-option value="Blood Realtion">Blood Relation</ion-select-option>
+                <ion-select-option value="Relatives">Relatives</ion-select-option>
+                <ion-select-option value="Co passenger">Co passenger</ion-select-option>
+                <ion-select-option value="Other Driver">Other Driver</ion-select-option>
+                <ion-select-option value="Passer By">Passer By</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.contact_address' | translate:params}} </ion-label>
+              <ion-input formControlName='contact_address'class='textuppercarse'></ion-input>
+            </ion-item>
+
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.contact_address.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.contact_address.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+
+
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.contact_number' | translate:params}} </ion-label>
+              <ion-input formControlName='contact_number' type="number" (ionChange)="checkmobile($event)"class='textuppercarse'></ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.contact_number.errors?.pattern">
+
+              {{'errmsg.mobileformat' | translate:params}}
+            </p>
+          </ion-col>
+        </ion-row>
+
+
+
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.patient_name' | translate:params}} </ion-label>
+              <ion-input formControlName='patient_name'class='textuppercarse'></ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.patient_name.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.patient_name.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.patient_name.errors?.pattern">
+              {{'errmsg.nameformat' | translate:params}}
+            </p>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.gender' | translate:params}} </ion-label>
+              <ion-select formControlName="gender" interface="alert">
+                <ion-select-option value="Male">{{'commonlinks.male' | translate:params}}</ion-select-option>
+                <ion-select-option value="Female">{{'commonlinks.female' | translate:params}}</ion-select-option>
+                <ion-select-option value="TG">{{'commonlinks.tg' | translate:params}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.patient_address' | translate:params}} </ion-label>
+              <ion-input formControlName='patient_address'class='textuppercarse'></ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.patient_address.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.patient_address.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.age' | translate:params}} </ion-label>
+              <ion-input formControlName='age' type='number' (ionChange)="checkage($event)"class='textuppercarse'></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.patient_occupation' | translate:params}}
+              </ion-label>
+              <ion-select formControlName='patient_occupation' interface="alert">
+                <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.identification_marks1' | translate:params}}
+              </ion-label>
+              <ion-input formControlName='identification_marks1'class='textuppercarse'></ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.identification_marks1.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.identification_marks1.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.identification_marks1.errors?.pattern">
+              {{'errmsg.nameformat' | translate:params}}
+            </p>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.identification_marks2' | translate:params}}
+              </ion-label>
+              <ion-input formControlName='identification_marks2'class='textuppercarse'></ion-input>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.identification_marks2.errors?.minlength">
+                {{'errmsg.minimumname' | translate:params}}
+              </p>
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.identification_marks2.errors?.maxlength">
+                {{'errmsg.maximumname' | translate:params}}
+              </p>
+
+              <p class='errormsg' *ngIf="isSubmitted && errorControl.identification_marks2.errors?.pattern">
+                {{'errmsg.nameformat' | translate:params}}
+              </p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.injury_severity' | translate:params}} </ion-label>
+
+              <ion-select formControlName='injury_severity' interface="alert">
+                <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.injury_type' | translate:params}} </ion-label>
+
+              <ion-select  multiple="true" formControlName='injury_type' interface="alert">
+                <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.nature_ofinjury' | translate:params}} </ion-label>
+
+              <ion-select   formControlName='nature_ofinjury' interface="alert">
+                <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.conscious' | translate:params}} </ion-label>
+
+             
+              <ion-select formControlName='conscious' interface="alert">
+                <ion-select-option *ngFor="let d of options9; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-button (click)="showhchecklist()">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{'health.measure' | translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </ion-button>
+            </ion-item>
+          
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.prearrival' | translate:params}} </ion-label>
+  
+              <ion-select formControlName='prearrival_traumaflag' interface="alert">
+                <ion-select-option *ngFor="let d of options10; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        
+        <ion-row>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.orientation' | translate:params}} </ion-label>
+
+              <ion-select formControlName="orientation" interface="alert">
+                <ion-select-option value="Oriented">Oriented</ion-select-option>
+                <ion-select-option value="Disoriented">Disoriented</ion-select-option>
+
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.intimationto_police' | translate:params}}
+              </ion-label>
+
+              <ion-select formControlName="intimationto_police" interface="alert">
+                <ion-select-option value="YES">YES</ion-select-option>
+                <ion-select-option value="NO">NO</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      
+
+
+      
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              
+              <ion-button (click)="showhistroy()">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;History&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </ion-button>
+          
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-button (click)="presentModal()">Physical examination</ion-button>
+            </ion-item>
+          </ion-col>
+         
+        </ion-row>
+        <ion-input formControlName="treatment" type='hidden'class='textuppercarse'></ion-input>
+        <ion-input formControlName="histroy" type='hidden'class='textuppercarse'></ion-input>
+        <ion-input formControlName="physician_opinion" type='hidden'class='textuppercarse'></ion-input>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-button (click)="showtreatment()">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{'health.treatment' | translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </ion-button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.description_pupil' | translate:params}}
+              </ion-label>
+              <ion-select formControlName='description_pupil' interface="alert">
+                <ion-select-option *ngFor="let d of options8; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          
+        </ion-row>
+
+        <ion-row [hidden]="refflag">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.referral_institution' | translate:params}}
+              </ion-label>
+              <ion-input formControlName='referral_institution'class='textuppercarse'></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.reason_for_referral' | translate:params}}
+              </ion-label>
+              <ion-select formControlName='reason_for_referral' interface="alert">
+                <ion-select-option *ngFor="let d of options6; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col class='txtalign'>
+            <ion-button (click)="showmiddle()" shape="round" color='tertiary'>
+              &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.next' | translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+    </span>
+    <span id='one' [hidden]="health2">
+
+      <ion-grid>
+       
+
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.dr_name' | translate:params}} </ion-label>
+              <ion-input formControlName='dr_name'class='textuppercarse'></ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.dr_name.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.dr_name.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.dr_name.errors?.pattern">
+              {{'errmsg.nameformat' | translate:params}}
+            </p>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.docto_desgn' | translate:params}} </ion-label>
+              <ion-input formControlName='docto_register'class='textuppercarse'></ion-input>
+            </ion-item>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.docto_register.errors?.minlength">
+              {{'errmsg.minimumname' | translate:params}}
+            </p>
+            <p class='errormsg' *ngIf="isSubmitted && errorControl.docto_register.errors?.maxlength">
+              {{'errmsg.maximumname' | translate:params}}
+            </p>
+
+        
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.specialization' | translate:params}} </ion-label>
+             
+              <ion-select formControlName='specialization' interface="alert" multiple="false">
+                <ion-select-option *ngFor="let d of options13; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.breathing' | translate:params}} </ion-label>
+
+              <ion-select formControlName="breathing" interface="alert">
+                <ion-select-option value="Spontaneous Breathing">Spontaneous Breathing</ion-select-option>
+                <ion-select-option value="No Spontaneous Breathing">No Spontaneous Breathing</ion-select-option>
+
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.xray' | translate:params}} </ion-label>
+              <ion-select formControlName='xray' interface="alert" multiple="true">
+                <ion-select-option *ngFor="let d of options11; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.xraydate' | translate:params}} </ion-label>
+              <ion-datetime  formControlName='xraydate' min="2020" MAX=2025  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+            </ion-item>
+          </ion-col>
+         
+         
+       
+          
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.ctscan' | translate:params}} </ion-label>
+              <ion-select formControlName='ctscan' interface="alert" multiple="false">
+                <ion-select-option *ngFor="let d of options12; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.ctscandate' | translate:params}} </ion-label>
+              <ion-datetime  formControlName='ctscandate' min="2020" MAX=2025  displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+            </ion-item>
+          </ion-col>
+    
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.outcome' | translate:params}}</ion-label>
+              <ion-select (ionChange)="referalflag($event)" formControlName='outcome' interface="alert">
+                <ion-select-option *ngFor="let d of options7; let i = index" value="{{d.id}}">
+                  {{d.name}}
+                </ion-select-option>
+              </ion-select>
+
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class='fcolor'>{{'health.discharge_time' | translate:params}} </ion-label>
+              <ion-datetime formControlName='discharge_time' min="2020" MAX=2025 displayFormat="D MMM YYYY hh:mm A"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating" class='fcolor'>{{'health.hp_position' | translate:params}} </ion-label>
+      <ion-select  formControlName='outcome' interface="alert">
+        <ion-select-option *ngFor="let d of options14; let i = index" value="{{d.id}}">
+          {{d.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+ 
+  </ion-row>
+
+       
+        <ion-input formControlName="doctorsummary"class='textuppercarse'></ion-input>
+
+      
+       
+
+
+
+        <ion-row>
+          <ion-col class='txtalign'>
+            <ion-button (click)="showbasic()" shape="round" color='tertiary'>
+              &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.prev' | translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+          </ion-col>
+
+          <ion-col class='txtalign'>
+            <ion-button *ngIf="!isLoading" type="submit" shape="round" fill="outline" color='success'>
+              <ion-icon name="cloud-upload"></ion-icon>
+              &nbsp;&nbsp;&nbsp;&nbsp;{{'commonlinks.save' | translate:params}}&nbsp;&nbsp;&nbsp;&nbsp;
+            </ion-button>
+            <ion-button *ngIf="isLoading" shape="round" color='tertiary'>
+              <ion-spinner name="circles"> </ion-spinner>
+            </ion-button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </span>
+
+  </form>
+</ion-content>

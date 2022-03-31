@@ -1,0 +1,347 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>MAP</ion-title>
+    <ion-icon slot="end" name="filter-outline" size='large' (click)="shsidepanel()" ></ion-icon> &nbsp; &nbsp;
+    <!-- <ion-icon slot="end" name="swap-vertical-outline" size='large' (click)="scrollToBottomOnInit(ggg)" ></ion-icon> &nbsp; &nbsp; -->
+
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+  <div class="row">
+    <div class="main" >
+
+        <div id="mapId_tab" style="width: 100%; height: 100%; background-color: #fff;"> </div>
+
+  
+       
+      
+      
+        <img src="https://gisnic.tn.nic.in/gsl/gsl.php" style="display:none">
+
+
+  
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button size="small" title="Info" [color]="infoflag ? 'primary' : 'light' " (click)="mapInfo()" >
+      <ion-icon name="information-circle-outline"></ion-icon>
+  </ion-fab-button>
+  
+    <ion-fab-button size="small" title="Your Location" [color]="isTracking ? 'primary' : 'light' " (click)="locTrack()" >
+      <ion-icon name="locate"></ion-icon>
+  </ion-fab-button>
+ 
+  </ion-fab>
+
+  <!-- <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button  color="primary" (click)="showAccident()">
+      <ion-icon ios="ios-map" md="md-map"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list  side="top">
+      <ion-fab-button  (click)="accfiltersev(1)"> <span style="color: #ad1606;" >Fatal</span>       </ion-fab-button>
+      <ion-fab-button  (click)="accfiltersev(2)"> <span style="color: #f90005;" >Grevi</span></ion-fab-button>
+      <ion-fab-button  (click)="accfiltersev(3)" > <span style="color: #f27317;">Sim H </span> </ion-fab-button>
+      <ion-fab-button  (click)="accfiltersev(4)">  <span style="color: #eeb114;"> Sim NH </span></ion-fab-button>
+      <ion-fab-button  (click)="accfiltersev(5)"> <span style="color: #8da600;">  Veh </span></ion-fab-button>
+      <ion-fab-button  (click)="accReset(0)"> <span style="color: #8da600;">  Remove </span></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list  side="end">
+      <ion-fab-button color="light" (click)="accfilteryear(2015)">  2015     </ion-fab-button>
+      <ion-fab-button color="light" (click)="accfilteryear(2016)">   2016     </ion-fab-button>
+      <ion-fab-button color="light" (click)="accfilteryear(2017)">   2017     </ion-fab-button>
+      <ion-fab-button color="light" (click)="accfilteryear(2018)">   2018     </ion-fab-button>
+      <ion-fab-button color="light" (click)="accfilteryear(2019)">   2019     </ion-fab-button>
+      <ion-fab-button color="light" (click)="accReset(1)">   Reset     </ion-fab-button>
+    </ion-fab-list>
+  <!- -  <ion-fab-list side="bottom">
+      <ion-fab-button color="secondary">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="start">
+      <ion-fab-button color="light">
+        <ion-icon name="logo-google"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list> 
+  </ion-fab>-->
+    </div>
+
+
+
+    <div *ngIf='sidepanel' class="side" >
+
+      
+      <ion-segment [(ngModel)]="segment" scrollable>
+    
+        <ion-segment-button   value="layers">
+          Layers
+        </ion-segment-button>
+        <ion-segment-button value="filter">
+         Filter
+        </ion-segment-button>
+        <ion-segment-button  value="style">
+         Analysis
+        </ion-segment-button>
+        <ion-segment-button value="legend">
+          Legend
+        </ion-segment-button>
+    
+      </ion-segment>
+    
+    
+      <div [ngSwitch]="segment">
+        <ion-card *ngSwitchCase="'layers'">
+          <ion-card-header>
+            Layer
+          </ion-card-header>
+          <ion-card-content>
+           
+            <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+              <ion-refresher-content></ion-refresher-content>
+            </ion-refresher> -->
+    <div >
+           <ion-list style="max-height:72vh;">
+            <div  *ngFor="let group of layergroup; let i = index">
+              <ion-item class="item-stable" style="font-size: 12px; font-weight: bold;"
+                        (click)="toggleGroup(group)"
+                        [ngClass]="{active: isGroupShown(group)}">
+                  <i class="icon ion-plus" [ngClass]="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+                  <i class="icon ion-minus" ></i>
+                  <ion-icon name="caret-forward-circle-outline" color='primary' *ngIf="isGroupShown(group)" ></ion-icon>
+                  <ion-icon name="caret-down-circle-outline" color='danger' *ngIf="!isGroupShown(group)" ></ion-icon>
+                &nbsp;
+                <b> {{group.name}} </b>
+              </ion-item>
+              <ng-container *ngFor="let layer of group.layers ; let j = index" >
+              <ion-item class="item-accordion"  style="font-size: 12px;"
+               [class.hide]="isGroupShown(group)" >
+              &nbsp;  &nbsp;  &nbsp; <ion-checkbox  (ionChange)="layerClick(i,j,$event)"></ion-checkbox>  &nbsp; {{layer.layerName}} 
+              </ion-item>
+            </ng-container>
+            </div>
+          </ion-list>
+    
+    
+        </div>
+    
+          </ion-card-content>
+        </ion-card>
+      
+        <ion-card *ngSwitchCase="'filter'">
+          <ion-card-header>
+            Accident 
+          </ion-card-header>
+          <ion-card-content>
+          
+
+            <ion-label position="floating" class='fcolor' > Year</ion-label>
+            <ion-select class="ion-text-wrap" multiple [(ngModel)]="selection.year" interface="alert" >
+              <ion-select-option value="2021">2021</ion-select-option>
+              <ion-select-option value="2022">2022</ion-select-option>
+            </ion-select>
+
+                    <ion-label position="floating" class='fcolor' > State</ion-label>
+                    <ion-select class="ion-text-wrap" [(ngModel)]="selection.state" interface="alert" (ionChange)="loaddistrict()">
+                      <ion-select-option *ngFor="let val of states; let i = index" value="{{val.code}}">
+                        {{val.value}}
+                      </ion-select-option>
+                    </ion-select>
+
+                   
+
+                    <!-- <ion-label position="floating" class='fcolor' > District</ion-label>
+                    <ion-select class="ion-text-wrap" [(ngModel)]="selection.district" interface="alert" (ionChange)="loadpolice()">
+                      <ion-select-option *ngFor="let val of districts; let i = index" value="{{val.code}}">
+                        {{val.value}}
+                      </ion-select-option>
+                    </ion-select> -->
+
+                    <ion-label position="floating" class='fcolor' > Severity</ion-label>
+                    <ion-select class="ion-text-wrap" multiple [(ngModel)]="selection.severity" interface="alert" (ionChange)="applyFilter()">
+                      <ion-select-option *ngFor="let val of severity; let i = index" value="{{val.id}}">
+                        {{val.title}}
+                      </ion-select-option>
+                    </ion-select>
+                    
+                    <ion-label class='fcolor' position="floating">Road Classification </ion-label>
+        
+                    <ion-select [(ngModel)]="selection.roadtype" multiple interface="alert">
+                      <ion-select-option *ngFor="let d of road_type; let i = index" value="{{d.id}}">
+                        {{d.title}}
+                      </ion-select-option>
+                    </ion-select>
+ 
+
+                    <ion-label  position="floating" class='fcolor' > Time</ion-label>
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col >
+                          <ion-button (click)="mapTime('1D')"  [color]="timeflag=='1D'?'success':'primary'" class="ion-text-wrap" >1D</ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('1W')" [color]="timeflag=='1W'?'success':'primary'" class="ion-text-wrap">1W</ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('1M')" [color]="timeflag=='1M'?'success':'primary'" class="ion-text-wrap"> 1M</ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('3M')"  [color]="timeflag=='3M'?'success':'primary'" class="ion-text-wrap"> 3M</ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('6M')"   [color]="timeflag=='6M'?'success':'primary'" class="ion-text-wrap"> 6M</ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('3Y')"  [color]="timeflag=='1Y'?'success':'primary'"  class="ion-text-wrap">1Y</ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('All')"  [color]="timeflag=='All'?'success':'primary'" expand="full" class="ion-text-wrap">All </ion-button>
+                        </ion-col>
+                        <ion-col >
+                          <ion-button (click)="mapTime('CUSTOM')"  [color]="timeflag=='CUSTOM'?'success':'primary'" expand="full" class="ion-text-wrap" >CUSTOM</ion-button>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+             
+                    <ion-row *ngIf="timeflag=='CUSTOM'" >
+                      <ion-item>
+                        <ion-label>From </ion-label>
+                        <ion-datetime min="2021-01-01" [(ngModel)]='fromdate' placeholder="From Date"   displayFormat="D MMM YYYY" ></ion-datetime>
+                      </ion-item>
+                
+                      <ion-item>
+                        <ion-label>To </ion-label>
+                        <ion-datetime [disabled]="fromdate==null" [max]='today'  [(ngModel)]='todate' placeholder="To Date"  displayFormat="D MMM YYYY"></ion-datetime>
+                      </ion-item>
+                        <!--[min]="fromdate" [max]='today' -->
+                    </ion-row>
+
+
+
+
+
+                    &nbsp; &nbsp;
+                    <ion-chip color="danger" (click)="clearFilter()">
+                      <ion-label>Reset</ion-label>
+                    </ion-chip>
+
+                    <ion-chip color="success" (click)="applyFilter()">
+                      <ion-label>Apply</ion-label>
+                    </ion-chip>
+
+                    <ion-item-divider>
+                      <ion-label color="medium" (click)="gridAnalytics(6465)">
+                      
+                      </ion-label>
+                    </ion-item-divider>
+
+                   
+
+                
+          </ion-card-content>
+    
+        
+    
+          <!-- <span *ngIf='false'>
+          <ion-card-header>
+            Administrative 
+          </ion-card-header>
+          <ion-card-content>
+          
+            <ion-grid>    
+           
+                    <ion-label position="floating" class='fcolor'>State</ion-label>
+                    <ion-select class="ion-text-wrap" [(ngModel)]="fld_state" interface="alert" (ionChange)="loaddistrict()">
+                      <ion-select-option *ngFor="let val of state; let i = index" value="{{val.code}}">
+                        {{val.value}}
+                      </ion-select-option>
+                    </ion-select>
+                  
+                      <ion-label position="floating" class='fcolor'>District</ion-label>
+                      <ion-select class="ion-text-wrap" [(ngModel)]="fld_district" interface="alert" (ionChange)="loadpolice()">
+                        <ion-select-option *ngFor="let val of district; let i = index" value="{{val.code}}">
+                          {{val.value}}
+                        </ion-select-option>
+                      </ion-select>
+                   
+                  
+                        <ion-label position="floating" class='fcolor'>Station</ion-label>
+                        <ion-select class="ion-text-wrap" [(ngModel)]="fld_station" interface="alert" (ionChange)="loadpolice()">
+                          <ion-select-option *ngFor="let val of station; let i = index" value="{{val.code}}">
+                            {{val.value}}
+                          </ion-select-option>
+                        </ion-select>
+                    
+    
+                </ion-grid>
+                  
+                    
+                
+    
+          </ion-card-content>
+        </span> -->
+    
+        </ion-card>
+    
+       
+     
+    
+        <ion-card *ngSwitchCase="'style'">
+          <ion-card-header>
+           Analysis
+          </ion-card-header>
+          <ion-card-content>
+            
+            <ion-button color='danger' *ngIf='dev' (click)="topAccidentLocation(10)" expand="block">{{btntitle}}</ion-button>
+            <ion-item-divider>
+              <ion-label color="medium">
+              
+              </ion-label>
+            </ion-item-divider>
+            <ion-grid *ngIf="topaccloc!=null">
+              <ion-row>
+                <ion-col color="primary">
+                  Grid ID
+                </ion-col>
+                <ion-col color="primary">
+                 Count
+                </ion-col>
+               </ion-row>
+               <ion-row *ngFor="let g of topaccloc; let i = index">
+                <ion-col (click)="goToGrid(g.gid)" style="cursor: pointer;" >
+                  {{g.gid}}
+                </ion-col>
+                <ion-col (click)="goToGrid(g.gid)" style="cursor: pointer;" color="danger">
+                 {{g.total}}
+                </ion-col>
+                <ion-col (click)="gridAnalytics(g.gid)" style="cursor: pointer;" color="danger">
+                  <ion-icon name="analytics-outline"></ion-icon>
+                 </ion-col>
+               </ion-row>
+              </ion-grid>
+            
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngSwitchCase="'legend'">
+          <ion-card-header>
+           Accidents
+          </ion-card-header>
+          <ion-card-content>
+            <img [src]=acclegend />
+          </ion-card-content>
+        </ion-card>
+      </div>
+    
+
+    
+     
+                      
+    </div>
+ 
+  
+
+</div>
+</ion-content>

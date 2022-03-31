@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Insurance General  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class='fcolor ion-text-wrap' position="stacked">
+              Nature/Type of Policy
+            </ion-label>
+            <ion-input  
+            [(ngModel)]="insurancegen.nature_of_policy" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of intimation of the accident by the Insured to the Insurance Company
+        </ion-label>
+        <ion-datetime  
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+        [(ngModel)]="insurancegen.intimation_received_date_time_insured"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of appointment of the Designated Officer by the Insurance Company
+        </ion-label>
+        <ion-datetime  
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+        [(ngModel)]="insurancegen.dateof_appt_designated_officer_by_ins"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Designated Officer Name
+        </ion-label>
+        <ion-input  
+        [(ngModel)]="insurancegen.designated_officer_name" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Designated Officer Address
+        </ion-label>
+        <ion-input  
+        [(ngModel)]="insurancegen.designated_officer_residence" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of appointment of the Surveyor/Investigator
+        </ion-label>
+        <ion-datetime  
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+        [(ngModel)]="insurancegen.surveyor_appointment_date"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Surveyor/Investigator Officer Name
+        </ion-label>
+        <ion-input  
+        [(ngModel)]="insurancegen.surveyor_investigator_name" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Surveyor/Investigator Officer Address
+        </ion-label>
+        <ion-input  
+        [(ngModel)]="insurancegen.surveyor_investigator_residence" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of Report of the Surveyor/Investigator
+        </ion-label>
+        <ion-datetime  
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+        [(ngModel)]="insurancegen.dateof_surveyor_investigator_report"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class='fcolor ion-text-wrap' position="stacked">
+          Date of Decision of the Designated Officer
+        </ion-label>
+        <ion-datetime  
+        displayFormat="D MMM YYYY hh:mm:A" [min]="mindate" [max]="maxdate" pickerFormat="" display-timezone="utc"
+        [(ngModel)]="insurancegen.dateof_designated_officer_report"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" class='fcolor' >Whether this Form has been filed within 30 days of receipt of DAR</ion-label>
+      
+        <ion-select  interface="alert" 
+  
+        [(ngModel)]="insurancegen.form_filled_within_30" > 
+           <ion-select-option value="yes"> Yes
+           </ion-select-option>
+           <ion-select-option value="no"> No
+           </ion-select-option>
+         </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col width-50 style="text-align: right" color='primary'>
+       <ion-button color="light"   (click)="closeModal()" >Cancel</ion-button>
+    </ion-col>
+     <ion-col width-50 style="text-align: left"  color='primary'>
+       <ion-button color="light"(click)="saveModal()">Save</ion-button>
+     </ion-col>
+   </ion-row>
+
+  
+</ion-content>
+
+

@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> EDIT Dar Family Details  </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+      Name
+      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.name"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>  <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+       Age
+      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.age"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>  <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Gender      </ion-label>
+<ion-select [(ngModel)]="passengerinfo.gender" interface="alert">
+  <ion-select-option value="Male">Male</ion-select-option>
+  <ion-select-option value="Female">Female</ion-select-option>
+  <ion-select-option value="tg">tg</ion-select-option>
+
+</ion-select>     </ion-item>
+  </ion-col>
+</ion-row>  <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Relationship Type      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.relation_type"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>  <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Martial Staus      </ion-label>
+<ion-select [(ngModel)]="passengerinfo.marital_status" interface="alert">
+  <ion-select-option value="yes">Yes</ion-select-option>
+  <ion-select-option value="no">No</ion-select-option>
+
+</ion-select>     </ion-item>
+  </ion-col>
+</ion-row>  <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Address      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.address"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label class='fcolor ion-text-wrap' position="stacked">
+Contact Number      </ion-label>
+      <ion-input [(ngModel)]="passengerinfo.contact_number"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-button expand="block" fill="clear" [disabled]="wifiDisable">
+          <ion-icon slot="icon-only" name="wifi"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col>
+        <ion-chip color="danger">
+          <ion-label (click)="closeModal()">Cancel</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col>
+        <ion-chip color="primary">
+          <ion-label (click)="saveModal()"> &nbsp; Save &nbsp; </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

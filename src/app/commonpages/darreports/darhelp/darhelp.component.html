@@ -1,0 +1,112 @@
+
+<ion-header>
+  <ion-toolbar color="info">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>e-DAR Help </ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closemodal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-title>
+    <ion-segment scrollable>
+
+
+
+    </ion-segment>
+  </ion-title>
+
+
+    <!-- <ion-searchbar [(ngModel)]="searchTerm" 
+    (ionChange)="setFilteredLocations()"></ion-searchbar> -->
+
+
+</ion-header>
+
+<ion-content>
+
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher> -->
+
+  <ion-list-header>
+
+
+
+    <ion-label color="tertiary">e - DAR Forms
+     
+    </ion-label>
+  </ion-list-header>
+
+  <ion-card *ngFor="let f of forms; let i = index" >
+    <img *ngIf="false" width="100px" src="assets/logos/eDAR_logo1.png" />
+    <ion-card-header>
+      <ion-card-subtitle style="color: #001C54;">{{f.name}}</ion-card-subtitle>
+      <ion-card-title style="color: #001C54;" >{{f.description}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="color: #2c4c97fd ;">
+      {{f.content}}
+    </ion-card-content>
+    <ion-card-content style="color: #0a8de4fd ;">
+      <div *ngFor="let ins of f?.ins; let j = index">  {{j+1}}.  {{ins}}     </div>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
+
+<ion-content *ngIf="false">
+<ion-card class="accordion" class="pending"  >
+  <ion-card-content id="first" style="display: block" >
+
+      <img
+      src="assets/images/circle.svg"
+      class="card-img-absolutes"
+      alt=""
+    />
+
+    <p style="font-size: 22px;color:#001C54; text-align: center;"  > FORM No	- I   	</p>
+    <div class="row" style="border-bottom:0px ">
+      <div class="col" style="font-size: 20px; color:#001C54; text-align: center;">First Accident Report (FAR)</div>
+      <!-- <div class="col" style="padding-top: 20px"><hr></div> -->
+     
+    </div>
+    
+    <div  style=" font-size: 18px; color: #2c4c97fd ; text-align: center;"> <br> By Investigating Officer to Claims Tribunal<br>
+      Within 48 hours of the receipt of intimation of the Accident<br>
+      Copy to Victim(s), Insurance Company and DSLSA </div>
+
+
+  </ion-card-content>
+
+ 
+</ion-card>
+</ion-content>
+<!-- 
+<h1> FORM No	I.   	First Accident Report (FAR)
+</h1><h1> FORM No	II.  	Rights of Victim(s) of road accident and flow chart 
+</h1><h1> FORM No	III. 	Driver's form
+</h1><h1> FORM No	IV.  	Owner's form 
+</h1><h1> FORM No	V.   	Interim Accident Report
+</h1><h1> FORM No	VIA. 	Victim's form
+</h1><h1> FORM No	VIB. 	Victim's form relatingio minor children 
+</h1><h1> FORM No	VII. 	Detailed Accident Report
+</h1><h1> FORM No	VIII.	Site Plan i 
+</h1><h1> FORM No	IX.  	Mechanical Inspection Repdrt 
+</h1><h1> FORM No	X.	 	Verification Report
+</h1><h1> FORM No	XI.  	Insurance fbrm-A 
+</h1><h1> FORM No	XII. 	Victim Impact Report (VIR) 
+</h1><h1> FORM No	XIII.	Format of wrotten submition in death case
+</h1><h1> FORM No	XIV. 	Format of written submissions in injury cases 
+</h1><h1> FORM No	XV.  	Summary of computation of award amount in death cases to be incorporated in the award
+</h1><h1> FORM No	XVI. 	Summary of the computation of award amount in injury cases to be incorporated in the award 
+</h1><h1> FORM No	XVII.	Complianee of the provisions of the Scheme to be 
+</h1><h1> FORM No	XVIII.  Format of record of awards to be maintained by the Claims Tribunal 
+</h1><h1> FORM No	XIX. 	Motor Accident Claims Annuity Deposit(MACAD) scheme
+</h1> -->

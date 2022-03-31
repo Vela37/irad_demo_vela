@@ -1,0 +1,300 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class='txtalign'>
+      Profile
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+
+      <form [formGroup]="healthform" novalidate>
+
+
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label position="floating" class="fcolor">Hospital Name</ion-label>
+              <ion-input formControlName='rhospitalname' class='textuppercarse'></ion-input>
+            </ion-item>
+        </ion-col>
+        </ion-row>
+
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label position="floating" class="fcolor">Address</ion-label>
+              <ion-input formControlName='raddress' class='textuppercarse'></ion-input>
+            </ion-item>
+        </ion-col>
+        </ion-row>
+
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label position="floating" class="fcolor">E-mail</ion-label>
+              <ion-input formControlName='remail' class='textuppercarse'></ion-input>
+            </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item> 
+            <ion-label position="floating" class="fcolor">Pin Code</ion-label>
+            <ion-input formControlName='rpincode' class='textuppercarse'></ion-input>
+          </ion-item>
+      </ion-col>
+        </ion-row>
+
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label  position="floating" class="fcolor">Landline</ion-label>
+              <ion-input formControlName='rlandline' class='textuppercarse'></ion-input>
+            </ion-item>
+        </ion-col>
+        </ion-row>
+
+
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label position="floating" class="fcolor">Hospital Type</ion-label>
+              <ion-select  formControlName='rhospitaltype' (ionChange)="hptypeshow($event)">
+          
+                <ion-select-option value="Government">Government</ion-select-option>
+                <ion-select-option value="Private">Private</ion-select-option>
+           
+              </ion-select>
+            </ion-item>
+        </ion-col>
+
+       <ion-col [hidden]="hptypeflag">
+          <ion-item> 
+            <ion-label  position="floating" class="fcolor">Classification</ion-label>
+            <ion-select formControlName='rclassfication'>
+              <ion-select-option *ngFor="let item of governmenthospitaltype"   [value]="item" > {{item.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+      </ion-col>
+
+
+
+
+
+      <ion-col [hidden]="hptypeflagspec">
+        <ion-item> 
+          <ion-label  position="floating" class="fcolor">Speciality</ion-label>
+          <ion-select formControlName='rspecility' multiple='true'>
+    <ion-select-option value="0">Multi Speciality</ion-select-option>
+    <ion-select-option value="1">Allergy</ion-select-option>
+    <ion-select-option value="2">Anesthesia</ion-select-option>
+    <ion-select-option value="3">Bariatric Medicine/Surgery</ion-select-option>
+    <ion-select-option value="4">Burn/Trauma</ion-select-option>
+    <ion-select-option value="5">Cardiac Catheterization</ion-select-option>
+    <ion-select-option value="6">Cardiology</ion-select-option>
+    <ion-select-option value="7">Cardiovascular Surgery</ion-select-option>
+    <ion-select-option value="8">Colorectal Surgery</ion-select-option>
+    <ion-select-option value="9">Dermatology</ion-select-option>
+    <ion-select-option value="10">Electrophysiology</ion-select-option>
+    <ion-select-option value="11">Emergency Medicine</ion-select-option>
+    <ion-select-option value="12">Endocrinology</ion-select-option>
+    <ion-select-option value="13">Family Practice</ion-select-option>
+    <ion-select-option value="14">Gastroenterology</ion-select-option>
+    <ion-select-option value="15">General Surgery</ion-select-option>
+    <ion-select-option value="16">Geriatrics</ion-select-option>
+    <ion-select-option value="17">Gynecologic Oncology</ion-select-option>
+    <ion-select-option value="18">Hematology/Oncology</ion-select-option>
+    <ion-select-option value="19">Hepatobiliary</ion-select-option>
+    <ion-select-option value="20">Hospitalist</ion-select-option>
+    <ion-select-option value="21">Infectious Disease</ion-select-option>
+    <ion-select-option value="22">Internal Medicine</ion-select-option>
+    <ion-select-option value="23">Interventional Radiology</ion-select-option>
+    <ion-select-option value="24">Medical Genetics</ion-select-option>
+    <ion-select-option value="25">Neonatology</ion-select-option>
+    <ion-select-option value="26">Nephrology</ion-select-option>
+    <ion-select-option value="27">Neuroradiology</ion-select-option>
+    <ion-select-option value="28">Neurology</ion-select-option>
+    <ion-select-option value="29">Neurosurgery</ion-select-option>
+    <ion-select-option value="30">Nuclear Medicine</ion-select-option>
+    <ion-select-option value="31">Obstetrics & Gynecology</ion-select-option>
+    <ion-select-option value="32">Occupational Medicine</ion-select-option>
+    <ion-select-option value="33">Ophthalmology</ion-select-option>
+    <ion-select-option value="34">Oral Surgery</ion-select-option>
+    <ion-select-option value="35">Orthopedics</ion-select-option>
+    <ion-select-option value="36">Otolaryngology / Head & Neck Surgery</ion-select-option>
+    <ion-select-option value="37">Pain Management</ion-select-option>
+    <ion-select-option value="38">Palliative Care</ion-select-option>
+    <ion-select-option value="39">Pain Management</ion-select-option>
+    <ion-select-option value="40">Palliative Care</ion-select-option>
+    <ion-select-option value="41">Pathology: Surgical & Anatomic</ion-select-option>
+    <ion-select-option value="42">Pediatric Intensivist</ion-select-option>
+    <ion-select-option value="43">Pediatrics</ion-select-option>
+    <ion-select-option value="44">Pediatric Surgery</ion-select-option>
+    <ion-select-option value="45">Physical Medicine</ion-select-option>
+    <ion-select-option value="46">Plastic & Reconstructive Surgery</ion-select-option>
+    <ion-select-option value="47">Podiatric Surgery</ion-select-option>
+    <ion-select-option value="48">Psychiatry</ion-select-option>
+    <ion-select-option value="49">Pulmonary Medicine</ion-select-option>
+    <ion-select-option value="50">Radiation Oncology</ion-select-option>
+    <ion-select-option value="51">Radiology</ion-select-option>
+    <ion-select-option value="52">Rheumatology</ion-select-option>
+    <ion-select-option value="53">Surgical Oncology</ion-select-option>
+    <ion-select-option value="54">Thoracic Surgery</ion-select-option>
+    <ion-select-option value="55">Transplant Surgery</ion-select-option>
+    <ion-select-option value="56">Urology</ion-select-option>
+    <ion-select-option value="57">Vascular Surgery</ion-select-option>
+    <ion-select-option value="58">Wound Care</ion-select-option>
+    <ion-select-option value="59">Bariatric Surgery</ion-select-option>
+    <ion-select-option value="60">ENT</ion-select-option>
+    <ion-select-option value="61">General Surgery</ion-select-option>
+    <ion-select-option value="62">Gastroenterology</ion-select-option>
+    <ion-select-option value="63">Neurosurgery</ion-select-option>
+    <ion-select-option value="64">Obstetrics & Gynecology</ion-select-option>
+    <ion-select-option value="65">Ophthalmology</ion-select-option>
+    <ion-select-option value="66">Oral/Dental Surgery</ion-select-option>
+    <ion-select-option value="67">Orthopedic Surgery</ion-select-option>
+    <ion-select-option value="68">Pain Management</ion-select-option>
+    <ion-select-option value="69">Pediatric Surgery</ion-select-option>
+    <ion-select-option value="70">Plastic Surgery</ion-select-option>
+    <ion-select-option value="71">Podiatric Surgery</ion-select-option>
+    <ion-select-option value="72">Urology</ion-select-option>
+    <ion-select-option value="73">Vascular Surgery</ion-select-option>
+    
+                  
+                
+              </ion-select>
+        </ion-item>
+    </ion-col>
+        </ion-row>
+
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label  position="floating" class="fcolor">State</ion-label>
+              <ion-select formControlName='rstate' (ionChange)="showdistriict($event)">
+               <ion-select-option *ngFor="let d of options1; let i = index" value="{{d.id}}">
+                            {{d.name}}
+                          </ion-select-option>
+                
+              </ion-select>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row> 
+        <ion-col>
+          <ion-item> 
+            <ion-label  class="fcolor">District</ion-label>
+            <ion-select formControlName='rdistrict'>
+              <ion-select-option *ngFor="let d of options2; let i = index" value="{{d.id}}">
+                           {{d.name}}
+                         </ion-select-option>
+               
+             </ion-select>
+          </ion-item>
+      </ion-col>
+     
+        </ion-row>
+        <ion-row>      
+         
+
+          <ion-col>
+            
+            <ion-item> 
+              <ion-label  class="fcolor"> Post morterm facility</ion-label>
+              <ion-select  formControlName='pmflag'>
+          
+                <ion-select-option value="yes">Yes</ion-select-option>
+                <ion-select-option value="no">No</ion-select-option>
+           
+              </ion-select>
+
+            </ion-item>
+          </ion-col>
+          <ion-col [hidden]="jd">
+            
+            <ion-item> 
+              <ion-label  class="fcolor"> Joint Director</ion-label>
+              <ion-select formControlName='rjd'>
+                <ion-select-option *ngFor="let d of options5; let i = index" value="{{d.id}}">
+                             {{d.name}}
+                           </ion-select-option>
+                 
+               </ion-select>
+            </ion-item>
+
+
+           
+        </ion-col>
+       
+          </ion-row>
+        <ion-row>      
+          <ion-col>
+            <ion-item> 
+              <ion-label  class="fcolor"><ion-icon name="star-half-outline" color='danger'></ion-icon> &nbsp;Police District</ion-label>
+              <ion-select formControlName='rpdistrict' (ionChange)="showpolicestn($event)">
+              <ion-select-option *ngFor="let d of options3; let i = index" value="{{d.id}}">
+                           {{d.name}}
+                         </ion-select-option>
+               
+             </ion-select>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row> 
+        <ion-col>
+          <ion-item> 
+            <ion-label  class="fcolor"><ion-icon name="star-half-outline" color='danger'></ion-icon> &nbsp;Police Station </ion-label>
+            <ion-select formControlName='rpstation'>
+              <ion-select-option *ngFor="let d of options4; let i = index" value="{{d.id}}">
+                           {{d.name}}
+                         </ion-select-option>
+               
+             </ion-select>          </ion-item>
+      </ion-col>
+     
+        </ion-row>
+
+        
+      
+         
+       
+
+</form>
+</ion-card>
+     
+</ion-content>
+
+
+
+<ion-footer translucent="true" class="tab1-footer">
+  <ion-grid>
+    <ion-row justify-content-around>
+    
+      <ion-col>
+        <ion-button expand="block"   (click)="closeModal()" color='danger'>
+          <ion-icon name="arrow-back"></ion-icon>
+          &nbsp;&nbsp;&nbsp;CANCEL
+
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block"   color='success' (click)='updatedetails()'>
+        
+
+          <ion-icon name="git-pull-request"></ion-icon>&nbsp;&nbsp;&nbsp;UPDATE
+
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>
